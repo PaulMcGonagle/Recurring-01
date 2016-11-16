@@ -1,0 +1,69 @@
+﻿using NodaTime;
+using Shouldly;
+using System.Collections.Generic;
+using System.Linq;
+using TestStack.BDDfy;
+using Scheduler.ScheduleInstances;
+using Xunit;
+
+namespace Scheduler.Test
+{
+    public class HolidaysExclusionTest
+    {
+        private CompositeSchedule _term;
+        private IEnumerable<LocalDate> _holidays;
+
+        [Fact]
+        public void RunExamplesWithFluentApi()
+        {
+            var t = GenerateTerm();
+
+            this.WithExamples(new ExampleTable("term", "holidays")
+                {
+                    {   t, ScheduleTestHelper.BankHolidays },
+                    {   t, ScheduleTestHelper.BankHolidays.Where(b => b.Year == 2016) },
+                })
+                .BDDfy();
+        }
+
+        public void GivenWeHaveATermOfWeekdays(CompositeSchedule term)
+        {
+            _term = term;
+        }
+
+        public void WhenThereAreSomeHolidays(IEnumerable<LocalDate> holidays)
+        {
+            _holidays = holidays;
+
+            _term.Exclusions.Add(new DateList() { Dates = _holidays });
+        }
+
+        public void ThenThereShouldBeNoWeekendDays()
+        {
+            _term.Occurrences()
+                .Where(o => ScheduleTestHelper.WeekendDays.Contains(o.IsoDayOfWeek))
+                .ShouldBeEmpty();
+        }
+
+        public void AndThenThereShouldBeNoHolidaysMatching()
+        {
+            _term.Occurrences()
+                .Where(o => ScheduleTestHelper.BankHolidays.Contains(o))
+                .ShouldBeEmpty();
+        }
+
+        public static CompositeSchedule GenerateTerm()
+        {
+            return new CompositeSchedule
+            {
+                Inclusions = new Schedules(
+                    new Scheduler.ScheduleInstances.ByWeekdays()
+                    {
+                        Days = ScheduleTestHelper.Weekdays,
+                        DateFrom = new LocalDate(2016, 09, 06),
+                        DateTo = new LocalDate(2016, 12, 19),
+                    })
+            };
+        }
+    }
+}
