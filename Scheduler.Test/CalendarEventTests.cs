@@ -20,7 +20,7 @@ namespace Scheduler.Test
             {
                 const string timeZoneProvider = "Europe/London";
 
-                this.WithExamples(new ExampleTable("sut", "expectedTimes")
+                this.WithExamples(new ExampleTable("sut", "expectedEpisodes")
                     {
                         {
                             new CalendarEvent()
@@ -68,14 +68,14 @@ namespace Scheduler.Test
                 _sut = sut;
             }
 
-            public void WhenOccurrencesAreRetrieved()
+            public void WhenEpisodesAreRetrieved()
             {
                 _dates = _sut.Episodes();
             }
 
-            public void ThenOccurrencesAreThese(IEnumerable<Episode> expectedTimes)
+            public void ThenEpisodesAreExpected(IEnumerable<Episode> expectedEpisodes)
             {
-                _dates.ShouldBe(expectedTimes);
+                _dates.ShouldBe(expectedEpisodes);
             }
         }
 
@@ -137,7 +137,7 @@ namespace Scheduler.Test
                 _sut = sut;
             }
 
-            public void WhenOccurrencesAreRetrieved()
+            public void WhenEpisodesAreRetrieved()
             {
                 _exception = Record.Exception(() => { _dates = _sut.Episodes(); });
             }

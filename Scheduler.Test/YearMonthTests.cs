@@ -289,7 +289,7 @@ namespace Scheduler.Test.YearMonthTest
 
         }
 
-        public void ThenTheCorrentNumberOfOccurrencesAreCreated(int expectedMonths)
+        public void ThenTheCorrectNumberOfMonthsAreCreated(int expectedMonths)
         {
             var yearMonths =  YearMonth.Range(sutFrom, sutTo);
 

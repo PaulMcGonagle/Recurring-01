@@ -30,7 +30,7 @@ namespace Scheduler.Test.SingleDayTests
             _sut = sut;
         }
 
-        public void WhenOccurrancesAreRetrieved()
+        public void WhenDatesAreRetrieved()
         {
             _dates = _sut.Dates();
         }

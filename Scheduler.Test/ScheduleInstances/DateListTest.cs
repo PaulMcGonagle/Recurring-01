@@ -39,7 +39,7 @@ namespace Scheduler.Test.ScheduleInstances
                 _sut = sut;
             }
 
-            public void WhenOccurrancesAreRetrieved()
+            public void WhenDatesAreRetrieved()
             {
                 _dates = _sut.Dates();
             }

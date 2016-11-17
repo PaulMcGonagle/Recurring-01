@@ -84,7 +84,7 @@ namespace Scheduler.Test.Repeating
 
             public void WhenDatesAreReturned()
             {
-                _exception = Record.Exception(() => { var occurrences = _sut.Dates().ToList(); });
+                _exception = Record.Exception(() => { var dates = _sut.Dates().ToList(); });
             }
 
             public void ThenDatesThrowsADateOutOfBoundsException(int expectedExceptionYear,

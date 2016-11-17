@@ -148,10 +148,10 @@ namespace ConsoleHarness
                 }
             });
 
-            var occurrences = calendarEvents.First().Episodes();
+            var episodes = calendarEvents.First().Episodes();
 
-            var oSorted = occurrences.OrderByDescending(x => x.From);
-            DisplayList(oSorted);
+            var sorted = episodes.OrderByDescending(x => x.From);
+            DisplayList(sorted);
 
             Console.ReadKey();
         }
