@@ -13,14 +13,14 @@ namespace Scheduler.Test
         public class VerifyDateOutOfBoundsExceptionIsThrown
         {
             private CalendarEvents _sut;
-            private IEnumerable<Episode> _dates;
+            private IEnumerable<Episode> _episodes;
 
             [Fact]
             public void Execute()
             {
                 const string timeZoneProvider = "Europe/London";
 
-                this.WithExamples(new ExampleTable("sut", "expectedTimes")
+                this.WithExamples(new ExampleTable("sut", "expectedEpisodes")
                     {
                         {
                             new CalendarEvents()
@@ -70,21 +70,21 @@ namespace Scheduler.Test
                 _sut = sut;
             }
 
-            public void WhenOccurrencesAreRetrieved()
+            public void WhenEpisodesAreRetrieved()
             {
-                _dates = _sut.Occurrences();
+                _episodes = _sut.Episodes();
             }
 
-            public void ThenOccurrencesAreThese(IEnumerable<Episode> expectedTimes)
+            public void ThenEpisodesAreThese(IEnumerable<Episode> expectedEpisodes)
             {
-                _dates.ShouldBe(expectedTimes);
+                _episodes.ShouldBe(expectedEpisodes);
             }
         }
 
         public class VerifyMissingPropertyThrowsArgumentException
         {
             private CalendarEvent _sut;
-            private IEnumerable<Episode> _dates;
+            private IEnumerable<Episode> _episodes;
             private System.Exception _exception;
 
             [Fact]
@@ -139,9 +139,9 @@ namespace Scheduler.Test
                 _sut = sut;
             }
 
-            public void WhenOccurrencesAreRetrieved()
+            public void WhenEpisodesAreRetrieved()
             {
-                _exception = Record.Exception(() => { _dates = _sut.Episodes(); });
+                _exception = Record.Exception(() => { _episodes = _sut.Episodes(); });
             }
 
             public void ThenArgumentExceptionIsThrown(string parameterName)

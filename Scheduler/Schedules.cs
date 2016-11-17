@@ -11,14 +11,14 @@ namespace Scheduler
 
         }
 
-        public Schedules(ISchedule occurrence)
+        public Schedules(ISchedule schedule)
         {
-            this.Add(occurrence);
+            this.Add(schedule);
         }
 
-        public IEnumerable<LocalDate> Occurrences()
+        public IEnumerable<LocalDate> Dates()
         {
-            return this.SelectMany(o => o.Dates());
+            return this.SelectMany(d => d.Dates());
         }
     }
 }

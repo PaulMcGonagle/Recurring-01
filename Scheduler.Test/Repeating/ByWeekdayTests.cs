@@ -9,7 +9,7 @@ namespace Scheduler.Test.Repeating
 {
     public class ByWeekdayTests
     {
-        public class VerifyOccurrences
+        public class VerifyDates
         {
             private ByWeekday _repeatingDay;
 
@@ -36,10 +36,10 @@ namespace Scheduler.Test.Repeating
                 _repeatingDay = repeatingDay;
             }
 
-            public void ThenAllOccurrencesShouldBeThisDay(IsoDayOfWeek dayOfWeek)
+            public void ThenAllDatesShouldBeThisDay(IsoDayOfWeek dayOfWeek)
             {
                 _repeatingDay.Dates()
-                    .Where(o => o.IsoDayOfWeek != dayOfWeek)
+                    .Where(r => r.IsoDayOfWeek != dayOfWeek)
                     .ShouldBeEmpty();
             }
 

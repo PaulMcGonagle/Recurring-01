@@ -10,7 +10,7 @@ namespace Scheduler.Test.Repeating
 {
     public class ByWeekdaysTests
     {
-        public class VerifyOccurrences
+        public class VerifyDates
         {
             private ByWeekdays _sut;
             private IEnumerable<LocalDate> _dates;
@@ -40,12 +40,12 @@ namespace Scheduler.Test.Repeating
                 _sut = sut;
             }
 
-            public void WhenOccurrencesAreRetrieved()
+            public void WhenDatesAreRetrieved()
             {
                 _dates = _sut.Dates();
             }
 
-            public void ThenAllOccurrencesShouldBeThisDay(List<IsoDayOfWeek> daysOfWeek)
+            public void ThenAllDatesShouldBeThisDay(List<IsoDayOfWeek> daysOfWeek)
             {
                 _dates
                     .Select(d => d.DayOfWeek)

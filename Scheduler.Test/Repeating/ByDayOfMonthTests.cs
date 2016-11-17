@@ -18,9 +18,9 @@ namespace Scheduler.Test.Repeating
             [Fact]
             public void Execute()
             {
-                var yearLeap = 2106;
-                var baseMonth = YearMonth.MonthValue.March;
-                var baseDay = 01;
+                const int yearLeap = 2106;
+                const YearMonth.MonthValue baseMonth = YearMonth.MonthValue.March;
+                const int baseDay = 01;
 
                 var fakeClock = ScheduleTestHelper.GetFakeClock(yearLeap, baseMonth, baseDay);
 
@@ -36,7 +36,7 @@ namespace Scheduler.Test.Repeating
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Forward
                             },
                             Enumerable.Range(0, 03)
-                                .Select(o => DateTimeHelper.GetLocalDate(yearLeap, baseMonth, 28).PlusMonths(-2 + o))
+                                .Select(i => DateTimeHelper.GetLocalDate(yearLeap, baseMonth, 28).PlusMonths(-2 + i))
                         },
 
                         {
@@ -108,7 +108,7 @@ namespace Scheduler.Test.Repeating
                 _dates = _sut.Dates();
             }
 
-            public void ThenAllOccurrencesShouldBeExpected(
+            public void ThenAllDatesShouldBeExpected(
                 IEnumerable<LocalDate> expectedDates)
             {
                 _dates
