@@ -7,81 +7,122 @@ namespace TestData
 {
     public class DataRetrieval
     {
-        private static Dictionary<string, Scheduler.ScheduleBase> scheduleArchive;
-        private static Dictionary<string, IEnumerable<IsoDayOfWeek>> dateTypes;
-        private static Dictionary<string, LocalDate> dates;
+        private static Dictionary<string, Scheduler.ISchedule> _scheduleArchive;
+        private static Dictionary<string, IEnumerable<IsoDayOfWeek>> _dateTypes;
+        private static Dictionary<string, LocalDate> _dates;
 
-        public static Dictionary<string, Scheduler.ScheduleBase> ScheduleArchive
+        public static Dictionary<string, Scheduler.ISchedule> ScheduleArchive
         {
             get
             {
-                if (scheduleArchive == null)
-                {
-                    scheduleArchive = new Dictionary<string, Scheduler.ScheduleBase>();
+                if (_scheduleArchive != null) return _scheduleArchive;
 
-                    scheduleArchive.Add("Schools.Term.Autumn",
+                _scheduleArchive = new Dictionary<string, Scheduler.ISchedule>()
+                {
+                    {
+                        "Schools.Term.Autumn",
                         new ByWeekdays()
                         {
                             DateFrom = Dates["Schools.Term.Autumn.Start"],
                             DateTo = Dates["Schools.Term.Autumn.Start"],
-                            Days = DateTypes["Weekends"],
+                            Days = DayRanges["Weekends"],
                         }
-                    );
-
-                    scheduleArchive.Add("Schools.Term.Autumn.1",
+                    },
+                    {
+                        "Schools.Term.Autumn",
+                        new ByWeekdays()
+                        {
+                            DateFrom = Dates["Schools.Term.Autumn.Start"],
+                            DateTo = Dates["Schools.Term.Autumn.Start"],
+                            Days = DayRanges["Weekends"],
+                        }
+                    },
+                    {
+                        "Schools.Term.Autumn.1",
                         new ByWeekdays()
                         {
                             DateFrom = Dates["Schools.Term.Autumn.Start"],
                             DateTo = Dates["Schools.Term.Autumn.HalfTerm.Start"].PlusDays(-1),
-                            Days = DateTypes["Weekends"],
+                            Days = DayRanges["Weekends"],
                         }
-                    );
-
-                    scheduleArchive.Add("Schools.Term.Autumn.HalfTerm",
+                    },
+                    {
+                        "Schools.Term.Autumn.HalfTerm",
                         new ByWeekdays()
                         {
                             DateFrom = Dates["Schools.Term.Autumn.HalfTerm.Start"],
                             DateTo = Dates["Schools.Term.Autumn.HalfTerm.End"],
-                            Days = DateTypes["Weekends"],
+                            Days = DayRanges["Weekends"],
                         }
-                    );
-
-                    scheduleArchive.Add("Schools.Term.Autumn.2",
+                    },
+                    {
+                        "Schools.Term.Autumn.2",
                         new ByWeekdays()
                         {
                             DateFrom = Dates["Schools.Term.Autumn.HalfTerm.End"].PlusDays(01),
                             DateTo = Dates["Schools.Term.Autumn.End"],
-                            Days = DateTypes["Weekends"],
+                            Days = DayRanges["Weekends"],
                         }
-                    );
+                    },
+                    {
+                        "BankHolidays.2016.NewYearsDay", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 01)}
+                    },
+                    {
+                        "BankHolidays.2016.GoodFriday", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 25)}
+                    },
+                    {
+                        "BankHolidays.2016.EasterMonday", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 28)}
+                    },
+                    {
+                        "BankHolidays.2016.EarlyMayBankHoliday", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 01)}
+                    },
+                    {
+                        "BankHolidays.2016.SpringBankHoliday", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 30)}
+                    },
+                    {
+                        "BankHolidays.2016.SummerBankHoliday", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.August, 29)}
+                    },
+                    {
+                        "BankHolidays.2016.Boxing", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 26)}
+                    },
+                    {
+                        "BankHolidays.2016.ChristmasDaySubstitute", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 27)}
+                    }
+                };
 
-                    scheduleArchive.Add("BankHolidays.2016.NewYearsDay",            new SingleDay() { Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 01) });
-                    scheduleArchive.Add("BankHolidays.2016.GoodFriday",             new SingleDay() { Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 25) });
-                    scheduleArchive.Add("BankHolidays.2016.EasterMonday",           new SingleDay() { Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 28) });
-                    scheduleArchive.Add("BankHolidays.2016.EarlyMayBankHoliday",    new SingleDay() { Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 01) });
-                    scheduleArchive.Add("BankHolidays.2016.SpringBankHoliday",      new SingleDay() { Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 30) });
-                    scheduleArchive.Add("BankHolidays.2016.SummerBankHoliday",      new SingleDay() { Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.August, 29) });
-                    scheduleArchive.Add("BankHolidays.2016.Boxing",                 new SingleDay() { Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 26) });
-                    scheduleArchive.Add("BankHolidays.2016.ChristmasDaySubstitute", new SingleDay() { Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 27) });
-                }
-
-                return scheduleArchive;
+                return _scheduleArchive;
             }
         }
 
-        public static Dictionary<string, IEnumerable<IsoDayOfWeek>> DateTypes
+        public static Dictionary<string, IEnumerable<IsoDayOfWeek>> DayRanges
         {
             get
             {
-                if (dateTypes == null)
+                if (_dateTypes != null) return _dateTypes;
+
+                _dateTypes = new Dictionary<string, IEnumerable<IsoDayOfWeek>>
                 {
-                    dateTypes = new Dictionary<string, IEnumerable<IsoDayOfWeek>>();
-
-                    dateTypes.Add("Weekdays", new List<IsoDayOfWeek>() { IsoDayOfWeek.Monday, IsoDayOfWeek.Tuesday, IsoDayOfWeek.Wednesday, IsoDayOfWeek.Thursday, IsoDayOfWeek.Friday });
-                    dateTypes.Add("Weekends", new List<IsoDayOfWeek>() { IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday });
-                }
-
-                return dateTypes;
+                    {
+                        "Weekdays",
+                        new List<IsoDayOfWeek>()
+                        {
+                            IsoDayOfWeek.Monday,
+                            IsoDayOfWeek.Tuesday,
+                            IsoDayOfWeek.Wednesday,
+                            IsoDayOfWeek.Thursday,
+                            IsoDayOfWeek.Friday
+                        }
+                    },
+                    {
+                        "Weekends",
+                        new List<IsoDayOfWeek>()
+                        {
+                            IsoDayOfWeek.Saturday,
+                            IsoDayOfWeek.Sunday
+                        }
+                    },
+                };
+                return _dateTypes;
             }
         }
 
@@ -89,17 +130,17 @@ namespace TestData
         {
             get
             {
-                if (dates == null)
+                if (_dates == null)
                 {
-                    dates = new Dictionary<string, LocalDate>();
+                    _dates = new Dictionary<string, LocalDate>();
 
-                    dates.Add("Schools.Term.Autumn.Start", Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 05));
-                    dates.Add("Schools.Term.Autumn.HalfTerm.Start", Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 24));
-                    dates.Add("Schools.Term.Autumn.HalfTerm.End", Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 31));
-                    dates.Add("Schools.Term.Autumn.End", Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.December, 21));
+                    _dates.Add("Schools.Term.Autumn.Start", Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 05));
+                    _dates.Add("Schools.Term.Autumn.HalfTerm.Start", Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 24));
+                    _dates.Add("Schools.Term.Autumn.HalfTerm.End", Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 31));
+                    _dates.Add("Schools.Term.Autumn.End", Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.December, 21));
                 }
 
-                return dates;
+                return _dates;
             }
         }
 

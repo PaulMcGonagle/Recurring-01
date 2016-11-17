@@ -5,7 +5,7 @@ namespace ConsoleHarness
 {
     class Examples
     {
-        public static Scheduler.ScheduleBase The31stOfTheMonth(RepeatingDay.RollStrategyType rollStrategy)
+        public static Scheduler.ISchedule The31stOfTheMonth(RepeatingDay.RollStrategyType rollStrategy)
         {
             return new Scheduler.ScheduleInstances.ByDayOfMonth()
             {
@@ -14,7 +14,7 @@ namespace ConsoleHarness
             };
         }
 
-        public static Scheduler.ScheduleBase ByDayOfYear(YearMonth.MonthValue month, int dayOfYear, RepeatingDay.RollStrategyType rollStrategy)
+        public static Scheduler.ISchedule ByDayOfYear(YearMonth.MonthValue month, int dayOfYear, RepeatingDay.RollStrategyType rollStrategy)
         {
             return new Scheduler.ScheduleInstances.ByDayOfYear()
             {

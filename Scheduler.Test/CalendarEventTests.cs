@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NodaTime;
+using Scheduler.Calendars;
 using Shouldly;
 using TestStack.BDDfy;
 using Scheduler.ScheduleInstances;

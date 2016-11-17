@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Scheduler.Calendars;
 
 namespace ConsoleHarness
 {
     class Program
     {
-        static Dictionary<string, Scheduler.ScheduleBase> Calendars = new Dictionary<string, Scheduler.ScheduleBase>();
+        static Dictionary<string, Scheduler.ISchedule> Calendars = new Dictionary<string, Scheduler.ISchedule>();
 
         static IList<IsoDayOfWeek> WeekdaysMonToFri = new List<IsoDayOfWeek>()
             {
@@ -100,7 +101,7 @@ namespace ConsoleHarness
                 DateTo = new LocalDate(2017, 07, 20),
             });
 
-            var schoolYear = new List<Scheduler.ScheduleBase>();
+            var schoolYear = new List<Scheduler.ISchedule>();
             foreach (var calendar in Calendars)
                 if (schoolYearCalendars.Contains(calendar.Key))
                     schoolYear.Add(calendar.Value);
@@ -109,7 +110,7 @@ namespace ConsoleHarness
             {
                 Inclusions = schoolYear,
 
-                Exclusions = new List<Scheduler.ScheduleBase>() { Calendars["English Holidays"], },
+                Exclusions = new List<Scheduler.ISchedule>() { Calendars["English Holidays"], },
             };
 
 
@@ -134,10 +135,10 @@ namespace ConsoleHarness
 
         private static void Test2()
         {
-            var calendarEvents = new Scheduler.CalendarEvents();
+            var calendarEvents = new CalendarEvents();
 
             Period p = new PeriodBuilder { Hours = 15, Minutes = 30, }.Build();
-            calendarEvents.Add(new Scheduler.CalendarEvent()
+            calendarEvents.Add(new CalendarEvent()
             {
                 TimeStart = new NodaTime.LocalTime(hour: 15, minute: 30),
                 Period = new PeriodBuilder { Minutes = 15, }.Build(),

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Scheduler
 {
-    public class ByDay : ScheduleBase
+    public class ByDay : ISchedule
     {
 
         public LocalDate? DateFrom;
@@ -23,7 +23,9 @@ namespace Scheduler
             CountFollowing = countFollowing;
         }
 
-        public override IEnumerable<LocalDate> Occurrences()
+        public ByDay(){ }
+
+        public IEnumerable<LocalDate> Occurrences()
         {
             if (DateFrom.HasValue)
                 yield return DateFrom.Value; ;

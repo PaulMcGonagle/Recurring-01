@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Scheduler.ScheduleInstances
 {
-    public class SingleDay : ScheduleBase
+    public class SingleDay : ISchedule
     {
         public SingleDay()
         {
@@ -15,7 +15,7 @@ namespace Scheduler.ScheduleInstances
             set;
         }
 
-        public override IEnumerable<LocalDate> Occurrences()
+        public IEnumerable<LocalDate> Occurrences()
         {
             yield return Date;
         }        

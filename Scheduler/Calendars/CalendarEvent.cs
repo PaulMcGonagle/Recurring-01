@@ -1,12 +1,12 @@
-﻿using NodaTime;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using NodaTime;
 
-namespace Scheduler
+namespace Scheduler.Calendars
 {
     public class CalendarEvent : ICalendarEvent
     {
-        public ScheduleBase Schedule;
+        public ISchedule Schedule;
 
         public LocalTime? TimeStart;
         public Period Period;
