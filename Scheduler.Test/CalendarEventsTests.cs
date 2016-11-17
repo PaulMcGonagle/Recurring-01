@@ -13,7 +13,7 @@ namespace Scheduler.Test
         public class VerifyDateOutOfBoundsExceptionIsThrown
         {
             private CalendarEvents _sut;
-            private IEnumerable<Appointment> _occurrences;
+            private IEnumerable<Episode> _dates;
 
             [Fact]
             public void Execute()
@@ -46,15 +46,15 @@ namespace Scheduler.Test
                                     Period = new PeriodBuilder {Hours = 20, Minutes = 45}.Build(),
                                 },
                             },
-                            new List<Appointment>()
+                            new List<Episode>()
                             {
-                                new Appointment
+                                new Episode
                                 {
                                     From = DateTimeHelper.GetZonedDateTime(new LocalDateTime(2016, 03, 05, 12, 35), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build(),
 
                                 },
-                                new Appointment
+                                new Episode
                                 {
                                     From = DateTimeHelper.GetZonedDateTime(new LocalDateTime(2016, 08, 01, 09, 20), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 20, Minutes = 45}.Build(),
@@ -72,19 +72,19 @@ namespace Scheduler.Test
 
             public void WhenOccurrencesAreRetrieved()
             {
-                _occurrences = _sut.Occurrences();
+                _dates = _sut.Occurrences();
             }
 
-            public void ThenOccurrencesAreThese(IEnumerable<Appointment> expectedTimes)
+            public void ThenOccurrencesAreThese(IEnumerable<Episode> expectedTimes)
             {
-                _occurrences.ShouldBe(expectedTimes);
+                _dates.ShouldBe(expectedTimes);
             }
         }
 
         public class VerifyMissingPropertyThrowsArgumentException
         {
             private CalendarEvent _sut;
-            private IEnumerable<Appointment> _occurrences;
+            private IEnumerable<Episode> _dates;
             private System.Exception _exception;
 
             [Fact]
@@ -106,7 +106,7 @@ namespace Scheduler.Test
                         {
                             new CalendarEvent()
                             {
-                                Schedule = new DateList() { Dates = new List<LocalDate>(), },
+                                Schedule = new DateList() { Items = new List<LocalDate>(), },
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                                 TimeZoneProvider = timeZoneProvider,
                             },
@@ -115,7 +115,7 @@ namespace Scheduler.Test
                         {
                             new CalendarEvent()
                             {
-                                Schedule = new DateList() { Dates = new List<LocalDate>(), },
+                                Schedule = new DateList() { Items = new List<LocalDate>(), },
                                 TimeStart = new LocalTime(15, 30),
                                 TimeZoneProvider = timeZoneProvider,
                             },
@@ -124,7 +124,7 @@ namespace Scheduler.Test
                         {
                             new CalendarEvent()
                             {
-                                Schedule = new DateList() { Dates = new List<LocalDate>(), },
+                                Schedule = new DateList() { Items = new List<LocalDate>(), },
                                 TimeStart = new LocalTime(15, 30),
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                             },
@@ -141,7 +141,7 @@ namespace Scheduler.Test
 
             public void WhenOccurrencesAreRetrieved()
             {
-                _exception = Record.Exception(() => { _occurrences = _sut.Occurrences(); });
+                _exception = Record.Exception(() => { _dates = _sut.Episodes(); });
             }
 
             public void ThenArgumentExceptionIsThrown(string parameterName)

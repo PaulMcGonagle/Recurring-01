@@ -35,19 +35,19 @@ namespace Scheduler.Test
         {
             _holidays = holidays;
 
-            _term.Exclusions.Add(new DateList() { Dates = _holidays });
+            _term.Exclusions.Add(new DateList() { Items = _holidays });
         }
 
         public void ThenThereShouldBeNoWeekendDays()
         {
-            _term.Occurrences()
+            _term.Dates()
                 .Where(o => ScheduleTestHelper.WeekendDays.Contains(o.IsoDayOfWeek))
                 .ShouldBeEmpty();
         }
 
         public void AndThenThereShouldBeNoHolidaysMatching()
         {
-            _term.Occurrences()
+            _term.Dates()
                 .Where(o => ScheduleTestHelper.BankHolidays.Contains(o))
                 .ShouldBeEmpty();
         }

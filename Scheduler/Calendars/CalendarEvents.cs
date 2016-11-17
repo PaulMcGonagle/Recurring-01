@@ -5,9 +5,9 @@ namespace Scheduler.Calendars
 {
     public class CalendarEvents : List<CalendarEvent>
     {
-        public IEnumerable<Appointment> Occurrences()
+        public IEnumerable<Episode> Occurrences()
         {
-            return this.SelectMany(ce => ce.Occurrences());
+            return this.SelectMany(ce => ce.Episodes());
         }
     }
 }

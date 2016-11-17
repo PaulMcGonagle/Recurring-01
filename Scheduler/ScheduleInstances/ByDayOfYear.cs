@@ -60,7 +60,7 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public override IEnumerable<LocalDate> Occurrences()
+        public override IEnumerable<LocalDate> Dates()
         {
             foreach (var year in Enumerable.Range(YearFrom, YearTo - YearFrom + 1))
             {

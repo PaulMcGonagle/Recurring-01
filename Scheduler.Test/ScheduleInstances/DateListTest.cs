@@ -12,7 +12,7 @@ namespace Scheduler.Test.ScheduleInstances
         public class VerifyDay
         {
             DateList _sut;
-            IEnumerable<LocalDate> _occurrances;
+            IEnumerable<LocalDate> _dates;
 
             [Fact]
             public void Execute()
@@ -22,12 +22,12 @@ namespace Scheduler.Test.ScheduleInstances
                         {
                             new DateList()
                             {
-                                Dates = new List<LocalDate>() {new LocalDate(2015, 03, 17), new LocalDate(2016, 04, 25)}
+                                Items = new List<LocalDate>() {new LocalDate(2015, 03, 17), new LocalDate(2016, 04, 25)}
                             },
                             new List<LocalDate>() {new LocalDate(2015, 03, 17), new LocalDate(2016, 04, 25)}
                         },
                         {
-                            new DateList() {Dates = DateTimeHelper.Range(new LocalDate(2014, 04, 28), 20)},
+                            new DateList() {Items = DateTimeHelper.Range(new LocalDate(2014, 04, 28), 20)},
                             DateTimeHelper.Range(new LocalDate(2014, 04, 28), 20)
                         },
                     })
@@ -41,12 +41,12 @@ namespace Scheduler.Test.ScheduleInstances
 
             public void WhenOccurrancesAreRetrieved()
             {
-                _occurrances = _sut.Occurrences();
+                _dates = _sut.Dates();
             }
 
             public void ThenOnlyTheseDateAreReturned(IEnumerable<LocalDate> expectedDates)
             {
-                _occurrances.ShouldBe(expectedDates);
+                _dates.ShouldBe(expectedDates);
             }
         }
     }

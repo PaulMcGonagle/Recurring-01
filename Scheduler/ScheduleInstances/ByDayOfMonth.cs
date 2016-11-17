@@ -42,7 +42,7 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public override IEnumerable<LocalDate> Occurrences()
+        public override IEnumerable<LocalDate> Dates()
         {
             var o = new List<LocalDate>();
 

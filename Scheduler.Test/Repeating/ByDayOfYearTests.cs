@@ -84,7 +84,7 @@ namespace Scheduler.Test.Repeating
 
             public void WhenOccurrencesAreReturned()
             {
-                _exception = Record.Exception(() => { var occurrences = _sut.Occurrences().ToList(); });
+                _exception = Record.Exception(() => { var occurrences = _sut.Dates().ToList(); });
             }
 
             public void ThenOccurrencesThrowsADateOutOfBoundsException(int expectedExceptionYear,
@@ -157,7 +157,7 @@ namespace Scheduler.Test.Repeating
         public class ValidateOccurrences
         {
             private ByDayOfYear _sut;
-            private IEnumerable<LocalDate> _occurrences;
+            private IEnumerable<LocalDate> _dates;
 
             [Fact]
             public void Execute()
@@ -231,19 +231,19 @@ namespace Scheduler.Test.Repeating
 
             public void WhenOccurrencesAreRetrieved()
             {
-                _occurrences = _sut.Occurrences();
+                _dates = _sut.Dates();
             }
 
             public void ThenAllOccurrencesShouldBeThese(IEnumerable<LocalDate> expectedDates)
             {
-                _occurrences.ShouldBe(expectedDates);
+                _dates.ShouldBe(expectedDates);
             }
         }
 
         public class ValidateRollStrategy
         {
             private ByDayOfYear _sut;
-            private IEnumerable<LocalDate> _occurrences;
+            private IEnumerable<LocalDate> _dates;
 
             [Fact]
             public void Execute()
@@ -388,12 +388,12 @@ namespace Scheduler.Test.Repeating
 
             public void WhenOccurrencesAreRetrieved()
             {
-                _occurrences = _sut.Occurrences();
+                _dates = _sut.Dates();
             }
 
             public void ThenAllOccurrencesShouldBeThese(IEnumerable<LocalDate> expectedDates)
             {
-                _occurrences.ShouldBe(expectedDates);
+                _dates.ShouldBe(expectedDates);
             }
         }
     }

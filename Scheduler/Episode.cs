@@ -3,7 +3,7 @@ using NodaTime;
 
 namespace Scheduler
 {
-    public class Appointment : IComparable
+    public class Episode : IComparable
     {
         public ZonedDateTime From;
         public Period Period;
@@ -17,7 +17,7 @@ namespace Scheduler
 
         int IComparable.CompareTo(object obj)
         {
-            var c = (Appointment)obj;
+            var c = (Episode)obj;
             return this.From.CompareTo(c.From);
         }
 

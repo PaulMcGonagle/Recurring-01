@@ -14,7 +14,7 @@ namespace Scheduler.ScheduleInstances
             CountToDefault = 52;
         }
 
-        public override IEnumerable<LocalDate> Occurrences()
+        public override IEnumerable<LocalDate> Dates()
         {
             LocalDate start = DateFrom ?? DateTimeHelper.GetToday().AddWeeks(-(CountFrom ?? CountFromDefault));
             LocalDate end = DateTo ?? DateTimeHelper.GetToday().AddWeeks((CountTo ?? CountToDefault));

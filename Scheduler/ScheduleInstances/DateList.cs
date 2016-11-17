@@ -1,5 +1,6 @@
 ﻿using NodaTime;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -9,15 +10,15 @@ namespace Scheduler.ScheduleInstances
         {
         }
 
-        public IEnumerable<LocalDate> Dates
+        public IEnumerable<LocalDate> Items
         {
             get;
             set;
         }
 
-        public IEnumerable<LocalDate> Occurrences()
+        public IEnumerable<LocalDate> Dates()
         {
-            return Dates;
+            return Items.ToList();
         }
     }
 }

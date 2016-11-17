@@ -15,7 +15,7 @@ namespace Scheduler.ScheduleInstances
             CountToDefault = 52;
         }
 
-        public override IEnumerable<LocalDate> Occurrences()
+        public override IEnumerable<LocalDate> Dates()
         {
             var localDateTime = Clock.GetLocalDateTime();
             var localDate = localDateTime.Date;
@@ -25,9 +25,10 @@ namespace Scheduler.ScheduleInstances
 
             var startDay = localDate.PlusDays(-offset);
 
-            var results = new List<LocalDate>();
-
-            results.Add(startDay);
+            var results = new List<LocalDate>
+            {
+                startDay
+            };
 
             var r = Enumerable.Range(1, CountFromDefault);
             results.AddRange(r.Select(o => startDay.PlusWeeks(-o)));

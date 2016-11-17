@@ -11,7 +11,7 @@ namespace Scheduler.Test.SingleDayTests
     public class VerifyDay
     {
         SingleDay _sut;
-        IEnumerable<LocalDate> _occurrances;
+        IEnumerable<LocalDate> _dates;
 
         [Fact]
         public void Execute()
@@ -32,14 +32,14 @@ namespace Scheduler.Test.SingleDayTests
 
         public void WhenOccurrancesAreRetrieved()
         {
-            _occurrances = _sut.Occurrences();
+            _dates = _sut.Dates();
         }
 
         public void ThenOnlyThisDateIsReturned(LocalDate expectedDate)
         {
-            _occurrances.Count().ShouldBe(1);
+            _dates.Count().ShouldBe(1);
 
-            _occurrances.Single().ShouldBe(expectedDate);
+            _dates.Single().ShouldBe(expectedDate);
         }
     }
 }

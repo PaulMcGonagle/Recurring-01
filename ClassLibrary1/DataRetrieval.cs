@@ -65,28 +65,36 @@ namespace TestData
                         }
                     },
                     {
-                        "BankHolidays.2016.NewYearsDay", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 01)}
+                        "BankHolidays.2016.NewYearsDay",
+                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 01)}
                     },
                     {
-                        "BankHolidays.2016.GoodFriday", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 25)}
+                        "BankHolidays.2016.GoodFriday",
+                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 25)}
                     },
                     {
-                        "BankHolidays.2016.EasterMonday", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 28)}
+                        "BankHolidays.2016.EasterMonday",
+                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 28)}
                     },
                     {
-                        "BankHolidays.2016.EarlyMayBankHoliday", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 01)}
+                        "BankHolidays.2016.EarlyMayBankHoliday",
+                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 01)}
                     },
                     {
-                        "BankHolidays.2016.SpringBankHoliday", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 30)}
+                        "BankHolidays.2016.SpringBankHoliday",
+                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 30)}
                     },
                     {
-                        "BankHolidays.2016.SummerBankHoliday", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.August, 29)}
+                        "BankHolidays.2016.SummerBankHoliday",
+                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.August, 29)}
                     },
                     {
-                        "BankHolidays.2016.Boxing", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 26)}
+                        "BankHolidays.2016.Boxing",
+                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 26)}
                     },
                     {
-                        "BankHolidays.2016.ChristmasDaySubstitute", new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 27)}
+                        "BankHolidays.2016.ChristmasDaySubstitute",
+                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 27)}
                     }
                 };
 

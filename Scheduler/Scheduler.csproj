@@ -55,7 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Appointment.cs" />
+    <Compile Include="Episode.cs" />
     <Compile Include="ByDay.cs" />
     <Compile Include="Calendars\CalendarEvents.cs" />
     <Compile Include="CompositeSchedule.cs" />

@@ -32,7 +32,7 @@ namespace ConsoleHarness
             Calendars.Add("English Holidays",
                 new Scheduler.ScheduleInstances.DateList
                 {
-                    Dates = new List<LocalDate>
+                    Items = new List<LocalDate>
                     {
                         new LocalDate(2016, 01, 01),
                         new LocalDate(2016, 03, 25),
@@ -114,7 +114,7 @@ namespace ConsoleHarness
             };
 
 
-            DisplayGrid(year.Occurrences());
+            DisplayGrid(year.Dates());
 
             Console.ReadKey();
         }
@@ -128,7 +128,7 @@ namespace ConsoleHarness
                 DateTo = new LocalDate(2015, 08, 15),
             };
 
-            DisplayList(s3.Occurrences());
+            DisplayList(s3.Dates());
 
             Console.ReadKey();
         }
@@ -148,7 +148,7 @@ namespace ConsoleHarness
                 }
             });
 
-            var occurrences = calendarEvents.First().Occurrences();
+            var occurrences = calendarEvents.First().Episodes();
 
             var oSorted = occurrences.OrderByDescending(x => x.From);
             DisplayList(oSorted);
@@ -208,7 +208,7 @@ namespace ConsoleHarness
             }
         }
 
-        static void DisplayList(IEnumerable<Scheduler.Appointment> appointments)
+        static void DisplayList(IEnumerable<Scheduler.Episode> appointments)
         {
             if (appointments == null)
             {

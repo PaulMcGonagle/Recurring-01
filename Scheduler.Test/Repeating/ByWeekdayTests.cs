@@ -38,21 +38,21 @@ namespace Scheduler.Test.Repeating
 
             public void ThenAllOccurrencesShouldBeThisDay(IsoDayOfWeek dayOfWeek)
             {
-                _repeatingDay.Occurrences()
+                _repeatingDay.Dates()
                     .Where(o => o.IsoDayOfWeek != dayOfWeek)
                     .ShouldBeEmpty();
             }
 
             public void AndThenTheFirstDateShouldBeThis(LocalDate firstDate)
             {
-                _repeatingDay.Occurrences()
+                _repeatingDay.Dates()
                     .Min()
                     .ShouldBe(firstDate);
             }
 
             public void AndThenTheLastDateShouldBeThis(LocalDate lastDate)
             {
-                _repeatingDay.Occurrences()
+                _repeatingDay.Dates()
                     .Max()
                     .ShouldBe(lastDate);
             }

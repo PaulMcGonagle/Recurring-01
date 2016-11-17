@@ -13,7 +13,7 @@ namespace Scheduler.Test
         public class VerifyDateOutOfBoundsExceptionIsThrown
         {
             private CalendarEvent _sut;
-            private IEnumerable<Appointment> _occurrences;
+            private IEnumerable<Episode> _dates;
 
             [Fact]
             public void Execute()
@@ -28,7 +28,7 @@ namespace Scheduler.Test
                                 Schedule =
                                     new DateList()
                                     {
-                                        Dates = new List<LocalDate>()
+                                        Items = new List<LocalDate>()
                                         {
                                             new LocalDate(2016, 01, 05),
                                             new LocalDate(2016, 01, 06),
@@ -39,20 +39,20 @@ namespace Scheduler.Test
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                                 TimeZoneProvider = timeZoneProvider,
                             },
-                            new List<Appointment>()
+                            new List<Episode>()
                             {
-                                new Appointment
+                                new Episode
                                 {
                                     From = DateTimeHelper.GetZonedDateTime(new LocalDate(2016, 01, 05), new LocalTime(15, 30), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build(),
 
                                 },
-                                new Appointment
+                                new Episode
                                 {
                                     From = DateTimeHelper.GetZonedDateTime(new LocalDate(2016, 01, 06), new LocalTime(15, 30), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build()
                                 },
-                                new Appointment
+                                new Episode
                                 {
                                     From = DateTimeHelper.GetZonedDateTime(new LocalDate(2016, 01, 07), new LocalTime(15, 30), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build()
@@ -70,19 +70,19 @@ namespace Scheduler.Test
 
             public void WhenOccurrencesAreRetrieved()
             {
-                _occurrences = _sut.Occurrences();
+                _dates = _sut.Episodes();
             }
 
-            public void ThenOccurrencesAreThese(IEnumerable<Appointment> expectedTimes)
+            public void ThenOccurrencesAreThese(IEnumerable<Episode> expectedTimes)
             {
-                _occurrences.ShouldBe(expectedTimes);
+                _dates.ShouldBe(expectedTimes);
             }
         }
 
         public class VerifyMissingPropertyThrowsArgumentException
         {
             private CalendarEvent _sut;
-            private IEnumerable<Appointment> _occurrences;
+            private IEnumerable<Episode> _dates;
             private System.Exception _exception;
 
             [Fact]
@@ -104,7 +104,7 @@ namespace Scheduler.Test
                         {
                             new CalendarEvent()
                             {
-                                Schedule = new DateList() { Dates = new List<LocalDate>(), },
+                                Schedule = new DateList() { Items = new List<LocalDate>(), },
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                                 TimeZoneProvider = timeZoneProvider,
                             },
@@ -113,7 +113,7 @@ namespace Scheduler.Test
                         {
                             new CalendarEvent()
                             {
-                                Schedule = new DateList() { Dates = new List<LocalDate>(), },
+                                Schedule = new DateList() { Items = new List<LocalDate>(), },
                                 TimeStart = new LocalTime(15, 30),
                                 TimeZoneProvider = timeZoneProvider,
                             },
@@ -122,7 +122,7 @@ namespace Scheduler.Test
                         {
                             new CalendarEvent()
                             {
-                                Schedule = new DateList() { Dates = new List<LocalDate>(), },
+                                Schedule = new DateList() { Items = new List<LocalDate>(), },
                                 TimeStart = new LocalTime(15, 30),
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                             },
@@ -139,7 +139,7 @@ namespace Scheduler.Test
 
             public void WhenOccurrencesAreRetrieved()
             {
-                _exception = Record.Exception(() => { _occurrences = _sut.Occurrences(); });
+                _exception = Record.Exception(() => { _dates = _sut.Episodes(); });
             }
 
             public void ThenArgumentExceptionIsThrown(string parameterName)

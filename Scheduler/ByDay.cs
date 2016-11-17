@@ -25,7 +25,7 @@ namespace Scheduler
 
         public ByDay(){ }
 
-        public IEnumerable<LocalDate> Occurrences()
+        public IEnumerable<LocalDate> Dates()
         {
             if (DateFrom.HasValue)
                 yield return DateFrom.Value; ;

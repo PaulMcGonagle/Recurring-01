@@ -13,7 +13,7 @@ namespace Scheduler.Test.Repeating
         public class ValidateRollStrategy
         {
             private ByDayOfMonth _sut;
-            private IEnumerable<LocalDate> _occurrences;
+            private IEnumerable<LocalDate> _dates;
 
             [Fact]
             public void Execute()
@@ -103,23 +103,23 @@ namespace Scheduler.Test.Repeating
                 _sut = sut;
             }
 
-            public void WhenOccurrencesAreRetrieved()
+            public void WhenDatesAreRetrieved()
             {
-                _occurrences = _sut.Occurrences();
+                _dates = _sut.Dates();
             }
 
             public void ThenAllOccurrencesShouldBeExpected(
                 IEnumerable<LocalDate> expectedDates)
             {
-                _occurrences
+                _dates
                     .ShouldBeSubsetOf(expectedDates);
             }
 
-            public void AndThenAllExpectedDatesShouldBeInOccurrences(
+            public void AndThenAllDatesShouldBeAsExpected(
                 IEnumerable<LocalDate> expectedDates)
             {
                 expectedDates
-                    .ShouldBeSubsetOf(_occurrences);
+                    .ShouldBeSubsetOf(_dates);
             }
         }
     }

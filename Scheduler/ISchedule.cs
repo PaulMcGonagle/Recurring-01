@@ -5,6 +5,6 @@ namespace Scheduler
 {
     public interface ISchedule
     {
-        IEnumerable<LocalDate> Occurrences();
+        IEnumerable<LocalDate> Dates();
     }
 }

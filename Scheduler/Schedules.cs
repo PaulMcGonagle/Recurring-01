@@ -18,7 +18,7 @@ namespace Scheduler
 
         public IEnumerable<LocalDate> Occurrences()
         {
-            return this.SelectMany(o => o.Occurrences());
+            return this.SelectMany(o => o.Dates());
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Scheduler.Calendars
         public Period Period;
         public string TimeZoneProvider;
 
-        public IEnumerable<Appointment> Occurrences()
+        public IEnumerable<Episode> Episodes()
         {
             if (Schedule == null)
                 throw new System.ArgumentException("Schedule");
@@ -26,7 +26,7 @@ namespace Scheduler.Calendars
             if (TimeZoneProvider == null)
                 throw new System.ArgumentException("TimeZoneProvider");
 
-            return Schedule.Occurrences().Select(o => new Appointment
+            return Schedule.Dates().Select(o => new Episode
             {
                 From = DateTimeHelper.GetZonedDateTime(o, this.TimeStart.Value, TimeZoneProvider),
                 Period = this.Period,

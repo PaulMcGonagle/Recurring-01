@@ -14,11 +14,11 @@ namespace Scheduler
 
         }
 
-        public IEnumerable<LocalDate> Occurrences()
+        public IEnumerable<LocalDate> Dates()
         {
-            var inclusions = Inclusions.SelectMany(i => i.Occurrences());
+            var inclusions = Inclusions.SelectMany(i => i.Dates());
 
-            var exclusions = Exclusions.SelectMany(e => e.Occurrences());
+            var exclusions = Exclusions.SelectMany(e => e.Dates());
 
             return inclusions.Except(exclusions);
         }

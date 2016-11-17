@@ -4,6 +4,6 @@ namespace Scheduler
 {
     public interface ICalendarEvent
     {
-        IEnumerable<Appointment> Occurrences();
+        IEnumerable<Episode> Episodes();
     }
 }

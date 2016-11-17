@@ -13,7 +13,7 @@ namespace Scheduler.Test.Repeating
         public class VerifyOccurrences
         {
             private ByWeekdays _sut;
-            private IEnumerable<LocalDate> _occurrences;
+            private IEnumerable<LocalDate> _dates;
 
             [Fact]
             public void Execute()
@@ -42,26 +42,26 @@ namespace Scheduler.Test.Repeating
 
             public void WhenOccurrencesAreRetrieved()
             {
-                _occurrences = _sut.Occurrences();
+                _dates = _sut.Dates();
             }
 
             public void ThenAllOccurrencesShouldBeThisDay(List<IsoDayOfWeek> daysOfWeek)
             {
-                _occurrences
-                    .Select(o => o.DayOfWeek)
-                    .ShouldBeSubsetOf(daysOfWeek.Select(o => (int) o));
+                _dates
+                    .Select(d => d.DayOfWeek)
+                    .ShouldBeSubsetOf(daysOfWeek.Select(d => (int) d));
             }
 
             public void AndThenTheFirstDateShouldBeThis(LocalDate firstDate)
             {
-                _occurrences
+                _dates
                     .Min()
                     .ShouldBe(firstDate);
             }
 
             public void AndThenTheLastDateShouldBeThis(LocalDate lastDate)
             {
-                _occurrences
+                _dates
                     .Max()
                     .ShouldBe(lastDate);
             }
