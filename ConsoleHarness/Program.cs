@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Scheduler.Calendars;
+using static System.Console;
 
 namespace ConsoleHarness
 {
     class Program
     {
-        static Dictionary<string, Scheduler.ISchedule> Calendars = new Dictionary<string, Scheduler.ISchedule>();
+        static readonly Dictionary<string, Scheduler.ISchedule> Calendars = new Dictionary<string, Scheduler.ISchedule>();
 
-        static IList<IsoDayOfWeek> WeekdaysMonToFri = new List<IsoDayOfWeek>()
+        static readonly IList<IsoDayOfWeek> WeekdaysMonToFri = new List<IsoDayOfWeek>()
             {
                 IsoDayOfWeek.Monday,
                 IsoDayOfWeek.Tuesday,
@@ -19,7 +20,7 @@ namespace ConsoleHarness
                 IsoDayOfWeek.Friday,
             };
 
-        static IList<IsoDayOfWeek> WeekdaysSatToSun = new List<IsoDayOfWeek>()
+        static readonly IList<IsoDayOfWeek> WeekdaysSatToSun = new List<IsoDayOfWeek>()
             {
                 IsoDayOfWeek.Saturday,
                 IsoDayOfWeek.Sunday,
@@ -113,10 +114,9 @@ namespace ConsoleHarness
                 Exclusions = new List<Scheduler.ISchedule>() { Calendars["English Holidays"], },
             };
 
-
             DisplayGrid(year.Dates());
 
-            Console.ReadKey();
+            ReadKey();
         }
 
         private static void Test1()
@@ -130,72 +130,73 @@ namespace ConsoleHarness
 
             DisplayList(s3.Dates());
 
-            Console.ReadKey();
+            ReadKey();
         }
 
         private static void Test2()
         {
-            var calendarEvents = new CalendarEvents();
-
-            Period p = new PeriodBuilder { Hours = 15, Minutes = 30, }.Build();
-            calendarEvents.Add(new CalendarEvent()
+            var calendarEvents = new CalendarEvents
             {
-                TimeStart = new NodaTime.LocalTime(hour: 15, minute: 30),
-                Period = new PeriodBuilder { Minutes = 15, }.Build(),
-                Schedule = new Scheduler.ScheduleInstances.ByDayOfMonth()
+                new CalendarEvent
                 {
-                    DayOfMonth = 15,
+                    TimeStart = new LocalTime(hour: 15, minute: 30),
+                    Period = new PeriodBuilder {Minutes = 15,}.Build(),
+                    Schedule = new Scheduler.ScheduleInstances.ByDayOfMonth()
+                    {
+                        DayOfMonth = 15,
+                    }
                 }
-            });
+            };
 
             var episodes = calendarEvents.First().Episodes();
 
             var sorted = episodes.OrderByDescending(x => x.From);
             DisplayList(sorted);
 
-            Console.ReadKey();
+            ReadKey();
         }
 
-        static void DisplayGrid(IEnumerable<LocalDate> dates)
+        private static void DisplayGrid(IEnumerable<LocalDate> dates)
         {
             if (dates == null)
             {
-                Console.WriteLine("empty");
+                WriteLine("empty");
                 return;
             }
 
             var sortedDates = dates.ToList();
             sortedDates.Sort();
 
-            LocalDate firstDate = sortedDates.First();
-            LocalDate lastDate = sortedDates.Last();
+            var firstDate = sortedDates.First();
+            var lastDate = sortedDates.Last();
 
-            LocalDate firstMonday = firstDate.PlusDays(-(int)firstDate.DayOfWeek + 1);
+            var firstMonday = firstDate.PlusDays(-firstDate.DayOfWeek + 1);
             var range = Scheduler.DateTimeHelper.Range(firstMonday, lastDate);
-            Console.WriteLine(((int)firstDate.DayOfWeek).ToString());
 
-            Console.WriteLine("Year Month  Mon Tue Wed Thu Fri Sat Sun");
+            WriteLine(firstDate.DayOfWeek.ToString());
+
+            WriteLine("Year Month  Mon Tue Wed Thu Fri Sat Sun");
              
             foreach (var r in range)
             {
                 if (r.DayOfWeek == (int)DayOfWeek.Monday)
                 {
-                    Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write(string.Format("{0} {1}   ", r.Year.ToString("0000"), r.Month.ToString("00")));
+                    WriteLine();
+                    ForegroundColor = ConsoleColor.White;
+                    Write($"{r.Year:0000} {r.Month:00}   ");
                 }
 
-                Console.ForegroundColor = sortedDates.Contains(r) ? ConsoleColor.White : ConsoleColor.Red;
-                Console.Write(string.Format("  {0}", r.Day.ToString("00")));
+                ForegroundColor = sortedDates.Contains(r) ? ConsoleColor.White : ConsoleColor.Red;
+                Write($"  {r.Day:00}");
             }
-            Console.WriteLine();
+            WriteLine();
         }
 
         static void DisplayList(IEnumerable<LocalDate> dates)
         {
             if (dates == null)
             {
-                Console.WriteLine("empty");
+                WriteLine("empty");
                 return;
             }
 
@@ -204,7 +205,7 @@ namespace ConsoleHarness
 
             foreach (var d in sortedDates)
             {
-                Console.WriteLine(d.ToString());
+                WriteLine(d.ToString());
             }
         }
 
@@ -212,13 +213,13 @@ namespace ConsoleHarness
         {
             if (appointments == null)
             {
-                Console.WriteLine("empty");
+                WriteLine("empty");
                 return;
             }
 
             foreach (var a in appointments)
             {
-                Console.WriteLine(a.ToString());
+                WriteLine(a.ToString());
             }
         }
     }
