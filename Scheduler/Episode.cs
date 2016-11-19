@@ -12,7 +12,7 @@ namespace Scheduler
         int IComparable.CompareTo(object obj)
         {
             var c = (Episode)obj;
-            return this.From.CompareTo(c.From);
+            return From.CompareTo(c.From);
         }
 
         public override string ToString()

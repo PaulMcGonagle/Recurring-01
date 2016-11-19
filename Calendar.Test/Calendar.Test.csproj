@@ -94,6 +94,10 @@
       <Project>{26aa57ae-e333-4237-9178-bae1b1d80b25}</Project>
       <Name>Calendar</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Scheduler.Test\Scheduler.Test.csproj">
+      <Project>{C9002A62-8518-4668-933C-60572835793C}</Project>
+      <Name>Scheduler.Test</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Scheduler\Scheduler.csproj">
       <Project>{3189f8e6-b2ab-4b6e-8f28-756372c7644e}</Project>
       <Name>Scheduler</Name>

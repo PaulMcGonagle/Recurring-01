@@ -3,6 +3,7 @@ using Shouldly;
 using NodaTime;
 using Scheduler;
 using Scheduler.ScheduleInstances;
+using Scheduler.Test;
 using TestStack.BDDfy;
 using Xunit;
 
@@ -12,18 +13,20 @@ namespace Calendar.Test
     {
         public class CreateAndValidateEvent
         {
-            private Calendar.Event _sut;
+            private Event _sut;
             private ISerial _serials;
 
-            const string timeZoneProvider = "Europe/London";
+            private const string TimeZoneProvider = "Europe/London";
 
             [Fact]
             public void Execute()
             {
+                var fakeClock = ScheduleTestHelper.GetFakeClock(2016, 05, 01);
+
                 this.WithExamples(new ExampleTable("sut", "expectedWeekday")
                     {
                         {
-                            new Calendar.Event()
+                            new Event()
                             {
                                 Title = "Street dance",
                                 Serials = new Serials
@@ -38,8 +41,9 @@ namespace Calendar.Test
                                                 DateFrom = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.September, 22),
                                                 DateTo = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 20),
                                                 Weekday = IsoDayOfWeek.Thursday,
+                                                Clock = fakeClock,
                                             },
-                                            TimeZoneProvider = timeZoneProvider,
+                                            TimeZoneProvider = TimeZoneProvider,
                                         }
                                     }
                                 }
@@ -50,7 +54,7 @@ namespace Calendar.Test
                     .BDDfy();
             }
 
-            public void GivenSut(Calendar.Event sut)
+            public void GivenSut(Event sut)
             {
                 _sut = sut;
             }
@@ -62,7 +66,7 @@ namespace Calendar.Test
 
             public void ThenAllSerialsHaveTheCorrectWeekday(IsoDayOfWeek expectedWeekday)
             {
-                _serials.Episodes.Select(e => e.From.DayOfWeek).ShouldAllBe(d => d.Equals(4));
+                _serials.Episodes.Select(e => e.From.DayOfWeek).ShouldAllBe(d => d.Equals((int)expectedWeekday));
             }
         }
     }

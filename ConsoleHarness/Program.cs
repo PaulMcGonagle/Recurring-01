@@ -9,7 +9,7 @@ namespace ConsoleHarness
 {
     class Program
     {
-        static readonly Dictionary<string, Scheduler.ISchedule> Calendars = new Dictionary<string, Scheduler.ISchedule>();
+        static readonly Dictionary<string, ISchedule> Calendars = new Dictionary<string, ISchedule>();
 
         static readonly IList<IsoDayOfWeek> WeekdaysMonToFri = new List<IsoDayOfWeek>
             {
@@ -107,11 +107,11 @@ namespace ConsoleHarness
                 .Select(c => c.Value)
                 .ToList();
 
-            var year = new Scheduler.CompositeSchedule
+            var year = new CompositeSchedule
             {
                 Inclusions = schoolYear,
 
-                Exclusions = new List<Scheduler.ISchedule> { Calendars["English Holidays"], },
+                Exclusions = new List<ISchedule> { Calendars["English Holidays"], },
             };
 
             DisplayGrid(year.Dates);
@@ -209,7 +209,7 @@ namespace ConsoleHarness
             }
         }
 
-        static void DisplayList(IEnumerable<Scheduler.Episode> appointments)
+        static void DisplayList(IEnumerable<Episode> appointments)
         {
             if (appointments == null)
             {

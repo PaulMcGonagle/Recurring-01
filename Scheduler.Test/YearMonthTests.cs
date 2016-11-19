@@ -238,7 +238,7 @@ namespace Scheduler.Test
                         { new YearMonth {Year = 2001, Month = YearMonth.MonthValue.March}, 31},
                         { new YearMonth {Year = 2001, Month = YearMonth.MonthValue.April}, 30},
                         {
-                            new Scheduler.YearMonth
+                            new YearMonth
                             {
                                 Year = YearMonth.YearLimit.Upper,
                                 Month = YearMonth.MonthValue.December
@@ -249,7 +249,7 @@ namespace Scheduler.Test
                     .BDDfy();
             }
 
-            public void GivenARepeatingDay(Scheduler.YearMonth sut)
+            public void GivenARepeatingDay(YearMonth sut)
             {
                 _sut = sut;
             }

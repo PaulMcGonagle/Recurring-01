@@ -1,4 +1,5 @@
-﻿using NodaTime;
+﻿using System;
+using NodaTime;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -19,6 +20,9 @@ namespace Scheduler.ScheduleInstances
         {
             get
             {
+                if (Clock == null)
+                    throw new ArgumentNullException($"Clock");
+
                 var localDateTime = Clock.GetLocalDateTime();
                 var localDate = localDateTime.Date;
                 var localDay = localDate.IsoDayOfWeek;

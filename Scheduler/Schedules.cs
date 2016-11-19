@@ -13,7 +13,7 @@ namespace Scheduler
 
         public Schedules(ISchedule schedule)
         {
-            this.Add(schedule);
+            Add(schedule);
         }
 
         public IEnumerable<LocalDate> Dates()

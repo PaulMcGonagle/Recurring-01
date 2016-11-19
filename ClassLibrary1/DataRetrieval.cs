@@ -7,17 +7,17 @@ namespace TestData
 {
     public class DataRetrieval
     {
-        private static Dictionary<string, Scheduler.ISchedule> _scheduleArchive;
+        private static Dictionary<string, ISchedule> _scheduleArchive;
         private static Dictionary<string, IEnumerable<IsoDayOfWeek>> _dateTypes;
         private static Dictionary<string, LocalDate> _dates;
 
-        public static Dictionary<string, Scheduler.ISchedule> ScheduleArchive
+        public static Dictionary<string, ISchedule> ScheduleArchive
         {
             get
             {
                 if (_scheduleArchive != null) return _scheduleArchive;
 
-                _scheduleArchive = new Dictionary<string, Scheduler.ISchedule>
+                _scheduleArchive = new Dictionary<string, ISchedule>
                 {
                     {
                         "Schools.Term.Autumn",
@@ -138,19 +138,19 @@ namespace TestData
             {
                 {
                     "Schools.Term.Autumn.Start",
-                    Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 05)
+                    DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.October, 05)
                 },
                 {
                     "Schools.Term.Autumn.HalfTerm.Start",
-                    Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 24)
+                    DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.October, 24)
                 },
                 {
                     "Schools.Term.Autumn.HalfTerm.End",
-                    Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 31)
+                    DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.October, 31)
                 },
                 {
                     "Schools.Term.Autumn.End",
-                    Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.December, 21)
+                    DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 21)
                 },
             });
     }

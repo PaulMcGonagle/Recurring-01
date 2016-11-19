@@ -57,7 +57,7 @@ namespace Scheduler.Test
             return new CompositeSchedule
             {
                 Inclusions = new Schedules(
-                    new Scheduler.ScheduleInstances.ByWeekdays
+                    new ByWeekdays
                     {
                         Days = ScheduleTestHelper.Weekdays,
                         DateFrom = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.September, 06),

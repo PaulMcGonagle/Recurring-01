@@ -53,8 +53,8 @@ namespace Scheduler
         {
             set
             {
-                this.Year = value.Year;
-                this.Month = value.Month.ToMonthValue();
+                Year = value.Year;
+                Month = value.Month.ToMonthValue();
             }
         }
 
@@ -94,7 +94,7 @@ namespace Scheduler
             }
         }
 
-        public YearMonth Clone => new YearMonth { Year = this.Year, Month = this.Month };
+        public YearMonth Clone => new YearMonth { Year = Year, Month = Month };
 
         public int MonthNumber => (int)Month;
 
@@ -102,7 +102,7 @@ namespace Scheduler
         {
             get
             {
-                var calendar = NodaTime.CalendarSystem.GetJulianCalendar(1);
+                var calendar = CalendarSystem.GetJulianCalendar(1);
 
                 return calendar.GetDaysInMonth(Year, MonthNumber);
             }
@@ -115,7 +115,7 @@ namespace Scheduler
 
         public YearMonth AddMonths(int months)
         {
-            return new YearMonth { MonthCount = this.MonthCount + months };
+            return new YearMonth { MonthCount = MonthCount + months };
         } 
 
         public LocalDate ToLocalDate(
@@ -129,7 +129,7 @@ namespace Scheduler
                 return localDate;
             }
 
-            throw new DateOutOfBoundsException(this.Year, this.Month, day);
+            throw new DateOutOfBoundsException(Year, Month, day);
         }
 
         public bool TryToLocalDate(

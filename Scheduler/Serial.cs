@@ -30,8 +30,8 @@ namespace Scheduler
 
                 return Schedule.Dates.Select(o => new Episode
                 {
-                    From = DateTimeHelper.GetZonedDateTime(o, this.TimeStart.Value, TimeZoneProvider),
-                    Period = this.Period,
+                    From = DateTimeHelper.GetZonedDateTime(o, TimeStart.Value, TimeZoneProvider),
+                    Period = Period,
                 });
             }
         }

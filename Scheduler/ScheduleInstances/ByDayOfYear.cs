@@ -66,7 +66,7 @@ namespace Scheduler.ScheduleInstances
             {
                 foreach (var year in Enumerable.Range(YearFrom, YearTo - YearFrom + 1))
                 {
-                    var yearMonth = new YearMonth {Year = year, Month = this.Month};
+                    var yearMonth = new YearMonth {Year = year, Month = Month};
 
                     yield return yearMonth.ToLocalDate(DayOfYear, RollStrategy);
                 }
