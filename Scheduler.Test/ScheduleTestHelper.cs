@@ -26,17 +26,17 @@ namespace Scheduler.Test
         public static readonly IEnumerable<LocalDate> BankHolidays =
             new List<LocalDate>(new[]
                 {
-                    new LocalDate(year: 2016, month: 8, day: 29),
-                    new LocalDate(year: 2016, month: 12, day: 26),
-                    new LocalDate(year: 2016, month: 12, day: 27),
-                    new LocalDate(year: 2017, month: 1, day: 2),
-                    new LocalDate(year: 2017, month: 4, day: 14),
-                    new LocalDate(year: 2017, month: 4, day: 17),
-                    new LocalDate(year: 2017, month: 5, day: 1),
-                    new LocalDate(year: 2017, month: 5, day: 29),
-                    new LocalDate(year: 2017, month: 8, day: 28),
-                    new LocalDate(year: 2017, month: 12, day: 25),
-                    new LocalDate(year: 2017, month: 12, day: 26),
+                    DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.August, 29),
+                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.December, 26),
+                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.December, 27),
+                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.January, 2),
+                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.April, 14),
+                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.April, 17),
+                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.May, 1),
+                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.May, 29),
+                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.August, 28),
+                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.December, 25),
+                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.December, 26),
                 });
 
 

@@ -20,13 +20,13 @@ namespace Scheduler.Test.Repeating
 
                 this.WithExamples(table: new ExampleTable("repeatingDay", "dayOfWeek", "firstDate", "lastDate")
                     {
-                        {   new ByWeekday() {Weekday = IsoDayOfWeek.Monday, Clock = fakeClock}, IsoDayOfWeek.Monday, new LocalDate(2016, 04, 25), new LocalDate(2017, 04, 24) },
-                        {   new ByWeekday() {Weekday = IsoDayOfWeek.Tuesday, Clock = fakeClock}, IsoDayOfWeek.Tuesday, new LocalDate(2016, 04, 26), new LocalDate(2017, 04, 25) },
-                        {   new ByWeekday() {Weekday = IsoDayOfWeek.Wednesday, Clock = fakeClock}, IsoDayOfWeek.Wednesday, new LocalDate(2016, 04, 27), new LocalDate(2017, 04, 26) },
-                        {   new ByWeekday() {Weekday = IsoDayOfWeek.Thursday, Clock = fakeClock}, IsoDayOfWeek.Thursday, new LocalDate(2016, 04, 28), new LocalDate(2017, 04, 27) },
-                        {   new ByWeekday() {Weekday = IsoDayOfWeek.Friday, Clock = fakeClock}, IsoDayOfWeek.Friday, new LocalDate(2016, 04, 29), new LocalDate(2017, 04, 28) },
-                        {   new ByWeekday() {Weekday = IsoDayOfWeek.Saturday, Clock = fakeClock}, IsoDayOfWeek.Saturday, new LocalDate(2016, 04, 30), new LocalDate(2017, 04, 29) },
-                        {   new ByWeekday() {Weekday = IsoDayOfWeek.Sunday, Clock = fakeClock}, IsoDayOfWeek.Sunday, new LocalDate(2016, 05, 01), new LocalDate(2017, 04, 30) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Monday, Clock = fakeClock}, IsoDayOfWeek.Monday, DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.April, 25), DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.April, 24) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Tuesday, Clock = fakeClock}, IsoDayOfWeek.Tuesday, DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.April, 26), DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.April, 25) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Wednesday, Clock = fakeClock}, IsoDayOfWeek.Wednesday, DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.April, 27), DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.April, 26) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Thursday, Clock = fakeClock}, IsoDayOfWeek.Thursday, DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.April, 28), DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.April, 27) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Friday, Clock = fakeClock}, IsoDayOfWeek.Friday, DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.April, 29), DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.April, 28) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Saturday, Clock = fakeClock}, IsoDayOfWeek.Saturday, DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.April, 30), DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.April, 29) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Sunday, Clock = fakeClock}, IsoDayOfWeek.Sunday, DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 01), DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.April, 30) },
                     })
                     .BDDfy();
             }

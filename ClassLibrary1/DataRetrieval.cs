@@ -17,11 +17,11 @@ namespace TestData
             {
                 if (_scheduleArchive != null) return _scheduleArchive;
 
-                _scheduleArchive = new Dictionary<string, Scheduler.ISchedule>()
+                _scheduleArchive = new Dictionary<string, Scheduler.ISchedule>
                 {
                     {
                         "Schools.Term.Autumn",
-                        new ByWeekdays()
+                        new ByWeekdays
                         {
                             DateFrom = Dates["Schools.Term.Autumn.Start"],
                             DateTo = Dates["Schools.Term.Autumn.Start"],
@@ -30,7 +30,7 @@ namespace TestData
                     },
                     {
                         "Schools.Term.Autumn",
-                        new ByWeekdays()
+                        new ByWeekdays
                         {
                             DateFrom = Dates["Schools.Term.Autumn.Start"],
                             DateTo = Dates["Schools.Term.Autumn.Start"],
@@ -39,7 +39,7 @@ namespace TestData
                     },
                     {
                         "Schools.Term.Autumn.1",
-                        new ByWeekdays()
+                        new ByWeekdays
                         {
                             DateFrom = Dates["Schools.Term.Autumn.Start"],
                             DateTo = Dates["Schools.Term.Autumn.HalfTerm.Start"].PlusDays(-1),
@@ -48,7 +48,7 @@ namespace TestData
                     },
                     {
                         "Schools.Term.Autumn.HalfTerm",
-                        new ByWeekdays()
+                        new ByWeekdays
                         {
                             DateFrom = Dates["Schools.Term.Autumn.HalfTerm.Start"],
                             DateTo = Dates["Schools.Term.Autumn.HalfTerm.End"],
@@ -57,7 +57,7 @@ namespace TestData
                     },
                     {
                         "Schools.Term.Autumn.2",
-                        new ByWeekdays()
+                        new ByWeekdays
                         {
                             DateFrom = Dates["Schools.Term.Autumn.HalfTerm.End"].PlusDays(01),
                             DateTo = Dates["Schools.Term.Autumn.End"],
@@ -66,35 +66,35 @@ namespace TestData
                     },
                     {
                         "BankHolidays.2016.NewYearsDay",
-                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 01)}
+                        new SingleDay {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 01)}
                     },
                     {
                         "BankHolidays.2016.GoodFriday",
-                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 25)}
+                        new SingleDay {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 25)}
                     },
                     {
                         "BankHolidays.2016.EasterMonday",
-                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 28)}
+                        new SingleDay {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 28)}
                     },
                     {
                         "BankHolidays.2016.EarlyMayBankHoliday",
-                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 01)}
+                        new SingleDay {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 01)}
                     },
                     {
                         "BankHolidays.2016.SpringBankHoliday",
-                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 30)}
+                        new SingleDay {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 30)}
                     },
                     {
                         "BankHolidays.2016.SummerBankHoliday",
-                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.August, 29)}
+                        new SingleDay {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.August, 29)}
                     },
                     {
                         "BankHolidays.2016.Boxing",
-                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 26)}
+                        new SingleDay {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 26)}
                     },
                     {
                         "BankHolidays.2016.ChristmasDaySubstitute",
-                        new SingleDay() {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 27)}
+                        new SingleDay {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 27)}
                     }
                 };
 
@@ -112,7 +112,7 @@ namespace TestData
                 {
                     {
                         "Weekdays",
-                        new List<IsoDayOfWeek>()
+                        new List<IsoDayOfWeek>
                         {
                             IsoDayOfWeek.Monday,
                             IsoDayOfWeek.Tuesday,
@@ -123,7 +123,7 @@ namespace TestData
                     },
                     {
                         "Weekends",
-                        new List<IsoDayOfWeek>()
+                        new List<IsoDayOfWeek>
                         {
                             IsoDayOfWeek.Saturday,
                             IsoDayOfWeek.Sunday
@@ -134,23 +134,24 @@ namespace TestData
             }
         }
 
-        public static Dictionary<string, LocalDate> Dates
-        {
-            get
+        public static Dictionary<string, LocalDate> Dates => _dates ?? (_dates = new Dictionary<string, LocalDate>
             {
-                if (_dates == null)
                 {
-                    _dates = new Dictionary<string, LocalDate>();
-
-                    _dates.Add("Schools.Term.Autumn.Start", Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 05));
-                    _dates.Add("Schools.Term.Autumn.HalfTerm.Start", Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 24));
-                    _dates.Add("Schools.Term.Autumn.HalfTerm.End", Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 31));
-                    _dates.Add("Schools.Term.Autumn.End", Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.December, 21));
-                }
-
-                return _dates;
-            }
-        }
-
+                    "Schools.Term.Autumn.Start",
+                    Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 05)
+                },
+                {
+                    "Schools.Term.Autumn.HalfTerm.Start",
+                    Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 24)
+                },
+                {
+                    "Schools.Term.Autumn.HalfTerm.End",
+                    Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.October, 31)
+                },
+                {
+                    "Schools.Term.Autumn.End",
+                    Scheduler.DateTimeHelper.GetLocalDate(2016, Scheduler.YearMonth.MonthValue.December, 21)
+                },
+            });
     }
 }

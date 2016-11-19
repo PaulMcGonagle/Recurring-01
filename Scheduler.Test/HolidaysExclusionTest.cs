@@ -35,7 +35,7 @@ namespace Scheduler.Test
         {
             _holidays = holidays;
 
-            _term.Exclusions.Add(new DateList() { Items = _holidays });
+            _term.Exclusions.Add(new DateList { Items = _holidays });
         }
 
         public void ThenThereShouldBeNoWeekendDays()
@@ -57,11 +57,11 @@ namespace Scheduler.Test
             return new CompositeSchedule
             {
                 Inclusions = new Schedules(
-                    new Scheduler.ScheduleInstances.ByWeekdays()
+                    new Scheduler.ScheduleInstances.ByWeekdays
                     {
                         Days = ScheduleTestHelper.Weekdays,
-                        DateFrom = new LocalDate(2016, 09, 06),
-                        DateTo = new LocalDate(2016, 12, 19),
+                        DateFrom = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.September, 06),
+                        DateTo = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 19),
                     })
             };
         }

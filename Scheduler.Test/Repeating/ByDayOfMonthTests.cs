@@ -27,7 +27,7 @@ namespace Scheduler.Test.Repeating
                 this.WithExamples(new ExampleTable("SUT", "Expected Dates")
                     {
                         {
-                            new ByDayOfMonth()
+                            new ByDayOfMonth
                             {
                                 DayOfMonth = 28,
                                 Clock = fakeClock,
@@ -40,7 +40,7 @@ namespace Scheduler.Test.Repeating
                         },
 
                         {
-                            new ByDayOfMonth()
+                            new ByDayOfMonth
                             {
                                 DayOfMonth = 30,
                                 Clock = fakeClock,
@@ -48,7 +48,7 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Back
                             },
-                            new List<LocalDate>()
+                            new List<LocalDate>
                             {
                                 DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.January, 30),
                                 DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.February, 28),
@@ -59,7 +59,7 @@ namespace Scheduler.Test.Repeating
                         },
 
                         {
-                            new ByDayOfMonth()
+                            new ByDayOfMonth
                             {
                                 DayOfMonth = 29,
                                 Clock = fakeClock,
@@ -67,7 +67,7 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Skip
                             },
-                            new List<LocalDate>()
+                            new List<LocalDate>
                             {
                                 DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.January, 29),
                                 DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.March, 29),
@@ -77,7 +77,7 @@ namespace Scheduler.Test.Repeating
                         },
 
                         {
-                            new ByDayOfMonth()
+                            new ByDayOfMonth
                             {
                                 DayOfMonth = 29,
                                 Clock = fakeClock,
@@ -85,7 +85,7 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Forward
                             },
-                            new List<LocalDate>()
+                            new List<LocalDate>
                             {
                                 DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.January, 29),
                                 DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.March, 01),

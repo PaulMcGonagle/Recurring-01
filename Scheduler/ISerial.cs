@@ -2,7 +2,7 @@
 
 namespace Scheduler
 {
-    public interface ICalendarEvent
+    public interface ISerial
     {
         IEnumerable<Episode> Episodes();
     }

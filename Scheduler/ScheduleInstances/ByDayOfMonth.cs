@@ -46,15 +46,15 @@ namespace Scheduler.ScheduleInstances
         {
             var o = new List<LocalDate>();
 
-            var yearMonths = YearMonth.Range(YearMonthFrom, YearMonthTo, increment);
+            var yearMonths = YearMonth.Range(YearMonthFrom, YearMonthTo, Increment);
 
             foreach (var yearMonth in yearMonths)
             {
-                LocalDate? localDate;
+                LocalDate localDate;
 
                 if (yearMonth.TryToLocalDate(DayOfMonth, out localDate, RollStrategy))
                 {
-                    o.Add(localDate.Value);
+                    o.Add(localDate);
                 }
             }
 

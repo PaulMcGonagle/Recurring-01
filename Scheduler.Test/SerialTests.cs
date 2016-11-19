@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using NodaTime;
-using Scheduler.Calendars;
 using Shouldly;
 using TestStack.BDDfy;
 using Scheduler.ScheduleInstances;
@@ -8,12 +7,12 @@ using Xunit;
 
 namespace Scheduler.Test
 {
-    public class CalendarEventsTests
+    public class SerialTests
     {
         public class VerifyDateOutOfBoundsExceptionIsThrown
         {
-            private CalendarEvents _sut;
-            private IEnumerable<Episode> _episodes;
+            private Serial _sut;
+            private IEnumerable<Episode> _dates;
 
             [Fact]
             public void Execute()
@@ -23,41 +22,39 @@ namespace Scheduler.Test
                 this.WithExamples(new ExampleTable("sut", "expectedEpisodes")
                     {
                         {
-                            new CalendarEvents()
+                            new Serial
                             {
-                                new CalendarEvent
-                                {
-                                    Schedule = new SingleDay
+                                Schedule =
+                                    new DateList()
                                     {
-                                        Date = new LocalDate(2016, 03, 05),
+                                        Items = new List<LocalDate>()
+                                        {
+                                            DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 05),
+                                            DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 06),
+                                            DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 07),
+                                        },
                                     },
-                                    TimeStart = new LocalTime(12, 35),
-                                    TimeZoneProvider = timeZoneProvider,
-                                    Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build(),
-                                },
-                                new CalendarEvent
-                                {
-                                    Schedule = new SingleDay
-                                    {
-                                        Date = new LocalDate(2016, 08, 01),
-                                    },
-                                    TimeStart = new LocalTime(09, 20),
-                                    TimeZoneProvider = timeZoneProvider,
-                                    Period = new PeriodBuilder {Hours = 20, Minutes = 45}.Build(),
-                                },
+                                TimeStart = new LocalTime(15, 30),
+                                Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
+                                TimeZoneProvider = timeZoneProvider,
                             },
-                            new List<Episode>()
+                            new List<Episode>
                             {
                                 new Episode
                                 {
-                                    From = DateTimeHelper.GetZonedDateTime(new LocalDateTime(2016, 03, 05, 12, 35), timeZoneProvider),
+                                    From = DateTimeHelper.GetZonedDateTime(DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 05), new LocalTime(15, 30), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build(),
 
                                 },
                                 new Episode
                                 {
-                                    From = DateTimeHelper.GetZonedDateTime(new LocalDateTime(2016, 08, 01, 09, 20), timeZoneProvider),
-                                    Period = new PeriodBuilder {Hours = 20, Minutes = 45}.Build(),
+                                    From = DateTimeHelper.GetZonedDateTime(DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 06), new LocalTime(15, 30), timeZoneProvider),
+                                    Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build()
+                                },
+                                new Episode
+                                {
+                                    From = DateTimeHelper.GetZonedDateTime(DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 07), new LocalTime(15, 30), timeZoneProvider),
+                                    Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build()
                                 },
                             }
                         },
@@ -65,26 +62,26 @@ namespace Scheduler.Test
                     .BDDfy();
             }
 
-            public void GivenACalendarEvent(CalendarEvents sut)
+            public void GivenACalendarEvent(Serial sut)
             {
                 _sut = sut;
             }
 
             public void WhenEpisodesAreRetrieved()
             {
-                _episodes = _sut.Episodes();
+                _dates = _sut.Episodes();
             }
 
-            public void ThenEpisodesAreThese(IEnumerable<Episode> expectedEpisodes)
+            public void ThenEpisodesAreExpected(IEnumerable<Episode> expectedEpisodes)
             {
-                _episodes.ShouldBe(expectedEpisodes);
+                _dates.ShouldBe(expectedEpisodes);
             }
         }
 
         public class VerifyMissingPropertyThrowsArgumentException
         {
-            private CalendarEvent _sut;
-            private IEnumerable<Episode> _episodes;
+            private Serial _sut;
+            private IEnumerable<Episode> _dates;
             private System.Exception _exception;
 
             [Fact]
@@ -95,7 +92,7 @@ namespace Scheduler.Test
                 this.WithExamples(new ExampleTable("sut", "parameterName")
                     {
                         {
-                            new CalendarEvent()
+                            new Serial
                             {
                                 TimeStart = new LocalTime(15, 30),
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
@@ -104,27 +101,27 @@ namespace Scheduler.Test
                             "Schedule"
                         },
                         {
-                            new CalendarEvent()
+                            new Serial
                             {
-                                Schedule = new DateList() { Items = new List<LocalDate>(), },
+                                Schedule = new DateList { Items = new List<LocalDate>(), },
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                                 TimeZoneProvider = timeZoneProvider,
                             },
                             "TimeStart"
                         },
                         {
-                            new CalendarEvent()
+                            new Serial
                             {
-                                Schedule = new DateList() { Items = new List<LocalDate>(), },
+                                Schedule = new DateList { Items = new List<LocalDate>(), },
                                 TimeStart = new LocalTime(15, 30),
                                 TimeZoneProvider = timeZoneProvider,
                             },
                             "Period"
                         },
                         {
-                            new CalendarEvent()
+                            new Serial
                             {
-                                Schedule = new DateList() { Items = new List<LocalDate>(), },
+                                Schedule = new DateList { Items = new List<LocalDate>(), },
                                 TimeStart = new LocalTime(15, 30),
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                             },
@@ -134,14 +131,14 @@ namespace Scheduler.Test
                     .BDDfy();
             }
 
-            public void GivenACalendarEvent(CalendarEvent sut)
+            public void GivenACalendarEvent(Serial sut)
             {
                 _sut = sut;
             }
 
             public void WhenEpisodesAreRetrieved()
             {
-                _exception = Record.Exception(() => { _episodes = _sut.Episodes(); });
+                _exception = Record.Exception(() => { _dates = _sut.Episodes(); });
             }
 
             public void ThenArgumentExceptionIsThrown(string parameterName)

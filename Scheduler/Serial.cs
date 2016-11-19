@@ -2,9 +2,9 @@
 using System.Linq;
 using NodaTime;
 
-namespace Scheduler.Calendars
+namespace Scheduler
 {
-    public class CalendarEvent : ICalendarEvent
+    public class Serial : ISerial
     {
         public ISchedule Schedule;
 

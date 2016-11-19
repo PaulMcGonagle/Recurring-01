@@ -21,13 +21,13 @@ namespace Scheduler.Test.Repeating
                 this.WithExamples(new ExampleTable("sut", "daysOfWeek", "firstDate", "lastDate")
                     {
                         {
-                            new ByWeekdays()
+                            new ByWeekdays
                             {
-                                Days = new List<IsoDayOfWeek>() {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
+                                Days = new List<IsoDayOfWeek> {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
                                 DateFrom = DateTimeHelper.GetLocalDate(2000, YearMonth.MonthValue.April, 15),
                                 DateTo = DateTimeHelper.GetLocalDate(2010, YearMonth.MonthValue.November, 28),
                             },
-                            new List<IsoDayOfWeek>() {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
+                            new List<IsoDayOfWeek> {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
                             DateTimeHelper.GetLocalDate(2000, YearMonth.MonthValue.April, 15),
                             DateTimeHelper.GetLocalDate(2010, YearMonth.MonthValue.November, 28)
                         },

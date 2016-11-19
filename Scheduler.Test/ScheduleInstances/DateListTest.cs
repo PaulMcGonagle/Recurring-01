@@ -20,15 +20,15 @@ namespace Scheduler.Test.ScheduleInstances
                 this.WithExamples(new ExampleTable("sut", "expectedDates")
                     {
                         {
-                            new DateList()
+                            new DateList
                             {
-                                Items = new List<LocalDate>() {new LocalDate(2015, 03, 17), new LocalDate(2016, 04, 25)}
+                                Items = new List<LocalDate> {DateTimeHelper.GetLocalDate(2015, YearMonth.MonthValue.March, 17), DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.April, 25)}
                             },
-                            new List<LocalDate>() {new LocalDate(2015, 03, 17), new LocalDate(2016, 04, 25)}
+                            new List<LocalDate> {DateTimeHelper.GetLocalDate(2015, YearMonth.MonthValue.March, 17), DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.April, 25)}
                         },
                         {
-                            new DateList() {Items = DateTimeHelper.Range(new LocalDate(2014, 04, 28), 20)},
-                            DateTimeHelper.Range(new LocalDate(2014, 04, 28), 20)
+                            new DateList {Items = DateTimeHelper.Range(DateTimeHelper.GetLocalDate(2014, YearMonth.MonthValue.April, 28), 20)},
+                            DateTimeHelper.Range(DateTimeHelper.GetLocalDate(2014, YearMonth.MonthValue.April, 28), 20)
                         },
                     })
                     .BDDfy();

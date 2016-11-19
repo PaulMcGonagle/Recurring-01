@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Scheduler.Calendars
+namespace Scheduler
 {
-    public class CalendarEvents : List<CalendarEvent>
+    public class Serials : List<Serial>, ISerial
     {
         public IEnumerable<Episode> Episodes()
         {

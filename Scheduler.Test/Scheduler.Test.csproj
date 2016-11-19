@@ -92,8 +92,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CalendarEventsTests.cs" />
-    <Compile Include="CalendarEventTests.cs" />
+    <Compile Include="SerialsTests.cs" />
+    <Compile Include="SerialTests.cs" />
     <Compile Include="Repeating\ByDayOfMonthTests.cs" />
     <Compile Include="Repeating\ByDayOfYearTests.cs" />
     <Compile Include="Repeating\ByWeekdaysTests.cs" />

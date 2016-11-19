@@ -18,9 +18,9 @@ namespace Scheduler.Test.SingleDayTests
         {
             this.WithExamples(new ExampleTable("sut", "expectedDate")
                 {
-                    {   new SingleDay() { Date = new LocalDate(2016, 04, 25) }, new LocalDate(2016, 04, 25) },
-                    {   new SingleDay() { Date = new LocalDate(2000, 01, 01) }, new LocalDate(2000, 01, 01) },
-                    {   new SingleDay() { Date = new LocalDate(2999, 12, 31) }, new LocalDate(2999, 12, 31) },
+                    {   new SingleDay { Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.April, 25) }, DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.April, 25) },
+                    {   new SingleDay { Date = DateTimeHelper.GetLocalDate(2000, YearMonth.MonthValue.January, 01) }, DateTimeHelper.GetLocalDate(2000, YearMonth.MonthValue.January, 01) },
+                    {   new SingleDay { Date = DateTimeHelper.GetLocalDate(2999, YearMonth.MonthValue.December, 31) }, DateTimeHelper.GetLocalDate(2999, YearMonth.MonthValue.December, 31) },
                 })
                 .BDDfy();
         }

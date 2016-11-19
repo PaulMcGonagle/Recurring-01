@@ -34,7 +34,7 @@ namespace Scheduler.Test
             public void ThenAnExceptionIsThrownAsExpected(bool expectedIsExceptionThrown)
             {
                 if (expectedIsExceptionThrown)
-                    Assert.Throws<System.ArgumentOutOfRangeException>(() => new YearMonth() {MonthCount = _monthCount});
+                    Assert.Throws<System.ArgumentOutOfRangeException>(() => new YearMonth {MonthCount = _monthCount});
             }
         }
 
@@ -62,21 +62,21 @@ namespace Scheduler.Test
 
             public void ThenMonthCountShouldBeSameAsSut()
             {
-                var yearMonth = new YearMonth() {MonthCount = _sut};
+                var yearMonth = new YearMonth {MonthCount = _sut};
 
                 yearMonth.MonthCount.ShouldBe(_sut);
             }
 
             public void AndThenYearIsValid(int expectedYear)
             {
-                var yearMonth = new YearMonth() {MonthCount = _sut};
+                var yearMonth = new YearMonth {MonthCount = _sut};
 
                 yearMonth.Year.ShouldBe(expectedYear);
             }
 
             public void AndThenMonthIsValid(YearMonth.MonthValue expectedMonth)
             {
-                var yearMonth = new YearMonth() {MonthCount = _sut};
+                var yearMonth = new YearMonth {MonthCount = _sut};
 
                 yearMonth.Month.ShouldBe(expectedMonth);
             }
@@ -126,14 +126,14 @@ namespace Scheduler.Test
 
             public void ThenTheYearIsValid(int expectedYear, int expectedMonth)
             {
-                var yearMonth = new YearMonth() {MonthCount = _sut,};
+                var yearMonth = new YearMonth {MonthCount = _sut,};
 
                 yearMonth.Year.ShouldBe(expectedYear);
             }
 
             public void AndThenTheMonthIsValid(YearMonth.MonthValue expectedMonth)
             {
-                var yearMonth = new YearMonth() {MonthCount = _sut,};
+                var yearMonth = new YearMonth {MonthCount = _sut,};
 
                 yearMonth.Month.ShouldBe(expectedMonth);
             }
@@ -171,7 +171,7 @@ namespace Scheduler.Test
             {
                 if (expectedIsExceptionThrown)
                     Assert.Throws<System.ArgumentOutOfRangeException>(
-                        () => new YearMonth() {Year = _sutYear, Month = _sutMonth});
+                        () => new YearMonth {Year = _sutYear, Month = _sutMonth});
             }
         }
 
@@ -185,15 +185,15 @@ namespace Scheduler.Test
                 this.WithExamples(new ExampleTable("SUT", "Expected Year", "Expected Month")
                     {
                         {
-                            new YearMonth() {Year = 2016, Month = YearMonth.MonthValue.January}, 2016,
+                            new YearMonth {Year = 2016, Month = YearMonth.MonthValue.January}, 2016,
                             YearMonth.MonthValue.January
                         },
                         {
-                            new YearMonth() {Year = 9999, Month = YearMonth.MonthValue.December}, 9999,
+                            new YearMonth {Year = 9999, Month = YearMonth.MonthValue.December}, 9999,
                             YearMonth.MonthValue.December
                         },
                         {
-                            new YearMonth() {Year = 1000, Month = YearMonth.MonthValue.January}, 1000,
+                            new YearMonth {Year = 1000, Month = YearMonth.MonthValue.January}, 1000,
                             YearMonth.MonthValue.January
                         },
                     })
@@ -226,19 +226,19 @@ namespace Scheduler.Test
                 this.WithExamples(new ExampleTable("Sut", "Expected DaysInMonth")
                     {
                         {
-                            new YearMonth()
+                            new YearMonth
                             {
                                 Year = YearMonth.YearLimit.Lower,
                                 Month = YearMonth.MonthValue.January
                             },
                             31
                         },
-                        { new YearMonth() {Year = 2000, Month = YearMonth.MonthValue.February}, 29},
-                        { new YearMonth() {Year = 2001, Month = YearMonth.MonthValue.February}, 28},
-                        { new YearMonth() {Year = 2001, Month = YearMonth.MonthValue.March}, 31},
-                        { new YearMonth() {Year = 2001, Month = YearMonth.MonthValue.April}, 30},
+                        { new YearMonth {Year = 2000, Month = YearMonth.MonthValue.February}, 29},
+                        { new YearMonth {Year = 2001, Month = YearMonth.MonthValue.February}, 28},
+                        { new YearMonth {Year = 2001, Month = YearMonth.MonthValue.March}, 31},
+                        { new YearMonth {Year = 2001, Month = YearMonth.MonthValue.April}, 30},
                         {
-                            new Scheduler.YearMonth()
+                            new Scheduler.YearMonth
                             {
                                 Year = YearMonth.YearLimit.Upper,
                                 Month = YearMonth.MonthValue.December
@@ -272,12 +272,12 @@ namespace Scheduler.Test
                 this.WithExamples(new ExampleTable("yearMonthFrom", "yearMonthTo")
                     {
                         {
-                            new YearMonth() {Year = 2000, Month = YearMonth.MonthValue.January},
-                            new YearMonth() {Year = 1999, Month = YearMonth.MonthValue.April}
+                            new YearMonth {Year = 2000, Month = YearMonth.MonthValue.January},
+                            new YearMonth {Year = 1999, Month = YearMonth.MonthValue.April}
                         },
                         {
-                            new YearMonth() {Year = 2000, Month = YearMonth.MonthValue.February},
-                            new YearMonth() {Year = 2000, Month = YearMonth.MonthValue.January}
+                            new YearMonth {Year = 2000, Month = YearMonth.MonthValue.February},
+                            new YearMonth {Year = 2000, Month = YearMonth.MonthValue.January}
                         },
                     })
                     .BDDfy();
@@ -307,16 +307,16 @@ namespace Scheduler.Test
                 this.WithExamples(new ExampleTable("yearMonthFrom", "yearMonthTo", "expectedMonths")
                     {
                         {
-                            new YearMonth() {Year = 2000, Month = YearMonth.MonthValue.January},
-                            new YearMonth() {Year = 2000, Month = YearMonth.MonthValue.January}, 1
+                            new YearMonth {Year = 2000, Month = YearMonth.MonthValue.January},
+                            new YearMonth {Year = 2000, Month = YearMonth.MonthValue.January}, 1
                         },
                         {
-                            new YearMonth() {Year = 2000, Month = YearMonth.MonthValue.January},
-                            new YearMonth() {Year = 2000, Month = YearMonth.MonthValue.April}, 4
+                            new YearMonth {Year = 2000, Month = YearMonth.MonthValue.January},
+                            new YearMonth {Year = 2000, Month = YearMonth.MonthValue.April}, 4
                         },
                         {
-                            new YearMonth() {Year = 2000, Month = YearMonth.MonthValue.February},
-                            new YearMonth() {Year = 2001, Month = YearMonth.MonthValue.January}, 12
+                            new YearMonth {Year = 2000, Month = YearMonth.MonthValue.February},
+                            new YearMonth {Year = 2001, Month = YearMonth.MonthValue.January}, 12
                         },
                     })
                     .BDDfy();

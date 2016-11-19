@@ -30,35 +30,24 @@ namespace Scheduler
             public const int Upper = 9999;
         }
 
-        private int year;
-        private MonthValue month;
+        private int _year;
 
         public int Year
         {
             set
             {
                 if (value < 1000 || value > 9999)
-                    throw new ArgumentOutOfRangeException(string.Format("Invalid Year value: {0}", value));
+                    throw new ArgumentOutOfRangeException($"Invalid Year value: {value}");
 
-                year = value;
+                _year = value;
             }
             get
             {
-                return year;
+                return _year;
             }
         }
 
-        public MonthValue Month
-        {
-            set
-            {
-                this.month = value;
-            }
-            get
-            {
-                return this.month;
-            }
-        }
+        public MonthValue Month { set; get; }
 
         public LocalDate LocalDate
         {
@@ -79,7 +68,7 @@ namespace Scheduler
         {
             var monthCounts = Enumerable.Range(0, count);
 
-            return monthCounts.Select(i => (new YearMonth() { MonthCount = from.MonthCount }).AddMonths(i * increment));
+            return monthCounts.Select(i => (new YearMonth { MonthCount = from.MonthCount }).AddMonths(i * increment));
         }
 
         public static IEnumerable<YearMonth> Range(YearMonth from, YearMonth to, int increment = 1)
@@ -105,18 +94,9 @@ namespace Scheduler
             }
         }
 
-        public YearMonth Clone
-        {
-            get
-            {
-                return new YearMonth() { Year = this.Year, Month = this.Month };
-            }
-        }
+        public YearMonth Clone => new YearMonth { Year = this.Year, Month = this.Month };
 
-        public int MonthNumber
-        {
-            get { return (int)Month; }
-        }
+        public int MonthNumber => (int)Month;
 
         public int DaysInMonth
         {
@@ -135,56 +115,51 @@ namespace Scheduler
 
         public YearMonth AddMonths(int months)
         {
-            return new YearMonth() { MonthCount = this.MonthCount + months };
+            return new YearMonth { MonthCount = this.MonthCount + months };
         } 
 
-        public LocalDate ToLocalDate
-            (int day,
+        public LocalDate ToLocalDate(
+            int day,
             RepeatingDay.RollStrategyType rollStrategyType = RepeatingDay.RollStrategyType.Skip)
         {
-            LocalDate? localDate;
+            LocalDate localDate;
 
-            if(!TryToLocalDate(day, out localDate, rollStrategyType))
+            if(TryToLocalDate(day, out localDate, rollStrategyType))
             {
-                throw new DateOutOfBoundsException(this.Year, this.Month, day);
+                return localDate;
             }
 
-            return localDate.Value;
+            throw new DateOutOfBoundsException(this.Year, this.Month, day);
         }
 
         public bool TryToLocalDate(
             int day,
-            out LocalDate? localDate, 
+            out LocalDate localDate, 
             RepeatingDay.RollStrategyType rollStrategyType = RepeatingDay.RollStrategyType.Skip)
         {
             var year = Year;
-            var month = MonthNumber;
 
-            var daysInMonth = DateTimeHelper.GetDaysInMonth(year, month);
+            var daysInMonth = DateTimeHelper.GetDaysInMonth(year, Month);
 
             if (day <= daysInMonth)
             {
-                localDate = new LocalDate(Year, month, day);
+                localDate = DateTimeHelper.GetLocalDate(Year, Month, day);
                 return true;
             }
 
             switch (rollStrategyType)
             {
                 case RepeatingDay.RollStrategyType.Back:
-                    localDate = new LocalDate(year, month, daysInMonth);
+                    localDate = DateTimeHelper.GetLocalDate(Year, Month, daysInMonth);
                     return true;
 
                 case RepeatingDay.RollStrategyType.Forward:
                     return AddMonths(1).TryToLocalDate(1, out localDate, RepeatingDay.RollStrategyType.Throw);
+
+                default:
+                    localDate = default(LocalDate);
+                    return false;
             }
-
-            localDate = null;
-            return false;
-        }
-
-        public LocalDate ToLocalDate(int day = 1)
-        {
-            return new LocalDate(Year, MonthNumber, day);
         }
     }
 }

@@ -7,13 +7,7 @@ namespace Scheduler
     {
         public ZonedDateTime From;
         public Period Period;
-        public ZonedDateTime End
-        {
-            get
-            {
-                return From.Plus(Period.ToDuration());
-            }
-        }
+        public ZonedDateTime End => From.Plus(Period.ToDuration());
 
         int IComparable.CompareTo(object obj)
         {

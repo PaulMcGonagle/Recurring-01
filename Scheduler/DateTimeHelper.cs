@@ -17,10 +17,10 @@ namespace Scheduler
 
         public const RollStrategyType RollStrategyDefault = RollStrategyType.Skip;
 
-        public static LocalDate GetToday()
+        public static LocalDate GetToday(IClock clock)
         {
             var zone = NodaTime.TimeZones.BclDateTimeZone.ForSystemDefault();
-            return SystemClock.Instance.Now.InZone(zone).LocalDateTime.Date;
+            return clock.Now.InZone(zone).LocalDateTime.Date;
         }
 
         public static LocalDateTime GetLocalDateTime(this IClock clock)
@@ -35,9 +35,9 @@ namespace Scheduler
             return localDateTime.ToYearMonth(); ;
         }
 
-        public static LocalDate AddWeeks(this LocalDate dt, int Weeks)
+        public static LocalDate AddWeeks(this LocalDate dt, int weeks)
         {
-            return dt.PlusDays(Weeks * 7);
+            return dt.PlusDays(weeks * 7);
         }
 
         public static ZonedDateTime GetZonedDateTime(LocalDateTime ldt, string timeZoneProvider)
@@ -52,11 +52,11 @@ namespace Scheduler
             return GetZonedDateTime(ld.At(lt), timeZoneProvider);
         }
 
-        public static int GetDaysInMonth(int year, int month)
+        public static int GetDaysInMonth(int year, YearMonth.MonthValue month)
         {
-            var calendar = NodaTime.CalendarSystem.GetJulianCalendar(1);
+            var calendar = CalendarSystem.GetJulianCalendar(1);
 
-            return calendar.GetDaysInMonth(year, month);
+            return calendar.GetDaysInMonth(year, (int)month);
         }
 
         public static LocalDate GetLocalDate(int year, YearMonth.MonthValue month, int day)
@@ -71,7 +71,7 @@ namespace Scheduler
 
         public static YearMonth ToYearMonth(this LocalDate value)
         {
-            return new Scheduler.YearMonth() { LocalDate = value };
+            return new YearMonth { LocalDate = value };
         }
 
         public static IEnumerable<LocalDate> Range(LocalDate start, int count, int interval = 1)
@@ -81,7 +81,7 @@ namespace Scheduler
 
         public static IEnumerable<LocalDate> Range(LocalDate start, LocalDate end, int interval = 1)
         {
-            var period = NodaTime.Period.Between(start, end, PeriodUnits.Days);
+            var period = Period.Between(start, end, PeriodUnits.Days);
 
             var days = Convert.ToInt32((period.Days + 1) / interval);
 
