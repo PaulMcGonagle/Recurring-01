@@ -6,19 +6,21 @@ using Scheduler.ScheduleInstances;
 using TestStack.BDDfy;
 using Xunit;
 
-namespace CalendarTests
+namespace Calendar.Test
 {
     public class EventTests
     {
-        private class CreateAndValidateEvent
+        public class CreateAndValidateEvent
         {
             private Calendar.Event _sut;
             private ISerial _serials;
 
+            const string timeZoneProvider = "Europe/London";
+
             [Fact]
             public void Execute()
             {
-                this.WithExamples(new ExampleTable("sut", "weekday")
+                this.WithExamples(new ExampleTable("sut", "expectedWeekday")
                     {
                         {
                             new Calendar.Event()
@@ -36,12 +38,13 @@ namespace CalendarTests
                                                 DateFrom = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.September, 22),
                                                 DateTo = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 20),
                                                 Weekday = IsoDayOfWeek.Thursday,
-                                            }
+                                            },
+                                            TimeZoneProvider = timeZoneProvider,
                                         }
                                     }
                                 }
                             },
-                            "text"
+                            IsoDayOfWeek.Thursday
                         }
                     })
                     .BDDfy();
