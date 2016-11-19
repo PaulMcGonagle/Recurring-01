@@ -42,7 +42,7 @@ namespace Scheduler.Test.Repeating
 
             public void WhenDatesAreRetrieved()
             {
-                _dates = _sut.Dates();
+                _dates = _sut.Dates;
             }
 
             public void ThenAllDatesShouldBeThisDay(List<IsoDayOfWeek> daysOfWeek)

@@ -62,7 +62,7 @@ namespace Calendar.Test
 
             public void ThenAllSerialsHaveTheCorrectWeekday(IsoDayOfWeek expectedWeekday)
             {
-                _serials.Episodes().Select(e => e.From.DayOfWeek).ShouldAllBe(d => d.Equals(4));
+                _serials.Episodes.Select(e => e.From.DayOfWeek).ShouldAllBe(d => d.Equals(4));
             }
         }
     }

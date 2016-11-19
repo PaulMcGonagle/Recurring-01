@@ -14,13 +14,16 @@ namespace Scheduler
 
         }
 
-        public IEnumerable<LocalDate> Dates()
+        public IEnumerable<LocalDate> Dates
         {
-            var inclusions = Inclusions.SelectMany(i => i.Dates());
+            get
+            {
+                var inclusions = Inclusions.SelectMany(i => i.Dates);
 
-            var exclusions = Exclusions.SelectMany(e => e.Dates());
+                var exclusions = Exclusions.SelectMany(e => e.Dates);
 
-            return inclusions.Except(exclusions);
+                return inclusions.Except(exclusions);
+            }
         }
     }
 }

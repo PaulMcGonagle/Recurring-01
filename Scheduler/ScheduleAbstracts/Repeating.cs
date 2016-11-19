@@ -14,6 +14,6 @@ namespace Scheduler.ScheduleAbstracts
         public int CountToDefault { get; set; }
         protected int Increment = 1;
 
-        public abstract IEnumerable<LocalDate> Dates();
+        public abstract IEnumerable<LocalDate> Dates { get; }
     }
 }

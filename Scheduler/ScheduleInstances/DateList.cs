@@ -16,9 +16,6 @@ namespace Scheduler.ScheduleInstances
             set;
         }
 
-        public IEnumerable<LocalDate> Dates()
-        {
-            return Items.ToList();
-        }
+        public IEnumerable<LocalDate> Dates => Items.ToList();
     }
 }

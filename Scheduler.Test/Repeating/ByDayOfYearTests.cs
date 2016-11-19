@@ -84,7 +84,7 @@ namespace Scheduler.Test.Repeating
 
             public void WhenDatesAreReturned()
             {
-                _exception = Record.Exception(() => { var dates = _sut.Dates().ToList(); });
+                _exception = Record.Exception(() => { var dates = _sut.Dates.ToList(); });
             }
 
             public void ThenDatesThrowsADateOutOfBoundsException(int expectedExceptionYear,
@@ -231,7 +231,7 @@ namespace Scheduler.Test.Repeating
 
             public void WhenDatesAreRetrieved()
             {
-                _dates = _sut.Dates();
+                _dates = _sut.Dates;
             }
 
             public void ThenAllDatesShouldBeThese(IEnumerable<LocalDate> expectedDates)
@@ -388,7 +388,7 @@ namespace Scheduler.Test.Repeating
 
             public void WhenDatesAreRetrieved()
             {
-                _dates = _sut.Dates();
+                _dates = _sut.Dates;
             }
 
             public void ThenAllDatesShouldBeThese(IEnumerable<LocalDate> expectedDates)

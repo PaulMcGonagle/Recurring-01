@@ -114,7 +114,7 @@ namespace ConsoleHarness
                 Exclusions = new List<Scheduler.ISchedule> { Calendars["English Holidays"], },
             };
 
-            DisplayGrid(year.Dates());
+            DisplayGrid(year.Dates);
 
             ReadKey();
         }
@@ -128,7 +128,7 @@ namespace ConsoleHarness
                 DateTo = DateTimeHelper.GetLocalDate(2015, YearMonth.MonthValue.August, 15),
             };
 
-            DisplayList(s3.Dates());
+            DisplayList(s3.Dates);
 
             ReadKey();
         }
@@ -148,7 +148,7 @@ namespace ConsoleHarness
                 }
             };
 
-            var episodes = calendarEvents.First().Episodes();
+            var episodes = calendarEvents.First().Episodes;
 
             var sorted = episodes.OrderByDescending(x => x.From);
             DisplayList(sorted);

@@ -15,9 +15,9 @@ namespace Scheduler.ScheduleInstances
             set;
         }
 
-        public IEnumerable<LocalDate> Dates()
+        public IEnumerable<LocalDate> Dates
         {
-            yield return Date;
+            get { yield return Date; }
         }        
     }
 }

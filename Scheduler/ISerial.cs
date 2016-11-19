@@ -4,6 +4,6 @@ namespace Scheduler
 {
     public interface ISerial
     {
-        IEnumerable<Episode> Episodes();
+        IEnumerable<Episode> Episodes { get; }
     }
 }

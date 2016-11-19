@@ -42,23 +42,26 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public override IEnumerable<LocalDate> Dates()
+        public override IEnumerable<LocalDate> Dates
         {
-            var o = new List<LocalDate>();
-
-            var yearMonths = YearMonth.Range(YearMonthFrom, YearMonthTo, Increment);
-
-            foreach (var yearMonth in yearMonths)
+            get
             {
-                LocalDate localDate;
+                var o = new List<LocalDate>();
 
-                if (yearMonth.TryToLocalDate(DayOfMonth, out localDate, RollStrategy))
+                var yearMonths = YearMonth.Range(YearMonthFrom, YearMonthTo, Increment);
+
+                foreach (var yearMonth in yearMonths)
                 {
-                    o.Add(localDate);
-                }
-            }
+                    LocalDate localDate;
 
-            return o;
+                    if (yearMonth.TryToLocalDate(DayOfMonth, out localDate, RollStrategy))
+                    {
+                        o.Add(localDate);
+                    }
+                }
+
+                return o;
+            }
         }
     }
 }

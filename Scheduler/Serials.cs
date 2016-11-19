@@ -5,9 +5,9 @@ namespace Scheduler
 {
     public class Serials : List<Serial>, ISerial
     {
-        public IEnumerable<Episode> Episodes()
+        public IEnumerable<Episode> Episodes
         {
-            return this.SelectMany(ce => ce.Episodes());
+            get { return this.SelectMany(ce => ce.Episodes); }
         }
     }
 }

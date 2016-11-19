@@ -60,13 +60,16 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public override IEnumerable<LocalDate> Dates()
+        public override IEnumerable<LocalDate> Dates
         {
-            foreach (var year in Enumerable.Range(YearFrom, YearTo - YearFrom + 1))
+            get
             {
-                var yearMonth = new YearMonth { Year = year, Month = this.Month };
+                foreach (var year in Enumerable.Range(YearFrom, YearTo - YearFrom + 1))
+                {
+                    var yearMonth = new YearMonth {Year = year, Month = this.Month};
 
-                yield return yearMonth.ToLocalDate(DayOfYear, RollStrategy);
+                    yield return yearMonth.ToLocalDate(DayOfYear, RollStrategy);
+                }
             }
         }
     }

@@ -12,25 +12,28 @@ namespace Scheduler
         public Period Period;
         public string TimeZoneProvider;
 
-        public IEnumerable<Episode> Episodes()
+        public IEnumerable<Episode> Episodes
         {
-            if (Schedule == null)
-                throw new System.ArgumentException("Schedule");
-
-            if (!TimeStart.HasValue)
-                throw new System.ArgumentException("TimeStart");
-
-            if (Period == null)
-                throw new System.ArgumentException("Period");
-
-            if (TimeZoneProvider == null)
-                throw new System.ArgumentException("TimeZoneProvider");
-
-            return Schedule.Dates().Select(o => new Episode
+            get
             {
-                From = DateTimeHelper.GetZonedDateTime(o, this.TimeStart.Value, TimeZoneProvider),
-                Period = this.Period,
-            });
+                if (Schedule == null)
+                    throw new System.ArgumentException("Schedule");
+
+                if (!TimeStart.HasValue)
+                    throw new System.ArgumentException("TimeStart");
+
+                if (Period == null)
+                    throw new System.ArgumentException("Period");
+
+                if (TimeZoneProvider == null)
+                    throw new System.ArgumentException("TimeZoneProvider");
+
+                return Schedule.Dates.Select(o => new Episode
+                {
+                    From = DateTimeHelper.GetZonedDateTime(o, this.TimeStart.Value, TimeZoneProvider),
+                    Period = this.Period,
+                });
+            }
         }
     }
 }

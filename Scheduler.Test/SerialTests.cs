@@ -69,7 +69,7 @@ namespace Scheduler.Test
 
             public void WhenEpisodesAreRetrieved()
             {
-                _dates = _sut.Episodes();
+                _dates = _sut.Episodes;
             }
 
             public void ThenEpisodesAreExpected(IEnumerable<Episode> expectedEpisodes)
@@ -138,7 +138,7 @@ namespace Scheduler.Test
 
             public void WhenEpisodesAreRetrieved()
             {
-                _exception = Record.Exception(() => { _dates = _sut.Episodes(); });
+                _exception = Record.Exception(() => { _dates = _sut.Episodes; });
             }
 
             public void ThenArgumentExceptionIsThrown(string parameterName)

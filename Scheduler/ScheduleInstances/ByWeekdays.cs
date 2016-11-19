@@ -15,13 +15,16 @@ namespace Scheduler.ScheduleInstances
             CountToDefault = 52;
         }
 
-        public override IEnumerable<LocalDate> Dates()
+        public override IEnumerable<LocalDate> Dates
         {
-            LocalDate start = DateFrom ?? DateTimeHelper.GetToday(Clock).AddWeeks(-(CountFrom ?? CountFromDefault));
-            LocalDate end = DateTo ?? DateTimeHelper.GetToday(Clock).AddWeeks((CountTo ?? CountToDefault));
+            get
+            {
+                var start = DateFrom ?? DateTimeHelper.GetToday(Clock).AddWeeks(-(CountFrom ?? CountFromDefault));
+                var end = DateTo ?? DateTimeHelper.GetToday(Clock).AddWeeks((CountTo ?? CountToDefault));
 
-            var range = DateTimeHelper.Range(start: start, end: end);
-            return range.Where(d => Days.Contains(d.IsoDayOfWeek));
+                var range = DateTimeHelper.Range(start: start, end: end);
+                return range.Where(d => Days.Contains(d.IsoDayOfWeek));
+            }
         }
     }
 }

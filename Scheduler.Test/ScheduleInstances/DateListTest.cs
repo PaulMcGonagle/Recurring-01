@@ -41,7 +41,7 @@ namespace Scheduler.Test.ScheduleInstances
 
             public void WhenDatesAreRetrieved()
             {
-                _dates = _sut.Dates();
+                _dates = _sut.Dates;
             }
 
             public void ThenOnlyTheseDateAreReturned(IEnumerable<LocalDate> expectedDates)
