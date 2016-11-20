@@ -131,7 +131,7 @@ namespace Calendar.Test
                 _serials = _sut.Serials;
             }
 
-            public void ThenAllStartTimesAresCorrect(LocalTime expectedStartTime)
+            public void ThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
             {
                 _serials.Episodes.Select(e => e.From.TimeOfDay).ShouldAllBe(d => d.Equals(expectedStartTime));
             }
