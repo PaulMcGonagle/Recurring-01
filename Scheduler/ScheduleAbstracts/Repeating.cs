@@ -1,13 +1,12 @@
 ﻿using NodaTime;
 using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace Scheduler.ScheduleAbstracts
 {
     public abstract class Repeating : ISchedule
     {
-
-        public LocalDate? DateFrom;
-        public LocalDate? DateTo;
+        public Range Range;
         public int? CountFrom;
         public int? CountTo;
         public int CountFromDefault { get; set; }

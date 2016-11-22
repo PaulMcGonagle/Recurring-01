@@ -28,93 +28,19 @@ namespace ConsoleHarness
 
         static void Main(string[] args)
         {
-            Calendars.Add("Weekdays", new Scheduler.ScheduleInstances.ByWeekdays { Days = WeekdaysMonToFri });
-            Calendars.Add("Weekends", new Scheduler.ScheduleInstances.ByWeekdays { Days = WeekdaysSatToSun });
-            Calendars.Add("English Holidays",
-                new Scheduler.ScheduleInstances.DateList
+            var x =
+                new Scheduler.CompositeSchedule()
                 {
-                    Items = new List<LocalDate>
+
+                    Inclusions = new List<ISchedule>
                     {
-                        DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 01),
-                        DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 25),
-                        DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 28),
-                        DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 02),
-                        DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.May, 30),
-                        DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.August, 29),
-                        DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 26),
-                        DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 27),
-                        DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.January, 02),
-                        DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.April, 14),
-                        DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.April, 17),
-                        DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.May, 01),
-                        DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.May, 29),
-                        DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.August, 28),
-                        DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.December, 25),
-                        DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.December, 26),
+                        TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Autumn"],
                     }
-                }
-            );
+                };
 
-            var schoolYearCalendars = new List<string>
-            {
-                "2016 - Autumn 1",
-                "2016 - Autumn 2",
-                "2017 - Spring 1",
-                "2017 - Spring 2",
-                "2017 - Summer 1",
-                "2017 - Summer 2",
-            };
+            x.Breaks.Add(TestData.DataRetrieval.Ranges["Schools.Term.201617.Autumn.HalfTerm"]);
 
-            Calendars.Add("2016 - Autumn 1", new Scheduler.ScheduleInstances.ByWeekdays
-            {
-                Days = WeekdaysMonToFri,
-                DateFrom = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.September, 05),
-                DateTo = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.October, 21),
-            });
-            Calendars.Add("2016 - Autumn 2", new Scheduler.ScheduleInstances.ByWeekdays
-            {
-                Days = WeekdaysMonToFri,
-                DateFrom = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.October, 31),
-                DateTo = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 21),
-            });
-            Calendars.Add("2017 - Spring 1", new Scheduler.ScheduleInstances.ByWeekdays
-            {
-                Days = WeekdaysMonToFri,
-                DateFrom = DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.January, 04),
-                DateTo = DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.February, 12),
-            });
-            Calendars.Add("2017 - Spring 2", new Scheduler.ScheduleInstances.ByWeekdays
-            {
-                Days = WeekdaysMonToFri,
-                DateFrom = DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.February, 24),
-                DateTo = DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.March, 24),
-            });
-            Calendars.Add("2017 - Summer 1", new Scheduler.ScheduleInstances.ByWeekdays
-            {
-                Days = WeekdaysMonToFri,
-                DateFrom = DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.April, 11),
-                DateTo = DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.May, 27),
-            });
-            Calendars.Add("2017 - Summer 2", new Scheduler.ScheduleInstances.ByWeekdays
-            {
-                Days = WeekdaysMonToFri,
-                DateFrom = DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.June, 06),
-                DateTo = DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.July, 20),
-            });
-
-            var schoolYear = Calendars
-                .Where(c => schoolYearCalendars.Contains((c.Key)))
-                .Select(c => c.Value)
-                .ToList();
-
-            var year = new CompositeSchedule
-            {
-                Inclusions = schoolYear,
-
-                Exclusions = new List<ISchedule> { Calendars["English Holidays"], },
-            };
-
-            DisplayGrid(year.Dates);
+            DisplayGrid(x.Dates);
 
             ReadKey();
         }
@@ -124,8 +50,7 @@ namespace ConsoleHarness
             var s3 = new Scheduler.ScheduleInstances.ByDayOfMonth
             {
                 DayOfMonth = 15,
-                DateFrom = DateTimeHelper.GetLocalDate(2015, YearMonth.MonthValue.April, 15),
-                DateTo = DateTimeHelper.GetLocalDate(2015, YearMonth.MonthValue.August, 15),
+                Range = new Range(2015, YearMonth.MonthValue.April, 15, 2015, YearMonth.MonthValue.August, 15),
             };
 
             DisplayList(s3.Dates);

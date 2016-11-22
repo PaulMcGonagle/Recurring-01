@@ -56,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Episode.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Range.cs" />
     <Compile Include="Serials.cs" />
     <Compile Include="CompositeSchedule.cs" />
     <Compile Include="Serial.cs" />

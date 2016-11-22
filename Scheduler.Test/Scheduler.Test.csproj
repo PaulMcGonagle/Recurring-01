@@ -92,6 +92,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CompositeScheduleTests.cs" />
     <Compile Include="SerialsTests.cs" />
     <Compile Include="SerialTests.cs" />
     <Compile Include="Repeating\ByDayOfMonthTests.cs" />
@@ -107,6 +108,10 @@
     <Compile Include="YearMonthTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\TestData.csproj">
+      <Project>{86c11284-0c67-4a55-81fb-b4f82083eb6c}</Project>
+      <Name>TestData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Scheduler\Scheduler.csproj">
       <Project>{3189f8e6-b2ab-4b6e-8f28-756372c7644e}</Project>
       <Name>Scheduler</Name>

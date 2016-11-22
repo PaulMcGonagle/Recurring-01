@@ -60,8 +60,7 @@ namespace Scheduler.Test
                     new ByWeekdays
                     {
                         Days = ScheduleTestHelper.Weekdays,
-                        DateFrom = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.September, 06),
-                        DateTo = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 19),
+                        Range = new Range(2016, YearMonth.MonthValue.September, 06, 2016, YearMonth.MonthValue.December, 19),
                     })
             };
         }

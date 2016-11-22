@@ -20,8 +20,8 @@ namespace Scheduler.ScheduleInstances
         {
             get
             {
-                if (DateFrom.HasValue)
-                    return DateFrom.Value.ToYearMonth();
+                if (Range.From.HasValue)
+                    return Range.From.Value.ToYearMonth();
 
                 var yearMonth = Clock.GetLocalYearMonth();
 
@@ -33,8 +33,8 @@ namespace Scheduler.ScheduleInstances
         {
             get
             {
-                if (DateTo.HasValue)
-                    return DateTo.Value.ToYearMonth();
+                if (Range.To.HasValue)
+                    return Range.To.Value.ToYearMonth();
 
                 var yearMonth = Clock.GetLocalYearMonth();
 

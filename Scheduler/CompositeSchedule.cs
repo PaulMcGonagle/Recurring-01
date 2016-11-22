@@ -9,6 +9,8 @@ namespace Scheduler
         public List<ISchedule> Inclusions = new Schedules();
         public List<ISchedule> Exclusions = new Schedules();
 
+        public List<Range> Breaks = new List<Range>();
+
         public CompositeSchedule()
         {
 
@@ -19,10 +21,13 @@ namespace Scheduler
             get
             {
                 var inclusions = Inclusions.SelectMany(i => i.Dates);
-
                 var exclusions = Exclusions.SelectMany(e => e.Dates);
 
-                return inclusions.Except(exclusions);
+                var list = inclusions.Exclude(exclusions);
+
+                list = list.Exclude(Breaks);
+
+                return list;
             }
         }
     }

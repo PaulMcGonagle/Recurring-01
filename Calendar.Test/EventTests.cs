@@ -38,8 +38,7 @@ namespace Calendar.Test
                                             Period = new PeriodBuilder { Minutes = 45}.Build(),
                                             Schedule = new ByWeekday
                                             {
-                                                DateFrom = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.September, 22),
-                                                DateTo = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.December, 20),
+                                                Range = new Range(2016, YearMonth.MonthValue.September, 22, 2016, YearMonth.MonthValue.December, 20),
                                                 Weekday = IsoDayOfWeek.Thursday,
                                                 Clock = fakeClock,
                                             },

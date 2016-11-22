@@ -212,8 +212,7 @@ namespace Scheduler.Test.Repeating
                                 DayOfYear = 05,
                                 Month = YearMonth.MonthValue.April,
                                 Clock = fakeClock,
-                                DateFrom = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 01),
-                                DateTo = DateTimeHelper.GetLocalDate(2020, YearMonth.MonthValue.April, 30),
+                                Range = new Range(2016, YearMonth.MonthValue.March, 01, 2020, YearMonth.MonthValue.April, 30),
                                 RollStrategy = RepeatingDay.RollStrategyType.Skip
                             },
                             Enumerable.Range(2016, 5)
