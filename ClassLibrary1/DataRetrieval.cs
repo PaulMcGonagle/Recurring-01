@@ -62,6 +62,26 @@ namespace TestData
                         }
                     },
                     {
+                        "Schools.Term.201617.Winter",
+                        new ByWeekdays
+                        {
+                            Range = new Range(
+                                Dates["Schools.Term.201617.Winter.Start"],
+                                Dates["Schools.Term.201617.Winter.End"]),
+                            Days = DayRanges["Weekdays"],
+                        }
+                    },
+                    {
+                        "Schools.Term.201617.Summer",
+                        new ByWeekdays
+                        {
+                            Range = new Range(
+                                Dates["Schools.Term.201617.Summer.Start"],
+                                Dates["Schools.Term.201617.Summer.End"]),
+                            Days = DayRanges["Weekdays"],
+                        }
+                    },
+                    {
                         "BankHolidays.2016.NewYearsDay",
                         new SingleDay {Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 01)}
                     },
@@ -134,6 +154,14 @@ namespace TestData
                     {
                         "Schools.Term.201617.Autumn.HalfTerm",
                         new Range(Dates["Schools.Term.201617.Autumn.HalfTerm.Start"], Dates["Schools.Term.201617.Autumn.HalfTerm.End"])
+                    },
+                    {
+                        "Schools.Term.201617.Winter.HalfTerm",
+                        new Range(Dates["Schools.Term.201617.Winter.HalfTerm.Start"], Dates["Schools.Term.201617.Winter.HalfTerm.End"])
+                    },
+                    {
+                        "Schools.Term.201617.Summer.HalfTerm",
+                        new Range(Dates["Schools.Term.201617.Summer.HalfTerm.Start"], Dates["Schools.Term.201617.Summer.HalfTerm.End"])
                     },
                 };
 
@@ -213,15 +241,15 @@ namespace TestData
                 },
                 {
                     "Schools.Term.201617.Summer.HalfTerm.Start",
-                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.February, 24)
+                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.May, 26)
                 },
                 {
                     "Schools.Term.201617.Summer.HalfTerm.End",
-                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.March, 01)
+                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.June, 03)
                 },
                 {
                     "Schools.Term.201617.Summer.End",
-                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.April, 10)
+                    DateTimeHelper.GetLocalDate(2017, YearMonth.MonthValue.July, 17)
                 },
                 {
                     "Schools.Term.201718.Autumn.Start",

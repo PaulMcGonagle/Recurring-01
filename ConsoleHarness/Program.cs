@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Scheduler;
+using Scheduler.ScheduleInstances;
 using static System.Console;
 
 namespace ConsoleHarness
@@ -31,14 +32,24 @@ namespace ConsoleHarness
             var x =
                 new Scheduler.CompositeSchedule()
                 {
-
                     Inclusions = new List<ISchedule>
                     {
                         TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Autumn"],
+                        TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Winter"],
+                        TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Summer"],
+                    },
+                    Exclusions = new List<ISchedule>
+                    {
+                        TestData.DataRetrieval.ScheduleArchive["BankHolidays"],
                     }
                 };
 
-            x.Breaks.Add(TestData.DataRetrieval.Ranges["Schools.Term.201617.Autumn.HalfTerm"]);
+            x.Breaks = new List<Range>
+            {
+                TestData.DataRetrieval.Ranges["Schools.Term.201617.Autumn.HalfTerm"],
+                TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter.HalfTerm"],
+                TestData.DataRetrieval.Ranges["Schools.Term.201617.Summer.HalfTerm"],
+            };
 
             DisplayGrid(x.Dates);
 

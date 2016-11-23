@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using NodaTime;
 
 namespace Scheduler
@@ -17,6 +18,9 @@ namespace Scheduler
 
         public Range(LocalDate from, LocalDate to)
         {
+            if (from > to)
+                throw new ArgumentOutOfRangeException(nameof(from), $"From date [{to.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than To date [{from.ToString("D", CultureInfo.CurrentCulture)}]");
+
             From = from;
             To = to;
         }
