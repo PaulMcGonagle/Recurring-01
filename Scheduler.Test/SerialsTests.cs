@@ -30,7 +30,7 @@ namespace Scheduler.Test
                                     {
                                         Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.March, 05),
                                     },
-                                    TimeStart = new LocalTime(12, 35),
+                                    From = new LocalTime(12, 35),
                                     TimeZoneProvider = timeZoneProvider,
                                     Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build(),
                                 },
@@ -40,7 +40,7 @@ namespace Scheduler.Test
                                     {
                                         Date = DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.August, 01),
                                     },
-                                    TimeStart = new LocalTime(09, 20),
+                                    From = new LocalTime(09, 20),
                                     TimeZoneProvider = timeZoneProvider,
                                     Period = new PeriodBuilder {Hours = 20, Minutes = 45}.Build(),
                                 },
@@ -96,7 +96,7 @@ namespace Scheduler.Test
                         {
                             new Serial
                             {
-                                TimeStart = new LocalTime(15, 30),
+                                From = new LocalTime(15, 30),
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                                 TimeZoneProvider = timeZoneProvider,
                             },
@@ -109,13 +109,13 @@ namespace Scheduler.Test
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                                 TimeZoneProvider = timeZoneProvider,
                             },
-                            "TimeStart"
+                            "From"
                         },
                         {
                             new Serial
                             {
                                 Schedule = new DateList { Items = new List<LocalDate>(), },
-                                TimeStart = new LocalTime(15, 30),
+                                From = new LocalTime(15, 30),
                                 TimeZoneProvider = timeZoneProvider,
                             },
                             "Period"
@@ -124,7 +124,7 @@ namespace Scheduler.Test
                             new Serial
                             {
                                 Schedule = new DateList { Items = new List<LocalDate>(), },
-                                TimeStart = new LocalTime(15, 30),
+                                From = new LocalTime(15, 30),
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                             },
                             "TimeZoneProvider"

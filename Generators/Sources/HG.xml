@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<generators>
+  <generator title="Hampden Gurney School Term">
+    <tags>
+      <tag id="type">School</tag>
+    </tags>
+    <terms>
+      <term title="Autumn">
+        <tags>
+          <tag id="year">2016/17</tag>
+        </tags>
+        <daterange>
+          <start>2016-09-02</start>
+          <end>2016-12-21</end>
+        </daterange>
+        <break name="half-term">
+          <daterange start="2016-10-26" end="2016-11-02"/>
+        </break>
+      </term>
+      <term title="Winter">
+        <tags>
+          <tag id="year">2016/17</tag>
+        </tags>
+        <daterange start="2017-01-05" end="2017-03-28"/>
+        <breaks>
+          <break name="half-term">
+            <daterange start="2017-02-25" end="2017-03-02"/>
+          </break>
+        </breaks>
+      </term>
+    </terms>
+    <sessions>
+      <session name="9am">
+        <timerange start="09:00" end="10:00"/>
+      </session>
+      <session name="9am double">
+        <timerange start="09:00" end="10:00"/>
+      </session>
+      <session name="10am">
+        <timerange start="10:00" end="10:30"/>
+      </session>
+      <session name="10:30am">
+        <timerange start="10:00" end="10:30"/>
+      </session>
+      <session name="Morning playtime">
+        <timerange start="10:50" end="11:05"/>
+      </session>
+      <session name="11:05am">
+        <timerange start="11:05" end="12:00"/>
+      </session>
+      <session name="Lunch">
+        <timerange start="12:00" end="13:00"/>
+      </session>
+      <session name="1pm">
+        <timerange start="13:00" end="14:00"/>
+      </session>
+      <session name="1pm double">
+        <timerange start="13:00" end="14:30"/>
+      </session>
+      <session name="2pm">
+        <timerange start="14:00" end="14:30"/>
+      </session>
+      <session name="Afternoon playtime">
+        <timerange start="14:30" end="14:45"/>
+      </session>
+      <session name="2:45pm">
+        <timerange start="14:45" end="15:30"/>
+      </session>
+    </sessions>
+    <times>
+      <time name="Start of day">09:00</time>
+      <time name="End of day">15:30</time>
+    </times>
+    <classes>
+      <class name="Playtime">
+        <schedules>
+          <schedule session="Morning playtime">
+            <weekdays>
+              <weekday>Monday</weekday>
+              <weekday>Tuesday</weekday>
+              <weekday>Wednesday</weekday>
+              <weekday>Thursday</weekday>
+              <weekday>Friday</weekday>
+            </weekdays>
+          </schedule>
+        </schedules>
+      </class>
+      <class name="Lunchtime">
+        <schedules>
+          <schedule session="Lunchtime">
+            <weekdays>
+              <weekday>Monday</weekday>
+              <weekday>Tuesday</weekday>
+              <weekday>Wednesday</weekday>
+              <weekday>Thursday</weekday>
+              <weekday>Friday</weekday>
+            </weekdays>
+          </schedule>
+        </schedules>
+      </class>
+      <class name="Literacy">
+        <schedules>
+          <schedule session="9am">
+            <weekdays>
+              <weekday>Monday</weekday>
+              <weekday>Tuesday</weekday>
+              <weekday>Wednesday</weekday>
+              <weekday>Friday</weekday>
+            </weekdays>
+          </schedule>
+        </schedules>
+      </class>
+      <class name="Guided Reading">
+        <schedules>
+          <schedule session="10am">
+            <weekdays>
+              <weekday>Monday</weekday>
+              <weekday>Tuesday</weekday>
+              <weekday>Wednesday</weekday>
+            </weekdays>
+          </schedule>
+          <schedule weekday="Friday">
+            <timerange>
+              <start>10:00</start>
+              <end>10:25</end>
+            </timerange>
+          </schedule>
+        </schedules>
+      </class>
+      <class name="Assembly">
+        <schedules>
+          <schedule session="10:30am">
+            <weekdays>
+              <weekday>Monday</weekday>
+              <weekday>Tuesday</weekday>
+              <weekday>Wednesday</weekday>
+            </weekdays>
+          </schedule>
+          <schedule weekday="Friday">
+            <timerange>
+              <start>10:25</start>
+              <end>10:50</end>
+            </timerange>
+          </schedule>
+        </schedules>
+      </class>
+      <class name="Mass">
+        <schedules>
+          <schedule session="10:30am" weekday="Thursday"/>
+        </schedules>
+      </class>
+      <class name="Assembly">
+        <schedules>
+          <schedule weekday="Friday">
+            <timerange>
+              <start>10:25</start>
+              <end>10:50</end>
+            </timerange>
+          </schedule>
+        </schedules>
+      </class>
+      <class name="Numeracy">
+        <schedules>
+          <schedule session="11:05am">
+            <weekdays>
+              <weekday>Monday</weekday>
+              <weekday>Wednesday</weekday>
+              <weekday>Thursday</weekday>
+              <weekday>Friday</weekday>
+            </weekdays>
+          </schedule>
+          <schedule session="1pm" weekday="Tuesday"/>
+        </schedules>
+      </class>
+      <class name="Music">
+        <schedules>
+          <schedule session="11:05am" weekday="Tuesday"/>
+        </schedules>
+      </class>
+      <class name="Science">
+        <schedules>
+          <schedule session="1pm" weekday="Monday"/>
+        </schedules>
+      </class>
+      <class name="PE">
+        <schedules>
+          <schedule session="1pm" weekday="Wednesday"/>
+        </schedules>
+      </class>
+      <class name="History">
+        <schedules>
+          <schedule session="1pm" weekday="Friday"/>
+        </schedules>
+      </class>
+      <class name="RE">
+        <schedules>
+          <schedule session="2pm" weekday="Tuesday"/>
+        </schedules>
+      </class>
+      <class name="Spanish">
+        <schedules>
+          <schedule session="2:45pm" weekday="Monday"/>
+        </schedules>
+      </class>
+      <class name="ICT">
+        <schedules>
+          <schedule session="2:45pm" weekday="Tuesday"/>
+        </schedules>
+      </class>
+      <class name="Library">
+        <schedules>
+          <schedule session="2:45pm" weekday="Wednesday"/>
+        </schedules>
+      </class>
+      <class name="PSHCE">
+        <schedules>
+          <schedule session="2:45pm" weekday="Thursday"/>
+        </schedules>
+      </class>
+      <class name="Other">
+        <schedules>
+          <schedule session="2:45pm" weekday="Friday"/>
+        </schedules>
+      </class>
+    </classes>
+  </generator>
+</generators>

@@ -2,18 +2,30 @@
 using NodaTime;
 using System.Linq;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Scheduler.ScheduleInstances
 {
     public class ByWeekday : ScheduleAbstracts.Repeating
     {
         public IsoDayOfWeek Weekday;
-        public IClock Clock;
+        private IClock _clock;
 
         public ByWeekday()
         {
             CountFromDefault = 0;
             CountToDefault = 52;
+        }
+
+        public IClock Clock
+        {
+            // ToDo instantiate _clock using IOC
+            get { return _clock ?? (_clock = SystemClock.Instance); }
+
+            set
+            {
+                _clock = value;
+            }
         }
 
         public override IEnumerable<LocalDate> Dates

@@ -1,10 +1,15 @@
 ﻿using NodaTime;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using Newtonsoft.Json;
 using Scheduler;
 using Scheduler.ScheduleInstances;
 using static System.Console;
+using NodaTime.Serialization.JsonNet;
+using NodaTime.Testing;
+using Calendar = System.Globalization.Calendar;
 
 namespace ConsoleHarness
 {
@@ -29,65 +34,38 @@ namespace ConsoleHarness
 
         static void Main(string[] args)
         {
-            var x =
-                new Scheduler.CompositeSchedule()
+            var e = new MyCalendar.Event
+            {
+                Serials = new Serial
                 {
-                    Inclusions = new List<ISchedule>
+                    From = new LocalTime(16, 30),
+                    Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                    TimeZoneProvider = "Europe/London",
+
+                    Schedule = new CompositeSchedule()
                     {
-                        TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Autumn"],
-                        TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Winter"],
-                        TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Summer"],
-                    },
-                    Exclusions = new List<ISchedule>
-                    {
-                        TestData.DataRetrieval.ScheduleArchive["BankHolidays"],
-                    }
-                };
-
-            x.Breaks = new List<Range>
-            {
-                TestData.DataRetrieval.Ranges["Schools.Term.201617.Autumn.HalfTerm"],
-                TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter.HalfTerm"],
-                TestData.DataRetrieval.Ranges["Schools.Term.201617.Summer.HalfTerm"],
-            };
-
-            DisplayGrid(x.Dates);
-
-            ReadKey();
-        }
-
-        private static void Test1()
-        {
-            var s3 = new Scheduler.ScheduleInstances.ByDayOfMonth
-            {
-                DayOfMonth = 15,
-                Range = new Range(2015, YearMonth.MonthValue.April, 15, 2015, YearMonth.MonthValue.August, 15),
-            };
-
-            DisplayList(s3.Dates);
-
-            ReadKey();
-        }
-
-        private static void Test2()
-        {
-            var calendarEvents = new Serials
-            {
-                new Serial
-                {
-                    TimeStart = new LocalTime(15, 30),
-                    Period = new PeriodBuilder {Minutes = 15,}.Build(),
-                    Schedule = new Scheduler.ScheduleInstances.ByDayOfMonth()
-                    {
-                        DayOfMonth = 15,
+                        Inclusions = new List<ISchedule>
+                        {
+                            new ByWeekday
+                            {
+                                Range =
+                                    new Range(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January,
+                                        05),
+                                Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                Weekday = IsoDayOfWeek.Wednesday,
+                            }
+                        }
                     }
                 }
             };
 
-            var episodes = calendarEvents.First().Episodes;
 
-            var sorted = episodes.OrderByDescending(x => x.From);
-            DisplayList(sorted);
+            ReadKey();
+
+            var to2 = e.Serials.Episodes.Select(t => t.To);
+            var fo2 = e.Serials.Episodes.Select(t => t.From);
+
+            DisplayList(e.Serials.Episodes);
 
             ReadKey();
         }
@@ -128,7 +106,7 @@ namespace ConsoleHarness
             WriteLine();
         }
 
-        static void DisplayList(IEnumerable<LocalDate> dates)
+        static void DisplayList(IEnumerable<ZonedDateTime> dates)
         {
             if (dates == null)
             {
@@ -140,6 +118,23 @@ namespace ConsoleHarness
             sortedDates.Sort();
 
             foreach (var d in sortedDates)
+            {
+                WriteLine(d.ToString());
+            }
+        }
+
+        static void DisplayList(IEnumerable<LocalDateTime> dateTimes)
+        {
+            if (dateTimes == null)
+            {
+                WriteLine("empty");
+                return;
+            }
+
+            var sortedDateTimes = dateTimes.ToList();
+            sortedDateTimes.Sort();
+
+            foreach (var d in sortedDateTimes)
             {
                 WriteLine(d.ToString());
             }

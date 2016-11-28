@@ -116,11 +116,34 @@ namespace TestData
                 };
 
                 _scheduleArchive
-                    .Add("BankHolidays", new DateList
+                    .Add("BankHolidays",
+                    new DateList
                     {
                         Items = _scheduleArchive
                             .Where(s => s.Key.StartsWith("BankHolidays.2016"))
                             .SelectMany(s => s.Value.Dates)
+                    });
+
+                _scheduleArchive
+                    .Add("Example.AutumnTerm",
+                        new Scheduler.CompositeSchedule()
+                        {
+                            Inclusions = new List<ISchedule>
+                            {
+                                TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Autumn"],
+                                TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Winter"],
+                                TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Summer"],
+                            },
+                            Exclusions = new List<ISchedule>
+                            {
+                                TestData.DataRetrieval.ScheduleArchive["BankHolidays"],
+                            },
+                            Breaks = new List<Range>
+                            {
+                                TestData.DataRetrieval.Ranges["Schools.Term.201617.Autumn.HalfTerm"],
+                                TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter.HalfTerm"],
+                                TestData.DataRetrieval.Ranges["Schools.Term.201617.Summer.HalfTerm"],
+                            },
                     });
 
                 return _scheduleArchive;

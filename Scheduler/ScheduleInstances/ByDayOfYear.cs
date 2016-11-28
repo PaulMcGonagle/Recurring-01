@@ -7,13 +7,12 @@ namespace Scheduler.ScheduleInstances
 {
     public class ByDayOfYear : ScheduleAbstracts.RepeatingDay
     {
-        private int dayOfYear = 1;
-        public IClock Clock;
-        private YearMonth.MonthValue month = YearMonth.MonthValue.January;
+        private int _dayOfYear = 1;
+        private IClock _clock;
 
         public int DayOfYear
         {
-            get { return dayOfYear; }
+            get { return _dayOfYear; }
             set
             {
                 if (value < 1 || value > 31)
@@ -21,18 +20,21 @@ namespace Scheduler.ScheduleInstances
                     throw new ArgumentOutOfRangeException($"Invalid DayOfYear value '{value}'");
                 }
 
-                dayOfYear = value;
+                _dayOfYear = value;
             }
         }
 
-        public YearMonth.MonthValue Month
+        public IClock Clock
         {
-            get { return month; }
+            get { return _clock ?? (_clock = SystemClock.Instance); }
+
             set
-            { 
-                month = value;
+            {
+                _clock = value;
             }
         }
+
+        public YearMonth.MonthValue Month { get; set; } = YearMonth.MonthValue.January;
 
         protected int YearFrom
         {

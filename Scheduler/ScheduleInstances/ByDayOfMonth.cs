@@ -6,7 +6,7 @@ namespace Scheduler.ScheduleInstances
     public class ByDayOfMonth : ScheduleAbstracts.RepeatingDay
     {
         public int DayOfMonth;
-        public IClock Clock;
+        private IClock _clock;
 
         public ByDayOfMonth()
         {
@@ -14,6 +14,16 @@ namespace Scheduler.ScheduleInstances
             CountToDefault = 12;
 
             DayOfMonth = 1;
+        }
+
+        public IClock Clock
+        {
+            get { return _clock ?? (_clock = SystemClock.Instance); }
+
+            set
+            {
+                _clock = value;
+            }
         }
 
         protected YearMonth YearMonthFrom

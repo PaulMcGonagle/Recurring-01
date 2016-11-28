@@ -7,7 +7,7 @@ using Scheduler.Test;
 using TestStack.BDDfy;
 using Xunit;
 
-namespace Calendar.Test
+namespace MyCalendar.Test
 {
     public class EventTests
     {
@@ -34,7 +34,7 @@ namespace Calendar.Test
                                     {
                                         new Serial
                                         {
-                                            TimeStart = new LocalTime(16, 45),
+                                            From = new LocalTime(16, 45),
                                             Period = new PeriodBuilder { Minutes = 45}.Build(),
                                             Schedule = new ByWeekday
                                             {
@@ -77,7 +77,7 @@ namespace Calendar.Test
 
             public void ThenAllEndTimesAreCorrect(LocalTime expectedEndTime)
             {
-                _serials.Episodes.Select(e => e.End.TimeOfDay).ShouldAllBe(d => d.Equals(expectedEndTime));
+                _serials.Episodes.Select(e => e.To.TimeOfDay).ShouldAllBe(d => d.Equals(expectedEndTime));
             }
         }
         public class VerifyTimeInOtherTimeZone
@@ -107,7 +107,7 @@ namespace Calendar.Test
                                             {
                                                 Date = new LocalDate(2016, 07, 01),
                                             },
-                                        TimeStart = new LocalTime(14, 00),
+                                        From = new LocalTime(14, 00),
                                         Period = new PeriodBuilder { Minutes = 1 }.Build(),
                                         TimeZoneProvider = "Europe/London",
                                     }

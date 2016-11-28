@@ -1,14 +1,17 @@
 ﻿using NodaTime;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Scheduler.ScheduleInstances
 {
+    [DataContract]
     public class SingleDay : ISchedule
     {
         public SingleDay()
         {
         }
 
+        [DataMember]
         public LocalDate Date
         {
             get;

@@ -16,9 +16,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{67E3F3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestData", "ClassLibrary1\TestData.csproj", "{86C11284-0C67-4A55-81FB-B4F82083EB6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar", "Calendar\Calendar.csproj", "{26AA57AE-E333-4237-9178-BAE1B1D80B25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCalendar", "Calendar\MyCalendar.csproj", "{26AA57AE-E333-4237-9178-BAE1B1D80B25}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar.Test", "Calendar.Test\Calendar.Test.csproj", "{5BE7B893-5CE8-4B0A-BAB8-F70BD9450DAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generators", "Generators\Generators.csproj", "{851F7920-1E14-43B4-8EE3-62A378815151}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySerializer", "MySerializer\MySerializer.csproj", "{38134490-CB1F-4604-9880-5F21A13AA399}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +80,22 @@ Global
 		{5BE7B893-5CE8-4B0A-BAB8-F70BD9450DAA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5BE7B893-5CE8-4B0A-BAB8-F70BD9450DAA}.Release|x86.ActiveCfg = Release|Any CPU
 		{5BE7B893-5CE8-4B0A-BAB8-F70BD9450DAA}.Release|x86.Build.0 = Release|Any CPU
+		{851F7920-1E14-43B4-8EE3-62A378815151}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{851F7920-1E14-43B4-8EE3-62A378815151}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{851F7920-1E14-43B4-8EE3-62A378815151}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{851F7920-1E14-43B4-8EE3-62A378815151}.Debug|x86.Build.0 = Debug|Any CPU
+		{851F7920-1E14-43B4-8EE3-62A378815151}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{851F7920-1E14-43B4-8EE3-62A378815151}.Release|Any CPU.Build.0 = Release|Any CPU
+		{851F7920-1E14-43B4-8EE3-62A378815151}.Release|x86.ActiveCfg = Release|Any CPU
+		{851F7920-1E14-43B4-8EE3-62A378815151}.Release|x86.Build.0 = Release|Any CPU
+		{38134490-CB1F-4604-9880-5F21A13AA399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38134490-CB1F-4604-9880-5F21A13AA399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38134490-CB1F-4604-9880-5F21A13AA399}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{38134490-CB1F-4604-9880-5F21A13AA399}.Debug|x86.Build.0 = Debug|Any CPU
+		{38134490-CB1F-4604-9880-5F21A13AA399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38134490-CB1F-4604-9880-5F21A13AA399}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38134490-CB1F-4604-9880-5F21A13AA399}.Release|x86.ActiveCfg = Release|Any CPU
+		{38134490-CB1F-4604-9880-5F21A13AA399}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

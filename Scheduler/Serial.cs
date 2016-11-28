@@ -8,7 +8,7 @@ namespace Scheduler
     {
         public ISchedule Schedule;
 
-        public LocalTime? TimeStart;
+        public LocalTime? From;
         public Period Period;
         public string TimeZoneProvider;
 
@@ -19,8 +19,8 @@ namespace Scheduler
                 if (Schedule == null)
                     throw new System.ArgumentException("Schedule");
 
-                if (!TimeStart.HasValue)
-                    throw new System.ArgumentException("TimeStart");
+                if (!From.HasValue)
+                    throw new System.ArgumentException("From");
 
                 if (Period == null)
                     throw new System.ArgumentException("Period");
@@ -30,7 +30,7 @@ namespace Scheduler
 
                 return Schedule.Dates.Select(o => new Episode
                 {
-                    From = DateTimeHelper.GetZonedDateTime(o, TimeStart.Value, TimeZoneProvider),
+                    From = DateTimeHelper.GetZonedDateTime(o, From.Value, TimeZoneProvider),
                     Period = Period,
                 });
             }
