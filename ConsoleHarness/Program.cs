@@ -34,38 +34,39 @@ namespace ConsoleHarness
 
         static void Main(string[] args)
         {
-            var e = new MyCalendar.Event
-            {
-                Serials = new Serial
-                {
-                    From = new LocalTime(16, 30),
-                    Period = new PeriodBuilder { Minutes = 45 }.Build(),
-                    TimeZoneProvider = "Europe/London",
+            var a = SchemaGeneration.Generate.Go("sample");
+            //var e = new MyCalendar.Event
+            //{
+            //    Serials = new Serial
+            //    {
+            //        From = new LocalTime(16, 30),
+            //        Period = new PeriodBuilder { Minutes = 45 }.Build(),
+            //        TimeZoneProvider = "Europe/London",
 
-                    Schedule = new CompositeSchedule()
-                    {
-                        Inclusions = new List<ISchedule>
-                        {
-                            new ByWeekday
-                            {
-                                Range =
-                                    new Range(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January,
-                                        05),
-                                Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
-                                Weekday = IsoDayOfWeek.Wednesday,
-                            }
-                        }
-                    }
-                }
-            };
+            //        Schedule = new CompositeSchedule()
+            //        {
+            //            Inclusions = new List<ISchedule>
+            //            {
+            //                new ByWeekday
+            //                {
+            //                    Range =
+            //                        new Range(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January,
+            //                            05),
+            //                    Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+            //                    Weekday = IsoDayOfWeek.Wednesday,
+            //                }
+            //            }
+            //        }
+            //    }
+            //};
 
 
-            ReadKey();
+            //ReadKey();
 
-            var to2 = e.Serials.Episodes.Select(t => t.To);
-            var fo2 = e.Serials.Episodes.Select(t => t.From);
+            //var to2 = e.Serials.Episodes.Select(t => t.To);
+            //var fo2 = e.Serials.Episodes.Select(t => t.From);
 
-            DisplayList(e.Serials.Episodes);
+            //DisplayList(e.Serials.Episodes);
 
             ReadKey();
         }

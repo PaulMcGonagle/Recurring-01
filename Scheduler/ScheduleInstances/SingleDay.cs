@@ -1,17 +1,16 @@
 ﻿using NodaTime;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using ArangoDB.Client;
 
 namespace Scheduler.ScheduleInstances
 {
-    [DataContract]
-    public class SingleDay : ISchedule
+    public class SingleDay : PersitableEntity, ISchedule
     {
         public SingleDay()
         {
         }
 
-        [DataMember]
         public LocalDate Date
         {
             get;
@@ -21,6 +20,11 @@ namespace Scheduler.ScheduleInstances
         public IEnumerable<LocalDate> Dates
         {
             get { yield return Date; }
-        }        
+        }
+
+        public void Save(IArangoDatabase db)
+        {
+            Save<SingleDay>(db);
+        }
     }
 }

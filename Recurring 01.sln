@@ -24,6 +24,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generators", "Generators\Ge
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySerializer", "MySerializer\MySerializer.csproj", "{38134490-CB1F-4604-9880-5F21A13AA399}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaGeneration", "SchemaGeneration\SchemaGeneration.csproj", "{8A55C9B2-6518-4482-AF5C-D29CB81CC5F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InitialiseDatabase", "InitialiseDatabase\InitialiseDatabase.csproj", "{61F8C04C-1D89-4B7A-93D4-635730CBDB08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +100,22 @@ Global
 		{38134490-CB1F-4604-9880-5F21A13AA399}.Release|Any CPU.Build.0 = Release|Any CPU
 		{38134490-CB1F-4604-9880-5F21A13AA399}.Release|x86.ActiveCfg = Release|Any CPU
 		{38134490-CB1F-4604-9880-5F21A13AA399}.Release|x86.Build.0 = Release|Any CPU
+		{8A55C9B2-6518-4482-AF5C-D29CB81CC5F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A55C9B2-6518-4482-AF5C-D29CB81CC5F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A55C9B2-6518-4482-AF5C-D29CB81CC5F8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8A55C9B2-6518-4482-AF5C-D29CB81CC5F8}.Debug|x86.Build.0 = Debug|Any CPU
+		{8A55C9B2-6518-4482-AF5C-D29CB81CC5F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A55C9B2-6518-4482-AF5C-D29CB81CC5F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A55C9B2-6518-4482-AF5C-D29CB81CC5F8}.Release|x86.ActiveCfg = Release|Any CPU
+		{8A55C9B2-6518-4482-AF5C-D29CB81CC5F8}.Release|x86.Build.0 = Release|Any CPU
+		{61F8C04C-1D89-4B7A-93D4-635730CBDB08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61F8C04C-1D89-4B7A-93D4-635730CBDB08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61F8C04C-1D89-4B7A-93D4-635730CBDB08}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{61F8C04C-1D89-4B7A-93D4-635730CBDB08}.Debug|x86.Build.0 = Debug|Any CPU
+		{61F8C04C-1D89-4B7A-93D4-635730CBDB08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61F8C04C-1D89-4B7A-93D4-635730CBDB08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61F8C04C-1D89-4B7A-93D4-635730CBDB08}.Release|x86.ActiveCfg = Release|Any CPU
+		{61F8C04C-1D89-4B7A-93D4-635730CBDB08}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,6 +8,8 @@ namespace MyCalendar
 {
     public class Event
     {
+        public string Key { get; set; }
+
         public string Title { get; set; }
         public string Location { get; set; }
 

@@ -1,10 +1,11 @@
 ﻿using NodaTime;
 using System.Collections.Generic;
 using System.Linq;
+using ArangoDB.Client;
 
 namespace Scheduler.ScheduleInstances
 {
-    public class DateList : ISchedule
+    public class DateList : PersitableEntity, ISchedule
     {
         public DateList()
         {
@@ -17,5 +18,10 @@ namespace Scheduler.ScheduleInstances
         }
 
         public IEnumerable<LocalDate> Dates => Items.ToList();
+
+        public void Save(IArangoDatabase db)
+        {
+            Save<DateList>(db);
+        }
     }
 }

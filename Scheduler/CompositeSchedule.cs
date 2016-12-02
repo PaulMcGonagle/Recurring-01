@@ -1,17 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using ArangoDB.Client;
 using NodaTime;
 
 namespace Scheduler
 {
-    [DataContract]
-    public class CompositeSchedule : ISchedule
+    public class CompositeSchedule : PersitableEntity, ISchedule
     {
         public List<ISchedule> Inclusions = new Schedules();
-        [DataMember]
         public List<ISchedule> Exclusions = new Schedules();
-        [DataMember]
         public List<Range> Breaks = new List<Range>();
 
         public CompositeSchedule()
@@ -32,6 +30,11 @@ namespace Scheduler
 
                 return list;
             }
+        }
+
+        public void Save(IArangoDatabase db)
+        {
+            Save<CompositeSchedule>(db);
         }
     }
 }
