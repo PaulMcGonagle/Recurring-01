@@ -7,6 +7,7 @@ using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
 using Scheduler.ScheduleInstances;
+using Event = Calendar.Event;
 
 namespace SchemaGeneration
 {
@@ -29,7 +30,7 @@ namespace SchemaGeneration
                 ///////////////////// insert and update documents /////////////////////////
                 //db.CreateCollection("Event");
 
-                var e = new MyCalendar.Event
+                var e = new Event
                 {
                     Location = "here",
                     Serials = new Serial
@@ -57,15 +58,15 @@ namespace SchemaGeneration
 
 
                 // insert new document and creates 'Person' collection on the fly
-                db.Insert<MyCalendar.Event>(e);
+                db.Insert<Event>(e);
 
                 e.Title = "new title";
 
                 // partially updates person, only 'Age' attribute will be updated
-                await db.UpdateAsync<MyCalendar.Event>(e);
+                await db.UpdateAsync<Event>(e);
 
                 // returns 27
-                string location = db.Query<MyCalendar.Event>()
+                string location = db.Query<Event>()
                                   .Where(p => AQL.Contains(p.Title, "new title"))
                                   .Select(p => p.Location)
                                   .FirstOrDefault();

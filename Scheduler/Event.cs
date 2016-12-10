@@ -1,12 +1,35 @@
-﻿using ArangoDB.Client;
+﻿using System.Runtime.Serialization;
+using ArangoDB.Client;
 
 namespace Scheduler
 {
-    public class Event : PersitableEntity
+    public class Event : PersistableEntity
     {
-        public string Title { get; set; }
-        public string Location { get; set; }
+        private string _location;
 
+        public string Location
+        {
+            get { return _location; }
+            set
+            {
+                _location = value;
+                SetDirty();
+            }
+        }
+
+        private string _title;
+
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                SetDirty();
+            }
+        }
+
+        [IgnoreDataMember]
         public Scheduler.ISerial Serials { get; set; }
 
         public void Save(IArangoDatabase db)

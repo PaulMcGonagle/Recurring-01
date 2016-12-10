@@ -43,10 +43,47 @@ namespace InitialiseDatabase
             
             using (var db = ArangoDatabase.CreateWithSetting())
             {
-                var collectionNames = db.ListCollections().Select(s => s.Name);
+                var collectionNames = db.ListCollections().Select(s => s.Name).ToArray();
 
                 if (!collectionNames.Contains($"Event"))
                     db.CreateCollection("Event");
+
+                if (!collectionNames.Contains($"Profile"))
+                    db.CreateCollection("Profile");
+
+                if (!collectionNames.Contains($"Organisation"))
+                    db.CreateCollection("Organisation");
+
+                new Scheduler.Users.Profile
+                {
+                    Forename = "Paul",
+                    Surname = "McGonagle",
+                    Email = "paul@anemail.com",
+                    TimeZoneProvider = "Europe/London",
+                }.Save(db);
+
+                new Scheduler.Users.Profile
+                {
+                    Forename = "A",
+                    Surname = "Dancer",
+                    Email = "a.dancer@thestage.com",
+                    TimeZoneProvider = "Europe/Paris",
+                }.Save(db);
+
+                new Scheduler.Users.Organisation
+                {
+                    Title = "Hampden Gurney Primary School",
+                }.Save(db);
+
+                new Scheduler.Users.Organisation
+                {
+                    Title = "Sylvia Young Theatre School",
+                }.Save(db);
+
+                new Scheduler.Users.Organisation
+                {
+                    Title = "Lord Cricket Academy",
+                }.Save(db);
 
                 var e = new Scheduler.Event
                 {
@@ -82,13 +119,17 @@ namespace InitialiseDatabase
                 e.Save(db);
 
                 // returns 27
-                string location = db.Query<Event>()
-                                  .Where(p => AQL.Contains(p.Title, "new title"))
-                                  .Select(p => p.Location)
-                                  .FirstOrDefault();
+                var entity = db
+                    .Query<Event>()
+                    .FirstOrDefault(p => AQL.Contains(p.Title, "new title"));
+
+                entity?.SetToDelete();
+
+                entity?.Save(db);
 
                 /////////////////////// aql modification queries ////////////////////////////
 
+                
                 //
             }
         }

@@ -5,7 +5,7 @@ using ArangoDB.Client;
 
 namespace Scheduler.ScheduleInstances
 {
-    public class SingleDay : PersitableEntity, ISchedule
+    public class SingleDay : PersistableEntity, ISchedule
     {
         public SingleDay()
         {

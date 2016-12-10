@@ -6,7 +6,7 @@ using NodaTime;
 
 namespace Scheduler
 {
-    public class CompositeSchedule : PersitableEntity, ISchedule
+    public class CompositeSchedule : PersistableEntity, ISchedule
     {
         public List<ISchedule> Inclusions = new Schedules();
         public List<ISchedule> Exclusions = new Schedules();

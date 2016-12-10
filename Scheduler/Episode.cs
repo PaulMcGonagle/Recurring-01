@@ -5,10 +5,31 @@ using NodaTime;
 
 namespace Scheduler
 {
-    public class Episode : PersitableEntity, IComparable
+    public class Episode : PersistableEntity, IComparable
     {
-        public ZonedDateTime From;
-        public Period Period;
+        private ZonedDateTime _from;
+        public ZonedDateTime From
+        {
+            get { return _from; }
+            set
+            {
+                _from = value;
+                SetDirty();
+            }
+        }
+
+        private Period _period;
+
+        public Period Period
+        {
+            get { return _period; }
+            set
+            {
+                _period = value;
+                SetDirty();
+            }
+        }
+
         [IgnoreDataMember]
         public ZonedDateTime To => From.Plus(Period.ToDuration());
 

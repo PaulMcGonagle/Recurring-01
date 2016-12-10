@@ -7,7 +7,7 @@ using Scheduler.ScheduleInstances;
 
 namespace Scheduler.ScheduleAbstracts
 {
-    public abstract class Repeating : PersitableEntity, ISchedule
+    public abstract class Repeating : PersistableEntity, ISchedule
     {
         public Range Range;
         public int? CountFrom;
