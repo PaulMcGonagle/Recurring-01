@@ -28,7 +28,7 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public override IEnumerable<LocalDate> Dates
+        public override IEnumerable<Scheduler.Date> Dates
         {
             get
             {
@@ -43,15 +43,15 @@ namespace Scheduler.ScheduleInstances
 
                 var startDay = localDate.PlusDays(-offset);
 
-                var results = new List<LocalDate>
+                var results = new List<Scheduler.Date>
                 {
-                    startDay
+                    new Scheduler.Date(startDay)
                 };
 
                 var r = Enumerable.Range(1, CountFromDefault);
-                results.AddRange(r.Select(o => startDay.PlusWeeks(-o)));
+                results.AddRange(r.Select(o => new Scheduler.Date(startDay.PlusWeeks(-o))));
                 var s = Enumerable.Range(1, CountToDefault);
-                results.AddRange(s.Select(o => startDay.PlusWeeks(o)));
+                results.AddRange(s.Select(o => new Scheduler.Date(startDay.PlusWeeks(o))));
 
                 results.Sort();
 

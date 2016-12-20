@@ -16,7 +16,7 @@ namespace Scheduler.Test
         public class VerifyExclusionsAreExcluded
         {
             CompositeSchedule _sut;
-            private IEnumerable<LocalDate> _dates;
+            private IEnumerable<Scheduler.Date> _dates;
 
             [Fact]
             public void Execute()
@@ -32,8 +32,8 @@ namespace Scheduler.Test
                                     {
                                         Items =
                                             DateTimeHelper.Range(
-                                                DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 01),
-                                                DateTimeHelper.GetLocalDate(2018, YearMonth.MonthValue.December, 31)
+                                                new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
+                                                new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
                                             ).ToList(),
                                     },
                                 },
@@ -43,15 +43,15 @@ namespace Scheduler.Test
                                     {
                                         Items =
                                             DateTimeHelper.Range(
-                                                DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 01),
-                                                DateTimeHelper.GetLocalDate(2018, YearMonth.MonthValue.December, 31)
+                                                new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
+                                                new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
                                             )
                                             .Where(d => d.IsoDayOfWeek == IsoDayOfWeek.Monday).ToList(),
                                     },
                                 },
                             },
-                            DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 01),
-                            DateTimeHelper.GetLocalDate(2018, YearMonth.MonthValue.December, 30),
+                            new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
+                            new Scheduler.Date(2018, YearMonth.MonthValue.December, 30),
                             new List<IsoDayOfWeek>
                             {
                                 IsoDayOfWeek.Monday,
@@ -71,14 +71,20 @@ namespace Scheduler.Test
                 _dates = _sut.Dates;
             }
 
-            public void ThenTheFirstDateIs(LocalDate expectedFirstDate)
+            public void ThenTheFirstDateIs(Scheduler.Date expectedFirstDate)
             {
-                _dates.Min().ShouldBe(expectedFirstDate);
+                _dates
+                    .Select(d => d.Value)
+                    .Min()
+                    .ShouldBe(expectedFirstDate.Value);
             }
 
-            public void AndThenTheLastDateIs(LocalDate expectedLastDate)
+            public void AndThenTheLastDateIs(Scheduler.Date expectedLastDate)
             {
-                _dates.Max().ShouldBe(expectedLastDate);
+                _dates
+                    .Select(d => d.Value)
+                    .Max()
+                    .ShouldBe(expectedLastDate.Value);
             }
 
             public void AndTheseDaysShouldNotAppear(IEnumerable<IsoDayOfWeek> excludedIsoDayOfWeeks)

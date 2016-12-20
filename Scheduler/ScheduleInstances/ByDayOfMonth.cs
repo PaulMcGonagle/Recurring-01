@@ -30,8 +30,8 @@ namespace Scheduler.ScheduleInstances
         {
             get
             {
-                if (Range.From.HasValue)
-                    return Range.From.Value.ToYearMonth();
+                if (Range?.From != null)
+                    return new Scheduler.Date(Range.From.Value).ToYearMonth();
 
                 var yearMonth = Clock.GetLocalYearMonth();
 
@@ -43,8 +43,8 @@ namespace Scheduler.ScheduleInstances
         {
             get
             {
-                if (Range.To.HasValue)
-                    return Range.To.Value.ToYearMonth();
+                if (Range?.To != null)
+                    return new Scheduler.Date(Range.To.Value).ToYearMonth();
 
                 var yearMonth = Clock.GetLocalYearMonth();
 
@@ -52,17 +52,17 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public override IEnumerable<LocalDate> Dates
+        public override IEnumerable<Scheduler.Date> Dates
         {
             get
             {
-                var o = new List<LocalDate>();
+                var o = new List<Scheduler.Date>();
 
                 var yearMonths = YearMonth.Range(YearMonthFrom, YearMonthTo, Increment);
 
                 foreach (var yearMonth in yearMonths)
                 {
-                    LocalDate localDate;
+                    Scheduler.Date localDate;
 
                     if (yearMonth.TryToLocalDate(DayOfMonth, out localDate, RollStrategy))
                     {

@@ -11,7 +11,7 @@ namespace Scheduler.Test
     public class HolidaysExclusionTest
     {
         private CompositeSchedule _term;
-        private IEnumerable<LocalDate> _holidays;
+        private IEnumerable<Scheduler.Date> _holidays;
 
         [Fact]
         public void RunExamplesWithFluentApi()
@@ -21,7 +21,7 @@ namespace Scheduler.Test
             this.WithExamples(new ExampleTable("term", "holidays")
                 {
                     {   t, ScheduleTestHelper.BankHolidays },
-                    {   t, ScheduleTestHelper.BankHolidays.Where(b => b.Year == 2016) },
+                    {   t, ScheduleTestHelper.BankHolidays.Where(b => b.Value.Year == 2016) },
                 })
                 .BDDfy();
         }
@@ -31,7 +31,7 @@ namespace Scheduler.Test
             _term = term;
         }
 
-        public void WhenThereAreSomeHolidays(IEnumerable<LocalDate> holidays)
+        public void WhenThereAreSomeHolidays(IEnumerable<Scheduler.Date> holidays)
         {
             _holidays = holidays;
 
@@ -41,7 +41,7 @@ namespace Scheduler.Test
         public void ThenThereShouldBeNoWeekendDays()
         {
             _term.Dates
-                .Where(o => ScheduleTestHelper.WeekendDays.Contains(o.IsoDayOfWeek))
+                .Where(o => ScheduleTestHelper.WeekendDays.Contains(o.Value.IsoDayOfWeek))
                 .ShouldBeEmpty();
         }
 

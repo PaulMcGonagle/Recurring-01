@@ -13,7 +13,7 @@ namespace Scheduler.Test.Repeating
         public class ValidateRollStrategy
         {
             private ByDayOfMonth _sut;
-            private IEnumerable<LocalDate> _dates;
+            private IEnumerable<Scheduler.Date> _dates;
 
             [Fact]
             public void Execute()
@@ -36,7 +36,7 @@ namespace Scheduler.Test.Repeating
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Forward
                             },
                             Enumerable.Range(0, 03)
-                                .Select(i => DateTimeHelper.GetLocalDate(yearLeap, baseMonth, 28).PlusMonths(-2 + i))
+                                .Select(i => new Scheduler.Date(yearLeap, baseMonth, 28).PlusMonths(-2 + i))
                         },
 
                         {
@@ -48,13 +48,13 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Back
                             },
-                            new List<LocalDate>
+                            new List<Scheduler.Date>
                             {
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.January, 30),
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.February, 28),
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.March, 30),
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.April, 30),
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.May, 30),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.January, 30),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.February, 28),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.March, 30),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.April, 30),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.May, 30),
                             }
                         },
 
@@ -67,12 +67,12 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Skip
                             },
-                            new List<LocalDate>
+                            new List<Scheduler.Date>
                             {
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.January, 29),
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.March, 29),
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.April, 29),
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.May, 29),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.January, 29),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.March, 29),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.April, 29),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.May, 29),
                             }
                         },
 
@@ -85,13 +85,13 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Forward
                             },
-                            new List<LocalDate>
+                            new List<Scheduler.Date>
                             {
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.January, 29),
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.March, 01),
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.March, 29),
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.April, 29),
-                                DateTimeHelper.GetLocalDate(yearLeap, YearMonth.MonthValue.May, 29),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.January, 29),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.March, 01),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.March, 29),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.April, 29),
+                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.May, 29),
                             }
                         },
                     })
@@ -109,17 +109,11 @@ namespace Scheduler.Test.Repeating
             }
 
             public void ThenAllDatesShouldBeExpected(
-                IEnumerable<LocalDate> expectedDates)
+                IEnumerable<Scheduler.Date> expectedDates)
             {
                 _dates
-                    .ShouldBeSubsetOf(expectedDates);
-            }
-
-            public void AndThenAllDatesShouldBeAsExpected(
-                IEnumerable<LocalDate> expectedDates)
-            {
-                expectedDates
-                    .ShouldBeSubsetOf(_dates);
+                    .Select(d => d.Value)
+                    .ShouldBe(expectedDates.Select(e => e.Value));
             }
         }
     }

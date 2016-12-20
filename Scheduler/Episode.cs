@@ -36,7 +36,13 @@ namespace Scheduler
         int IComparable.CompareTo(object obj)
         {
             var c = (Episode)obj;
-            return From.CompareTo(c.From);
+
+            var fromCompare = From.CompareTo(c.From);
+
+            if (fromCompare != 0)
+                return fromCompare;
+
+            return Period.Ticks.CompareTo(c.Period.Ticks);
         }
 
         public override string ToString()
@@ -44,9 +50,9 @@ namespace Scheduler
             return From.ToString() + " " + To.ToString();
         }
 
-        public void Save(IArangoDatabase db)
+        public SaveResult Save(IArangoDatabase db)
         {
-            Save<Episode>(db);
+            return Save<Episode>(db);
         }
     }
 }

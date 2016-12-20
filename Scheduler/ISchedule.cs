@@ -5,8 +5,8 @@ using ArangoDB.Client;
 
 namespace Scheduler
 {
-    public interface ISchedule : IPersistableEntry
+    public interface ISchedule
     {
-        IEnumerable<LocalDate> Dates { get; }
+        IEnumerable<Date> Dates { get; }
     }
 }

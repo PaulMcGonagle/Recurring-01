@@ -45,14 +45,43 @@ namespace InitialiseDatabase
             {
                 var collectionNames = db.ListCollections().Select(s => s.Name).ToArray();
 
-                if (!collectionNames.Contains($"Event"))
-                    db.CreateCollection("Event");
+                if (collectionNames.Contains($"Event"))
+                {
+                    db.DropCollection("Event");
+                }
 
-                if (!collectionNames.Contains($"Profile"))
-                    db.CreateCollection("Profile");
+                db.CreateCollection("Event");
 
-                if (!collectionNames.Contains($"Organisation"))
-                    db.CreateCollection("Organisation");
+                if (collectionNames.Contains($"Profile"))
+                {
+                    db.DropCollection("Profile");
+                }
+
+                db.CreateCollection("Profile");
+
+                if (collectionNames.Contains($"Organisation"))
+                {
+                    db.DropCollection("Organisation");
+                }
+
+                db.CreateCollection("Organisation");
+
+                if (collectionNames.Contains($"Range"))
+                {
+                    db.DropCollection("Range");
+                }
+
+                db.CreateCollection("Range");
+
+                foreach (var range in TestData.DataRetrieval.Ranges.Values)
+                {
+                    range.Save(db);
+                }
+
+                foreach (var date in TestData.DataRetrieval.Dates)
+                {
+                    date.Value.Save(db);
+                }
 
                 new Scheduler.Users.Profile
                 {
@@ -100,9 +129,7 @@ namespace InitialiseDatabase
                             {
                                 new ByWeekday
                                 {
-                                    Range =
-                                        new Range(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January,
-                                            05),
+                                    Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter.Start"],
                                     Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
                                     Weekday = IsoDayOfWeek.Wednesday,
                                 }

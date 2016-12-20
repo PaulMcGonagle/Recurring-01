@@ -32,9 +32,9 @@ namespace Scheduler
         [IgnoreDataMember]
         public Scheduler.ISerial Serials { get; set; }
 
-        public void Save(IArangoDatabase db)
+        public SaveResult Save(IArangoDatabase db)
         {
-            Save<Event>(db);
+            return Save<Event>(db);
         }
     }
 }

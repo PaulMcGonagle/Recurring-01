@@ -27,11 +27,11 @@ namespace Scheduler.Test
                                 Schedule =
                                     new DateList()
                                     {
-                                        Items = new List<LocalDate>()
+                                        Items = new List<Scheduler.Date>()
                                         {
-                                            DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 05),
-                                            DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 06),
-                                            DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 07),
+                                            new Scheduler.Date(2016, YearMonth.MonthValue.January, 05),
+                                            new Scheduler.Date(2016, YearMonth.MonthValue.January, 06),
+                                            new Scheduler.Date(2016, YearMonth.MonthValue.January, 07),
                                         },
                                     },
                                 From = new LocalTime(15, 30),
@@ -42,18 +42,18 @@ namespace Scheduler.Test
                             {
                                 new Episode
                                 {
-                                    From = DateTimeHelper.GetZonedDateTime(DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 05), new LocalTime(15, 30), timeZoneProvider),
+                                    From = DateTimeHelper.GetZonedDateTime(new Scheduler.Date(2016, YearMonth.MonthValue.January, 05), new LocalTime(15, 30), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build(),
 
                                 },
                                 new Episode
                                 {
-                                    From = DateTimeHelper.GetZonedDateTime(DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 06), new LocalTime(15, 30), timeZoneProvider),
+                                    From = DateTimeHelper.GetZonedDateTime(new Scheduler.Date(2016, YearMonth.MonthValue.January, 06), new LocalTime(15, 30), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build()
                                 },
                                 new Episode
                                 {
-                                    From = DateTimeHelper.GetZonedDateTime(DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.January, 07), new LocalTime(15, 30), timeZoneProvider),
+                                    From = DateTimeHelper.GetZonedDateTime(new Scheduler.Date(2016, YearMonth.MonthValue.January, 07), new LocalTime(15, 30), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build()
                                 },
                             }
@@ -103,7 +103,7 @@ namespace Scheduler.Test
                         {
                             new Serial
                             {
-                                Schedule = new DateList { Items = new List<LocalDate>(), },
+                                Schedule = new DateList { Items = new List<Scheduler.Date>(), },
                                 Period = new PeriodBuilder {Minutes = 30,}.Build(),
                                 TimeZoneProvider = timeZoneProvider,
                             },
@@ -112,7 +112,7 @@ namespace Scheduler.Test
                         {
                             new Serial
                             {
-                                Schedule = new DateList { Items = new List<LocalDate>(), },
+                                Schedule = new DateList { Items = new List<Scheduler.Date>(), },
                                 From = new LocalTime(15, 30),
                                 TimeZoneProvider = timeZoneProvider,
                             },
@@ -121,7 +121,7 @@ namespace Scheduler.Test
                         {
                             new Serial
                             {
-                                Schedule = new DateList { Items = new List<LocalDate>(), },
+                                Schedule = new DateList { Items = new List<Scheduler.Date>(), },
                                 From = new LocalTime(15, 30),
                                 Period = new PeriodBuilder {Minutes = 30,}.Build(),
                             },

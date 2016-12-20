@@ -49,12 +49,12 @@ namespace Scheduler
 
         public MonthValue Month { set; get; }
 
-        public LocalDate LocalDate
+        public Scheduler.Date Date
         {
             set
             {
-                Year = value.Year;
-                Month = value.Month.ToMonthValue();
+                Year = value.Value.Year;
+                Month = value.Value.Month.ToMonthValue();
             }
         }
 
@@ -118,11 +118,11 @@ namespace Scheduler
             return new YearMonth { MonthCount = MonthCount + months };
         } 
 
-        public LocalDate ToLocalDate(
+        public Scheduler.Date ToLocalDate(
             int day,
             RepeatingDay.RollStrategyType rollStrategyType = RepeatingDay.RollStrategyType.Skip)
         {
-            LocalDate localDate;
+            Scheduler.Date localDate;
 
             if(TryToLocalDate(day, out localDate, rollStrategyType))
             {
@@ -134,7 +134,7 @@ namespace Scheduler
 
         public bool TryToLocalDate(
             int day,
-            out LocalDate localDate, 
+            out Scheduler.Date localDate, 
             RepeatingDay.RollStrategyType rollStrategyType = RepeatingDay.RollStrategyType.Skip)
         {
             var year = Year;
@@ -143,21 +143,21 @@ namespace Scheduler
 
             if (day <= daysInMonth)
             {
-                localDate = DateTimeHelper.GetLocalDate(Year, Month, day);
+                localDate = new Scheduler.Date(Year, Month, day);
                 return true;
             }
 
             switch (rollStrategyType)
             {
                 case RepeatingDay.RollStrategyType.Back:
-                    localDate = DateTimeHelper.GetLocalDate(Year, Month, daysInMonth);
+                    localDate = new Scheduler.Date(Year, Month, daysInMonth);
                     return true;
 
                 case RepeatingDay.RollStrategyType.Forward:
                     return AddMonths(1).TryToLocalDate(1, out localDate, RepeatingDay.RollStrategyType.Throw);
 
                 default:
-                    localDate = default(LocalDate);
+                    localDate = default(Scheduler.Date);
                     return false;
             }
         }

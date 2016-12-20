@@ -39,7 +39,7 @@ namespace ConsoleHarness
             ReadKey();
         }
 
-        private static void DisplayGrid(IEnumerable<LocalDate> dates)
+        private static void DisplayGrid(IEnumerable<Scheduler.Date> dates)
         {
             if (dates == null)
             {
@@ -53,24 +53,24 @@ namespace ConsoleHarness
             var firstDate = sortedDates.First();
             var lastDate = sortedDates.Last();
 
-            var firstMonday = firstDate.PlusDays(-firstDate.DayOfWeek + 1);
+            var firstMonday = firstDate.PlusDays(-firstDate.Value.DayOfWeek + 1);
             var range = DateTimeHelper.Range(firstMonday, lastDate);
 
-            WriteLine(firstDate.DayOfWeek.ToString());
+            WriteLine(firstDate.Value.DayOfWeek.ToString());
 
             WriteLine("Year Month  Mon Tue Wed Thu Fri Sat Sun");
              
             foreach (var r in range)
             {
-                if (r.DayOfWeek == (int)DayOfWeek.Monday)
+                if (r.Value.DayOfWeek == (int)DayOfWeek.Monday)
                 {
                     WriteLine();
                     ForegroundColor = ConsoleColor.White;
-                    Write($"{r.Year:0000} {r.Month:00}   ");
+                    Write($"{r.Value.Year:0000} {r.Value.Month:00}   ");
                 }
 
                 ForegroundColor = sortedDates.Contains(r) ? ConsoleColor.White : ConsoleColor.Red;
-                Write($"  {r.Day:00}");
+                Write($"  {r.Value.Day:00}");
             }
             WriteLine();
         }

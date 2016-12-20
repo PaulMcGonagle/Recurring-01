@@ -16,11 +16,11 @@ namespace Scheduler.ScheduleAbstracts
         public int CountToDefault { get; set; }
         protected int Increment = 1;
 
-        public abstract IEnumerable<LocalDate> Dates { get; }
+        public abstract IEnumerable<Scheduler.Date> Dates { get; }
 
-        public void Save(IArangoDatabase db)
+        public SaveResult Save(IArangoDatabase db)
         {
-            Save<Repeating>(db);
+            return Save<Repeating>(db);
         }
     }
 }

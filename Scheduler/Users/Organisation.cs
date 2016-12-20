@@ -9,9 +9,9 @@ namespace Scheduler.Users
 
         public List<Event> Events { get; set; }
 
-        public void Save(IArangoDatabase db)
+        public SaveResult Save(IArangoDatabase db)
         {
-            Save<Organisation>(db);
+            return Save<Organisation>(db);
         }
     }
 }

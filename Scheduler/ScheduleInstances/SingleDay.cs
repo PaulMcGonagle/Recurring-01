@@ -11,20 +11,20 @@ namespace Scheduler.ScheduleInstances
         {
         }
 
-        public LocalDate Date
+        public Scheduler.Date Date
         {
             get;
             set;
         }
 
-        public IEnumerable<LocalDate> Dates
+        public IEnumerable<Scheduler.Date> Dates
         {
             get { yield return Date; }
         }
 
-        public void Save(IArangoDatabase db)
+        public SaveResult Save(IArangoDatabase db)
         {
-            Save<SingleDay>(db);
+            return Save<SingleDay>(db);
         }
     }
 }

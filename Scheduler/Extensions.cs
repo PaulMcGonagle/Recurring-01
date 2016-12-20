@@ -9,37 +9,42 @@ namespace Scheduler
 {
     public static class Extensions
     {
-        public static IEnumerable<LocalDate> Exclude(this IEnumerable<LocalDate> inputDates, IEnumerable<LocalDate> exclusions)
+        public static IEnumerable<Scheduler.Date> Exclude(this IEnumerable<Scheduler.Date> inputDates, IEnumerable<Scheduler.Date> exclusions)
         {
-            return inputDates.Except(exclusions);
+            foreach (var inputDate in inputDates)
+            {
+                var enumerable = exclusions as Date[] ?? exclusions.ToArray();
+                if (!enumerable.Select(e => e.Value).Contains(inputDate.Value))
+                    yield return inputDate;
+            }
         }
 
-        public static IEnumerable<LocalDate> Include(this IEnumerable<LocalDate> inputDates, IEnumerable<LocalDate> exclusions)
+        public static IEnumerable<Scheduler.Date> Include(this IEnumerable<Scheduler.Date> inputDates, IEnumerable<Scheduler.Date> exclusions)
         {
             return inputDates.Union(exclusions);
         }
 
-        public static IEnumerable<LocalDate> Exclude(this IEnumerable<LocalDate> inputDates, IEnumerable<Range> exclusions)
+        public static IEnumerable<Scheduler.Date> Exclude(this IEnumerable<Scheduler.Date> inputDates, IEnumerable<Range> exclusions)
         {
             foreach (var exclusion in exclusions)
             {
                 inputDates =
                     inputDates
-                        .Where(inputDate => !exclusion.From.HasValue || inputDate < exclusion.From.Value
-                        || !exclusion.To.HasValue || inputDate > exclusion.To.Value);
+                        .Where(inputDate => exclusion.From == null || inputDate.Value < exclusion.From.Value
+                        || exclusion.To == null || inputDate.Value > exclusion.To.Value);
             }
 
             return inputDates;
         }
 
-        public static IEnumerable<LocalDate> Include(this IEnumerable<LocalDate> inputDates, IEnumerable<Range> inclusions)
+        public static IEnumerable<Scheduler.Date> Include(this IEnumerable<Scheduler.Date> inputDates, IEnumerable<Range> inclusions)
         {
             foreach (var exclusion in inclusions)
             {
                 inputDates =
                     inputDates
-                        .Where(inputDate => !exclusion.From.HasValue || inputDate >= exclusion.From.Value
-                        || !exclusion.To.HasValue || inputDate <= exclusion.To.Value);
+                        .Where(inputDate => exclusion.From == null || inputDate.Value >= exclusion.From.Value
+                        || exclusion.To == null || inputDate.Value <= exclusion.To.Value);
             }
 
             return inputDates;

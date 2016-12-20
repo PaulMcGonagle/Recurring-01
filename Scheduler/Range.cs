@@ -1,28 +1,36 @@
 ﻿using System;
 using System.Globalization;
+using ArangoDB.Client;
 using NodaTime;
 
 namespace Scheduler
 {
-    public struct Range
+    public class Range : PersistableEntity
     {
-        public LocalDate? From { get; }
-        public LocalDate? To { get; }
+        public Scheduler.Date From { get; }
+        public Scheduler.Date To { get; }
 
         public Range(int fromYear, YearMonth.MonthValue fromMonth, int fromDay, int toYear, YearMonth.MonthValue toMonth,
             int toDay)
         {
-            From = DateTimeHelper.GetLocalDate(fromYear, fromMonth, fromDay);
-            To = DateTimeHelper.GetLocalDate(toYear, toMonth, toDay);
+            From = new Scheduler.Date(fromYear, fromMonth, fromDay);
+            To = new Scheduler.Date(toYear, toMonth, toDay);
         }
 
-        public Range(LocalDate from, LocalDate to)
+        public Range(Scheduler.Date from, Scheduler.Date to)
         {
-            if (from > to)
-                throw new ArgumentOutOfRangeException(nameof(from), $"From date [{to.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than To date [{from.ToString("D", CultureInfo.CurrentCulture)}]");
+            if (from.Value > to.Value)
+                throw new ArgumentOutOfRangeException(nameof(from), $"From date [{to.Value.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than To date [{from.Value.ToString("D", CultureInfo.CurrentCulture)}]");
 
             From = from;
             To = to;
+        }
+
+        public Range Save(IArangoDatabase db)
+        {
+            Save<Range>(db);
+
+            return this;
         }
     }
 }

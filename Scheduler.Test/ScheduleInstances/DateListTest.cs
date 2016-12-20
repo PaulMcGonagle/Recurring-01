@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Shouldly;
 using NodaTime;
 using TestStack.BDDfy;
@@ -12,7 +13,7 @@ namespace Scheduler.Test.ScheduleInstances
         public class VerifyDay
         {
             DateList _sut;
-            IEnumerable<LocalDate> _dates;
+            IEnumerable<Scheduler.Date> _dates;
 
             [Fact]
             public void Execute()
@@ -22,13 +23,13 @@ namespace Scheduler.Test.ScheduleInstances
                         {
                             new DateList
                             {
-                                Items = new List<LocalDate> {DateTimeHelper.GetLocalDate(2015, YearMonth.MonthValue.March, 17), DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.April, 25)}
+                                Items = new List<Scheduler.Date> {new Scheduler.Date(2015, YearMonth.MonthValue.March, 17), new Scheduler.Date(2016, YearMonth.MonthValue.April, 25)}
                             },
-                            new List<LocalDate> {DateTimeHelper.GetLocalDate(2015, YearMonth.MonthValue.March, 17), DateTimeHelper.GetLocalDate(2016, YearMonth.MonthValue.April, 25)}
+                            new List<Scheduler.Date> {new Scheduler.Date(2015, YearMonth.MonthValue.March, 17), new Scheduler.Date(2016, YearMonth.MonthValue.April, 25)}
                         },
                         {
-                            new DateList {Items = DateTimeHelper.Range(DateTimeHelper.GetLocalDate(2014, YearMonth.MonthValue.April, 28), 20)},
-                            DateTimeHelper.Range(DateTimeHelper.GetLocalDate(2014, YearMonth.MonthValue.April, 28), 20)
+                            new DateList {Items = DateTimeHelper.Range(new Scheduler.Date(2014, YearMonth.MonthValue.April, 28), 20)},
+                            DateTimeHelper.Range(new Scheduler.Date(2014, YearMonth.MonthValue.April, 28), 20)
                         },
                     })
                     .BDDfy();
@@ -44,9 +45,9 @@ namespace Scheduler.Test.ScheduleInstances
                 _dates = _sut.Dates;
             }
 
-            public void ThenOnlyTheseDateAreReturned(IEnumerable<LocalDate> expectedDates)
+            public void ThenOnlyTheseDateAreReturned(IEnumerable<Scheduler.Date> expectedDates)
             {
-                _dates.ShouldBe(expectedDates);
+                _dates.Select(d => d.Value).ShouldBe(expectedDates.Select(e => e.Value));
             }
         }
     }

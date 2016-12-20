@@ -15,7 +15,7 @@ namespace Scheduler.ScheduleInstances
             CountToDefault = 52;
         }
 
-        public override IEnumerable<LocalDate> Dates
+        public override IEnumerable<Scheduler.Date> Dates
         {
             get
             {

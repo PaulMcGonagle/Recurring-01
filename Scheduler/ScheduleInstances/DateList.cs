@@ -11,17 +11,17 @@ namespace Scheduler.ScheduleInstances
         {
         }
 
-        public IEnumerable<LocalDate> Items
+        public IEnumerable<Scheduler.Date> Items
         {
             get;
             set;
         }
 
-        public IEnumerable<LocalDate> Dates => Items.ToList();
+        public IEnumerable<Scheduler.Date> Dates => Items.ToList();
 
-        public void Save(IArangoDatabase db)
+        public SaveResult Save(IArangoDatabase db)
         {
-            Save<DateList>(db);
+            return Save<DateList>(db);
         }
     }
 }

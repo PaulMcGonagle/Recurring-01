@@ -13,7 +13,7 @@ namespace Scheduler.Test.Repeating
         public class VerifyDates
         {
             private ByWeekdays _sut;
-            private IEnumerable<LocalDate> _dates;
+            private IEnumerable<Scheduler.Date> _dates;
 
             [Fact]
             public void Execute()
@@ -27,8 +27,8 @@ namespace Scheduler.Test.Repeating
                                 Range = new Range(2000, YearMonth.MonthValue.April, 15, 2010, YearMonth.MonthValue.November, 28),
                             },
                             new List<IsoDayOfWeek> {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
-                            DateTimeHelper.GetLocalDate(2000, YearMonth.MonthValue.April, 15),
-                            DateTimeHelper.GetLocalDate(2010, YearMonth.MonthValue.November, 28)
+                            new Scheduler.Date(2000, YearMonth.MonthValue.April, 15),
+                            new Scheduler.Date(2010, YearMonth.MonthValue.November, 28)
                         },
                     })
                     .BDDfy();
@@ -47,18 +47,18 @@ namespace Scheduler.Test.Repeating
             public void ThenAllDatesShouldBeThisDay(List<IsoDayOfWeek> daysOfWeek)
             {
                 _dates
-                    .Select(d => d.DayOfWeek)
+                    .Select(d => d.Value.DayOfWeek)
                     .ShouldBeSubsetOf(daysOfWeek.Select(d => (int) d));
             }
 
-            public void AndThenTheFirstDateShouldBeThis(LocalDate firstDate)
+            public void AndThenTheFirstDateShouldBeThis(Scheduler.Date firstDate)
             {
                 _dates
                     .Min()
                     .ShouldBe(firstDate);
             }
 
-            public void AndThenTheLastDateShouldBeThis(LocalDate lastDate)
+            public void AndThenTheLastDateShouldBeThis(Scheduler.Date lastDate)
             {
                 _dates
                     .Max()

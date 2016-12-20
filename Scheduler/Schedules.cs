@@ -16,7 +16,7 @@ namespace Scheduler
             Add(schedule);
         }
 
-        public IEnumerable<LocalDate> Dates()
+        public IEnumerable<Date> Dates()
         {
             return this.SelectMany(d => d.Dates);
         }

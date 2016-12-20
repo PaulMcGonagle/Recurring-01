@@ -77,6 +77,10 @@
       <Project>{26aa57ae-e333-4237-9178-bae1b1d80b25}</Project>
       <Name>MyCalendar</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ClassLibrary1\TestData.csproj">
+      <Project>{86c11284-0c67-4a55-81fb-b4f82083eb6c}</Project>
+      <Name>TestData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Scheduler\Scheduler.csproj">
       <Project>{3189f8e6-b2ab-4b6e-8f28-756372c7644e}</Project>
       <Name>Scheduler</Name>

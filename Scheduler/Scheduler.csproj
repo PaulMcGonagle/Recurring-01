@@ -76,7 +76,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPersistableEntry.cs" />
+    <Compile Include="Date.cs" />
     <Compile Include="PersistableEntity.cs" />
     <Compile Include="Episode.cs" />
     <Compile Include="Event.cs" />

@@ -17,7 +17,7 @@ namespace Scheduler
 
         }
 
-        public IEnumerable<LocalDate> Dates
+        public IEnumerable<Scheduler.Date> Dates
         {
             get
             {
@@ -32,9 +32,9 @@ namespace Scheduler
             }
         }
 
-        public void Save(IArangoDatabase db)
+        public SaveResult Save(IArangoDatabase db)
         {
-            Save<CompositeSchedule>(db);
+            return Save<CompositeSchedule>(db);
         }
     }
 }

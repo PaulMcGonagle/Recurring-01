@@ -68,7 +68,9 @@ namespace MyCalendar.Test
 
             public void ThenAllSerialsHaveTheCorrectWeekday(IsoDayOfWeek expectedWeekday)
             {
-                _serials.Episodes.Select(e => e.From.DayOfWeek).ShouldAllBe(d => d.Equals((int)expectedWeekday));
+                _serials.Episodes
+                    .Select(e => e.From.DayOfWeek)
+                    .ShouldAllBe(d => d.Equals((int)expectedWeekday));
             }
 
             public void ThenAllStartTimesAresCorrect(LocalTime expectedStartTime)
@@ -106,7 +108,7 @@ namespace MyCalendar.Test
                                         Schedule = 
                                             new SingleDay
                                             {
-                                                Date = new LocalDate(2016, 07, 01),
+                                                Date = new Scheduler.Date(2016, YearMonth.MonthValue.July, 01),
                                             },
                                         From = new LocalTime(14, 00),
                                         Period = new PeriodBuilder { Minutes = 1 }.Build(),
