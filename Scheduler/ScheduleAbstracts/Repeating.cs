@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NUnit.Framework;
+using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
 
 namespace Scheduler.ScheduleAbstracts
 {
-    public abstract class Repeating : PersistableEntity, ISchedule
+    public abstract class Repeating : Vertex, ISchedule
     {
         public Range Range;
         public int? CountFrom;

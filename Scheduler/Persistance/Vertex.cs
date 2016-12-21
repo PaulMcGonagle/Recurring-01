@@ -2,9 +2,9 @@
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 
-namespace Scheduler
+namespace Scheduler.Persistance
 {
-    public abstract class PersistableEntity : IComparable
+    public abstract class Vertex : IComparable
     {
         public enum SaveResult
         {
@@ -44,7 +44,7 @@ namespace Scheduler
                 IsDirty = true;
         }
         
-        protected SaveResult Save<T>(IArangoDatabase db) where T : PersistableEntity
+        protected SaveResult Save<T>(IArangoDatabase db) where T : Vertex
         {
             if (db == null) throw new ArgumentNullException(nameof(db));
 

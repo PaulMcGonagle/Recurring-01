@@ -3,10 +3,11 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
+using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public class CompositeSchedule : PersistableEntity, ISchedule
+    public class CompositeSchedule : Vertex, ISchedule
     {
         public List<ISchedule> Inclusions = new Schedules();
         public List<ISchedule> Exclusions = new Schedules();

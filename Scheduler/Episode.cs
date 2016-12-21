@@ -2,10 +2,11 @@
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
+using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public class Episode : PersistableEntity, IComparable
+    public class Episode : Vertex, IComparable
     {
         private ZonedDateTime _from;
         public ZonedDateTime From

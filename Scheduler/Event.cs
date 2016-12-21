@@ -1,9 +1,10 @@
 ﻿using System.Runtime.Serialization;
 using ArangoDB.Client;
+using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public class Event : PersistableEntity
+    public class Event : Vertex
     {
         private string _location;
 

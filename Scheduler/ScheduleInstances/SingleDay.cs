@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using Scheduler.Persistance;
 
 namespace Scheduler.ScheduleInstances
 {
-    public class SingleDay : PersistableEntity, ISchedule
+    public class SingleDay : Vertex, ISchedule
     {
         public SingleDay()
         {

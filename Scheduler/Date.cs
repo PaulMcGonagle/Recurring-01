@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArangoDB.Client;
 using NodaTime;
+using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public class Date : PersistableEntity, IComparable
+    public class Date : Vertex, IComparable
     {
         public Date(int year, YearMonth.MonthValue month, int day)
         {

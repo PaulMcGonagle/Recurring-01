@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArangoDB.Client;
+using Scheduler.Persistance;
 
 namespace Scheduler.ScheduleInstances
 {
-    public class DateList : PersistableEntity, ISchedule
+    public class DateList : Vertex, ISchedule
     {
         public DateList()
         {

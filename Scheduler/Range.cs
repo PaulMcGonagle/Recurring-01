@@ -2,10 +2,11 @@
 using System.Globalization;
 using ArangoDB.Client;
 using NodaTime;
+using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public class Range : PersistableEntity
+    public class Range : Vertex
     {
         public Scheduler.Date From { get; }
         public Scheduler.Date To { get; }
