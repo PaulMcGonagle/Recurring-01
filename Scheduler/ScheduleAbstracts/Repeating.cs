@@ -1,4 +1,5 @@
-﻿using NodaTime;
+﻿using System;
+using NodaTime;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
@@ -8,7 +9,7 @@ using Scheduler.ScheduleInstances;
 
 namespace Scheduler.ScheduleAbstracts
 {
-    public abstract class Repeating : Vertex, ISchedule
+    public abstract class Repeating : Schedule
     {
         public Range Range;
         public int? CountFrom;
@@ -17,11 +18,18 @@ namespace Scheduler.ScheduleAbstracts
         public int CountToDefault { get; set; }
         protected int Increment = 1;
 
-        public abstract IEnumerable<Scheduler.Date> Dates { get; }
-
-        public SaveResult Save(IArangoDatabase db)
+        [IgnoreDataMember]
+        public override IEnumerable<Scheduler.Date> Dates
         {
-            return Save<Repeating>(db);
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override SaveResult Save(IArangoDatabase db)
+        {
+            throw new NotImplementedException();
         }
     }
 }

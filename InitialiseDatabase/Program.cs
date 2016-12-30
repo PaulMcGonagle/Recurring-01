@@ -9,6 +9,7 @@ using ArangoDB.Client.Data;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
+using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
 
 namespace InitialiseDatabase
@@ -45,42 +46,35 @@ namespace InitialiseDatabase
             {
                 var collectionNames = db.ListCollections().Select(s => s.Name).ToArray();
 
-                if (collectionNames.Contains($"Event"))
+                foreach (var collectionName in collectionNames)
                 {
-                    db.DropCollection("Event");
+                    db.DropCollection(collectionName);
                 }
 
                 db.CreateCollection("Event");
-
-                if (collectionNames.Contains($"Profile"))
-                {
-                    db.DropCollection("Profile");
-                }
-
                 db.CreateCollection("Profile");
-
-                if (collectionNames.Contains($"Organisation"))
-                {
-                    db.DropCollection("Organisation");
-                }
-
                 db.CreateCollection("Organisation");
-
-                if (collectionNames.Contains($"Range"))
-                {
-                    db.DropCollection("Range");
-                }
-
                 db.CreateCollection("Range");
+                db.CreateCollection("Date");
+                db.CreateCollection("Serial");
+                db.CreateCollection("Schedule");
+                db.CreateCollection("CompositeSchedule");
+                db.CreateCollection("ByDayOfMonth");
+                db.CreateCollection("ByDayOfYear");
+                db.CreateCollection("ByWeekday");
+                db.CreateCollection("ByWeekdays");
+                db.CreateCollection("DateList");
+                db.CreateCollection("SingleDay");
+                db.CreateCollection("Edge", type: CollectionType.Edge);
+
+                foreach (var date in TestData.DataRetrieval.Dates.Values)
+                {
+                    date.Save(db);
+                }
 
                 foreach (var range in TestData.DataRetrieval.Ranges.Values)
                 {
                     range.Save(db);
-                }
-
-                foreach (var date in TestData.DataRetrieval.Dates)
-                {
-                    date.Value.Save(db);
                 }
 
                 new Scheduler.Users.Profile
@@ -117,22 +111,60 @@ namespace InitialiseDatabase
                 var e = new Scheduler.Event
                 {
                     Location = "here",
-                    Serials = new Serial
+                    
+                    Serials = new Serials
                     {
-                        From = new LocalTime(16, 30),
-                        Period = new PeriodBuilder { Minutes = 45 }.Build(),
-                        TimeZoneProvider = "Europe/London",
-
-                        Schedule = new CompositeSchedule()
+                        new Serial
                         {
-                            Inclusions = new List<ISchedule>
+                            From = new LocalTime(16, 30),
+                            Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                            TimeZoneProvider = "Europe/London",
+
+                            Schedule = new CompositeSchedule()
                             {
-                                new ByWeekday
+                                InclusionsEdges = new Edges
                                 {
-                                    Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter.Start"],
-                                    Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
-                                    Weekday = IsoDayOfWeek.Wednesday,
-                                }
+                                    new Edge
+                                    {
+                                        ToVertex = new ByWeekday
+                                        {
+                                            Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"],
+                                            Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                            Weekday = IsoDayOfWeek.Wednesday,
+                                        }
+                                    },
+                                    new Edge
+                                    {
+                                        ToVertex = new DateList
+                                        {
+                                            Items = new List<Date>
+                                            {
+                                                new Date(2010, YearMonth.MonthValue.August, 09),
+                                                new Date(2008, YearMonth.MonthValue.May, 30),
+                                                new Date(1974, YearMonth.MonthValue.February, 09),
+                                                new Date(1971, YearMonth.MonthValue.March, 15),
+                                            }
+                                        }
+                                    },
+                                    new Edge
+                                    {
+                                        ToVertex = new ByWeekday
+                                        {
+                                            Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Summer"],
+                                            Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                            Weekday = IsoDayOfWeek.Monday,
+                                        }
+                                    },
+                                },
+                                //Inclusions = new List<ISchedule>
+                                //{
+                                //    new ByWeekday
+                                //    {
+                                //        Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"],
+                                //        Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                //        Weekday = IsoDayOfWeek.Wednesday,
+                                //    }
+                                //}
                             }
                         }
                     }

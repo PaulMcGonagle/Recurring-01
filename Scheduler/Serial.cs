@@ -1,17 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
+using ArangoDB.Client;
 using NodaTime;
+using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public class Serial : ISerial
+    public class Serial : Vertex
     {
-        public ISchedule Schedule;
+        public Scheduler.Schedule Schedule;
 
         public LocalTime? From;
         public Period Period;
         public string TimeZoneProvider;
 
+        [IgnoreDataMember]
         public IEnumerable<Episode> Episodes
         {
             get
@@ -34,6 +38,13 @@ namespace Scheduler
                     Period = Period,
                 });
             }
+        }
+
+        public override SaveResult Save(IArangoDatabase db)
+        {
+            var resultSchedule = Schedule.Save(db);
+
+            return Save<Serial>(db);
         }
     }
 }

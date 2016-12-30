@@ -1,12 +1,15 @@
 ﻿using NodaTime;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace Scheduler.ScheduleInstances
 {
     public class ByWeekdays : ScheduleAbstracts.Repeating
     {
         public IEnumerable<IsoDayOfWeek> Days;
+
+        [IgnoreDataMember]
         public IClock Clock { get; set; }
 
         public ByWeekdays()
@@ -15,6 +18,7 @@ namespace Scheduler.ScheduleInstances
             CountToDefault = 52;
         }
 
+        [IgnoreDataMember]
         public override IEnumerable<Scheduler.Date> Dates
         {
             get

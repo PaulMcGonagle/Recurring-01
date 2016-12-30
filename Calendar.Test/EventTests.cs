@@ -6,7 +6,7 @@ using Scheduler.ScheduleInstances;
 using Scheduler.Test;
 using TestStack.BDDfy;
 using Xunit;
-using Event = Calendar.Event;
+using Event = Scheduler.Event;
 
 namespace MyCalendar.Test
 {

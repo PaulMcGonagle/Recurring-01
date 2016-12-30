@@ -3,6 +3,7 @@ using Scheduler;
 using Scheduler.ScheduleInstances;
 using System.Collections.Generic;
 using System.Linq;
+using Scheduler.Persistance;
 
 namespace TestData
 {
@@ -128,16 +129,38 @@ namespace TestData
                     .Add("Example.AutumnTerm",
                         new Scheduler.CompositeSchedule()
                         {
-                            Inclusions = new List<ISchedule>
+                            InclusionsEdges = new Edges
                             {
-                                TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Autumn"],
-                                TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Winter"],
-                                TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Summer"],
+                                new Edge
+                                {
+                                    ToVertex = (Schedule)TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Autumn"],
+                                },
+                                new Edge
+                                {
+                                    ToVertex = (Schedule)TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Winter"],
+                                },
+                                new Edge
+                                {
+                                    ToVertex = (Schedule)TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Summer"],
+                                },
                             },
-                            Exclusions = new List<ISchedule>
+                            ExclusionsEdges = new Edges
                             {
-                                TestData.DataRetrieval.ScheduleArchive["BankHolidays"],
+                                new Edge
+                                {
+                                    ToVertex = (Schedule)TestData.DataRetrieval.ScheduleArchive["BankHolidays"],
+                                },
                             },
+                            //Inclusions = new List<ISchedule>
+                            //{
+                            //    TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Autumn"],
+                            //    TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Winter"],
+                            //    TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Summer"],
+                            //},
+                            //Exclusions = new List<ISchedule>
+                            //{
+                            //    TestData.DataRetrieval.ScheduleArchive["BankHolidays"],
+                            //},
                             Breaks = new List<Range>
                             {
                                 TestData.DataRetrieval.Ranges["Schools.Term.201617.Autumn.HalfTerm"],
@@ -230,69 +253,71 @@ namespace TestData
         public static Dictionary<string, Scheduler.Date> Dates
             => _dates ?? (_dates = new Dictionary<string, Scheduler.Date>
                {
-                //        "Schools.Term.201617.Autumn.Start",
-                //        new Scheduler.Date(2016, YearMonth.MonthValue.August, 05),
-                //    },
-                //    //{
-                //    //    "Schools.Term.201617.Autumn.HalfTerm.Start",
-                //    //    new Scheduler.Date(2016, YearMonth.MonthValue.October, 24)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201617.Autumn.HalfTerm.End",
-                //    //    new Scheduler.Date(2016, YearMonth.MonthValue.October, 31)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201617.Autumn.End",
-                //    //    new Scheduler.Date(2016, YearMonth.MonthValue.December, 21)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201617.Winter.Start",
-                //    //    new Scheduler.Date(2017, YearMonth.MonthValue.January, 05)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201617.Winter.HalfTerm.Start",
-                //    //    new Scheduler.Date(2017, YearMonth.MonthValue.February, 24)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201617.Winter.HalfTerm.End",
-                //    //    new Scheduler.Date(2017, YearMonth.MonthValue.March, 01)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201617.Winter.End",
-                //    //    new Scheduler.Date(2017, YearMonth.MonthValue.April, 10)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201617.Summer.Start",
-                //    //    new Scheduler.Date(2017, YearMonth.MonthValue.April, 30)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201617.Summer.HalfTerm.Start",
-                //    //    new Scheduler.Date(2017, YearMonth.MonthValue.May, 26)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201617.Summer.HalfTerm.End",
-                //    //    new Scheduler.Date(2017, YearMonth.MonthValue.June, 03)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201617.Summer.End",
-                //    //    new Scheduler.Date(2017, YearMonth.MonthValue.July, 17)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201718.Autumn.Start",
-                //    //    new Scheduler.Date(2017, YearMonth.MonthValue.August, 05)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201718.Autumn.HalfTerm.Start",
-                //    //    new Scheduler.Date(2017, YearMonth.MonthValue.October, 24)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201718.Autumn.HalfTerm.End",
-                //    //    new Scheduler.Date(2017, YearMonth.MonthValue.November, 01)
-                //    //},
-                //    //{
-                //    //    "Schools.Term.201718.Autumn.End",
-                //    //    new Scheduler.Date(2017, YearMonth.MonthValue.December, 21)
-                //    //},
-            });
+                    {
+                        "Schools.Term.201617.Autumn.Start",
+                        new Scheduler.Date(2016, YearMonth.MonthValue.August, 05)
+                    },
+                    {
+                        "Schools.Term.201617.Autumn.HalfTerm.Start",
+                        new Scheduler.Date(2016, YearMonth.MonthValue.October, 24)
+                    },
+                    {
+                        "Schools.Term.201617.Autumn.HalfTerm.End",
+                        new Scheduler.Date(2016, YearMonth.MonthValue.October, 31)
+                    },
+                    {
+                        "Schools.Term.201617.Autumn.End",
+                        new Scheduler.Date(2016, YearMonth.MonthValue.December, 21)
+                    },
+                    {
+                        "Schools.Term.201617.Winter.Start",
+                        new Scheduler.Date(2017, YearMonth.MonthValue.January, 05)
+                    },
+                    {
+                        "Schools.Term.201617.Winter.HalfTerm.Start",
+                        new Scheduler.Date(2017, YearMonth.MonthValue.February, 24)
+                    },
+                    {
+                        "Schools.Term.201617.Winter.HalfTerm.End",
+                        new Scheduler.Date(2017, YearMonth.MonthValue.March, 01)
+                    },
+                    {
+                        "Schools.Term.201617.Winter.End",
+                        new Scheduler.Date(2017, YearMonth.MonthValue.April, 10)
+                    },
+                    {
+                        "Schools.Term.201617.Summer.Start",
+                        new Scheduler.Date(2017, YearMonth.MonthValue.April, 30)
+                    },
+                    {
+                        "Schools.Term.201617.Summer.HalfTerm.Start",
+                        new Scheduler.Date(2017, YearMonth.MonthValue.May, 26)
+                    },
+                    {
+                        "Schools.Term.201617.Summer.HalfTerm.End",
+                        new Scheduler.Date(2017, YearMonth.MonthValue.June, 03)
+                    },
+                    {
+                        "Schools.Term.201617.Summer.End",
+                        new Scheduler.Date(2017, YearMonth.MonthValue.July, 17)
+                    },
+                    {
+                        "Schools.Term.201718.Autumn.Start",
+                        new Scheduler.Date(2017, YearMonth.MonthValue.August, 05)
+                    },
+                    {
+                        "Schools.Term.201718.Autumn.HalfTerm.Start",
+                        new Scheduler.Date(2017, YearMonth.MonthValue.October, 24)
+                    },
+                    {
+                        "Schools.Term.201718.Autumn.HalfTerm.End",
+                        new Scheduler.Date(2017, YearMonth.MonthValue.November, 01)
+                    },
+                    {
+                        "Schools.Term.201718.Autumn.End",
+                        new Scheduler.Date(2017, YearMonth.MonthValue.December, 21)
+                    },
+            }
+            );
     }
 }

@@ -27,11 +27,9 @@ namespace Scheduler
             To = to;
         }
 
-        public Range Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db)
         {
-            Save<Range>(db);
-
-            return this;
+            return Save<Range>(db);
         }
     }
 }

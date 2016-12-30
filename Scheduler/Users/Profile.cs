@@ -15,11 +15,9 @@ namespace Scheduler.Users
         public string Email { get; set; }
         public string TimeZoneProvider { get; set; }
 
-        public Profile Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db)
         {
-            Save<Profile>(db);
-
-            return this;
+            return Save<Profile>(db);
         }
     }
 }

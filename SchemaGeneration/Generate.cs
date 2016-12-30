@@ -6,8 +6,8 @@ using ArangoDB.Client;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
+using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
-using Event = Calendar.Event;
 
 namespace SchemaGeneration
 {
@@ -33,24 +33,41 @@ namespace SchemaGeneration
                 var e = new Event
                 {
                     Location = "here",
-                    Serials = new Serial
+                    Serials = new Serials
                     {
-                        From = new LocalTime(16, 30),
-                        Period = new PeriodBuilder { Minutes = 45 }.Build(),
-                        TimeZoneProvider = "Europe/London",
-
-                        Schedule = new CompositeSchedule()
+                        new Serial
                         {
-                            Inclusions = new List<ISchedule>
+                            From = new LocalTime(16, 30),
+                            Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                            TimeZoneProvider = "Europe/London",
+
+                            Schedule = new CompositeSchedule
                             {
-                                new ByWeekday
+                                InclusionsEdges = new Edges
                                 {
-                                    Range =
-                                        new Range(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January,
-                                            05),
-                                    Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
-                                    Weekday = IsoDayOfWeek.Wednesday,
-                                }
+                                    new Edge
+                                    {
+                                        ToVertex = new ByWeekday
+                                        {
+                                            Range =
+                                                new Range(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January,
+                                                    05),
+                                            Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                            Weekday = IsoDayOfWeek.Wednesday,
+                                        }
+                                    }
+                                },
+                                //Inclusions = new List<ISchedule>
+                                //{
+                                //    new ByWeekday
+                                //    {
+                                //        Range =
+                                //            new Range(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January,
+                                //                05),
+                                //        Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                //        Weekday = IsoDayOfWeek.Wednesday,
+                                //    }
+                                //}
                             }
                         }
                     }

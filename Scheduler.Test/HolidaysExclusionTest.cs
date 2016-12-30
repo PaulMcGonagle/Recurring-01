@@ -2,6 +2,8 @@
 using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
+using NodaTime.Testing;
+using Scheduler.Persistance;
 using TestStack.BDDfy;
 using Scheduler.ScheduleInstances;
 using Xunit;
@@ -35,7 +37,7 @@ namespace Scheduler.Test
         {
             _holidays = holidays;
 
-            _term.Exclusions.Add(new DateList { Items = _holidays });
+            _term.ExclusionsEdges.Add(new Edge { ToVertex = new DateList { Items = _holidays }});
         }
 
         public void ThenThereShouldBeNoWeekendDays()
@@ -56,12 +58,23 @@ namespace Scheduler.Test
         {
             return new CompositeSchedule
             {
-                Inclusions = new Schedules(
-                    new ByWeekdays
+                InclusionsEdges = new Edges
+                {
+                    new Edge
                     {
-                        Days = ScheduleTestHelper.Weekdays,
-                        Range = new Range(2016, YearMonth.MonthValue.September, 06, 2016, YearMonth.MonthValue.December, 19),
-                    })
+                        ToVertex = new ByWeekdays
+                        {
+                            Days = ScheduleTestHelper.Weekdays,
+                            Range = new Range(2016, YearMonth.MonthValue.September, 06, 2016, YearMonth.MonthValue.December, 19),
+                        }
+                    }
+                },
+                //Inclusions = new Schedules(
+                //    new ByWeekdays
+                //    {
+                //        Days = ScheduleTestHelper.Weekdays,
+                //        Range = new Range(2016, YearMonth.MonthValue.September, 06, 2016, YearMonth.MonthValue.December, 19),
+                //    })
             };
         }
     }

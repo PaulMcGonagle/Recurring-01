@@ -78,11 +78,13 @@
   <ItemGroup>
     <Compile Include="Date.cs" />
     <Compile Include="Persistance\Edge.cs" />
+    <Compile Include="Persistance\Edges.cs" />
     <Compile Include="Persistance\Vertex.cs" />
     <Compile Include="Episode.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Range.cs" />
+    <Compile Include="Schedule.cs" />
     <Compile Include="Serials.cs" />
     <Compile Include="CompositeSchedule.cs" />
     <Compile Include="Serial.cs" />

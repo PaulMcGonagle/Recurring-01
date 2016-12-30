@@ -28,6 +28,9 @@ namespace Scheduler.Persistance
         public virtual bool IsPersisted => Key != null;
 
         [IgnoreDataMember]
+        public virtual bool IsNew => !IsPersisted;
+
+        [IgnoreDataMember]
         public bool ToDelete { get; private set; } = false;
 
         [IgnoreDataMember]
@@ -44,9 +47,12 @@ namespace Scheduler.Persistance
                 IsDirty = true;
         }
         
-        protected SaveResult Save<T>(IArangoDatabase db) where T : Vertex
+        internal SaveResult Save<T>(IArangoDatabase db) where T : Vertex
         {
             if (db == null) throw new ArgumentNullException(nameof(db));
+
+            if (!IsDirty)
+                return SaveResult.Success;
 
             if (IsPersisted
                 && !ToDelete)
@@ -59,7 +65,7 @@ namespace Scheduler.Persistance
                 }
             }
 
-            var result = Key == null ? db.Insert<T>(this) : ToDelete ? db.Remove<T>(this) : db.Update<T>(this);
+            var result = IsNew ? db.Insert<T>(this) : ToDelete ? db.Remove<T>(this) : db.Update<T>(this);
 
             Key = result.Key;
             Id = result.Id;
@@ -68,6 +74,11 @@ namespace Scheduler.Persistance
             IsDirty = false;
 
             return SaveResult.Success;
+        }
+
+        public virtual SaveResult Save(IArangoDatabase db)
+        {
+            throw new NotImplementedException();
         }
 
         int IComparable.CompareTo(object obj)

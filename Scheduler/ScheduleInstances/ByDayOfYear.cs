@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -24,6 +25,7 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
+        [IgnoreDataMember]
         public IClock Clock
         {
             get { return _clock ?? (_clock = SystemClock.Instance); }
@@ -62,6 +64,7 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
+        [IgnoreDataMember]
         public override IEnumerable<Scheduler.Date> Dates
         {
             get

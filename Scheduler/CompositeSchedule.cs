@@ -7,10 +7,14 @@ using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public class CompositeSchedule : Vertex, ISchedule
+    public class CompositeSchedule : Schedule
     {
-        public List<ISchedule> Inclusions = new Schedules();
-        public List<ISchedule> Exclusions = new Schedules();
+        [IgnoreDataMember]
+        public Edges InclusionsEdges = new Edges();
+        [IgnoreDataMember]
+        public Edges ExclusionsEdges = new Edges();
+        //public List<ISchedule> Inclusions = new Schedules();
+        //public List<ISchedule> Exclusions = new Schedules();
         public List<Range> Breaks = new List<Range>();
 
         public CompositeSchedule()
@@ -18,12 +22,13 @@ namespace Scheduler
 
         }
 
-        public IEnumerable<Scheduler.Date> Dates
+        [IgnoreDataMember]
+        public override IEnumerable<Scheduler.Date> Dates
         {
             get
             {
-                var inclusions = Inclusions.SelectMany(i => i.Dates);
-                var exclusions = Exclusions.SelectMany(e => e.Dates);
+                var inclusions = InclusionsEdges.SelectMany(i => ((Schedule)i.ToVertex).Dates);
+                var exclusions = ExclusionsEdges.SelectMany(i => ((Schedule)i.ToVertex).Dates);
 
                 var list = inclusions.Exclude(exclusions);
 
@@ -33,9 +38,13 @@ namespace Scheduler
             }
         }
 
-        public SaveResult Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db)
         {
-            return Save<CompositeSchedule>(db);
+            var result = Save<CompositeSchedule>(db);
+
+            InclusionsEdges.Save(db, this);
+
+            return SaveResult.Success;
         }
     }
 }

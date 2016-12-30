@@ -51,7 +51,7 @@ namespace Scheduler
             return From.ToString() + " " + To.ToString();
         }
 
-        public SaveResult Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db)
         {
             return Save<Episode>(db);
         }

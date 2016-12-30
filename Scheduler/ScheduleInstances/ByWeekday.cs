@@ -3,6 +3,8 @@ using NodaTime;
 using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using ArangoDB.Client;
+using Scheduler.ScheduleAbstracts;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -17,6 +19,7 @@ namespace Scheduler.ScheduleInstances
             CountToDefault = 52;
         }
 
+        [IgnoreDataMember]
         public IClock Clock
         {
             // ToDo instantiate _clock using IOC
@@ -28,6 +31,7 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
+        [IgnoreDataMember]
         public override IEnumerable<Scheduler.Date> Dates
         {
             get
@@ -57,6 +61,11 @@ namespace Scheduler.ScheduleInstances
 
                 return results;
             }
+        }
+
+        public override SaveResult Save(IArangoDatabase db)
+        {
+            return Save<ByWeekday>(db);
         }
     }
 }

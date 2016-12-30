@@ -6,7 +6,7 @@ using Scheduler.Persistance;
 
 namespace Scheduler.ScheduleInstances
 {
-    public class SingleDay : Vertex, ISchedule
+    public class SingleDay : Schedule
     {
         public SingleDay()
         {
@@ -18,12 +18,13 @@ namespace Scheduler.ScheduleInstances
             set;
         }
 
-        public IEnumerable<Scheduler.Date> Dates
+        [IgnoreDataMember]
+        public override IEnumerable<Scheduler.Date> Dates
         {
             get { yield return Date; }
         }
 
-        public SaveResult Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db)
         {
             return Save<SingleDay>(db);
         }

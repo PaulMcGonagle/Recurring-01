@@ -2,7 +2,7 @@
 
 namespace Calendar
 {
-    public class Event
+    public class EventX
     {
         public string Key { get; set; }
 

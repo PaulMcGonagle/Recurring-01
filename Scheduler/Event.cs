@@ -31,11 +31,24 @@ namespace Scheduler
         }
 
         [IgnoreDataMember]
-        public Scheduler.ISerial Serials { get; set; }
+        public Scheduler.Serials Serials { get; set; }
 
-        public SaveResult Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db)
         {
-            return Save<Event>(db);
+            foreach (var serial in Serials)
+            {
+                var serialResult = serial.Save(db);
+
+                if (serialResult != SaveResult.Success)
+                    return serialResult;
+            }
+
+            var result = Save<Event>(db);
+
+            if (result != SaveResult.Success)
+                return result;
+
+            return SaveResult.Success;
         }
     }
 }

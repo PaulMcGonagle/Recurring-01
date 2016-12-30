@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NodaTime;
+using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
 using Shouldly;
 using TestStack.BDDfy;
@@ -21,34 +22,75 @@ namespace Scheduler.Test
             [Fact]
             public void Execute()
             {
+                var e = new Edge
+                {
+                    ToVertex = new DateList
+                    {
+                        Items =
+                            DateTimeHelper.Range(
+                                new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
+                                new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
+                            ).ToList(),
+                    }
+                };
+
                 this.WithExamples(new ExampleTable("sut", "expectedFirstDate", "expectedLastDate", "excludedIsoDayOfWeeks")
                     {
                         {
                             new CompositeSchedule
                             {
-                                Inclusions = new List<ISchedule>
+                                InclusionsEdges = new Edges
                                 {
-                                    new DateList
+                                    new Edge
                                     {
-                                        Items =
-                                            DateTimeHelper.Range(
-                                                new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
-                                                new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
-                                            ).ToList(),
+                                        ToVertex = new DateList
+                                        {
+                                            Items =
+                                                DateTimeHelper.Range(
+                                                    new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
+                                                    new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
+                                                ).ToList(),
+                                        }
                                     },
                                 },
-                                Exclusions = new List<ISchedule>
+                                ExclusionsEdges = new Edges
                                 {
-                                    new DateList
+                                    new Edge
                                     {
-                                        Items =
+                                        ToVertex = new DateList
+                                        {
+                                            Items =
                                             DateTimeHelper.Range(
                                                 new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
                                                 new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
                                             )
                                             .Where(d => d.IsoDayOfWeek == IsoDayOfWeek.Monday).ToList(),
+                                        }
                                     },
                                 },
+                                //Inclusions = new List<ISchedule>
+                                //{
+                                //    new DateList
+                                //    {
+                                //        Items =
+                                //            DateTimeHelper.Range(
+                                //                new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
+                                //                new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
+                                //            ).ToList(),
+                                //    },
+                                //},
+                                //Exclusions = new List<ISchedule>
+                                //{
+                                //    new DateList
+                                //    {
+                                //        Items =
+                                //            DateTimeHelper.Range(
+                                //                new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
+                                //                new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
+                                //            )
+                                //            .Where(d => d.IsoDayOfWeek == IsoDayOfWeek.Monday).ToList(),
+                                //    },
+                                //},
                             },
                             new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
                             new Scheduler.Date(2018, YearMonth.MonthValue.December, 30),

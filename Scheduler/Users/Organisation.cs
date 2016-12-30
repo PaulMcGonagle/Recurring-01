@@ -10,7 +10,7 @@ namespace Scheduler.Users
 
         public List<Event> Events { get; set; }
 
-        public SaveResult Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db)
         {
             return Save<Organisation>(db);
         }
