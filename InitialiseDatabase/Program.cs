@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using ArangoDB.Client;
-using ArangoDB.Client.Data;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
@@ -57,7 +55,6 @@ namespace InitialiseDatabase
                 db.CreateCollection("Range");
                 db.CreateCollection("Date");
                 db.CreateCollection("Serial");
-                db.CreateCollection("Schedule");
                 db.CreateCollection("CompositeSchedule");
                 db.CreateCollection("ByDayOfMonth");
                 db.CreateCollection("ByDayOfYear");
@@ -108,7 +105,7 @@ namespace InitialiseDatabase
                     Title = "Lord Cricket Academy",
                 }.Save(db);
 
-                var e = new Scheduler.Event
+                var e = new Event
                 {
                     Location = "here",
                     
@@ -126,11 +123,49 @@ namespace InitialiseDatabase
                                 {
                                     new Edge
                                     {
+                                        ToVertex = new ByDayOfMonth
+                                        {
+                                            Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"],
+                                            Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                            DayOfMonth = 10,
+                                        }
+                                    },
+                                    new Edge
+                                    {
+                                        ToVertex = new SingleDay
+                                        {
+                                            Date = new Date(2000, YearMonth.MonthValue.January, 01),
+                                        }
+                                    },
+                                    new Edge
+                                    {
+                                        ToVertex = new ByDayOfYear
+                                        {
+                                            Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"],
+                                            Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                            DayOfYear = 08,
+                                        }
+                                    },
+                                    new Edge
+                                    {
                                         ToVertex = new ByWeekday
                                         {
                                             Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"],
                                             Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
                                             Weekday = IsoDayOfWeek.Wednesday,
+                                        }
+                                    },
+                                    new Edge
+                                    {
+                                        ToVertex = new ByWeekdays
+                                        {
+                                            Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"],
+                                            Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                            Days = new List<IsoDayOfWeek>
+                                            {
+                                                IsoDayOfWeek.Saturday,
+                                                IsoDayOfWeek.Sunday,
+                                            }
                                         }
                                     },
                                     new Edge
@@ -146,25 +181,7 @@ namespace InitialiseDatabase
                                             }
                                         }
                                     },
-                                    new Edge
-                                    {
-                                        ToVertex = new ByWeekday
-                                        {
-                                            Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Summer"],
-                                            Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
-                                            Weekday = IsoDayOfWeek.Monday,
-                                        }
-                                    },
                                 },
-                                //Inclusions = new List<ISchedule>
-                                //{
-                                //    new ByWeekday
-                                //    {
-                                //        Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"],
-                                //        Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
-                                //        Weekday = IsoDayOfWeek.Wednesday,
-                                //    }
-                                //}
                             }
                         }
                     }

@@ -13,7 +13,6 @@ namespace Scheduler.ScheduleAbstracts
             Throw,
         }
 
-        [DataMember]
         public RollStrategyType RollStrategy = RollStrategyType.Skip;
     }
 }

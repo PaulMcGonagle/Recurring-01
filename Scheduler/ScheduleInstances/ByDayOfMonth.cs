@@ -1,6 +1,7 @@
 ﻿using NodaTime;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using ArangoDB.Client;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -28,12 +29,13 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
+        [IgnoreDataMember]
         protected YearMonth YearMonthFrom
         {
             get
             {
                 if (Range?.From != null)
-                    return new Scheduler.Date(Range.From.Value).ToYearMonth();
+                    return new Date(Range.From.Value).ToYearMonth();
 
                 var yearMonth = Clock.GetLocalYearMonth();
 
@@ -41,12 +43,13 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
+        [IgnoreDataMember]
         protected YearMonth YearMonthTo
         {
             get
             {
                 if (Range?.To != null)
-                    return new Scheduler.Date(Range.To.Value).ToYearMonth();
+                    return new Date(Range.To.Value).ToYearMonth();
 
                 var yearMonth = Clock.GetLocalYearMonth();
 
@@ -55,17 +58,17 @@ namespace Scheduler.ScheduleInstances
         }
 
         [IgnoreDataMember]
-        public override IEnumerable<Scheduler.Date> Dates
+        public override IEnumerable<Date> Dates
         {
             get
             {
-                var o = new List<Scheduler.Date>();
+                var o = new List<Date>();
 
                 var yearMonths = YearMonth.Range(YearMonthFrom, YearMonthTo, Increment);
 
                 foreach (var yearMonth in yearMonths)
                 {
-                    Scheduler.Date localDate;
+                    Date localDate;
 
                     if (yearMonth.TryToLocalDate(DayOfMonth, out localDate, RollStrategy))
                     {
@@ -75,6 +78,11 @@ namespace Scheduler.ScheduleInstances
 
                 return o;
             }
+        }
+
+        public override SaveResult Save(IArangoDatabase db)
+        {
+            return Save<ByDayOfMonth>(db);
         }
     }
 }

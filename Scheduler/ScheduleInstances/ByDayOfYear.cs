@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using ArangoDB.Client;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -36,14 +37,16 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
+        [IgnoreDataMember]
         public YearMonth.MonthValue Month { get; set; } = YearMonth.MonthValue.January;
 
+        [IgnoreDataMember]
         protected int YearFrom
         {
             get
             {
                 if (Range?.From != null)
-                    return new Scheduler.Date(Range.From.Value).ToYearMonth().Year;
+                    return new Date(Range.From.Value).ToYearMonth().Year;
 
                 var thisMonth = Clock.GetLocalYearMonth();
 
@@ -51,12 +54,13 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
+        [IgnoreDataMember]
         protected int YearTo
         {
             get
             {
                 if (Range?.To != null)
-                    return new Scheduler.Date(Range.To.Value).ToYearMonth().Year;
+                    return new Date(Range.To.Value).ToYearMonth().Year;
 
                 var thisMonth = Clock.GetLocalYearMonth();
 
@@ -65,7 +69,7 @@ namespace Scheduler.ScheduleInstances
         }
 
         [IgnoreDataMember]
-        public override IEnumerable<Scheduler.Date> Dates
+        public override IEnumerable<Date> Dates
         {
             get
             {
@@ -76,6 +80,11 @@ namespace Scheduler.ScheduleInstances
                     yield return yearMonth.ToLocalDate(DayOfYear, RollStrategy);
                 }
             }
+        }
+
+        public override SaveResult Save(IArangoDatabase db)
+        {
+            return Save<ByDayOfYear>(db);
         }
     }
 }

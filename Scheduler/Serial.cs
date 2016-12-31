@@ -9,7 +9,21 @@ namespace Scheduler
 {
     public class Serial : Vertex
     {
-        public Scheduler.Schedule Schedule;
+        [IgnoreDataMember]
+        public Edge ScheduleEdge;
+
+        [IgnoreDataMember]
+        public Schedule Schedule
+        {
+            get { return (Schedule)ScheduleEdge.ToVertex; }
+            set
+            {
+                if (ScheduleEdge == null)
+                    ScheduleEdge = new Edge();
+
+                ScheduleEdge.ToVertex = value;
+            }
+        }
 
         public LocalTime? From;
         public Period Period;
@@ -20,7 +34,7 @@ namespace Scheduler
         {
             get
             {
-                if (Schedule == null)
+                if (ScheduleEdge == null || Schedule == null)
                     throw new System.ArgumentException("Schedule");
 
                 if (!From.HasValue)
@@ -42,9 +56,12 @@ namespace Scheduler
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            var resultSchedule = Schedule.Save(db);
+            var result = Save<Serial>(db);
 
-            return Save<Serial>(db);
+            if (result != SaveResult.Success)
+                return result;
+
+            return ScheduleEdge.Save(db);
         }
     }
 }

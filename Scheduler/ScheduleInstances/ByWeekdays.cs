@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using ArangoDB.Client;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -29,6 +30,11 @@ namespace Scheduler.ScheduleInstances
                 var range = DateTimeHelper.Range(start: start, end: end);
                 return range.Where(d => Days.Contains(d.IsoDayOfWeek));
             }
+        }
+
+        public override SaveResult Save(IArangoDatabase db)
+        {
+            return Save<ByWeekdays>(db);
         }
     }
 }
