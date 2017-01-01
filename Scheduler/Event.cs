@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Linq;
+using System.Runtime.Serialization;
 using ArangoDB.Client;
 using Scheduler.Persistance;
 using Scheduler.Users;
@@ -33,31 +35,17 @@ namespace Scheduler
         }
 
         [IgnoreDataMember]
-        public Scheduler.Serials Serials { get; set; }
+        public Serials Serials { get; set; }
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            SaveResult result = Save<Event>(db);
-
-            if (result != SaveResult.Success)
-                return result;
-
-
-            foreach (var serial in Serials)
+            return Save(new Func<SaveResult>[]
             {
-                result = serial.Save(db);
-
-                if (result != SaveResult.Success)
-                    return result;
-            }
-
-            if (Location != null)
-                result = Location.Save(db, this);
-
-            if (result != SaveResult.Success)
-                return result;
-
-            return SaveResult.Success;
+                () => Save<Event>(db),
+                () => Save(db, Serials.Select(serial => (Vertex)serial)),
+                () => Location?.Save(db, this) ?? SaveDummy(),
+                () => base.Save(db),
+            });
         }
     }
 }

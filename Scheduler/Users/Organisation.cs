@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using Scheduler.Persistance;
@@ -17,18 +18,12 @@ namespace Scheduler.Users
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            var result = Save<Organisation>(db);
-
-            if (result != SaveResult.Success)
-                return result;
-
-            if (Location != null)
-                result = Location.Save(db, this);
-
-            if (result != SaveResult.Success)
-                return result;
-
-            return SaveResult.Success;
+            return Save(new Func<SaveResult>[]
+                       {
+                () => Save<Organisation>(db),
+                () => Location?.Save(db, this) ?? SaveDummy(), 
+                () => base.Save(db),
+            });
         }
     }
 }

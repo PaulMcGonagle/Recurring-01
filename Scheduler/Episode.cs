@@ -53,7 +53,11 @@ namespace Scheduler
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            return Save<Episode>(db);
+            return Save(new Func<SaveResult>[]
+            {
+                () => Save<Episode>(db),
+                () => base.Save(db),
+            });
         }
     }
 }

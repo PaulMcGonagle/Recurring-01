@@ -1,4 +1,5 @@
-﻿using NodaTime;
+﻿using System;
+using NodaTime;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -20,7 +21,7 @@ namespace Scheduler.ScheduleInstances
         }
 
         [IgnoreDataMember]
-        public override IEnumerable<Scheduler.Date> Dates
+        public override IEnumerable<Date> Dates
         {
             get
             {
@@ -34,11 +35,11 @@ namespace Scheduler.ScheduleInstances
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            var results = Save<ByWeekdays>(db);
-
-            if (results != SaveResult.Success) return results;
-
-            return base.Save(db);
+            return Save(new Func<SaveResult>[]
+            {
+                () => Save<ByWeekdays>(db),
+                () => base.Save(db),
+            });
         }
     }
 }

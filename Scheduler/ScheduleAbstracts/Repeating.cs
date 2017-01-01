@@ -30,6 +30,8 @@ namespace Scheduler.ScheduleAbstracts
             }
         }
 
+#region Save
+
         public override SaveResult Save(IArangoDatabase db)
         {
             if (EdgeRange == null)
@@ -41,5 +43,7 @@ namespace Scheduler.ScheduleAbstracts
 
             return EdgeRange.Save(db, this);
         }
+
+#endregion
     }
 }

@@ -96,7 +96,7 @@ namespace InitialiseDatabase
                     Email = "a.dancer@thestage.com",
                     HomeTimeZoneProvider = "Europe/Paris",
                 }.Save(db);
-
+                
                 var e = new Event
                 {
                     Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
@@ -168,7 +168,7 @@ namespace InitialiseDatabase
                 };
 
                 e.Save(db);
-
+                
                 e.Title = "new title";
 
                 // partially updates person, only 'Age' attribute will be updated
@@ -182,7 +182,6 @@ namespace InitialiseDatabase
                 entity?.SetToDelete();
 
                 entity?.Save(db);
-                
                 
                 new Event
                 {
@@ -239,7 +238,7 @@ namespace InitialiseDatabase
                         }
                     }
                 }.Save(db);
-
+                
                 new Event
                 {
                     Serials = new Serials
@@ -269,7 +268,7 @@ namespace InitialiseDatabase
                         }
                     }
                 }.Save(db);
-                
+                /*
                 new Event
                 {
                     Serials = new Serials
@@ -300,6 +299,7 @@ namespace InitialiseDatabase
                         }
                     }
                 }.Save(db);
+                */
             }
         }
     }

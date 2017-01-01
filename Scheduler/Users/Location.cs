@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using ArangoDB.Client;
 using Scheduler.Persistance;
 
@@ -11,16 +12,15 @@ namespace Scheduler.Users
         public string Address { get; set; }
 
         [IgnoreDataMember]
-        public Scheduler.Serials Serials { get; set; }
+        public Serials Serials { get; set; }
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            var result = Save<Location>(db);
-
-            if (result != SaveResult.Success)
-                return result;
-
-            return SaveResult.Success;
+            return Save(new Func<SaveResult>[]
+                       {
+                () => Save<Location>(db),
+                () => base.Save(db),
+            });
         }
     }
 }

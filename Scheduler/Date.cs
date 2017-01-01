@@ -25,22 +25,26 @@ namespace Scheduler
 
         public Date PlusDays(int days)
         {
-            return new Scheduler.Date(Value.PlusDays(days));
+            return new Date(Value.PlusDays(days));
         }
 
         public Date PlusMonths(int months)
         {
-            return new Scheduler.Date(Value.PlusMonths(months));
+            return new Date(Value.PlusMonths(months));
         }
 
         int IComparable.CompareTo(object obj)
         {
-            return Value.CompareTo(((Scheduler.Date)obj).Value);
+            return Value.CompareTo(((Date)obj).Value);
         }
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            return Save<Date>(db);
+            return Save(new Func<SaveResult>[]
+            {
+                () => Save<Date>(db),
+                () => base.Save(db),
+            });
         }
     }
 }

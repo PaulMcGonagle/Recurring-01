@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArangoDB.Client;
 using Scheduler.Persistance;
 
@@ -19,7 +15,11 @@ namespace Scheduler.Users
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            return Save<Profile>(db);
+            return Save(new Func<SaveResult>[] {
+                () => Save<Profile>(db),
+                () => Organisations?.Save(db, this) ?? SaveDummy(),
+                () => base.Save(db),
+            });
         }
     }
 }

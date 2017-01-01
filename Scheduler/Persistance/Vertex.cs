@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 
@@ -48,6 +49,39 @@ namespace Scheduler.Persistance
                 IsDirty = true;
         }
 
+        #region Save
+
+        protected static SaveResult SaveDummy()
+        {
+            return SaveResult.Success;
+        }
+
+        protected SaveResult Save(IEnumerable<Func<SaveResult>> saveFuncs)
+        {
+            foreach (var saveFunc in saveFuncs)
+            {
+                var result = saveFunc.Invoke();
+
+                if (result != SaveResult.Success)
+                    return result;
+            }
+
+            return SaveResult.Success;
+        }
+
+        protected SaveResult Save(IArangoDatabase db, IEnumerable<Vertex> vertexs)
+        {
+            foreach (var vertex in vertexs)
+            {
+                var result = vertex.Save(db);
+
+                if (result != SaveResult.Success)
+                    return result;
+            }
+
+            return SaveResult.Success;
+        }
+
         internal SaveResult Save<T>(IArangoDatabase db) where T : Vertex
         {
             if (db == null) throw new ArgumentNullException(nameof(db));
@@ -58,7 +92,7 @@ namespace Scheduler.Persistance
             if (IsPersisted
                 && !ToDelete)
             {
-                var existing = db.Document<T>(id: this.Id);
+                var existing = db.Document<T>(id: Id);
 
                 if (existing.Rev != Rev)
                 {
@@ -81,6 +115,8 @@ namespace Scheduler.Persistance
         {
             return SaveResult.Success;
         }
+
+        #endregion
 
         int IComparable.CompareTo(object obj)
         {

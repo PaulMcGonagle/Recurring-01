@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
-using NodaTime;
 using Scheduler.Persistance;
 
 namespace Scheduler
@@ -18,18 +18,13 @@ namespace Scheduler
 
         public List<Range> Breaks = new List<Range>();
 
-        public CompositeSchedule()
-        {
-
-        }
-
         [IgnoreDataMember]
-        public override IEnumerable<Scheduler.Date> Dates
+        public override IEnumerable<Date> Dates
         {
             get
             {
-                var inclusions = InclusionsEdges.SelectMany(i => ((Schedule)i.ToVertex).Dates);
-                var exclusions = ExclusionsEdges.SelectMany(i => ((Schedule)i.ToVertex).Dates);
+                var inclusions = InclusionsEdges.SelectMany(i => i.ToVertex.Dates);
+                var exclusions = ExclusionsEdges.SelectMany(i => i.ToVertex.Dates);
 
                 var list = inclusions.Exclude(exclusions);
 
@@ -41,23 +36,14 @@ namespace Scheduler
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            var result = Save<CompositeSchedule>(db);
 
-            if (result != SaveResult.Success)
-                return result;
-
-            result = InclusionsEdges.Save(db, this);
-            
-            if (result != SaveResult.Success)
-                return result;
-
-            ExclusionsEdges.Save(db, this);
-
-
-            if (result != SaveResult.Success)
-                return result;
-
-            return SaveResult.Success;
+            return Save(new Func<SaveResult>[]
+            {
+                () => Save<CompositeSchedule>(db),
+                () => InclusionsEdges.Save(db, this),
+                () => ExclusionsEdges.Save(db, this),
+                () => base.Save(db),
+            });
         }
     }
 }

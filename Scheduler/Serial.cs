@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
@@ -23,16 +24,16 @@ namespace Scheduler
             get
             {
                 if (EdgeSchedule == null || EdgeSchedule.Schedule == null)
-                    throw new System.ArgumentException("Schedule");
+                    throw new ArgumentException("Schedule");
 
                 if (!From.HasValue)
-                    throw new System.ArgumentException("From");
+                    throw new ArgumentException("From");
 
                 if (Period == null)
-                    throw new System.ArgumentException("Period");
+                    throw new ArgumentException("Period");
 
                 if (TimeZoneProvider == null)
-                    throw new System.ArgumentException("TimeZoneProvider");
+                    throw new ArgumentException("TimeZoneProvider");
 
                 return EdgeSchedule.ToVertex.Dates.Select(o => new Episode
                 {
@@ -44,12 +45,12 @@ namespace Scheduler
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            var result = Save<Serial>(db);
-
-            if (result != SaveResult.Success)
-                return result;
-
-            return EdgeSchedule.Save(db, this);
+            return Save(new Func<SaveResult>[]
+            {
+                () => Save<Serial>(db),
+                () => EdgeSchedule?.Save(db, this) ?? SaveDummy(),
+                () => base.Save(db),
+            });
         }
     }
 }

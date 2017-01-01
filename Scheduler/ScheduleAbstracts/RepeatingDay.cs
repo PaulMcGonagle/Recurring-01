@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace Scheduler.ScheduleAbstracts
+﻿namespace Scheduler.ScheduleAbstracts
 {
     public abstract class RepeatingDay : Repeating
     {

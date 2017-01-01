@@ -66,11 +66,11 @@ namespace Scheduler.ScheduleInstances
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            var results = Save<ByWeekday>(db);
-
-            if (results != SaveResult.Success) return results;
-
-            return base.Save(db);
+            return Save(new Func<SaveResult>[]
+            {
+                () => Save<ByWeekday>(db),
+                () => base.Save(db),
+            });
         }
     }
 }

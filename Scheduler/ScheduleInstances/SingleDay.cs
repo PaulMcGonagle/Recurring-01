@@ -1,32 +1,31 @@
-﻿using NodaTime;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
-using Scheduler.Persistance;
 
 namespace Scheduler.ScheduleInstances
 {
     public class SingleDay : Schedule
     {
-        public Scheduler.Date Date
+        public Date Date
         {
             get;
             set;
         }
 
         [IgnoreDataMember]
-        public override IEnumerable<Scheduler.Date> Dates
+        public override IEnumerable<Date> Dates
         {
             get { yield return Date; }
         }
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            var results = Save<SingleDay>(db);
-
-            if (results != SaveResult.Success) return results;
-
-            return base.Save(db);
+            return Save(new Func<SaveResult>[]
+            {
+                () => Save<SingleDay>(db),
+                () => base.Save(db),
+            });
         }
     }
 }

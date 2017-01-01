@@ -23,6 +23,8 @@ namespace Scheduler.Persistance
         [DocumentProperty(Identifier = IdentifierType.EdgeTo)]
         public string ToId => ToVertex.Id;
 
+        #region Save
+
         public SaveResult Save(IArangoDatabase db, Vertex fromVertex)
         {
             FromVertex = fromVertex;
@@ -30,9 +32,13 @@ namespace Scheduler.Persistance
             if (!FromVertex.IsPersisted)
                 return Vertex.SaveResult.Incomplete;
 
-            ToVertex.Save(db);
-
-            return Save<Edge>(db);
+            return Save(new Func<SaveResult>[]
+            {
+                () => ToVertex.Save(db),
+                () => Save<Edge>(db),
+            });
         }
+
+        #endregion
     }
 }

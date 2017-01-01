@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NodaTime;
 
 namespace Scheduler
 {
     public static class Extensions
     {
-        public static IEnumerable<Scheduler.Date> Exclude(this IEnumerable<Scheduler.Date> inputDates, IEnumerable<Scheduler.Date> exclusions)
+        public static IEnumerable<Date> Exclude(this IEnumerable<Date> inputDates, IEnumerable<Date> exclusions)
         {
             foreach (var inputDate in inputDates)
             {
@@ -19,12 +15,12 @@ namespace Scheduler
             }
         }
 
-        public static IEnumerable<Scheduler.Date> Include(this IEnumerable<Scheduler.Date> inputDates, IEnumerable<Scheduler.Date> exclusions)
+        public static IEnumerable<Date> Include(this IEnumerable<Scheduler.Date> inputDates, IEnumerable<Date> exclusions)
         {
             return inputDates.Union(exclusions);
         }
 
-        public static IEnumerable<Scheduler.Date> Exclude(this IEnumerable<Scheduler.Date> inputDates, IEnumerable<Range> exclusions)
+        public static IEnumerable<Date> Exclude(this IEnumerable<Date> inputDates, IEnumerable<Range> exclusions)
         {
             foreach (var exclusion in exclusions)
             {
@@ -37,7 +33,7 @@ namespace Scheduler
             return inputDates;
         }
 
-        public static IEnumerable<Scheduler.Date> Include(this IEnumerable<Scheduler.Date> inputDates, IEnumerable<Range> inclusions)
+        public static IEnumerable<Date> Include(this IEnumerable<Date> inputDates, IEnumerable<Range> inclusions)
         {
             foreach (var exclusion in inclusions)
             {

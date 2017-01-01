@@ -9,6 +9,8 @@ namespace Scheduler.Persistance
 {
     public class Edges : List<Edge>
     {
+        #region Save
+
         public Vertex.SaveResult Save(IArangoDatabase db, Vertex fromVertex)
         {
             foreach (var edge in this)
@@ -18,5 +20,7 @@ namespace Scheduler.Persistance
 
             return Vertex.SaveResult.Success;
         }
+
+        #endregion
     }
 }
