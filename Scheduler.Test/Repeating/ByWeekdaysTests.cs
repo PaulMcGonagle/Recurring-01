@@ -3,6 +3,7 @@ using System.Linq;
 using Scheduler.ScheduleInstances;
 using Shouldly;
 using NodaTime;
+using Scheduler.ScheduleEdges;
 using TestStack.BDDfy;
 using Xunit;
 
@@ -24,7 +25,7 @@ namespace Scheduler.Test.Repeating
                             new ByWeekdays
                             {
                                 Days = new List<IsoDayOfWeek> {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
-                                Range = new Range(2000, YearMonth.MonthValue.April, 15, 2010, YearMonth.MonthValue.November, 28),
+                                EdgeRange = new EdgeRange(2000, YearMonth.MonthValue.April, 15, 2010, YearMonth.MonthValue.November, 28),
                             },
                             new List<IsoDayOfWeek> {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
                             new Scheduler.Date(2000, YearMonth.MonthValue.April, 15),

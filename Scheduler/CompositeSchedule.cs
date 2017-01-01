@@ -9,12 +9,13 @@ namespace Scheduler
 {
     public class CompositeSchedule : Schedule
     {
+
         [IgnoreDataMember]
-        public Edges InclusionsEdges = new Edges();
+        public EdgeVertexs<Schedule> InclusionsEdges { get; set; } = new EdgeVertexs<Schedule>();
+
         [IgnoreDataMember]
-        public Edges ExclusionsEdges = new Edges();
-        //public List<ISchedule> Inclusions = new Schedules();
-        //public List<ISchedule> Exclusions = new Schedules();
+        public EdgeVertexs<Schedule> ExclusionsEdges { get; set; } = new EdgeVertexs<Schedule>();
+
         public List<Range> Breaks = new List<Range>();
 
         public CompositeSchedule()
@@ -42,7 +43,19 @@ namespace Scheduler
         {
             var result = Save<CompositeSchedule>(db);
 
-            InclusionsEdges.Save(db, this);
+            if (result != SaveResult.Success)
+                return result;
+
+            result = InclusionsEdges.Save(db, this);
+            
+            if (result != SaveResult.Success)
+                return result;
+
+            ExclusionsEdges.Save(db, this);
+
+
+            if (result != SaveResult.Success)
+                return result;
 
             return SaveResult.Success;
         }

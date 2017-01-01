@@ -1,4 +1,5 @@
-﻿using NodaTime;
+﻿using System;
+using NodaTime;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
@@ -7,7 +8,9 @@ namespace Scheduler.ScheduleInstances
 {
     public class ByDayOfMonth : ScheduleAbstracts.RepeatingDay
     {
+        [DataMember]
         public int DayOfMonth;
+
         private IClock _clock;
 
         public ByDayOfMonth()
@@ -34,8 +37,8 @@ namespace Scheduler.ScheduleInstances
         {
             get
             {
-                if (Range?.From != null)
-                    return new Date(Range.From.Value).ToYearMonth();
+                if (EdgeRange?.ToVertex?.From != null)
+                    return new Date(EdgeRange.ToVertex.From.Value).ToYearMonth();
 
                 var yearMonth = Clock.GetLocalYearMonth();
 
@@ -48,8 +51,8 @@ namespace Scheduler.ScheduleInstances
         {
             get
             {
-                if (Range?.To != null)
-                    return new Date(Range.To.Value).ToYearMonth();
+                if (EdgeRange?.ToVertex?.To != null)
+                    return new Date(EdgeRange.ToVertex.To.Value).ToYearMonth();
 
                 var yearMonth = Clock.GetLocalYearMonth();
 
@@ -62,7 +65,7 @@ namespace Scheduler.ScheduleInstances
         {
             get
             {
-                var o = new List<Date>();
+                var dates = new List<Date>();
 
                 var yearMonths = YearMonth.Range(YearMonthFrom, YearMonthTo, Increment);
 
@@ -72,17 +75,21 @@ namespace Scheduler.ScheduleInstances
 
                     if (yearMonth.TryToLocalDate(DayOfMonth, out localDate, RollStrategy))
                     {
-                        o.Add(localDate);
+                        dates.Add(localDate);
                     }
                 }
 
-                return o;
+                return dates;
             }
         }
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            return Save<ByDayOfMonth>(db);
+            var results = Save<ByDayOfMonth>(db);
+
+            if (results != SaveResult.Success) return results;
+
+            return base.Save(db);
         }
     }
 }

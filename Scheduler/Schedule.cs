@@ -9,13 +9,8 @@ using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public class Schedule : Vertex, ISchedule
+    public abstract class Schedule : Vertex, ISchedule
     {
-        protected Schedule()
-        {
-            
-        }
-
         [IgnoreDataMember]
         public virtual IEnumerable<Scheduler.Date> Dates { get; }
     }

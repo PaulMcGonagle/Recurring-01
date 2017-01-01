@@ -3,6 +3,7 @@ using Scheduler.ScheduleAbstracts;
 using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
+using Scheduler.ScheduleEdges;
 using TestStack.BDDfy;
 using Scheduler.ScheduleInstances;
 using Xunit;
@@ -212,7 +213,7 @@ namespace Scheduler.Test.Repeating
                                 DayOfYear = 05,
                                 Month = YearMonth.MonthValue.April,
                                 Clock = fakeClock,
-                                Range = new Range(2016, YearMonth.MonthValue.March, 01, 2020, YearMonth.MonthValue.April, 30),
+                                EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.March, 01, 2020, YearMonth.MonthValue.April, 30),
                                 RollStrategy = RepeatingDay.RollStrategyType.Skip
                             },
                             Enumerable.Range(2016, 5)

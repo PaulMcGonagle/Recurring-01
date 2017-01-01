@@ -4,26 +4,14 @@ using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
 using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
 
 namespace Scheduler
 {
     public class Serial : Vertex
     {
         [IgnoreDataMember]
-        public Edge ScheduleEdge;
-
-        [IgnoreDataMember]
-        public Schedule Schedule
-        {
-            get { return (Schedule)ScheduleEdge.ToVertex; }
-            set
-            {
-                if (ScheduleEdge == null)
-                    ScheduleEdge = new Edge();
-
-                ScheduleEdge.ToVertex = value;
-            }
-        }
+        public EdgeSchedule EdgeSchedule;
 
         public LocalTime? From;
         public Period Period;
@@ -34,7 +22,7 @@ namespace Scheduler
         {
             get
             {
-                if (ScheduleEdge == null || Schedule == null)
+                if (EdgeSchedule == null || EdgeSchedule.Schedule == null)
                     throw new System.ArgumentException("Schedule");
 
                 if (!From.HasValue)
@@ -46,7 +34,7 @@ namespace Scheduler
                 if (TimeZoneProvider == null)
                     throw new System.ArgumentException("TimeZoneProvider");
 
-                return Schedule.Dates.Select(o => new Episode
+                return EdgeSchedule.ToVertex.Dates.Select(o => new Episode
                 {
                     From = DateTimeHelper.GetZonedDateTime(o, From.Value, TimeZoneProvider),
                     Period = Period,
@@ -61,7 +49,7 @@ namespace Scheduler
             if (result != SaveResult.Success)
                 return result;
 
-            return ScheduleEdge.Save(db);
+            return EdgeSchedule.Save(db, this);
         }
     }
 }

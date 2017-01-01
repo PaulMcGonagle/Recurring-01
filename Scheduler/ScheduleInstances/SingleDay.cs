@@ -8,10 +8,6 @@ namespace Scheduler.ScheduleInstances
 {
     public class SingleDay : Schedule
     {
-        public SingleDay()
-        {
-        }
-
         public Scheduler.Date Date
         {
             get;
@@ -26,7 +22,11 @@ namespace Scheduler.ScheduleInstances
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            return Save<SingleDay>(db);
+            var results = Save<SingleDay>(db);
+
+            if (results != SaveResult.Success) return results;
+
+            return base.Save(db);
         }
     }
 }

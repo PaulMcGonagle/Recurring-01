@@ -10,6 +10,7 @@ namespace Scheduler.Persistance
         {
             Success,
             Conflict,
+            Incomplete,
         }
 
         [IgnoreDataMember]
@@ -46,7 +47,7 @@ namespace Scheduler.Persistance
             if (!IsDirty)
                 IsDirty = true;
         }
-        
+
         internal SaveResult Save<T>(IArangoDatabase db) where T : Vertex
         {
             if (db == null) throw new ArgumentNullException(nameof(db));
@@ -78,7 +79,7 @@ namespace Scheduler.Persistance
 
         public virtual SaveResult Save(IArangoDatabase db)
         {
-            throw new NotImplementedException();
+            return SaveResult.Success;
         }
 
         int IComparable.CompareTo(object obj)

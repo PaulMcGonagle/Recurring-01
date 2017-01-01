@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using NodaTime;
+using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
 using Shouldly;
 using TestStack.BDDfy;
 using Scheduler.ScheduleInstances;
@@ -24,16 +26,16 @@ namespace Scheduler.Test
                         {
                             new Serial
                             {
-                                Schedule =
-                                    new DateList()
+                                EdgeSchedule =
+                                    new EdgeSchedule(new DateList
                                     {
                                         Items = new List<Scheduler.Date>()
                                         {
                                             new Scheduler.Date(2016, YearMonth.MonthValue.January, 05),
                                             new Scheduler.Date(2016, YearMonth.MonthValue.January, 06),
                                             new Scheduler.Date(2016, YearMonth.MonthValue.January, 07),
-                                        },
-                                    },
+                                        }
+                                    }),
                                 From = new LocalTime(15, 30),
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                                 TimeZoneProvider = timeZoneProvider,
@@ -103,7 +105,7 @@ namespace Scheduler.Test
                         {
                             new Serial
                             {
-                                Schedule = new DateList { Items = new List<Scheduler.Date>(), },
+                                EdgeSchedule = new EdgeSchedule(new DateList { Items = new List<Scheduler.Date>(), }),
                                 Period = new PeriodBuilder {Minutes = 30,}.Build(),
                                 TimeZoneProvider = timeZoneProvider,
                             },
@@ -112,7 +114,7 @@ namespace Scheduler.Test
                         {
                             new Serial
                             {
-                                Schedule = new DateList { Items = new List<Scheduler.Date>(), },
+                                EdgeSchedule = new EdgeSchedule(new DateList { Items = new List<Scheduler.Date>(), }),
                                 From = new LocalTime(15, 30),
                                 TimeZoneProvider = timeZoneProvider,
                             },
@@ -121,7 +123,7 @@ namespace Scheduler.Test
                         {
                             new Serial
                             {
-                                Schedule = new DateList { Items = new List<Scheduler.Date>(), },
+                                EdgeSchedule = new EdgeSchedule(new DateList { Items = new List<Scheduler.Date>(), }),
                                 From = new LocalTime(15, 30),
                                 Period = new PeriodBuilder {Minutes = 30,}.Build(),
                             },

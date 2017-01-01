@@ -45,8 +45,8 @@ namespace Scheduler.ScheduleInstances
         {
             get
             {
-                if (Range?.From != null)
-                    return new Date(Range.From.Value).ToYearMonth().Year;
+                if (EdgeRange?.ToVertex?.From != null)
+                    return new Date(EdgeRange.ToVertex.From.Value).ToYearMonth().Year;
 
                 var thisMonth = Clock.GetLocalYearMonth();
 
@@ -59,8 +59,8 @@ namespace Scheduler.ScheduleInstances
         {
             get
             {
-                if (Range?.To != null)
-                    return new Date(Range.To.Value).ToYearMonth().Year;
+                if (EdgeRange?.ToVertex?.To != null)
+                    return new Date(EdgeRange.ToVertex.To.Value).ToYearMonth().Year;
 
                 var thisMonth = Clock.GetLocalYearMonth();
 
@@ -84,7 +84,11 @@ namespace Scheduler.ScheduleInstances
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            return Save<ByDayOfYear>(db);
+            var results = Save<ByDayOfYear>(db);
+
+            if (results != SaveResult.Success) return results;
+
+            return base.Save(db);
         }
     }
 }

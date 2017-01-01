@@ -3,6 +3,7 @@ using Scheduler.ScheduleInstances;
 using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
+using Scheduler.ScheduleEdges;
 using TestStack.BDDfy;
 using Xunit;
 

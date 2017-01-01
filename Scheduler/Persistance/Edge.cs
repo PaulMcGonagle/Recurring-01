@@ -27,6 +27,9 @@ namespace Scheduler.Persistance
         {
             FromVertex = fromVertex;
 
+            if (!FromVertex.IsPersisted)
+                return Vertex.SaveResult.Incomplete;
+
             ToVertex.Save(db);
 
             return Save<Edge>(db);

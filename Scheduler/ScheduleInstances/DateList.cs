@@ -9,10 +9,6 @@ namespace Scheduler.ScheduleInstances
 {
     public class DateList : Schedule
     {
-        public DateList()
-        {
-        }
-
         public IEnumerable<Scheduler.Date> Items
         {
             get;
@@ -24,7 +20,11 @@ namespace Scheduler.ScheduleInstances
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            return Save<DateList>(db);
+            var results = Save<DateList>(db);
+
+            if (results != SaveResult.Success) return results;
+
+            return base.Save(db);
         }
     }
 }

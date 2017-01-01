@@ -2,7 +2,6 @@
 
 namespace Scheduler.ScheduleAbstracts
 {
-    [DataContract]
     public abstract class RepeatingDay : Repeating
     {
         public enum RollStrategyType

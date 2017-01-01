@@ -7,7 +7,9 @@ using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
+using Scheduler.Users;
 
 namespace SchemaGeneration
 {
@@ -32,7 +34,13 @@ namespace SchemaGeneration
 
                 var e = new Event
                 {
-                    Location = "here",
+                    Location = new EdgeVertex<Location>(new Location
+                    {
+                        Address = @"Flat 9
+26 Bryanston Square
+London
+W1H 2DS"
+                    }),
                     Serials = new Serials
                     {
                         new Serial
@@ -41,34 +49,19 @@ namespace SchemaGeneration
                             Period = new PeriodBuilder { Minutes = 45 }.Build(),
                             TimeZoneProvider = "Europe/London",
 
-                            Schedule = new CompositeSchedule
+                            EdgeSchedule = new EdgeSchedule(new CompositeSchedule
                             {
-                                InclusionsEdges = new Edges
+                                InclusionsEdges = new EdgeVertexs<Schedule>()
                                 {
-                                    new Edge
-                                    {
-                                        ToVertex = new ByWeekday
+                                    new EdgeVertex<Schedule>(new ByWeekday
                                         {
-                                            Range =
-                                                new Range(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January,
-                                                    05),
+                                            EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05),
                                             Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
                                             Weekday = IsoDayOfWeek.Wednesday,
                                         }
-                                    }
+                                    )
                                 },
-                                //Inclusions = new List<ISchedule>
-                                //{
-                                //    new ByWeekday
-                                //    {
-                                //        Range =
-                                //            new Range(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January,
-                                //                05),
-                                //        Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
-                                //        Weekday = IsoDayOfWeek.Wednesday,
-                                //    }
-                                //}
-                            }
+                            }),
                         }
                     }
                 };
@@ -83,9 +76,9 @@ namespace SchemaGeneration
                 await db.UpdateAsync<Event>(e);
 
                 // returns 27
-                string location = db.Query<Event>()
+                string title = db.Query<Event>()
                                   .Where(p => AQL.Contains(p.Title, "new title"))
-                                  .Select(p => p.Location)
+                                  .Select(p => p.Title)
                                   .FirstOrDefault();
 
                 /////////////////////// aql modification queries ////////////////////////////

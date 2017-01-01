@@ -5,17 +5,20 @@ using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NUnit.Framework;
 using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 
 namespace Scheduler.ScheduleAbstracts
 {
     public abstract class Repeating : Schedule
     {
-        public Range Range;
+        [IgnoreDataMember]
+        public EdgeRange EdgeRange;
         public int? CountFrom;
         public int? CountTo;
         public int CountFromDefault { get; set; }
         public int CountToDefault { get; set; }
+
         protected int Increment = 1;
 
         [IgnoreDataMember]
@@ -29,7 +32,14 @@ namespace Scheduler.ScheduleAbstracts
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            throw new NotImplementedException();
+            if (EdgeRange == null)
+                return SaveResult.Incomplete;
+
+            var results = base.Save(db);
+
+            if (results != SaveResult.Success) return results;
+
+            return EdgeRange.Save(db, this);
         }
     }
 }

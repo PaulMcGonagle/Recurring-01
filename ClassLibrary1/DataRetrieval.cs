@@ -4,6 +4,8 @@ using Scheduler.ScheduleInstances;
 using System.Collections.Generic;
 using System.Linq;
 using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
+using Scheduler.Users;
 
 namespace TestData
 {
@@ -13,6 +15,7 @@ namespace TestData
         private static Dictionary<string, IEnumerable<IsoDayOfWeek>> _dateTypes;
         private static Dictionary<string, Scheduler.Date> _dates;
         private static Dictionary<string, Range> _ranges;
+        private static Dictionary<string, Organisation> _organisations;
 
         public static Dictionary<string, ISchedule> ScheduleArchive
         {
@@ -26,9 +29,9 @@ namespace TestData
                         "Schools.Term.201617.Autumn",
                         new ByWeekdays
                         {
-                            Range = new Range(
+                            EdgeRange = new EdgeRange(new Range(
                                 Dates["Schools.Term.201617.Autumn.Start"],
-                                Dates["Schools.Term.201617.Autumn.End"]),
+                                Dates["Schools.Term.201617.Autumn.End"])),
                             Days = DayRanges["Weekdays"],
                         }
                     },
@@ -36,9 +39,9 @@ namespace TestData
                         "Schools.Term.201617.Autumn.1",
                         new ByWeekdays
                         {
-                            Range = new Range(
+                            EdgeRange = new EdgeRange(new Range(
                                 Dates["Schools.Term.201617.Autumn.Start"],
-                                Dates["Schools.Term.201617.Autumn.HalfTerm.Start"].PlusDays(-1)),
+                                Dates["Schools.Term.201617.Autumn.HalfTerm.Start"].PlusDays(-1))),
                             Days = DayRanges["Weekdays"],
                         }
                     },
@@ -46,9 +49,9 @@ namespace TestData
                         "Schools.Term.201617.Autumn.HalfTerm",
                         new ByWeekdays
                         {
-                            Range = new Range(
+                            EdgeRange = new EdgeRange(new Range(
                                 Dates["Schools.Term.201617.Autumn.HalfTerm.Start"],
-                                Dates["Schools.Term.201617.Autumn.HalfTerm.End"]),
+                                Dates["Schools.Term.201617.Autumn.HalfTerm.End"])),
                             Days = DayRanges["Weekdays"],
                         }
                     },
@@ -56,9 +59,9 @@ namespace TestData
                         "Schools.Term.201617.Autumn.2",
                         new ByWeekdays
                         {
-                            Range = new Range(
+                            EdgeRange = new EdgeRange(new Range(
                                 Dates["Schools.Term.201617.Autumn.HalfTerm.End"].PlusDays(01),
-                                Dates["Schools.Term.201617.Autumn.End"]),
+                                Dates["Schools.Term.201617.Autumn.End"])),
                             Days = DayRanges["Weekdays"],
                         }
                     },
@@ -66,9 +69,9 @@ namespace TestData
                         "Schools.Term.201617.Winter",
                         new ByWeekdays
                         {
-                            Range = new Range(
+                            EdgeRange = new EdgeRange(new Range(
                                 Dates["Schools.Term.201617.Winter.Start"],
-                                Dates["Schools.Term.201617.Winter.End"]),
+                                Dates["Schools.Term.201617.Winter.End"])),
                             Days = DayRanges["Weekdays"],
                         }
                     },
@@ -76,9 +79,9 @@ namespace TestData
                         "Schools.Term.201617.Summer",
                         new ByWeekdays
                         {
-                            Range = new Range(
+                            EdgeRange = new EdgeRange(new Range(
                                 Dates["Schools.Term.201617.Summer.Start"],
-                                Dates["Schools.Term.201617.Summer.End"]),
+                                Dates["Schools.Term.201617.Summer.End"])),
                             Days = DayRanges["Weekdays"],
                         }
                     },
@@ -129,38 +132,16 @@ namespace TestData
                     .Add("Example.AutumnTerm",
                         new Scheduler.CompositeSchedule()
                         {
-                            InclusionsEdges = new Edges
+                            InclusionsEdges = new EdgeVertexs<Schedule>
                             {
-                                new Edge
-                                {
-                                    ToVertex = (Schedule)TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Autumn"],
-                                },
-                                new Edge
-                                {
-                                    ToVertex = (Schedule)TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Winter"],
-                                },
-                                new Edge
-                                {
-                                    ToVertex = (Schedule)TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Summer"],
-                                },
+                                new EdgeVertex<Schedule>((Schedule)ScheduleArchive["Schools.Term.201617.Autumn"]),
+                                new EdgeVertex<Schedule>((Schedule)ScheduleArchive["Schools.Term.201617.Winter"]),
+                                new EdgeVertex<Schedule>((Schedule)ScheduleArchive["Schools.Term.201617.Summer"]),
                             },
-                            ExclusionsEdges = new Edges
+                            ExclusionsEdges = new EdgeVertexs<Schedule>
                             {
-                                new Edge
-                                {
-                                    ToVertex = (Schedule)TestData.DataRetrieval.ScheduleArchive["BankHolidays"],
-                                },
+                                new EdgeVertex<Schedule>((Schedule)ScheduleArchive["BankHolidays"]),
                             },
-                            //Inclusions = new List<ISchedule>
-                            //{
-                            //    TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Autumn"],
-                            //    TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Winter"],
-                            //    TestData.DataRetrieval.ScheduleArchive["Schools.Term.201617.Summer"],
-                            //},
-                            //Exclusions = new List<ISchedule>
-                            //{
-                            //    TestData.DataRetrieval.ScheduleArchive["BankHolidays"],
-                            //},
                             Breaks = new List<Range>
                             {
                                 TestData.DataRetrieval.Ranges["Schools.Term.201617.Autumn.HalfTerm"],
@@ -170,6 +151,39 @@ namespace TestData
                         });
 
                 return _scheduleArchive;
+            }
+        }
+
+        public static Dictionary<string, Organisation> Organisations
+        {
+            get
+            {
+                if (_organisations != null) return _organisations;
+
+                _organisations = new Dictionary<string, Organisation>
+                {
+                    {
+                        "Hampden Gurney Primary School",
+                        new Organisation {Title = "Hampden Gurney Primary School", }
+                    },
+                    {
+                        "Sylvia Young Theatre School",
+                        new Organisation {Title = "Sylvia Young Theatre School", }
+                    },
+                    {
+                        "Lords Cricket Academy",
+                        new Organisation
+                        {
+                            Title = "Lords Cricket Academy",
+                            Location = new EdgeVertex<Location>(new Location
+                            {
+                                Address = "St Johns Wood",
+                            })
+                        }
+                    },
+                };
+
+                return _organisations;
             }
         }
 

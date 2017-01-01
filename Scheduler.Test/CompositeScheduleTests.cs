@@ -39,25 +39,20 @@ namespace Scheduler.Test
                         {
                             new CompositeSchedule
                             {
-                                InclusionsEdges = new Edges
+                                InclusionsEdges = new EdgeVertexs<Schedule>()
                                 {
-                                    new Edge
-                                    {
-                                        ToVertex = new DateList
+                                    new EdgeVertex<Schedule>(new DateList
                                         {
                                             Items =
                                                 DateTimeHelper.Range(
                                                     new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
                                                     new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
                                                 ).ToList(),
-                                        }
-                                    },
+                                        })
                                 },
-                                ExclusionsEdges = new Edges
+                                ExclusionsEdges = new EdgeVertexs<Schedule>()
                                 {
-                                    new Edge
-                                    {
-                                        ToVertex = new DateList
+                                    new EdgeVertex<Schedule>(new DateList
                                         {
                                             Items =
                                             DateTimeHelper.Range(
@@ -65,32 +60,8 @@ namespace Scheduler.Test
                                                 new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
                                             )
                                             .Where(d => d.IsoDayOfWeek == IsoDayOfWeek.Monday).ToList(),
-                                        }
-                                    },
+                                        })
                                 },
-                                //Inclusions = new List<ISchedule>
-                                //{
-                                //    new DateList
-                                //    {
-                                //        Items =
-                                //            DateTimeHelper.Range(
-                                //                new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
-                                //                new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
-                                //            ).ToList(),
-                                //    },
-                                //},
-                                //Exclusions = new List<ISchedule>
-                                //{
-                                //    new DateList
-                                //    {
-                                //        Items =
-                                //            DateTimeHelper.Range(
-                                //                new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
-                                //                new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
-                                //            )
-                                //            .Where(d => d.IsoDayOfWeek == IsoDayOfWeek.Monday).ToList(),
-                                //    },
-                                //},
                             },
                             new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
                             new Scheduler.Date(2018, YearMonth.MonthValue.December, 30),

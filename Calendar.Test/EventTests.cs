@@ -2,6 +2,8 @@
 using Shouldly;
 using NodaTime;
 using Scheduler;
+using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Test;
 using TestStack.BDDfy;
@@ -37,12 +39,12 @@ namespace MyCalendar.Test
                                         {
                                             From = new LocalTime(16, 45),
                                             Period = new PeriodBuilder { Minutes = 45}.Build(),
-                                            Schedule = new ByWeekday
+                                            EdgeSchedule = new EdgeSchedule(new ByWeekday
                                             {
-                                                Range = new Range(2016, YearMonth.MonthValue.September, 22, 2016, YearMonth.MonthValue.December, 20),
+                                                EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.September, 22, 2016, YearMonth.MonthValue.December, 20),
                                                 Weekday = IsoDayOfWeek.Thursday,
                                                 Clock = fakeClock,
-                                            },
+                                            }),
                                             TimeZoneProvider = TimeZoneProvider,
                                         }
                                     }
@@ -105,11 +107,11 @@ namespace MyCalendar.Test
                                 {
                                     new Serial
                                     {
-                                        Schedule = 
-                                            new SingleDay
+                                        EdgeSchedule = new EdgeSchedule(new SingleDay
                                             {
                                                 Date = new Scheduler.Date(2016, YearMonth.MonthValue.July, 01),
-                                            },
+                                            }
+                                        ),
                                         From = new LocalTime(14, 00),
                                         Period = new PeriodBuilder { Minutes = 1 }.Build(),
                                         TimeZoneProvider = "Europe/London",

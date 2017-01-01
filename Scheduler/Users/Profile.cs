@@ -13,7 +13,9 @@ namespace Scheduler.Users
         public string Forename { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-        public string TimeZoneProvider { get; set; }
+        public string HomeTimeZoneProvider { get; set; }
+
+        public EdgeVertexs<Organisation> Organisations { get; set; }
 
         public override SaveResult Save(IArangoDatabase db)
         {

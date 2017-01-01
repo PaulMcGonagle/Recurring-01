@@ -1,14 +1,16 @@
 ﻿using System.Runtime.Serialization;
 using ArangoDB.Client;
 using Scheduler.Persistance;
+using Scheduler.Users;
 
 namespace Scheduler
 {
     public class Event : Vertex
     {
-        private string _location;
+        private EdgeVertex<Location> _location;
 
-        public string Location
+        [IgnoreDataMember]
+        public EdgeVertex<Location> Location
         {
             get { return _location; }
             set
@@ -35,15 +37,22 @@ namespace Scheduler
 
         public override SaveResult Save(IArangoDatabase db)
         {
+            SaveResult result = Save<Event>(db);
+
+            if (result != SaveResult.Success)
+                return result;
+
+
             foreach (var serial in Serials)
             {
-                var serialResult = serial.Save(db);
+                result = serial.Save(db);
 
-                if (serialResult != SaveResult.Success)
-                    return serialResult;
+                if (result != SaveResult.Success)
+                    return result;
             }
 
-            var result = Save<Event>(db);
+            if (Location != null)
+                result = Location.Save(db, this);
 
             if (result != SaveResult.Success)
                 return result;

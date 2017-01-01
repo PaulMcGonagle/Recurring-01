@@ -24,8 +24,8 @@ namespace Scheduler.ScheduleInstances
         {
             get
             {
-                var start = Range.From ?? DateTimeHelper.GetToday(Clock).AddWeeks(-(CountFrom ?? CountFromDefault));
-                var end = Range.To ?? DateTimeHelper.GetToday(Clock).AddWeeks((CountTo ?? CountToDefault));
+                var start = EdgeRange.ToVertex.From ?? DateTimeHelper.GetToday(Clock).AddWeeks(-(CountFrom ?? CountFromDefault));
+                var end = EdgeRange.ToVertex.To ?? DateTimeHelper.GetToday(Clock).AddWeeks((CountTo ?? CountToDefault));
 
                 var range = DateTimeHelper.Range(start: start, end: end);
                 return range.Where(d => Days.Contains(d.IsoDayOfWeek));
@@ -34,7 +34,11 @@ namespace Scheduler.ScheduleInstances
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            return Save<ByWeekdays>(db);
+            var results = Save<ByWeekdays>(db);
+
+            if (results != SaveResult.Success) return results;
+
+            return base.Save(db);
         }
     }
 }

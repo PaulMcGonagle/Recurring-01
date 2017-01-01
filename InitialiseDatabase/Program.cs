@@ -8,7 +8,9 @@ using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
+using Scheduler.Users;
 
 namespace InitialiseDatabase
 {
@@ -21,10 +23,8 @@ namespace InitialiseDatabase
             if (a.Status != TaskStatus.RanToCompletion)
             {
                 if (a.Exception != null)
-                    throw a.Exception;
+                     throw a.Exception;
             }
-
-            Console.ReadKey();
         }
 
         public static async Task Go(string databaseName)
@@ -52,6 +52,7 @@ namespace InitialiseDatabase
                 db.CreateCollection("Event");
                 db.CreateCollection("Profile");
                 db.CreateCollection("Organisation");
+                db.CreateCollection("Location");
                 db.CreateCollection("Range");
                 db.CreateCollection("Date");
                 db.CreateCollection("Serial");
@@ -74,12 +75,18 @@ namespace InitialiseDatabase
                     range.Save(db);
                 }
 
+                foreach (var organisation in TestData.DataRetrieval.Organisations.Values)
+                {
+                    organisation.Save(db);
+                }
+
                 new Scheduler.Users.Profile
                 {
                     Forename = "Paul",
                     Surname = "McGonagle",
                     Email = "paul@anemail.com",
-                    TimeZoneProvider = "Europe/London",
+                    HomeTimeZoneProvider = "Europe/London",
+                    Organisations = new EdgeVertexs<Organisation>()
                 }.Save(db);
 
                 new Scheduler.Users.Profile
@@ -87,28 +94,13 @@ namespace InitialiseDatabase
                     Forename = "A",
                     Surname = "Dancer",
                     Email = "a.dancer@thestage.com",
-                    TimeZoneProvider = "Europe/Paris",
-                }.Save(db);
-
-                new Scheduler.Users.Organisation
-                {
-                    Title = "Hampden Gurney Primary School",
-                }.Save(db);
-
-                new Scheduler.Users.Organisation
-                {
-                    Title = "Sylvia Young Theatre School",
-                }.Save(db);
-
-                new Scheduler.Users.Organisation
-                {
-                    Title = "Lord Cricket Academy",
+                    HomeTimeZoneProvider = "Europe/Paris",
                 }.Save(db);
 
                 var e = new Event
                 {
-                    Location = "here",
-                    
+                    Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
+
                     Serials = new Serials
                     {
                         new Serial
@@ -116,50 +108,40 @@ namespace InitialiseDatabase
                             From = new LocalTime(16, 30),
                             Period = new PeriodBuilder { Minutes = 45 }.Build(),
                             TimeZoneProvider = "Europe/London",
-
-                            Schedule = new CompositeSchedule()
+                            
+                            EdgeSchedule = new EdgeSchedule(new CompositeSchedule()
                             {
-                                InclusionsEdges = new Edges
+                                InclusionsEdges = new EdgeVertexs<Schedule>
                                 {
-                                    new Edge
-                                    {
-                                        ToVertex = new ByDayOfMonth
+                                    new EdgeVertex<Schedule>(new ByDayOfMonth
                                         {
-                                            Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"],
+                                            EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
                                             Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
                                             DayOfMonth = 10,
-                                        }
-                                    },
-                                    new Edge
-                                    {
-                                        ToVertex = new SingleDay
+                                        })
+                                    ,
+                                    new EdgeVertex<Schedule>(new SingleDay
                                         {
                                             Date = new Date(2000, YearMonth.MonthValue.January, 01),
-                                        }
-                                    },
-                                    new Edge
-                                    {
-                                        ToVertex = new ByDayOfYear
+                                        })
+                                    ,
+                                    new EdgeVertex<Schedule>(new ByDayOfYear
                                         {
-                                            Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"],
+                                            EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
                                             Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
                                             DayOfYear = 08,
                                         }
-                                    },
-                                    new Edge
-                                    {
-                                        ToVertex = new ByWeekday
+                                    ),
+                                    new EdgeVertex<Schedule>(new ByWeekday
                                         {
-                                            Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"],
+                                            EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
                                             Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
                                             Weekday = IsoDayOfWeek.Wednesday,
                                         }
-                                    },
-                                    new Edge
-                                    {
-                                        ToVertex = new ByWeekdays
+                                    ),
+                                    new EdgeVertex<Schedule>(new ByWeekdays
                                         {
-                                            Range = TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"],
+                                            EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
                                             Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
                                             Days = new List<IsoDayOfWeek>
                                             {
@@ -167,10 +149,8 @@ namespace InitialiseDatabase
                                                 IsoDayOfWeek.Sunday,
                                             }
                                         }
-                                    },
-                                    new Edge
-                                    {
-                                        ToVertex = new DateList
+                                    ),
+                                    new EdgeVertex<Schedule>(new DateList
                                         {
                                             Items = new List<Date>
                                             {
@@ -180,9 +160,9 @@ namespace InitialiseDatabase
                                                 new Date(1971, YearMonth.MonthValue.March, 15),
                                             }
                                         }
-                                    },
+                                    ),
                                 },
-                            }
+                            })
                         }
                     }
                 };
@@ -193,7 +173,7 @@ namespace InitialiseDatabase
 
                 // partially updates person, only 'Age' attribute will be updated
                 e.Save(db);
-
+                
                 // returns 27
                 var entity = db
                     .Query<Event>()
@@ -202,11 +182,124 @@ namespace InitialiseDatabase
                 entity?.SetToDelete();
 
                 entity?.Save(db);
-
-                /////////////////////// aql modification queries ////////////////////////////
-
                 
-                //
+                
+                new Event
+                {
+                    Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
+
+                    Serials = new Serials
+                    {
+                        new Serial
+                        {
+                            From = new LocalTime(16, 30),
+                            Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                            TimeZoneProvider = "Europe/London",
+
+                            EdgeSchedule = new EdgeSchedule(new CompositeSchedule()
+                            {
+                                InclusionsEdges = new EdgeVertexs<Schedule>
+                                {
+                                    new EdgeVertex<Schedule>(new ByDayOfMonth
+                                        {
+                                            EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
+                                            Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                            DayOfMonth = 10,
+                                        })
+                                    ,
+                                },
+                            })
+                        }
+                    }
+                }.Save(db);
+                
+                new Event
+                {
+                    Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
+
+                    Serials = new Serials
+                    {
+                        new Serial
+                        {
+                            From = new LocalTime(16, 30),
+                            Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                            TimeZoneProvider = "Europe/London",
+
+                            EdgeSchedule = new EdgeSchedule(new CompositeSchedule()
+                            {
+                                InclusionsEdges = new EdgeVertexs<Schedule>
+                                {
+                                    new EdgeVertex<Schedule>(new SingleDay
+                                        {
+                                            Date = new Date(2000, YearMonth.MonthValue.January, 01),
+                                        })
+                                    ,
+                                },
+                            })
+                        }
+                    }
+                }.Save(db);
+
+                new Event
+                {
+                    Serials = new Serials
+                    {
+                        new Serial
+                        {
+                            From = new LocalTime(16, 30),
+                            Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                            TimeZoneProvider = "Europe/London",
+
+                            EdgeSchedule = new EdgeSchedule(new CompositeSchedule()
+                            {
+                                InclusionsEdges = new EdgeVertexs<Schedule>
+                                {
+                                    new EdgeVertex<Schedule>(new ByWeekdays
+                                        {
+                                            EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
+                                            Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                            Days = new List<IsoDayOfWeek>
+                                            {
+                                                IsoDayOfWeek.Saturday,
+                                                IsoDayOfWeek.Sunday,
+                                            }
+                                        }
+                                    ),                                },
+                            })
+                        }
+                    }
+                }.Save(db);
+                
+                new Event
+                {
+                    Serials = new Serials
+                    {
+                        new Serial
+                        {
+                            From = new LocalTime(16, 30),
+                            Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                            TimeZoneProvider = "Europe/London",
+
+                            EdgeSchedule = new EdgeSchedule(new CompositeSchedule()
+                            {
+                                InclusionsEdges = new EdgeVertexs<Schedule>
+                                {
+                                    new EdgeVertex<Schedule>(new DateList
+                                        {
+                                            Items = new List<Date>
+                                            {
+                                                new Date(2010, YearMonth.MonthValue.August, 09),
+                                                new Date(2008, YearMonth.MonthValue.May, 30),
+                                                new Date(1974, YearMonth.MonthValue.February, 09),
+                                                new Date(1971, YearMonth.MonthValue.March, 15),
+                                            }
+                                        }
+                                    ),
+                                },
+                            })
+                        }
+                    }
+                }.Save(db);
             }
         }
     }

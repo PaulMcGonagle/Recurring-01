@@ -10,6 +10,7 @@ namespace Scheduler.ScheduleInstances
 {
     public class ByWeekday : ScheduleAbstracts.Repeating
     {
+        [DataMember]
         public IsoDayOfWeek Weekday;
         private IClock _clock;
 
@@ -65,7 +66,11 @@ namespace Scheduler.ScheduleInstances
 
         public override SaveResult Save(IArangoDatabase db)
         {
-            return Save<ByWeekday>(db);
+            var results = Save<ByWeekday>(db);
+
+            if (results != SaveResult.Success) return results;
+
+            return base.Save(db);
         }
     }
 }
