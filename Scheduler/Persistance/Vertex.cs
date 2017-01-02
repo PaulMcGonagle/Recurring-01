@@ -114,7 +114,7 @@ namespace Scheduler.Persistance
 
         public virtual SaveResult Save(IArangoDatabase db, IClock clock)
         {
-            if (this.GetType().Name == "Backup")
+            if (GetType().Name == "Backup")
             {
                 return SaveResult.Success;
             }

@@ -1,8 +1,6 @@
-﻿using NodaTime;
-using Shouldly;
+﻿using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
-using NodaTime.Testing;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
 using TestStack.BDDfy;

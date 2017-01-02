@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NodaTime;
 using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
@@ -22,18 +19,6 @@ namespace Scheduler.Test
             [Fact]
             public void Execute()
             {
-                var e = new Edge
-                {
-                    ToVertex = new DateList
-                    {
-                        Items =
-                            DateTimeHelper.Range(
-                                new Date(2016, YearMonth.MonthValue.January, 01),
-                                new Date(2018, YearMonth.MonthValue.December, 31)
-                            ).ToList(),
-                    }
-                };
-
                 this.WithExamples(new ExampleTable("sut", "expectedFirstDate", "expectedLastDate", "excludedIsoDayOfWeeks")
                     {
                         {

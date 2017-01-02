@@ -3,10 +3,7 @@ using NodaTime;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
-using NUnit.Framework;
-using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
-using Scheduler.ScheduleInstances;
 
 namespace Scheduler.ScheduleAbstracts
 {
@@ -21,7 +18,7 @@ namespace Scheduler.ScheduleAbstracts
 
         protected int Increment = 1;
 
-        public override IEnumerable<Scheduler.Date> GenerateDates()
+        public override IEnumerable<Date> GenerateDates()
         {
             throw new NotImplementedException();
         }

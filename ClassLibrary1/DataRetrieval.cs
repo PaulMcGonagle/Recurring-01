@@ -13,7 +13,7 @@ namespace TestData
     {
         private static Dictionary<string, ISchedule> _scheduleArchive;
         private static Dictionary<string, IEnumerable<IsoDayOfWeek>> _dateTypes;
-        private static Dictionary<string, Scheduler.Date> _dates;
+        private static Dictionary<string, Date> _dates;
         private static Dictionary<string, Range> _ranges;
         private static Dictionary<string, Organisation> _organisations;
 
@@ -87,35 +87,35 @@ namespace TestData
                     },
                     {
                         "BankHolidays.2016.NewYearsDay",
-                        new SingleDay {Date = new Scheduler.Date(2016, YearMonth.MonthValue.January, 01)}
+                        new SingleDay {Date = new Date(2016, YearMonth.MonthValue.January, 01)}
                     },
                     {
                         "BankHolidays.2016.GoodFriday",
-                        new SingleDay {Date = new Scheduler.Date(2016, YearMonth.MonthValue.March, 25)}
+                        new SingleDay {Date = new Date(2016, YearMonth.MonthValue.March, 25)}
                     },
                     {
                         "BankHolidays.2016.EasterMonday",
-                        new SingleDay {Date = new Scheduler.Date(2016, YearMonth.MonthValue.March, 28)}
+                        new SingleDay {Date = new Date(2016, YearMonth.MonthValue.March, 28)}
                     },
                     {
                         "BankHolidays.2016.EarlyMayBankHoliday",
-                        new SingleDay {Date = new Scheduler.Date(2016, YearMonth.MonthValue.May, 01)}
+                        new SingleDay {Date = new Date(2016, YearMonth.MonthValue.May, 01)}
                     },
                     {
                         "BankHolidays.2016.SpringBankHoliday",
-                        new SingleDay {Date = new Scheduler.Date(2016, YearMonth.MonthValue.May, 30)}
+                        new SingleDay {Date = new Date(2016, YearMonth.MonthValue.May, 30)}
                     },
                     {
                         "BankHolidays.2016.SummerBankHoliday",
-                        new SingleDay {Date = new Scheduler.Date(2016, YearMonth.MonthValue.August, 29)}
+                        new SingleDay {Date = new Date(2016, YearMonth.MonthValue.August, 29)}
                     },
                     {
                         "BankHolidays.2016.Boxing",
-                        new SingleDay {Date = new Scheduler.Date(2016, YearMonth.MonthValue.December, 26)}
+                        new SingleDay {Date = new Date(2016, YearMonth.MonthValue.December, 26)}
                     },
                     {
                         "BankHolidays.2016.ChristmasDaySubstitute",
-                        new SingleDay {Date = new Scheduler.Date(2016, YearMonth.MonthValue.December, 27)}
+                        new SingleDay {Date = new Date(2016, YearMonth.MonthValue.December, 27)}
                     }
                 };
 
@@ -130,7 +130,7 @@ namespace TestData
 
                 _scheduleArchive
                     .Add("Example.AutumnTerm",
-                        new Scheduler.CompositeSchedule()
+                        new CompositeSchedule()
                         {
                             InclusionsEdges = new EdgeVertexs<Schedule>
                             {
@@ -144,9 +144,9 @@ namespace TestData
                             },
                             Breaks = new List<Range>
                             {
-                                TestData.DataRetrieval.Ranges["Schools.Term.201617.Autumn.HalfTerm"],
-                                TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter.HalfTerm"],
-                                TestData.DataRetrieval.Ranges["Schools.Term.201617.Summer.HalfTerm"],
+                                Ranges["Schools.Term.201617.Autumn.HalfTerm"],
+                                Ranges["Schools.Term.201617.Winter.HalfTerm"],
+                                Ranges["Schools.Term.201617.Summer.HalfTerm"],
                             },
                         });
 
@@ -264,72 +264,72 @@ namespace TestData
             }
         }
 
-        public static Dictionary<string, Scheduler.Date> Dates
-            => _dates ?? (_dates = new Dictionary<string, Scheduler.Date>
+        public static Dictionary<string, Date> Dates
+            => _dates ?? (_dates = new Dictionary<string, Date>
                {
                     {
                         "Schools.Term.201617.Autumn.Start",
-                        new Scheduler.Date(2016, YearMonth.MonthValue.August, 05)
+                        new Date(2016, YearMonth.MonthValue.August, 05)
                     },
                     {
                         "Schools.Term.201617.Autumn.HalfTerm.Start",
-                        new Scheduler.Date(2016, YearMonth.MonthValue.October, 24)
+                        new Date(2016, YearMonth.MonthValue.October, 24)
                     },
                     {
                         "Schools.Term.201617.Autumn.HalfTerm.End",
-                        new Scheduler.Date(2016, YearMonth.MonthValue.October, 31)
+                        new Date(2016, YearMonth.MonthValue.October, 31)
                     },
                     {
                         "Schools.Term.201617.Autumn.End",
-                        new Scheduler.Date(2016, YearMonth.MonthValue.December, 21)
+                        new Date(2016, YearMonth.MonthValue.December, 21)
                     },
                     {
                         "Schools.Term.201617.Winter.Start",
-                        new Scheduler.Date(2017, YearMonth.MonthValue.January, 05)
+                        new Date(2017, YearMonth.MonthValue.January, 05)
                     },
                     {
                         "Schools.Term.201617.Winter.HalfTerm.Start",
-                        new Scheduler.Date(2017, YearMonth.MonthValue.February, 24)
+                        new Date(2017, YearMonth.MonthValue.February, 24)
                     },
                     {
                         "Schools.Term.201617.Winter.HalfTerm.End",
-                        new Scheduler.Date(2017, YearMonth.MonthValue.March, 01)
+                        new Date(2017, YearMonth.MonthValue.March, 01)
                     },
                     {
                         "Schools.Term.201617.Winter.End",
-                        new Scheduler.Date(2017, YearMonth.MonthValue.April, 10)
+                        new Date(2017, YearMonth.MonthValue.April, 10)
                     },
                     {
                         "Schools.Term.201617.Summer.Start",
-                        new Scheduler.Date(2017, YearMonth.MonthValue.April, 30)
+                        new Date(2017, YearMonth.MonthValue.April, 30)
                     },
                     {
                         "Schools.Term.201617.Summer.HalfTerm.Start",
-                        new Scheduler.Date(2017, YearMonth.MonthValue.May, 26)
+                        new Date(2017, YearMonth.MonthValue.May, 26)
                     },
                     {
                         "Schools.Term.201617.Summer.HalfTerm.End",
-                        new Scheduler.Date(2017, YearMonth.MonthValue.June, 03)
+                        new Date(2017, YearMonth.MonthValue.June, 03)
                     },
                     {
                         "Schools.Term.201617.Summer.End",
-                        new Scheduler.Date(2017, YearMonth.MonthValue.July, 17)
+                        new Date(2017, YearMonth.MonthValue.July, 17)
                     },
                     {
                         "Schools.Term.201718.Autumn.Start",
-                        new Scheduler.Date(2017, YearMonth.MonthValue.August, 05)
+                        new Date(2017, YearMonth.MonthValue.August, 05)
                     },
                     {
                         "Schools.Term.201718.Autumn.HalfTerm.Start",
-                        new Scheduler.Date(2017, YearMonth.MonthValue.October, 24)
+                        new Date(2017, YearMonth.MonthValue.October, 24)
                     },
                     {
                         "Schools.Term.201718.Autumn.HalfTerm.End",
-                        new Scheduler.Date(2017, YearMonth.MonthValue.November, 01)
+                        new Date(2017, YearMonth.MonthValue.November, 01)
                     },
                     {
                         "Schools.Term.201718.Autumn.End",
-                        new Scheduler.Date(2017, YearMonth.MonthValue.December, 21)
+                        new Date(2017, YearMonth.MonthValue.December, 21)
                     },
             }
             );

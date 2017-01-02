@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Shouldly;
-using NodaTime;
-using TestStack.BDDfy;
 using Scheduler.ScheduleInstances;
+using Shouldly;
+using TestStack.BDDfy;
 using Xunit;
 
-namespace Scheduler.Test.SingleDayTests
+namespace Scheduler.Test.ScheduleInstances
 {
     public class VerifyDay
     {

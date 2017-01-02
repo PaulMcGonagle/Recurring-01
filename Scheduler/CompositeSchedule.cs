@@ -19,7 +19,7 @@ namespace Scheduler
 
         public List<Range> Breaks = new List<Range>();
 
-        public override IEnumerable<Scheduler.Date> GenerateDates()
+        public override IEnumerable<Date> GenerateDates()
         {
             var inclusions = InclusionsEdges.SelectMany(i => i.ToVertex.GenerateDates());
             var exclusions = ExclusionsEdges.SelectMany(i => i.ToVertex.GenerateDates());
