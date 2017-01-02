@@ -17,7 +17,7 @@ namespace Scheduler.Test
         public class VerifyExclusionsAreExcluded
         {
             CompositeSchedule _sut;
-            private IEnumerable<Scheduler.Date> _dates;
+            private IEnumerable<Date> _dates;
 
             [Fact]
             public void Execute()
@@ -28,8 +28,8 @@ namespace Scheduler.Test
                     {
                         Items =
                             DateTimeHelper.Range(
-                                new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
-                                new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
+                                new Date(2016, YearMonth.MonthValue.January, 01),
+                                new Date(2018, YearMonth.MonthValue.December, 31)
                             ).ToList(),
                     }
                 };
@@ -45,8 +45,8 @@ namespace Scheduler.Test
                                         {
                                             Items =
                                                 DateTimeHelper.Range(
-                                                    new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
-                                                    new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
+                                                    new Date(2016, YearMonth.MonthValue.January, 01),
+                                                    new Date(2018, YearMonth.MonthValue.December, 31)
                                                 ).ToList(),
                                         })
                                 },
@@ -56,15 +56,15 @@ namespace Scheduler.Test
                                         {
                                             Items =
                                             DateTimeHelper.Range(
-                                                new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
-                                                new Scheduler.Date(2018, YearMonth.MonthValue.December, 31)
+                                                new Date(2016, YearMonth.MonthValue.January, 01),
+                                                new Date(2018, YearMonth.MonthValue.December, 31)
                                             )
                                             .Where(d => d.IsoDayOfWeek == IsoDayOfWeek.Monday).ToList(),
                                         })
                                 },
                             },
-                            new Scheduler.Date(2016, YearMonth.MonthValue.January, 01),
-                            new Scheduler.Date(2018, YearMonth.MonthValue.December, 30),
+                            new Date(2016, YearMonth.MonthValue.January, 01),
+                            new Date(2018, YearMonth.MonthValue.December, 30),
                             new List<IsoDayOfWeek>
                             {
                                 IsoDayOfWeek.Monday,
@@ -84,7 +84,7 @@ namespace Scheduler.Test
                 _dates = _sut.GenerateDates();
             }
 
-            public void ThenTheFirstDateIs(Scheduler.Date expectedFirstDate)
+            public void ThenTheFirstDateIs(Date expectedFirstDate)
             {
                 _dates
                     .Select(d => d.Value)
@@ -92,7 +92,7 @@ namespace Scheduler.Test
                     .ShouldBe(expectedFirstDate.Value);
             }
 
-            public void AndThenTheLastDateIs(Scheduler.Date expectedLastDate)
+            public void AndThenTheLastDateIs(Date expectedLastDate)
             {
                 _dates
                     .Select(d => d.Value)

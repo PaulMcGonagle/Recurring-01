@@ -30,7 +30,7 @@ namespace Scheduler.Test
                                 {
                                     EdgeSchedule = new EdgeSchedule(new SingleDay
                                             {
-                                                Date = new Scheduler.Date(2016, YearMonth.MonthValue.March, 05),
+                                                Date = new Date(2016, YearMonth.MonthValue.March, 05),
                                             })
                                     ,
                                     From = new LocalTime(12, 35),
@@ -41,7 +41,7 @@ namespace Scheduler.Test
                                 {
                                     EdgeSchedule = new EdgeSchedule(new SingleDay
                                         {
-                                            Date = new Scheduler.Date(2016, YearMonth.MonthValue.August, 01),
+                                            Date = new Date(2016, YearMonth.MonthValue.August, 01),
                                         }
                                     ),
                                     From = new LocalTime(09, 20),
@@ -118,7 +118,7 @@ namespace Scheduler.Test
                         {
                             new Serial
                             {
-                                EdgeSchedule = new EdgeSchedule(new DateList { Items = new List<Scheduler.Date>(), }),
+                                EdgeSchedule = new EdgeSchedule(new DateList { Items = new List<Date>(), }),
                                 From = new LocalTime(15, 30),
                                 TimeZoneProvider = timeZoneProvider,
                             },
@@ -127,7 +127,7 @@ namespace Scheduler.Test
                         {
                             new Serial
                             {
-                                EdgeSchedule = new EdgeSchedule(new DateList { Items = new List<Scheduler.Date>(), }),
+                                EdgeSchedule = new EdgeSchedule(new DateList { Items = new List<Date>(), }),
                                 From = new LocalTime(15, 30),
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                             },

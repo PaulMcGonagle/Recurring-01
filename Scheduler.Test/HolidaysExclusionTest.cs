@@ -14,7 +14,7 @@ namespace Scheduler.Test
     public class HolidaysExclusionTest
     {
         private CompositeSchedule _term;
-        private IEnumerable<Scheduler.Date> _holidays;
+        private IEnumerable<Date> _holidays;
 
         [Fact]
         public void RunExamplesWithFluentApi()
@@ -34,7 +34,7 @@ namespace Scheduler.Test
             _term = term;
         }
 
-        public void WhenThereAreSomeHolidays(IEnumerable<Scheduler.Date> holidays)
+        public void WhenThereAreSomeHolidays(IEnumerable<Date> holidays)
         {
             _holidays = holidays;
 

@@ -11,16 +11,16 @@ namespace Scheduler.Test.SingleDayTests
     public class VerifyDay
     {
         SingleDay _sut;
-        IEnumerable<Scheduler.Date> _dates;
+        IEnumerable<Date> _dates;
 
         [Fact]
         public void Execute()
         {
             this.WithExamples(new ExampleTable("sut", "expectedDate")
                 {
-                    {   new SingleDay { Date = new Scheduler.Date(2016, YearMonth.MonthValue.April, 25) }, new Scheduler.Date(2016, YearMonth.MonthValue.April, 25) },
-                    {   new SingleDay { Date = new Scheduler.Date(2000, YearMonth.MonthValue.January, 01) }, new Scheduler.Date(2000, YearMonth.MonthValue.January, 01) },
-                    {   new SingleDay { Date = new Scheduler.Date(2999, YearMonth.MonthValue.December, 31) }, new Scheduler.Date(2999, YearMonth.MonthValue.December, 31) },
+                    {   new SingleDay { Date = new Date(2016, YearMonth.MonthValue.April, 25) }, new Date(2016, YearMonth.MonthValue.April, 25) },
+                    {   new SingleDay { Date = new Date(2000, YearMonth.MonthValue.January, 01) }, new Date(2000, YearMonth.MonthValue.January, 01) },
+                    {   new SingleDay { Date = new Date(2999, YearMonth.MonthValue.December, 31) }, new Date(2999, YearMonth.MonthValue.December, 31) },
                 })
                 .BDDfy();
         }
@@ -35,7 +35,7 @@ namespace Scheduler.Test.SingleDayTests
             _dates = _sut.GenerateDates();
         }
 
-        public void ThenOnlyThisDateIsReturned(Scheduler.Date expectedDate)
+        public void ThenOnlyThisDateIsReturned(Date expectedDate)
         {
             _dates.Count().ShouldBe(1);
 

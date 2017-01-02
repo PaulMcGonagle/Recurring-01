@@ -1,9 +1,7 @@
-﻿using NodaTime;
-using Scheduler.ScheduleInstances;
+﻿using Scheduler.ScheduleInstances;
 using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
-using Scheduler.ScheduleEdges;
 using TestStack.BDDfy;
 using Xunit;
 
@@ -14,7 +12,7 @@ namespace Scheduler.Test.Repeating
         public class ValidateRollStrategy
         {
             private ByDayOfMonth _sut;
-            private IEnumerable<Scheduler.Date> _dates;
+            private IEnumerable<Date> _dates;
 
             [Fact]
             public void Execute()
@@ -37,7 +35,7 @@ namespace Scheduler.Test.Repeating
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Forward
                             },
                             Enumerable.Range(0, 03)
-                                .Select(i => new Scheduler.Date(yearLeap, baseMonth, 28).PlusMonths(-2 + i))
+                                .Select(i => new Date(yearLeap, baseMonth, 28).PlusMonths(-2 + i))
                         },
 
                         {
@@ -49,13 +47,13 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Back
                             },
-                            new List<Scheduler.Date>
+                            new List<Date>
                             {
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.January, 30),
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.February, 28),
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.March, 30),
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.April, 30),
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.May, 30),
+                                new Date(yearLeap, YearMonth.MonthValue.January, 30),
+                                new Date(yearLeap, YearMonth.MonthValue.February, 28),
+                                new Date(yearLeap, YearMonth.MonthValue.March, 30),
+                                new Date(yearLeap, YearMonth.MonthValue.April, 30),
+                                new Date(yearLeap, YearMonth.MonthValue.May, 30),
                             }
                         },
 
@@ -68,12 +66,12 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Skip
                             },
-                            new List<Scheduler.Date>
+                            new List<Date>
                             {
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.January, 29),
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.March, 29),
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.April, 29),
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.May, 29),
+                                new Date(yearLeap, YearMonth.MonthValue.January, 29),
+                                new Date(yearLeap, YearMonth.MonthValue.March, 29),
+                                new Date(yearLeap, YearMonth.MonthValue.April, 29),
+                                new Date(yearLeap, YearMonth.MonthValue.May, 29),
                             }
                         },
 
@@ -86,13 +84,13 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Forward
                             },
-                            new List<Scheduler.Date>
+                            new List<Date>
                             {
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.January, 29),
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.March, 01),
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.March, 29),
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.April, 29),
-                                new Scheduler.Date(yearLeap, YearMonth.MonthValue.May, 29),
+                                new Date(yearLeap, YearMonth.MonthValue.January, 29),
+                                new Date(yearLeap, YearMonth.MonthValue.March, 01),
+                                new Date(yearLeap, YearMonth.MonthValue.March, 29),
+                                new Date(yearLeap, YearMonth.MonthValue.April, 29),
+                                new Date(yearLeap, YearMonth.MonthValue.May, 29),
                             }
                         },
                     })
@@ -110,7 +108,7 @@ namespace Scheduler.Test.Repeating
             }
 
             public void ThenAllDatesShouldBeExpected(
-                IEnumerable<Scheduler.Date> expectedDates)
+                IEnumerable<Date> expectedDates)
             {
                 _dates
                     .Select(d => d.Value)

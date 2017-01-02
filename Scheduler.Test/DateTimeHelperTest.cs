@@ -12,11 +12,11 @@ namespace Scheduler.Test
     {
         public class RangeVerification
         {
-            Scheduler.Date _dateFrom;
+            Date _dateFrom;
             int _count;
             int _interval;
 
-            IEnumerable<Scheduler.Date> _dates;
+            IEnumerable<Date> _dates;
 
             [Fact]
             public void Execute()
@@ -27,41 +27,41 @@ namespace Scheduler.Test
                 this.WithExamples(new ExampleTable("dateFrom", "count", "interval", "expectedDates")
                     {
                         {
-                            new Scheduler.Date(2016, YearMonth.MonthValue.December, 01),
+                            new Date(2016, YearMonth.MonthValue.December, 01),
                             20,
                             7,
                             Enumerable.Range(0, 20*7)
                                 .Where(e => e%7 == 0)
                                 .Select(
                                     e =>
-                                        new Scheduler.Date(2016, YearMonth.MonthValue.December, 01)
+                                        new Date(2016, YearMonth.MonthValue.December, 01)
                                             .PlusDays(e))
                                 .ToList()
                         },
                         {
-                            new Scheduler.Date(2016, YearMonth.MonthValue.December, 01),
+                            new Date(2016, YearMonth.MonthValue.December, 01),
                             4,
                             2,
                             Enumerable.Range(0, 8)
                                 .Where(e => e%2 == 0)
                                 .Select(
                                     e =>
-                                        new Scheduler.Date(2016, YearMonth.MonthValue.December, 01)
+                                        new Date(2016, YearMonth.MonthValue.December, 01)
                                             .PlusDays(e))
                         },
                         {
-                            new Scheduler.Date(2016, YearMonth.MonthValue.April, 01),
+                            new Date(2016, YearMonth.MonthValue.April, 01),
                             4,
                             1,
                             Enumerable.Range(0, 4)
                                 .Select(
-                                    e => new Scheduler.Date(2016, YearMonth.MonthValue.April, 01).PlusDays(e))
+                                    e => new Date(2016, YearMonth.MonthValue.April, 01).PlusDays(e))
                         },
                     })
                     .BDDfy();
             }
 
-            private void GivenADateFrom(Scheduler.Date dateFrom)
+            private void GivenADateFrom(Date dateFrom)
             {
                 _dateFrom = dateFrom;
             }
@@ -81,7 +81,7 @@ namespace Scheduler.Test
                 _dates = DateTimeHelper.Range(_dateFrom, _count, _interval);
             }
 
-            public void ThenTheDatesAreAsExpected(IEnumerable<Scheduler.Date> expectedDates)
+            public void ThenTheDatesAreAsExpected(IEnumerable<Date> expectedDates)
             {
                 _dates
                     .Select(d => d.Value)
@@ -99,7 +99,7 @@ namespace Scheduler.Test
                 {
                     {
                         ScheduleTestHelper.GetFakeClock(2016, 05, 01),
-                        new Scheduler.Date(2016, YearMonth.MonthValue.April, 01)
+                        new Date(2016, YearMonth.MonthValue.April, 01)
                     },
                 }).BDDfy();
             }
@@ -109,7 +109,7 @@ namespace Scheduler.Test
 
             }
 
-            public void ThenDateIsExpected(Scheduler.Date expectedDate)
+            public void ThenDateIsExpected(Date expectedDate)
             {
 
             }

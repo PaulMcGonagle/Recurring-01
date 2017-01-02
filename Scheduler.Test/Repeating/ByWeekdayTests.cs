@@ -20,13 +20,13 @@ namespace Scheduler.Test.Repeating
 
                 this.WithExamples(table: new ExampleTable("repeatingDay", "dayOfWeek", "firstDate", "lastDate")
                     {
-                        {   new ByWeekday {Weekday = IsoDayOfWeek.Monday, Clock = fakeClock}, IsoDayOfWeek.Monday, new Scheduler.Date(2016, YearMonth.MonthValue.April, 25), new Scheduler.Date(2017, YearMonth.MonthValue.April, 24) },
-                        {   new ByWeekday {Weekday = IsoDayOfWeek.Tuesday, Clock = fakeClock}, IsoDayOfWeek.Tuesday, new Scheduler.Date(2016, YearMonth.MonthValue.April, 26), new Scheduler.Date(2017, YearMonth.MonthValue.April, 25) },
-                        {   new ByWeekday {Weekday = IsoDayOfWeek.Wednesday, Clock = fakeClock}, IsoDayOfWeek.Wednesday, new Scheduler.Date(2016, YearMonth.MonthValue.April, 27), new Scheduler.Date(2017, YearMonth.MonthValue.April, 26) },
-                        {   new ByWeekday {Weekday = IsoDayOfWeek.Thursday, Clock = fakeClock}, IsoDayOfWeek.Thursday, new Scheduler.Date(2016, YearMonth.MonthValue.April, 28), new Scheduler.Date(2017, YearMonth.MonthValue.April, 27) },
-                        {   new ByWeekday {Weekday = IsoDayOfWeek.Friday, Clock = fakeClock}, IsoDayOfWeek.Friday, new Scheduler.Date(2016, YearMonth.MonthValue.April, 29), new Scheduler.Date(2017, YearMonth.MonthValue.April, 28) },
-                        {   new ByWeekday {Weekday = IsoDayOfWeek.Saturday, Clock = fakeClock}, IsoDayOfWeek.Saturday, new Scheduler.Date(2016, YearMonth.MonthValue.April, 30), new Scheduler.Date(2017, YearMonth.MonthValue.April, 29) },
-                        {   new ByWeekday {Weekday = IsoDayOfWeek.Sunday, Clock = fakeClock}, IsoDayOfWeek.Sunday, new Scheduler.Date(2016, YearMonth.MonthValue.May, 01), new Scheduler.Date(2017, YearMonth.MonthValue.April, 30) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Monday, Clock = fakeClock}, IsoDayOfWeek.Monday, new Date(2016, YearMonth.MonthValue.April, 25), new Date(2017, YearMonth.MonthValue.April, 24) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Tuesday, Clock = fakeClock}, IsoDayOfWeek.Tuesday, new Date(2016, YearMonth.MonthValue.April, 26), new Date(2017, YearMonth.MonthValue.April, 25) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Wednesday, Clock = fakeClock}, IsoDayOfWeek.Wednesday, new Date(2016, YearMonth.MonthValue.April, 27), new Date(2017, YearMonth.MonthValue.April, 26) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Thursday, Clock = fakeClock}, IsoDayOfWeek.Thursday, new Date(2016, YearMonth.MonthValue.April, 28), new Date(2017, YearMonth.MonthValue.April, 27) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Friday, Clock = fakeClock}, IsoDayOfWeek.Friday, new Date(2016, YearMonth.MonthValue.April, 29), new Date(2017, YearMonth.MonthValue.April, 28) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Saturday, Clock = fakeClock}, IsoDayOfWeek.Saturday, new Date(2016, YearMonth.MonthValue.April, 30), new Date(2017, YearMonth.MonthValue.April, 29) },
+                        {   new ByWeekday {Weekday = IsoDayOfWeek.Sunday, Clock = fakeClock}, IsoDayOfWeek.Sunday, new Date(2016, YearMonth.MonthValue.May, 01), new Date(2017, YearMonth.MonthValue.April, 30) },
                     })
                     .BDDfy();
             }
@@ -43,14 +43,14 @@ namespace Scheduler.Test.Repeating
                     .ShouldBeEmpty();
             }
 
-            public void AndThenTheFirstDateShouldBeThis(Scheduler.Date firstDate)
+            public void AndThenTheFirstDateShouldBeThis(Date firstDate)
             {
                 _repeatingDay.GenerateDates()
                     .Min()
                     .ShouldBe(firstDate);
             }
 
-            public void AndThenTheLastDateShouldBeThis(Scheduler.Date lastDate)
+            public void AndThenTheLastDateShouldBeThis(Date lastDate)
             {
                 _repeatingDay.GenerateDates()
                     .Max()

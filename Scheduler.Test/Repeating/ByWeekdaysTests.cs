@@ -14,7 +14,7 @@ namespace Scheduler.Test.Repeating
         public class VerifyDates
         {
             private ByWeekdays _sut;
-            private IEnumerable<Scheduler.Date> _dates;
+            private IEnumerable<Date> _dates;
 
             [Fact]
             public void Execute()
@@ -28,8 +28,8 @@ namespace Scheduler.Test.Repeating
                                 EdgeRange = new EdgeRange(2000, YearMonth.MonthValue.April, 15, 2010, YearMonth.MonthValue.November, 28),
                             },
                             new List<IsoDayOfWeek> {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
-                            new Scheduler.Date(2000, YearMonth.MonthValue.April, 15),
-                            new Scheduler.Date(2010, YearMonth.MonthValue.November, 28)
+                            new Date(2000, YearMonth.MonthValue.April, 15),
+                            new Date(2010, YearMonth.MonthValue.November, 28)
                         },
                     })
                     .BDDfy();
@@ -52,14 +52,14 @@ namespace Scheduler.Test.Repeating
                     .ShouldBeSubsetOf(daysOfWeek.Select(d => (int) d));
             }
 
-            public void AndThenTheFirstDateShouldBeThis(Scheduler.Date firstDate)
+            public void AndThenTheFirstDateShouldBeThis(Date firstDate)
             {
                 _dates
                     .Min()
                     .ShouldBe(firstDate);
             }
 
-            public void AndThenTheLastDateShouldBeThis(Scheduler.Date lastDate)
+            public void AndThenTheLastDateShouldBeThis(Date lastDate)
             {
                 _dates
                     .Max()
