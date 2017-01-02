@@ -32,7 +32,7 @@ namespace Scheduler.Test.SingleDayTests
 
         public void WhenDatesAreRetrieved()
         {
-            _dates = _sut.Dates;
+            _dates = _sut.GenerateDates();
         }
 
         public void ThenOnlyThisDateIsReturned(Scheduler.Date expectedDate)

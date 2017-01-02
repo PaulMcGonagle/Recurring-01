@@ -6,7 +6,7 @@ namespace Scheduler
 {
     public abstract class Schedule : Vertex, ISchedule
     {
-        [IgnoreDataMember]
-        public virtual IEnumerable<Date> Dates { get; }
+        //[IgnoreDataMember]
+        public abstract IEnumerable<Date> GenerateDates();
     }
 }

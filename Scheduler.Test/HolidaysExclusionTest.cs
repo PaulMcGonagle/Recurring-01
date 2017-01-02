@@ -43,14 +43,14 @@ namespace Scheduler.Test
 
         public void ThenThereShouldBeNoWeekendDays()
         {
-            _term.Dates
+            _term.GenerateDates()
                 .Where(o => ScheduleTestHelper.WeekendDays.Contains(o.Value.IsoDayOfWeek))
                 .ShouldBeEmpty();
         }
 
         public void AndThenThereShouldBeNoHolidaysMatching()
         {
-            _term.Dates
+            _term.GenerateDates()
                 .Where(o => ScheduleTestHelper.BankHolidays.Contains(o))
                 .ShouldBeEmpty();
         }

@@ -4,6 +4,6 @@ namespace Scheduler
 {
     public interface ISchedule
     {
-        IEnumerable<Date> Dates { get; }
+        IEnumerable<Date> GenerateDates();
     }
 }

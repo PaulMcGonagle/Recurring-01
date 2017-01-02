@@ -68,17 +68,13 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        [IgnoreDataMember]
-        public override IEnumerable<Date> Dates
+        public override IEnumerable<Scheduler.Date> GenerateDates()
         {
-            get
+            foreach (var year in Enumerable.Range(YearFrom, YearTo - YearFrom + 1))
             {
-                foreach (var year in Enumerable.Range(YearFrom, YearTo - YearFrom + 1))
-                {
-                    var yearMonth = new YearMonth {Year = year, Month = Month};
+                var yearMonth = new YearMonth {Year = year, Month = Month};
 
-                    yield return yearMonth.ToLocalDate(DayOfYear, RollStrategy);
-                }
+                yield return yearMonth.ToLocalDate(DayOfYear, RollStrategy);
             }
         }
 

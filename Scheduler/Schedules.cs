@@ -15,9 +15,9 @@ namespace Scheduler
             Add(schedule);
         }
 
-        public IEnumerable<Date> Dates()
+        public IEnumerable<Date> GenerateDates()
         {
-            return this.SelectMany(d => d.Dates);
+            return this.SelectMany(d => d.GenerateDates());
         }
     }
 }

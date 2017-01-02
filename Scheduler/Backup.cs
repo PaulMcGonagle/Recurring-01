@@ -15,9 +15,8 @@ namespace Scheduler
 
         public string Content { get; set; }
 
-        private Type _type;
-        public string TypeFull => _type.FullName;
-        public string Type => _type.Name;
+        public Type Type;
+        public string TypeName => Type.Name;
         public string SourceKey { get; set; }
         public string SourceId { get; set; }
         public string SourceRev { get; set; }
@@ -28,7 +27,7 @@ namespace Scheduler
             {
                 Created = clock.Now,
 
-                _type = source.GetType(),
+                Type = source.GetType(),
 
                 SourceKey = source.Key,
                 SourceId = source.Id,

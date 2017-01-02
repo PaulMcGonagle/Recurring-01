@@ -60,27 +60,23 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        [IgnoreDataMember]
-        public override IEnumerable<Date> Dates
+        public override IEnumerable<Scheduler.Date> GenerateDates()
         {
-            get
+            var dates = new List<Date>();
+
+            var yearMonths = YearMonth.Range(YearMonthFrom, YearMonthTo, Increment);
+
+            foreach (var yearMonth in yearMonths)
             {
-                var dates = new List<Date>();
+                Date localDate;
 
-                var yearMonths = YearMonth.Range(YearMonthFrom, YearMonthTo, Increment);
-
-                foreach (var yearMonth in yearMonths)
+                if (yearMonth.TryToLocalDate(DayOfMonth, out localDate, RollStrategy))
                 {
-                    Date localDate;
-
-                    if (yearMonth.TryToLocalDate(DayOfMonth, out localDate, RollStrategy))
-                    {
-                        dates.Add(localDate);
-                    }
+                    dates.Add(localDate);
                 }
-
-                return dates;
             }
+
+            return dates;
         }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)

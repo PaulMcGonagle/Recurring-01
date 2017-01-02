@@ -35,7 +35,7 @@ namespace Scheduler
                 if (TimeZoneProvider == null)
                     throw new ArgumentException("TimeZoneProvider");
 
-                return EdgeSchedule.ToVertex.Dates.Select(o => new Episode
+                return EdgeSchedule.ToVertex.GenerateDates().Select(o => new Episode
                 {
                     From = DateTimeHelper.GetZonedDateTime(o, From.Value, TimeZoneProvider),
                     Period = Period,

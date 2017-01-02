@@ -20,17 +20,13 @@ namespace Scheduler.ScheduleInstances
             CountToDefault = 52;
         }
 
-        [IgnoreDataMember]
-        public override IEnumerable<Date> Dates
+        public override IEnumerable<Scheduler.Date> GenerateDates()
         {
-            get
-            {
-                var start = EdgeRange.ToVertex.From ?? DateTimeHelper.GetToday(Clock).AddWeeks(-(CountFrom ?? CountFromDefault));
-                var end = EdgeRange.ToVertex.To ?? DateTimeHelper.GetToday(Clock).AddWeeks((CountTo ?? CountToDefault));
+            var start = EdgeRange.ToVertex.From ?? DateTimeHelper.GetToday(Clock).AddWeeks(-(CountFrom ?? CountFromDefault));
+            var end = EdgeRange.ToVertex.To ?? DateTimeHelper.GetToday(Clock).AddWeeks((CountTo ?? CountToDefault));
 
-                var range = DateTimeHelper.Range(start: start, end: end);
-                return range.Where(d => Days.Contains(d.IsoDayOfWeek));
-            }
+            var range = DateTimeHelper.Range(start: start, end: end);
+            return range.Where(d => Days.Contains(d.IsoDayOfWeek));
         }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)

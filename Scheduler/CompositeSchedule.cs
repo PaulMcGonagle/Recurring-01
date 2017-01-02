@@ -19,20 +19,16 @@ namespace Scheduler
 
         public List<Range> Breaks = new List<Range>();
 
-        [IgnoreDataMember]
-        public override IEnumerable<Date> Dates
+        public override IEnumerable<Scheduler.Date> GenerateDates()
         {
-            get
-            {
-                var inclusions = InclusionsEdges.SelectMany(i => i.ToVertex.Dates);
-                var exclusions = ExclusionsEdges.SelectMany(i => i.ToVertex.Dates);
+            var inclusions = InclusionsEdges.SelectMany(i => i.ToVertex.GenerateDates());
+            var exclusions = ExclusionsEdges.SelectMany(i => i.ToVertex.GenerateDates());
 
-                var list = inclusions.Exclude(exclusions);
+            var list = inclusions.Exclude(exclusions);
 
-                list = list.Exclude(Breaks);
+            list = list.Exclude(Breaks);
 
-                return list;
-            }
+            return list;
         }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)

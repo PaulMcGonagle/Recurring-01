@@ -106,7 +106,7 @@ namespace Scheduler.Test.Repeating
 
             public void WhenDatesAreRetrieved()
             {
-                _dates = _sut.Dates;
+                _dates = _sut.GenerateDates();
             }
 
             public void ThenAllDatesShouldBeExpected(

@@ -32,36 +32,32 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        [IgnoreDataMember]
-        public override IEnumerable<Scheduler.Date> Dates
+        public override IEnumerable<Scheduler.Date> GenerateDates()
         {
-            get
+            if (Clock == null)
+                throw new ArgumentNullException($"Clock");
+
+            var localDateTime = Clock.GetLocalDateTime();
+            var localDate = localDateTime.Date;
+            var localDay = localDate.IsoDayOfWeek;
+
+            var offset = localDay < Weekday ? localDay - Weekday + 7 : localDay - Weekday;
+
+            var startDay = localDate.PlusDays(-offset);
+
+            var results = new List<Scheduler.Date>
             {
-                if (Clock == null)
-                    throw new ArgumentNullException($"Clock");
+                new Scheduler.Date(startDay)
+            };
 
-                var localDateTime = Clock.GetLocalDateTime();
-                var localDate = localDateTime.Date;
-                var localDay = localDate.IsoDayOfWeek;
+            var r = Enumerable.Range(1, CountFromDefault);
+            results.AddRange(r.Select(o => new Scheduler.Date(startDay.PlusWeeks(-o))));
+            var s = Enumerable.Range(1, CountToDefault);
+            results.AddRange(s.Select(o => new Scheduler.Date(startDay.PlusWeeks(o))));
 
-                var offset = localDay < Weekday ? localDay - Weekday + 7 : localDay - Weekday;
+            results.Sort();
 
-                var startDay = localDate.PlusDays(-offset);
-
-                var results = new List<Scheduler.Date>
-                {
-                    new Scheduler.Date(startDay)
-                };
-
-                var r = Enumerable.Range(1, CountFromDefault);
-                results.AddRange(r.Select(o => new Scheduler.Date(startDay.PlusWeeks(-o))));
-                var s = Enumerable.Range(1, CountToDefault);
-                results.AddRange(s.Select(o => new Scheduler.Date(startDay.PlusWeeks(o))));
-
-                results.Sort();
-
-                return results;
-            }
+            return results;
         }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)

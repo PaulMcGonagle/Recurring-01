@@ -21,13 +21,9 @@ namespace Scheduler.ScheduleAbstracts
 
         protected int Increment = 1;
 
-        [IgnoreDataMember]
-        public override IEnumerable<Scheduler.Date> Dates
+        public override IEnumerable<Scheduler.Date> GenerateDates()
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            throw new NotImplementedException();
         }
 
 #region Save

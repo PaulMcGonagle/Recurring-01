@@ -82,8 +82,10 @@
   <ItemGroup>
     <Compile Include="Backup.cs" />
     <Compile Include="Date.cs" />
-    <Compile Include="GeneratedEvent.cs" />
-    <Compile Include="GeneratedEvents.cs" />
+    <Compile Include="Generation\GeneratedDate.cs" />
+    <Compile Include="Generation\GeneratedEvent.cs" />
+    <Compile Include="Generation\GeneratedEvents.cs" />
+    <Compile Include="Generation\Generator.cs" />
     <Compile Include="Persistance\Edge.cs" />
     <Compile Include="Persistance\Edges.cs" />
     <Compile Include="Persistance\EdgeVertex.cs" />

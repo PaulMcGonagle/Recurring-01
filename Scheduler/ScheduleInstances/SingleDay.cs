@@ -14,10 +14,9 @@ namespace Scheduler.ScheduleInstances
             set;
         }
 
-        [IgnoreDataMember]
-        public override IEnumerable<Date> Dates
+        public override IEnumerable<Date> GenerateDates()
         {
-            get { yield return Date; }
+            yield return Date;
         }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)
