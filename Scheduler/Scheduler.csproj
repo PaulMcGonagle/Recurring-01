@@ -80,7 +80,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backup.cs" />
     <Compile Include="Date.cs" />
+    <Compile Include="GeneratedEvent.cs" />
+    <Compile Include="GeneratedEvents.cs" />
     <Compile Include="Persistance\Edge.cs" />
     <Compile Include="Persistance\Edges.cs" />
     <Compile Include="Persistance\EdgeVertex.cs" />

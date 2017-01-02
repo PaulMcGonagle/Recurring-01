@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using NodaTime;
 
 namespace Scheduler.Persistance
 {
@@ -69,11 +70,11 @@ namespace Scheduler.Persistance
             return SaveResult.Success;
         }
 
-        protected SaveResult Save(IArangoDatabase db, IEnumerable<Vertex> vertexs)
+        protected SaveResult Save(IArangoDatabase db, IClock clock, IEnumerable<Vertex> vertexs)
         {
             foreach (var vertex in vertexs)
             {
-                var result = vertex.Save(db);
+                var result = vertex.Save(db, clock);
 
                 if (result != SaveResult.Success)
                     return result;
@@ -111,9 +112,18 @@ namespace Scheduler.Persistance
             return SaveResult.Success;
         }
 
-        public virtual SaveResult Save(IArangoDatabase db)
+        public virtual SaveResult Save(IArangoDatabase db, IClock clock)
         {
-            return SaveResult.Success;
+            if (this.GetType().Name == "Backup")
+            {
+                return SaveResult.Success;
+            }
+
+            var backup = Backup.Create(clock, this);
+
+            var result = backup.Save(db, clock);
+
+            return result;
         }
 
         #endregion

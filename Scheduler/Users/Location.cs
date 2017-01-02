@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using NodaTime;
 using Scheduler.Persistance;
 
 namespace Scheduler.Users
@@ -14,12 +15,12 @@ namespace Scheduler.Users
         [IgnoreDataMember]
         public Serials Serials { get; set; }
 
-        public override SaveResult Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db, IClock clock)
         {
             return Save(new Func<SaveResult>[]
                        {
                 () => Save<Location>(db),
-                () => base.Save(db),
+                () => base.Save(db, clock),
             });
         }
     }

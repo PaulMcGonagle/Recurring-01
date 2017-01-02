@@ -51,12 +51,12 @@ namespace Scheduler
             return From.ToString() + " " + To.ToString();
         }
 
-        public override SaveResult Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db, IClock clock)
         {
             return Save(new Func<SaveResult>[]
             {
                 () => Save<Episode>(db),
-                () => base.Save(db),
+                () => base.Save(db, clock),
             });
         }
     }

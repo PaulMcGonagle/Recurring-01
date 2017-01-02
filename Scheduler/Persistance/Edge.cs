@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ArangoDB.Client;
 using ArangoDB.Client.Data;
+using NodaTime;
 
 namespace Scheduler.Persistance
 {
@@ -25,7 +26,7 @@ namespace Scheduler.Persistance
 
         #region Save
 
-        public SaveResult Save(IArangoDatabase db, Vertex fromVertex)
+        public SaveResult Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
         {
             FromVertex = fromVertex;
 
@@ -34,7 +35,7 @@ namespace Scheduler.Persistance
 
             return Save(new Func<SaveResult>[]
             {
-                () => ToVertex.Save(db),
+                () => ToVertex.Save(db, clock),
                 () => Save<Edge>(db),
             });
         }

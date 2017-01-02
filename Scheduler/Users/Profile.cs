@@ -1,5 +1,6 @@
 ﻿using System;
 using ArangoDB.Client;
+using NodaTime;
 using Scheduler.Persistance;
 
 namespace Scheduler.Users
@@ -13,12 +14,12 @@ namespace Scheduler.Users
 
         public EdgeVertexs<Organisation> Organisations { get; set; }
 
-        public override SaveResult Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db, IClock clock)
         {
             return Save(new Func<SaveResult>[] {
                 () => Save<Profile>(db),
-                () => Organisations?.Save(db, this) ?? SaveDummy(),
-                () => base.Save(db),
+                () => Organisations?.Save(db, clock, this) ?? SaveDummy(),
+                () => base.Save(db, clock),
             });
         }
     }

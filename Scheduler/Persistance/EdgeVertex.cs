@@ -1,4 +1,5 @@
 ﻿using ArangoDB.Client;
+using NodaTime;
 
 namespace Scheduler.Persistance
 {
@@ -23,9 +24,9 @@ namespace Scheduler.Persistance
 
         #region Save
 
-        public Vertex.SaveResult Save(IArangoDatabase db, Vertex fromVertex)
+        public Vertex.SaveResult Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
         {
-            return Edge.Save(db, fromVertex);
+            return Edge.Save(db, clock, fromVertex);
         }
 
         #endregion

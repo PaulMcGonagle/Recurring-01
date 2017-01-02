@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ArangoDB.Client;
+using NodaTime;
 using Scheduler.Persistance;
 
 namespace Scheduler
@@ -12,11 +13,11 @@ namespace Scheduler
             get { return this.SelectMany(ce => ce.Episodes); }
         }
 
-        public Vertex.SaveResult Save(IArangoDatabase db)
+        public Vertex.SaveResult Save(IArangoDatabase db, IClock clock)
         {
             foreach (var serial in this)
             {
-                var result = serial.Save(db);
+                var result = serial.Save(db, clock);
 
                 if (result != Vertex.SaveResult.Success)
                     return result;

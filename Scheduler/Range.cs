@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using ArangoDB.Client;
+using NodaTime;
 using Scheduler.Persistance;
 
 namespace Scheduler
@@ -26,12 +27,12 @@ namespace Scheduler
             To = to;
         }
 
-        public override SaveResult Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db, IClock clock)
         {
             return Save(new Func<SaveResult>[]
             {
                 () => Save<Range>(db),
-                () => base.Save(db),
+                () => base.Save(db, clock),
             });
         }
     }

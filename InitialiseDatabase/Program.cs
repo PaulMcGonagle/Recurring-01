@@ -49,6 +49,7 @@ namespace InitialiseDatabase
                     db.DropCollection(collectionName);
                 }
 
+                db.CreateCollection("Backup");
                 db.CreateCollection("Event");
                 db.CreateCollection("Profile");
                 db.CreateCollection("Organisation");
@@ -65,19 +66,21 @@ namespace InitialiseDatabase
                 db.CreateCollection("SingleDay");
                 db.CreateCollection("Edge", type: CollectionType.Edge);
 
+                IClock clock = SystemClock.Instance;
+
                 foreach (var date in TestData.DataRetrieval.Dates.Values)
                 {
-                    date.Save(db);
+                    date.Save(db, clock);
                 }
 
                 foreach (var range in TestData.DataRetrieval.Ranges.Values)
                 {
-                    range.Save(db);
+                    range.Save(db, clock);
                 }
 
                 foreach (var organisation in TestData.DataRetrieval.Organisations.Values)
                 {
-                    organisation.Save(db);
+                    organisation.Save(db, clock);
                 }
 
                 new Scheduler.Users.Profile
@@ -87,7 +90,7 @@ namespace InitialiseDatabase
                     Email = "paul@anemail.com",
                     HomeTimeZoneProvider = "Europe/London",
                     Organisations = new EdgeVertexs<Organisation>()
-                }.Save(db);
+                }.Save(db, clock);
 
                 new Scheduler.Users.Profile
                 {
@@ -95,7 +98,7 @@ namespace InitialiseDatabase
                     Surname = "Dancer",
                     Email = "a.dancer@thestage.com",
                     HomeTimeZoneProvider = "Europe/Paris",
-                }.Save(db);
+                }.Save(db, clock);
                 
                 var e = new Event
                 {
@@ -167,12 +170,12 @@ namespace InitialiseDatabase
                     }
                 };
 
-                e.Save(db);
-                
+                e.Save(db, clock);
+
                 e.Title = "new title";
 
                 // partially updates person, only 'Age' attribute will be updated
-                e.Save(db);
+                e.Save(db, clock);
                 
                 // returns 27
                 var entity = db
@@ -181,7 +184,7 @@ namespace InitialiseDatabase
 
                 entity?.SetToDelete();
 
-                entity?.Save(db);
+                entity?.Save(db, clock);
                 
                 new Event
                 {
@@ -210,7 +213,7 @@ namespace InitialiseDatabase
                             })
                         }
                     }
-                }.Save(db);
+                }.Save(db, clock);
                 
                 new Event
                 {
@@ -237,7 +240,7 @@ namespace InitialiseDatabase
                             })
                         }
                     }
-                }.Save(db);
+                }.Save(db, clock);
                 
                 new Event
                 {
@@ -267,7 +270,7 @@ namespace InitialiseDatabase
                             })
                         }
                     }
-                }.Save(db);
+                }.Save(db, clock);
                 /*
                 new Event
                 {
@@ -298,7 +301,7 @@ namespace InitialiseDatabase
                             })
                         }
                     }
-                }.Save(db);
+                }.Save(db, clock);
                 */
             }
         }

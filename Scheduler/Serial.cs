@@ -43,13 +43,13 @@ namespace Scheduler
             }
         }
 
-        public override SaveResult Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db, IClock clock)
         {
             return Save(new Func<SaveResult>[]
             {
                 () => Save<Serial>(db),
-                () => EdgeSchedule?.Save(db, this) ?? SaveDummy(),
-                () => base.Save(db),
+                () => EdgeSchedule?.Save(db, clock, this) ?? SaveDummy(),
+                () => base.Save(db, clock),
             });
         }
     }

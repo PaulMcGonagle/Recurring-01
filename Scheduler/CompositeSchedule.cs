@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using NodaTime;
 using Scheduler.Persistance;
 
 namespace Scheduler
@@ -34,15 +35,15 @@ namespace Scheduler
             }
         }
 
-        public override SaveResult Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db, IClock clock)
         {
 
             return Save(new Func<SaveResult>[]
             {
                 () => Save<CompositeSchedule>(db),
-                () => InclusionsEdges.Save(db, this),
-                () => ExclusionsEdges.Save(db, this),
-                () => base.Save(db),
+                () => InclusionsEdges.Save(db, clock, this),
+                () => ExclusionsEdges.Save(db, clock, this),
+                () => base.Save(db, clock),
             });
         }
     }

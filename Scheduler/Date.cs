@@ -38,12 +38,12 @@ namespace Scheduler
             return Value.CompareTo(((Date)obj).Value);
         }
 
-        public override SaveResult Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db, IClock clock)
         {
             return Save(new Func<SaveResult>[]
             {
                 () => Save<Date>(db),
-                () => base.Save(db),
+                () => base.Save(db, clock),
             });
         }
     }

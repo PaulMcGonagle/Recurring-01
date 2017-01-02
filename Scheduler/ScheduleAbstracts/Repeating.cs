@@ -32,16 +32,16 @@ namespace Scheduler.ScheduleAbstracts
 
 #region Save
 
-        public override SaveResult Save(IArangoDatabase db)
+        public override SaveResult Save(IArangoDatabase db, IClock clock)
         {
             if (EdgeRange == null)
                 return SaveResult.Incomplete;
 
-            var results = base.Save(db);
+            var results = base.Save(db, clock);
 
             if (results != SaveResult.Success) return results;
 
-            return EdgeRange.Save(db, this);
+            return EdgeRange.Save(db, clock, this);
         }
 
 #endregion
