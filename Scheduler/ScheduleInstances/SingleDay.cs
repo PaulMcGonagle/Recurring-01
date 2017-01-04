@@ -15,7 +15,12 @@ namespace Scheduler.ScheduleInstances
 
         public override IEnumerable<Date> GenerateDates()
         {
-            yield return Date;
+            var results = new List<Date>
+            {
+                Date
+            };
+
+            return results;
         }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)

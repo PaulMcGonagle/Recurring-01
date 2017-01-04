@@ -24,9 +24,10 @@ namespace Scheduler
             var inclusions = InclusionsEdges.SelectMany(i => i.ToVertex.GenerateDates());
             var exclusions = ExclusionsEdges.SelectMany(i => i.ToVertex.GenerateDates());
 
-            var list = inclusions.Exclude(exclusions);
+            var list = new List<Date>();
+            list.AddRange(inclusions.Exclude(exclusions));
 
-            list = list.Exclude(Breaks);
+            //list = list.Exclude(Breaks);
 
             return list;
         }

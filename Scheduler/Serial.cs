@@ -23,7 +23,7 @@ namespace Scheduler
         {
             get
             {
-                if (EdgeSchedule == null || EdgeSchedule.Schedule == null)
+                if (EdgeSchedule?.Schedule == null)
                     throw new ArgumentException("Schedule");
 
                 if (!From.HasValue)

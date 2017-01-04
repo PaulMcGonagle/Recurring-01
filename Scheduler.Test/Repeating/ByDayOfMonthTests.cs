@@ -2,11 +2,13 @@
 using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestStack.BDDfy;
 using Xunit;
 
 namespace Scheduler.Test.Repeating
 {
+    [TestClass]
     public class ByDayOfMonthTests
     {
         public class ValidateRollStrategy

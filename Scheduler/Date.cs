@@ -23,6 +23,8 @@ namespace Scheduler
         [IgnoreDataMember]
         public IsoDayOfWeek IsoDayOfWeek => Value.IsoDayOfWeek;
 
+        public LocalDate LocalDate { get; set; }
+
         public Date PlusDays(int days)
         {
             return new Date(Value.PlusDays(days));
