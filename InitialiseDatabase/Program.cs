@@ -100,19 +100,9 @@ namespace InitialiseDatabase
                     HomeTimeZoneProvider = "Europe/Paris",
                 }.Save(db, clock);
                 
-                var e = new Event
-                {
-                    Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
-
-                    Serials = new Serials
+                var e = new Event(new Serials
                     {
-                        new Serial
-                        {
-                            From = new LocalTime(16, 30),
-                            Period = new PeriodBuilder { Minutes = 45 }.Build(),
-                            TimeZoneProvider = "Europe/London",
-                            
-                            EdgeSchedule = new EdgeSchedule(new CompositeSchedule()
+                        new Serial(new CompositeSchedule
                             {
                                 InclusionsEdges = new EdgeVertexs<Schedule>
                                 {
@@ -166,8 +156,16 @@ namespace InitialiseDatabase
                                     ),
                                 },
                             })
+                        {
+                            From = new LocalTime(16, 30),
+                            Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                            TimeZoneProvider = "Europe/London",
                         }
                     }
+                )
+                {
+                    Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
+
                 };
 
                 e.Save(db, clock);
@@ -186,48 +184,36 @@ namespace InitialiseDatabase
 
                 entity?.Save(db, clock);
                 
-                new Event
-                {
-                    Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
-
-                    Serials = new Serials
+                new Event(
+                    new Serials
                     {
-                        new Serial
-                        {
-                            From = new LocalTime(16, 30),
-                            Period = new PeriodBuilder { Minutes = 45 }.Build(),
-                            TimeZoneProvider = "Europe/London",
-
-                            EdgeSchedule = new EdgeSchedule(new CompositeSchedule()
+                        new Serial(new CompositeSchedule()
                             {
                                 InclusionsEdges = new EdgeVertexs<Schedule>
-                                {
-                                    new EdgeVertex<Schedule>(new ByDayOfMonth
                                         {
-                                            EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
-                                            Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
-                                            DayOfMonth = 10,
-                                        })
-                                    ,
-                                },
+                                            new EdgeVertex<Schedule>(new ByDayOfMonth
+                                                {
+                                                    EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
+                                                    Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                                    DayOfMonth = 10,
+                                                })
+                                            ,
+                                        },
                             })
-                        }
-                    }
-                }.Save(db, clock);
-                
-                new Event
-                {
-                    Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
-
-                    Serials = new Serials
+                            {
+                                From = new LocalTime(16, 30),
+                                Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                                TimeZoneProvider = "Europe/London",
+                            },
+                    })
                     {
-                        new Serial
-                        {
-                            From = new LocalTime(16, 30),
-                            Period = new PeriodBuilder { Minutes = 45 }.Build(),
-                            TimeZoneProvider = "Europe/London",
+                        Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
 
-                            EdgeSchedule = new EdgeSchedule(new CompositeSchedule()
+                    }.Save(db, clock);
+
+                new Event(new Serials
+                    {
+                        new Serial(new CompositeSchedule()
                             {
                                 InclusionsEdges = new EdgeVertexs<Schedule>
                                 {
@@ -238,21 +224,19 @@ namespace InitialiseDatabase
                                     ,
                                 },
                             })
-                        }
-                    }
-                }.Save(db, clock);
-                
-                new Event
-                {
-                    Serials = new Serials
-                    {
-                        new Serial
                         {
                             From = new LocalTime(16, 30),
                             Period = new PeriodBuilder { Minutes = 45 }.Build(),
                             TimeZoneProvider = "Europe/London",
+                        }
+                    })
+                    {
+                        Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
+                    }.Save(db, clock);
 
-                            EdgeSchedule = new EdgeSchedule(new CompositeSchedule()
+                new Event(new Serials
+                    {
+                        new Serial(new CompositeSchedule()
                             {
                                 InclusionsEdges = new EdgeVertexs<Schedule>
                                 {
@@ -267,22 +251,18 @@ namespace InitialiseDatabase
                                             }
                                         }
                                     ),                                },
-                            })
-                        }
-                    }
-                }.Save(db, clock);
-                /*
-                new Event
-                {
-                    Serials = new Serials
+                                })
+                                {
+                                    From = new LocalTime(16, 30),
+                                    Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                                    TimeZoneProvider = "Europe/London",
+                                }
+                            }).Save(db, clock);
+                
+                new Event(
+                    new Serials
                     {
-                        new Serial
-                        {
-                            From = new LocalTime(16, 30),
-                            Period = new PeriodBuilder { Minutes = 45 }.Build(),
-                            TimeZoneProvider = "Europe/London",
-
-                            EdgeSchedule = new EdgeSchedule(new CompositeSchedule()
+                        new Serial(new CompositeSchedule()
                             {
                                 InclusionsEdges = new EdgeVertexs<Schedule>
                                 {
@@ -299,10 +279,12 @@ namespace InitialiseDatabase
                                     ),
                                 },
                             })
+                        {
+                            From = new LocalTime(16, 30),
+                            Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                            TimeZoneProvider = "Europe/London",
                         }
-                    }
-                }.Save(db, clock);
-                */
+                    }).Save(db, clock);
             }
         }
     }

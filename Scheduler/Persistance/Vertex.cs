@@ -6,7 +6,7 @@ using NodaTime;
 
 namespace Scheduler.Persistance
 {
-    public abstract class Vertex : IComparable
+    public abstract class Vertex : IVertex
     {
         public enum SaveResult
         {

@@ -17,7 +17,7 @@ namespace MyCalendar.Test
         public class CreateAndValidateEvent
         {
             private Event _sut;
-            private ISerial _serials;
+            private ISerials _serials;
 
             private const string TimeZoneProvider = "Europe/London";
 
@@ -29,26 +29,24 @@ namespace MyCalendar.Test
                 this.WithExamples(new ExampleTable("sut", "expectedWeekday", "expectedStartTime", "expectedEndTime")
                     {
                         {
-                            new Event()
-                            {
-                                Title = "Street dance",
-                                Serials = new Serials
+                            new Event(new Serials
                                 {
                                     {
-                                        new Serial
-                                        {
-                                            From = new LocalTime(16, 45),
-                                            Period = new PeriodBuilder { Minutes = 45}.Build(),
-                                            EdgeSchedule = new EdgeSchedule(new ByWeekday
+                                        new Serial(new ByWeekday
                                             {
                                                 EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.September, 22, 2016, YearMonth.MonthValue.December, 20),
                                                 Weekday = IsoDayOfWeek.Thursday,
                                                 Clock = fakeClock,
-                                            }),
+                                            })
+                                        {
+                                            From = new LocalTime(16, 45),
+                                            Period = new PeriodBuilder { Minutes = 45}.Build(),
                                             TimeZoneProvider = TimeZoneProvider,
                                         }
                                     }
-                                },
+                                })
+                            {
+                                Title = "Street dance",
                             },
                             IsoDayOfWeek.Thursday,
                             new LocalTime(16, 45),
@@ -88,7 +86,7 @@ namespace MyCalendar.Test
         public class VerifyTimeInOtherTimeZone
         {
             private Event _sut;
-            private ISerial _serials;
+            private ISerials _serials;
 
             private const string TimeZoneProvider = "Europe/London";
 
@@ -100,23 +98,21 @@ namespace MyCalendar.Test
                 this.WithExamples(new ExampleTable("sut", "expectedStartTime", "expectedEndTime")
                     {
                         {
-                            new Event()
-                            {
-                                Title = "Street dance",
-                                Serials = new Serials
+                            new Event(new Serials
                                 {
-                                    new Serial
-                                    {
-                                        EdgeSchedule = new EdgeSchedule(new SingleDay
+                                    new Serial(new SingleDay
                                             {
                                                 Date = new Scheduler.Date(2016, YearMonth.MonthValue.July, 01),
                                             }
-                                        ),
+                                        )
+                                    {
                                         From = new LocalTime(14, 00),
                                         Period = new PeriodBuilder { Minutes = 1 }.Build(),
                                         TimeZoneProvider = "Europe/London",
                                     }
-                                },
+                                })
+                            {
+                                Title = "Street dance",
                             },
                             new LocalTime(14, 00),
                             new LocalTime(14, 45)

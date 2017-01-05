@@ -16,7 +16,7 @@ namespace Scheduler.Persistance
         public Vertex FromVertex { get; set; }
 
         [IgnoreDataMember]
-        public Vertex ToVertex { get; set; }
+        public IVertex ToVertex { get; set; }
 
         [DocumentProperty(Identifier = IdentifierType.EdgeFrom)]
         public string FromId => FromVertex.Id;

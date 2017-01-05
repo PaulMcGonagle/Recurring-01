@@ -13,7 +13,7 @@
             }
         }
 
-        public void Snapshot(Schedule schedule)
+        public void Snapshot(ISchedule schedule)
         {
             
         }

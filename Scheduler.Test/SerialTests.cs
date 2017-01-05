@@ -24,10 +24,7 @@ namespace Scheduler.Test
                 this.WithExamples(new ExampleTable("sut", "expectedEpisodes")
                     {
                         {
-                            new Serial
-                            {
-                                EdgeSchedule =
-                                    new EdgeSchedule(new DateList
+                            new Serial(new DateList
                                     {
                                         Items = new List<Date>()
                                         {
@@ -35,7 +32,8 @@ namespace Scheduler.Test
                                             new Date(2016, YearMonth.MonthValue.January, 06),
                                             new Date(2016, YearMonth.MonthValue.January, 07),
                                         }
-                                    }),
+                                    })
+                            {
                                 From = new LocalTime(15, 30),
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                                 TimeZoneProvider = timeZoneProvider,
@@ -94,36 +92,24 @@ namespace Scheduler.Test
                 this.WithExamples(new ExampleTable("sut", "parameterName")
                     {
                         {
-                            new Serial
+                            new Serial(new DateList { Items = new List<Date>(), })
                             {
-                                From = new LocalTime(15, 30),
-                                Period = new PeriodBuilder {Minutes = 30,}.Build(),
-                                TimeZoneProvider = timeZoneProvider,
-                            },
-                            "Schedule"
-                        },
-                        {
-                            new Serial
-                            {
-                                EdgeSchedule = new EdgeSchedule(new DateList { Items = new List<Date>(), }),
                                 Period = new PeriodBuilder {Minutes = 30,}.Build(),
                                 TimeZoneProvider = timeZoneProvider,
                             },
                             "From"
                         },
                         {
-                            new Serial
+                            new Serial(new DateList { Items = new List<Date>(), })
                             {
-                                EdgeSchedule = new EdgeSchedule(new DateList { Items = new List<Date>(), }),
                                 From = new LocalTime(15, 30),
                                 TimeZoneProvider = timeZoneProvider,
                             },
                             "Period"
                         },
                         {
-                            new Serial
+                            new Serial(new DateList { Items = new List<Date>(), })
                             {
-                                EdgeSchedule = new EdgeSchedule(new DateList { Items = new List<Date>(), }),
                                 From = new LocalTime(15, 30),
                                 Period = new PeriodBuilder {Minutes = 30,}.Build(),
                             },

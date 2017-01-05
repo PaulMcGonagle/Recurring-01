@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="GeneratedEventTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

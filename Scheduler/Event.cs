@@ -10,6 +10,10 @@ namespace Scheduler
 {
     public class Event : Vertex
     {
+        public Event(ISerials serials)
+        {
+            Serials = serials;
+        }
         private EdgeVertex<Location> _location;
 
         [IgnoreDataMember]
@@ -36,7 +40,7 @@ namespace Scheduler
         }
 
         [IgnoreDataMember]
-        public Serials Serials { get; set; }
+        public ISerials Serials { get; set; }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)
         {

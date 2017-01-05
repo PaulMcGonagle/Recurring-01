@@ -7,14 +7,14 @@ using Scheduler.Persistance;
 
 namespace Scheduler.ScheduleEdges
 {
-    public class EdgeSchedule : EdgeVertex<Schedule>
+    public class EdgeSchedule : EdgeVertex<ISchedule>
     {
-        public EdgeSchedule(Schedule toVertex)
+        public EdgeSchedule(ISchedule toVertex)
             : base(toVertex)
         {
             
         }
 
-        public Schedule Schedule => ToVertex;
+        public ISchedule Schedule => ToVertex;
     }
 }

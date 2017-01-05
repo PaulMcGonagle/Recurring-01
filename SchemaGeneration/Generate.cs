@@ -32,24 +32,9 @@ namespace SchemaGeneration
                 ///////////////////// insert and update documents /////////////////////////
                 //db.CreateCollection("Event");
 
-                var e = new Event
-                {
-                    Location = new EdgeVertex<Location>(new Location
+                var e = new Event(new Serials
                     {
-                        Address = @"Flat 9
-26 Bryanston Square
-London
-W1H 2DS"
-                    }),
-                    Serials = new Serials
-                    {
-                        new Serial
-                        {
-                            From = new LocalTime(16, 30),
-                            Period = new PeriodBuilder { Minutes = 45 }.Build(),
-                            TimeZoneProvider = "Europe/London",
-
-                            EdgeSchedule = new EdgeSchedule(new CompositeSchedule
+                        new Serial(new CompositeSchedule
                             {
                                 InclusionsEdges = new EdgeVertexs<Schedule>()
                                 {
@@ -61,11 +46,22 @@ W1H 2DS"
                                         }
                                     )
                                 },
-                            }),
-                        }
-                    }
+                            })
+                            {
+                                From = new LocalTime(16, 30),
+                                Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                                TimeZoneProvider = "Europe/London",
+                            }
+                    })
+                {
+                    Location = new EdgeVertex<Location>(new Location
+                    {
+                        Address = @"Flat 9
+26 Bryanston Square
+London
+W1H 2DS"
+                    }),
                 };
-
 
                 // insert new document and creates 'Person' collection on the fly
                 db.Insert<Event>(e);

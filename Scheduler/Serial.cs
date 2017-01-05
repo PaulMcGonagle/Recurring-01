@@ -9,8 +9,13 @@ using Scheduler.ScheduleEdges;
 
 namespace Scheduler
 {
-    public class Serial : Vertex
+    public class Serial : Vertex, ISerial
     {
+        public Serial(ISchedule schedule)
+        {
+            EdgeSchedule = new EdgeSchedule(schedule);
+        }
+
         [IgnoreDataMember]
         public EdgeSchedule EdgeSchedule;
 
