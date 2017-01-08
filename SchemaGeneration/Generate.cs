@@ -38,11 +38,11 @@ namespace SchemaGeneration
                             {
                                 InclusionsEdges = new EdgeVertexs<Schedule>()
                                 {
-                                    new EdgeVertex<Schedule>(new ByWeekday
+                                    new EdgeVertex<Schedule>(new ByWeekday(
+                                        clock: new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                        weekday: IsoDayOfWeek.Wednesday)
                                         {
                                             EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05),
-                                            Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
-                                            Weekday = IsoDayOfWeek.Wednesday,
                                         }
                                     )
                                 },

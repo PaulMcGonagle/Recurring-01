@@ -97,7 +97,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="GeneratedEventTests.cs" />
+    <Compile Include="ScheduleInstances\ByWeekdayTests.cs" />
+    <Compile Include="ScheduleInstances\SingleDayTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHelper.cs" />
   </ItemGroup>
@@ -109,6 +110,10 @@
     <ProjectReference Include="..\ClassLibrary1\TestData.csproj">
       <Project>{86c11284-0c67-4a55-81fb-b4f82083eb6c}</Project>
       <Name>TestData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Scheduler.Test\Scheduler.Test.csproj">
+      <Project>{C9002A62-8518-4668-933C-60572835793C}</Project>
+      <Name>Scheduler.Test</Name>
     </ProjectReference>
     <ProjectReference Include="..\Scheduler\Scheduler.csproj">
       <Project>{3189f8e6-b2ab-4b6e-8f28-756372c7644e}</Project>

@@ -17,7 +17,7 @@ using Shouldly;
 using TestStack.BDDfy;
 using Xunit;
 
-namespace ScheduleGeneration.Test
+namespace ScheduleGeneration.Test.ScheduleInstances
 {
     [TestClass]
     public class SingleDayTests
@@ -111,12 +111,13 @@ namespace ScheduleGeneration.Test
             }
         }
 
-        public class ForgotSchedule
+        public class MissingFieldsRaiseExpectedException
         {
             private Event _event;
             private IClock _clock;
             private IArangoDatabase _db;
             private GeneratedEvent _generatedEvent;
+            private Exception _exception;
 
             [Fact]
             public void Execute()
@@ -135,16 +136,11 @@ namespace ScheduleGeneration.Test
                                 },
                             })
                         {
-                            From = new LocalTime(16, 30),
+                            //From = new LocalTime(16, 30),
                             Period = new PeriodBuilder {Minutes = 45}.Build(),
                             TimeZoneProvider = "Europe/London",
                         }
-                    })
-                {
-                    Location =
-                        new EdgeVertex<Location>(
-                            TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
-                };
+                    });
 
                 var mockDb = new Mock<IArangoDatabase>();
 
@@ -154,14 +150,80 @@ namespace ScheduleGeneration.Test
                     "SUT",
                     "db",
                     "clock",
-                    "Expected Episodes"
+                    "Expected Message"
                 )
                 {
                     {
-                        e,
+                        new Event(new Serials
+                        {
+                            new Serial(new CompositeSchedule()
+                                {
+                                    InclusionsEdges = new EdgeVertexs<Schedule>
+                                    {
+                                        new EdgeVertex<Schedule>(new SingleDay
+                                        {
+                                            Date = new Date(2016, YearMonth.MonthValue.January, 01),
+                                        })
+                                        ,
+                                    },
+                                })
+                            {
+                                //From = new LocalTime(16, 30),
+                                Period = new PeriodBuilder {Minutes = 45}.Build(),
+                                TimeZoneProvider = "Europe/London",
+                            }
+                        }),
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
-                        new List<LocalDateTime> { new LocalDateTime(2016, 01, 01, 16, 30) }
+                        "From"
+                    },
+                    {
+                        new Event(new Serials
+                        {
+                            new Serial(new CompositeSchedule()
+                                {
+                                    InclusionsEdges = new EdgeVertexs<Schedule>
+                                    {
+                                        new EdgeVertex<Schedule>(new SingleDay
+                                        {
+                                            Date = new Date(2016, YearMonth.MonthValue.January, 01),
+                                        })
+                                        ,
+                                    },
+                                })
+                            {
+                                From = new LocalTime(16, 30),
+                                //Period = new PeriodBuilder {Minutes = 45}.Build(),
+                                TimeZoneProvider = "Europe/London",
+                            }
+                        }),
+                        mockDb.Object,
+                        new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
+                        "Period"
+                    },
+                    {
+                        new Event(new Serials
+                        {
+                            new Serial(new CompositeSchedule()
+                                {
+                                    InclusionsEdges = new EdgeVertexs<Schedule>
+                                    {
+                                        new EdgeVertex<Schedule>(new SingleDay
+                                        {
+                                            Date = new Date(2016, YearMonth.MonthValue.January, 01),
+                                        })
+                                        ,
+                                    },
+                                })
+                            {
+                                From = new LocalTime(16, 30),
+                                Period = new PeriodBuilder {Minutes = 45}.Build(),
+                                //TimeZoneProvider = "Europe/London",
+                            }
+                        }),
+                        mockDb.Object,
+                        new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
+                        "TimeZoneProvider"
                     },
                 }).BDDfy();
             }
@@ -190,12 +252,13 @@ namespace ScheduleGeneration.Test
             {
                 _generatedEvent = new GeneratedEvent();
 
-                _generatedEvent.Generate(_clock, _event);
+                _exception = Record.Exception(() => _generatedEvent.Generate(_clock, _event));
             }
 
-            public void ThenDatesAreAsExpected(IEnumerable<LocalDateTime> expectedEpisodes)
+            public void ThenArgumentExceptionIsThrown(string expectedMessage)
             {
-                _generatedEvent.Episodes.Select(e => e.From.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
+                _exception.ShouldBeOfType(typeof(ArgumentException));
+                _exception.Message.ShouldBe(expectedMessage);
             }
         }
     }

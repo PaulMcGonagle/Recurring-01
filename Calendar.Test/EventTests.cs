@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Shouldly;
 using NodaTime;
+using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
@@ -32,11 +33,11 @@ namespace MyCalendar.Test
                             new Event(new Serials
                                 {
                                     {
-                                        new Serial(new ByWeekday
+                                        new Serial(new ByWeekday(
+                                            clock: fakeClock,
+                                            weekday: IsoDayOfWeek.Thursday)
                                             {
                                                 EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.September, 22, 2016, YearMonth.MonthValue.December, 20),
-                                                Weekday = IsoDayOfWeek.Thursday,
-                                                Clock = fakeClock,
                                             })
                                         {
                                             From = new LocalTime(16, 45),
@@ -73,7 +74,7 @@ namespace MyCalendar.Test
                     .ShouldAllBe(d => d.Equals((int)expectedWeekday));
             }
 
-            public void ThenAllStartTimesAresCorrect(LocalTime expectedStartTime)
+            public void ThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
             {
                 _serials.Episodes.Select(e => e.From.TimeOfDay).ShouldAllBe(d => d.Equals(expectedStartTime));
             }

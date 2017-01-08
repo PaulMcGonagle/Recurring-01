@@ -27,6 +27,16 @@ namespace Scheduler
             To = to;
         }
 
+        public void Validate()
+        {
+            if (From?.Value != null && To?.Value == null && From.Value <= To.Value)
+            {
+                throw new ArgumentOutOfRangeException($"Range is invalid: From={From?.Value}, To={To?.Value}");
+            }
+        }
+
+
+
         public override SaveResult Save(IArangoDatabase db, IClock clock)
         {
             return Save(new Func<SaveResult>[]

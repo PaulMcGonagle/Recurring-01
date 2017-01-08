@@ -23,8 +23,6 @@ namespace Scheduler
         [IgnoreDataMember]
         public IsoDayOfWeek IsoDayOfWeek => Value.IsoDayOfWeek;
 
-        public LocalDate LocalDate { get; set; }
-
         public Date PlusDays(int days)
         {
             return new Date(Value.PlusDays(days));
@@ -38,6 +36,11 @@ namespace Scheduler
         int IComparable.CompareTo(object obj)
         {
             return Value.CompareTo(((Date)obj).Value);
+        }
+
+        public override string ToString()
+        {
+            return Value.ToString();
         }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)

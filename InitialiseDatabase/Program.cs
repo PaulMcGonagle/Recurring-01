@@ -125,11 +125,11 @@ namespace InitialiseDatabase
                                             DayOfYear = 08,
                                         }
                                     ),
-                                    new EdgeVertex<Schedule>(new ByWeekday
+                                    new EdgeVertex<Schedule>(new ByWeekday(
+                                            clock: new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                            weekday: IsoDayOfWeek.Thursday)
                                         {
                                             EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
-                                            Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
-                                            Weekday = IsoDayOfWeek.Wednesday,
                                         }
                                     ),
                                     new EdgeVertex<Schedule>(new ByWeekdays

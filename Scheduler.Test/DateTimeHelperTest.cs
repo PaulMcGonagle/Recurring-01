@@ -114,5 +114,87 @@ namespace Scheduler.Test
 
             }
         }
+
+        public class GetNextWeekdayTest
+        {
+            private LocalDate _input;
+            private IsoDayOfWeek _isoDayOfWeek;
+            private LocalDate _rollForwardDate;
+            private LocalDate _rollBackDate;
+
+            [Fact]
+            public void Execute()
+            {
+                this.WithExamples(new ExampleTable(
+                    "input",
+                    "isoDayOfWeek")
+                {
+                    {   new LocalDate(2016, 01, 01), IsoDayOfWeek.Thursday },
+                    {   new LocalDate(2016, 01, 31), IsoDayOfWeek.Thursday },
+                    {   new LocalDate(2016, 02, 29), IsoDayOfWeek.Monday },
+                    {   new LocalDate(2016, 12, 28), IsoDayOfWeek.Thursday },
+                    {   new LocalDate(2016, 12, 29), IsoDayOfWeek.Thursday },
+                    {   new LocalDate(2016, 12, 30), IsoDayOfWeek.Thursday },
+                    {   new LocalDate(2016, 12, 31), IsoDayOfWeek.Thursday },
+                    {   new LocalDate(2017, 01, 01), IsoDayOfWeek.Thursday },
+                    {   new LocalDate(2017, 01, 02), IsoDayOfWeek.Thursday },
+                    {   new LocalDate(2017, 01, 03), IsoDayOfWeek.Thursday },
+                    {   new LocalDate(2016, 12, 28), IsoDayOfWeek.Monday },
+                    {   new LocalDate(2016, 12, 29), IsoDayOfWeek.Monday },
+                    {   new LocalDate(2016, 12, 30), IsoDayOfWeek.Monday },
+                    {   new LocalDate(2016, 12, 31), IsoDayOfWeek.Monday },
+                    {   new LocalDate(2017, 01, 01), IsoDayOfWeek.Monday },
+                    {   new LocalDate(2017, 01, 02), IsoDayOfWeek.Monday },
+                    {   new LocalDate(2017, 01, 03), IsoDayOfWeek.Monday },
+                    {   new LocalDate(2016, 12, 28), IsoDayOfWeek.Friday },
+                    {   new LocalDate(2016, 12, 29), IsoDayOfWeek.Friday },
+                    {   new LocalDate(2016, 12, 30), IsoDayOfWeek.Friday },
+                    {   new LocalDate(2016, 12, 31), IsoDayOfWeek.Friday },
+                    {   new LocalDate(2017, 01, 01), IsoDayOfWeek.Friday },
+                    {   new LocalDate(2017, 01, 02), IsoDayOfWeek.Friday },
+                    {   new LocalDate(2017, 01, 03), IsoDayOfWeek.Friday },
+                }).BDDfy();
+            }
+
+            public void GivenTheDate(LocalDate input)
+            {
+                _input = input;
+            }
+
+            public void AndGivenTheRequestedDayOfWeek(IsoDayOfWeek isoDayOfWeek)
+            {
+                _isoDayOfWeek = isoDayOfWeek;
+            }
+
+            public void WhenRollForwardDateIsRetrieved()
+            {
+                _rollForwardDate = DateTimeHelper.GetNextWeekday(_input, _isoDayOfWeek, false);
+            }
+
+            public void AndWhenRollBackDateIsRetrieved()
+            {
+                _rollBackDate = DateTimeHelper.GetNextWeekday(_input, _isoDayOfWeek, true);
+            }
+
+            public void ThenRollForwardDateIsCorrectWeekday()
+            {
+                _rollForwardDate.IsoDayOfWeek.ShouldBe(_isoDayOfWeek);
+            }
+
+            public void AndThenRollBackDateIsCorrectWeekday()
+            {
+                _rollBackDate.IsoDayOfWeek.ShouldBe(_isoDayOfWeek);
+            }
+
+            public void AndThenTheRollForwardDateIsNotMoreThanAWeekAhead()
+            {
+                Period.Between(_input, _rollForwardDate).Days.ShouldBeLessThanOrEqualTo(7);
+            }
+
+            public void AndThenTheRollBackDateIsNotMoreThanAWeekAgo()
+            {
+                Period.Between(_input, _rollBackDate).Days.ShouldBeGreaterThanOrEqualTo(-7);
+            }
+        }
     }
 }

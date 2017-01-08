@@ -24,39 +24,29 @@ namespace Scheduler.Generation
 
             foreach (var serial in source.Serials)
             {
-                if (serial.EdgeSchedule != null)
+                if (serial.EdgeSchedule?.Schedule == null)
+                    throw new ArgumentException("Schedule");
+
+                if (!serial.From.HasValue)
+                    throw new ArgumentException("From");
+
+                if (serial.Period == null)
+                    throw new ArgumentException("Period");
+
+                if (serial.TimeZoneProvider == null)
+                    throw new ArgumentException("TimeZoneProvider");
+
+                Episodes = new List<Episode>();
+
+                foreach (var date in serial.EdgeSchedule.Schedule.GenerateDates())
                 {
-                    foreach (var v in serial.EdgeSchedule.Schedule.GenerateDates())
+                    Episode episode = new Episode
                     {
+                        From = DateTimeHelper.GetZonedDateTime(date.Value.At(serial.From ?? new LocalTime(0, 0)), serial.TimeZoneProvider),
+                        Period = serial.Period,                                
+                    };
 
-                        if (serial.EdgeSchedule?.Schedule == null)
-                            throw new ArgumentException("Schedule");
-
-                        if (!serial.From.HasValue)
-                            throw new ArgumentException("From");
-
-                        if (serial.Period == null)
-                            throw new ArgumentException("Period");
-
-                        if (serial.TimeZoneProvider == null)
-                            throw new ArgumentException("TimeZoneProvider");
-
-                        var dates = serial.EdgeSchedule.ToVertex.GenerateDates();
-
-                        Episodes = new List<Episode>();
-
-                        foreach (var date in dates)
-                        {
-                            Episode episode = new Episode
-                            {
-                                From = DateTimeHelper.GetZonedDateTime(date.Value.At(serial.From ?? new LocalTime(0, 0)), serial.TimeZoneProvider),
-                                Period = serial.Period,                                
-                            };
-
-                            Episodes.Add(episode);
-                        }
-                    }
-
+                    Episodes.Add(episode);
                 }
             }
         }

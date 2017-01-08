@@ -64,6 +64,22 @@ namespace Scheduler
             return new Scheduler.Date(year, month, day);
         }
 
+        public static LocalDate GetNextWeekday(LocalDate input, IsoDayOfWeek requiredDayOfWeek, bool rollBack = false)
+        {
+            int startOffset;
+
+            if (rollBack)
+            {
+                startOffset = requiredDayOfWeek - input.IsoDayOfWeek - (requiredDayOfWeek >= input.IsoDayOfWeek ? 0 : -7);
+            }
+            else
+            {
+                startOffset = requiredDayOfWeek - input.IsoDayOfWeek + (requiredDayOfWeek >= input.IsoDayOfWeek ? 0 : 7);
+            }
+
+            return input.PlusDays(startOffset);
+        }
+
         public static YearMonth ToYearMonth(this LocalDateTime value)
         {
             return new Scheduler.Date(value.Date).ToYearMonth();
