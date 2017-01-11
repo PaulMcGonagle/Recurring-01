@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
+using Scheduler.Generation;
 using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
 using Shouldly;
@@ -14,7 +15,7 @@ namespace Scheduler.Test
         public class VerifyExclusionsAreExcluded
         {
             CompositeSchedule _sut;
-            private IEnumerable<Date> _dates;
+            private IEnumerable<GeneratedDate> _dates;
 
             [Fact]
             public void Execute()
@@ -72,22 +73,25 @@ namespace Scheduler.Test
             public void ThenTheFirstDateIs(Date expectedFirstDate)
             {
                 _dates
-                    .Select(d => d.Value)
+                    .Select(d => d.Date.Value)
                     .Min()
                     .ShouldBe(expectedFirstDate.Value);
             }
 
             public void AndThenTheLastDateIs(Date expectedLastDate)
             {
-                _dates
-                    .Select(d => d.Value)
-                    .Max()
-                    .ShouldBe(expectedLastDate.Value);
+                var localDates = _dates
+                    .Select(d => d.Date.Value);
+                var max =
+                    localDates
+                        .Max();
+
+                max.ShouldBe(expectedLastDate.Value);
             }
 
             public void AndTheseDaysShouldNotAppear(IEnumerable<IsoDayOfWeek> excludedIsoDayOfWeeks)
             {
-                _dates.Select(d => d.IsoDayOfWeek).ShouldNotBeOneOf(excludedIsoDayOfWeeks);
+                _dates.Select(d => d.Date.IsoDayOfWeek).ShouldNotBeOneOf(excludedIsoDayOfWeeks);
             }
         }
 

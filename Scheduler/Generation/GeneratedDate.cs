@@ -1,16 +1,26 @@
-﻿using NodaTime;
+﻿using System;
+using NodaTime;
 using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
 
 namespace Scheduler.Generation
 {
-    public class GeneratedDate : Vertex
+    public class GeneratedDate : Vertex, IComparable
     {
-        public Instant Instant { get; set; }
+        public Date Date { get; set; }
 
-        public EdgeVertexs<Date> Source { get; set; }
+        public EdgeSchedule Source { get; set; }
 
-        public GeneratedDate(IClock clock, Date source, LocalDate time, Period period)
+        public GeneratedDate(Schedule source, Date date)
         {
+            Source = new EdgeSchedule(source);
+
+            Date = date;
+        }
+
+        int IComparable.CompareTo(object obj)
+        {
+            return Date.Value.CompareTo(((GeneratedDate)obj).Date.Value);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
+using Scheduler.Generation;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
@@ -22,13 +23,15 @@ namespace Scheduler
 
         public List<Range> Breaks = new List<Range>();
 
-        public override IEnumerable<Date> GenerateDates()
+        public override IEnumerable<GeneratedDate> GenerateDates()
         {
             var inclusions = InclusionsEdges.SelectMany(i => i.ToVertex.GenerateDates());
             var exclusions = ExclusionsEdges.SelectMany(i => i.ToVertex.GenerateDates());
 
-            var list = new List<Date>();
-            list.AddRange(inclusions.Exclude(exclusions));
+            var list = new List<GeneratedDate>();
+
+            list.AddRange(inclusions);
+            list.RemoveAll(l => exclusions.Select(e => e.Date.Value).Contains(l.Date.Value));
 
             //list = list.Exclude(Breaks);
 

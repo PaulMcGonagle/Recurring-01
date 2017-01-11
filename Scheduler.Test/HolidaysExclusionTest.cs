@@ -36,20 +36,22 @@ namespace Scheduler.Test
         {
             _holidays = holidays;
 
+            var dateList = new DateList();
+
             _term.ExclusionsEdges.Add(new EdgeVertex<Schedule>(new DateList { Items = _holidays }));
         }
 
         public void ThenThereShouldBeNoWeekendDays()
         {
             _term.GenerateDates()
-                .Where(o => ScheduleTestHelper.WeekendDays.Contains(o.Value.IsoDayOfWeek))
+                .Where(o => ScheduleTestHelper.WeekendDays.Contains(o.Date.Value.IsoDayOfWeek))
                 .ShouldBeEmpty();
         }
 
         public void AndThenThereShouldBeNoHolidaysMatching()
         {
             _term.GenerateDates()
-                .Where(o => ScheduleTestHelper.BankHolidays.Contains(o))
+                .Where(o => ScheduleTestHelper.BankHolidays.Contains(o.Date))
                 .ShouldBeEmpty();
         }
 

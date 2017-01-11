@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ArangoDB.Client;
 using NodaTime;
+using Scheduler.Generation;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -13,11 +14,13 @@ namespace Scheduler.ScheduleInstances
             set;
         }
 
-        public override IEnumerable<Date> GenerateDates()
+        public override IEnumerable<GeneratedDate> GenerateDates()
         {
-            var results = new List<Date>
+            var results = new List<GeneratedDate>
             {
-                Date
+                new GeneratedDate(
+                    source: this,
+                    date: Date),
             };
 
             return results;

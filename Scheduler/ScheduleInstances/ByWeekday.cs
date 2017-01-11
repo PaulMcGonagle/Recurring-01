@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using Scheduler.Generation;
 using Scheduler.ScheduleEdges;
 
 namespace Scheduler.ScheduleInstances
@@ -50,7 +51,7 @@ namespace Scheduler.ScheduleInstances
             return byWeekday;
         }
 
-        public override IEnumerable<Scheduler.Date> GenerateDates()
+        public override IEnumerable<GeneratedDate> GenerateDates()
         {
             if (Clock == null)
                 throw new ArgumentNullException($"Clock");
@@ -86,13 +87,18 @@ namespace Scheduler.ScheduleInstances
                 weeks = CountTo ?? CountToDefault;
             }
 
-            var results = new List<Scheduler.Date>
+            var results = new List<GeneratedDate>
             {
-                new Scheduler.Date(startDate)
+                new GeneratedDate(
+                    source: this, 
+                    date: new Date(startDate)),
             };
 
             var s = Enumerable.Range(1, weeks);
-            results.AddRange(s.Select(o => new Scheduler.Date(startDate.PlusWeeks(o))));
+            results.AddRange(
+                s.Select(o => new GeneratedDate(
+                    source: this, 
+                    date: new Scheduler.Date(startDate.PlusWeeks(o)))));
 
             results.Sort();
 

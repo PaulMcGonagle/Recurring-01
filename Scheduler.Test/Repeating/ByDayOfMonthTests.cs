@@ -3,6 +3,7 @@ using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Scheduler.Generation;
 using TestStack.BDDfy;
 using Xunit;
 
@@ -14,7 +15,7 @@ namespace Scheduler.Test.Repeating
         public class ValidateRollStrategy
         {
             private ByDayOfMonth _sut;
-            private IEnumerable<Date> _dates;
+            private IEnumerable<GeneratedDate> _dates;
 
             [Fact]
             public void Execute()
@@ -113,7 +114,7 @@ namespace Scheduler.Test.Repeating
                 IEnumerable<Date> expectedDates)
             {
                 _dates
-                    .Select(d => d.Value)
+                    .Select(d => d.Date.Value)
                     .ShouldBe(expectedDates.Select(e => e.Value));
             }
         }

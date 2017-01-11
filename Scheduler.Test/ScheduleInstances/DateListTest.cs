@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Scheduler.Generation;
 using Shouldly;
 using TestStack.BDDfy;
 using Scheduler.ScheduleInstances;
@@ -12,7 +13,7 @@ namespace Scheduler.Test.ScheduleInstances
         public class VerifyDay
         {
             DateList _sut;
-            IEnumerable<Date> _dates;
+            IEnumerable<GeneratedDate> _dates;
 
             [Fact]
             public void Execute()
@@ -46,7 +47,7 @@ namespace Scheduler.Test.ScheduleInstances
 
             public void ThenOnlyTheseDateAreReturned(IEnumerable<Date> expectedDates)
             {
-                _dates.Select(d => d.Value).ShouldBe(expectedDates.Select(e => e.Value));
+                _dates.Select(d => d.Date.Value).ShouldBe(expectedDates.Select(e => e.Value));
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Scheduler.Generation;
 
 namespace Scheduler
 {
@@ -15,7 +16,7 @@ namespace Scheduler
             Add(schedule);
         }
 
-        public IEnumerable<Date> GenerateDates()
+        public IEnumerable<GeneratedDate> GenerateDates()
         {
             return this.SelectMany(d => d.GenerateDates());
         }

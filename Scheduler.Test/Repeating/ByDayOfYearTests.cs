@@ -3,6 +3,7 @@ using Scheduler.ScheduleAbstracts;
 using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
+using Scheduler.Generation;
 using Scheduler.ScheduleEdges;
 using TestStack.BDDfy;
 using Scheduler.ScheduleInstances;
@@ -158,7 +159,7 @@ namespace Scheduler.Test.Repeating
         public class ValidateDates
         {
             private ByDayOfYear _sut;
-            private IEnumerable<Date> _dates;
+            private IEnumerable<GeneratedDate> _dates;
 
             [Fact]
             public void Execute()
@@ -237,7 +238,7 @@ namespace Scheduler.Test.Repeating
             public void ThenAllDatesShouldBeThese(IEnumerable<Date> expectedDates)
             {
                 _dates
-                    .Select(d => d.Value)
+                    .Select(d => d.Date.Value)
                     .ShouldBe(expectedDates.Select(e => e.Value));
             }
         }
@@ -245,7 +246,7 @@ namespace Scheduler.Test.Repeating
         public class ValidateRollStrategy
         {
             private ByDayOfYear _sut;
-            private IEnumerable<Date> _dates;
+            private IEnumerable<GeneratedDate> _dates;
 
             [Fact]
             public void Execute()
@@ -395,7 +396,9 @@ namespace Scheduler.Test.Repeating
 
             public void ThenAllDatesShouldBeThese(IEnumerable<Date> expectedDates)
             {
-                _dates.ShouldBe(expectedDates);
+                _dates
+                    .Select(d => d.Date)
+                    .ShouldBe(expectedDates);
             }
         }
     }

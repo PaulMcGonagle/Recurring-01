@@ -125,7 +125,7 @@ namespace TestData
                         {
                             Items = _scheduleArchive
                                 .Where(s => s.Key.StartsWith("BankHolidays.2016"))
-                                .SelectMany(s => s.Value.GenerateDates())
+                                .SelectMany(s => s.Value.GenerateDates().Select(gd => gd.Date))
                         });
 
                 _scheduleArchive

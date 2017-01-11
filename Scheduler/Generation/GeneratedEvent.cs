@@ -42,7 +42,7 @@ namespace Scheduler.Generation
                 {
                     Episode episode = new Episode
                     {
-                        From = DateTimeHelper.GetZonedDateTime(date.Value.At(serial.From ?? new LocalTime(0, 0)), serial.TimeZoneProvider),
+                        From = DateTimeHelper.GetZonedDateTime(date.Date.Value.At(serial.From ?? new LocalTime(0, 0)), serial.TimeZoneProvider),
                         Period = serial.Period,                                
                     };
 

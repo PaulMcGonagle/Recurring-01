@@ -3,6 +3,7 @@ using NodaTime;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using Scheduler.Generation;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -60,9 +61,9 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public override IEnumerable<Scheduler.Date> GenerateDates()
+        public override IEnumerable<GeneratedDate> GenerateDates()
         {
-            var dates = new List<Date>();
+            var dates = new List<GeneratedDate>();
 
             var yearMonths = YearMonth.Range(YearMonthFrom, YearMonthTo, Increment);
 
@@ -72,7 +73,9 @@ namespace Scheduler.ScheduleInstances
 
                 if (yearMonth.TryToLocalDate(DayOfMonth, out localDate, RollStrategy))
                 {
-                    dates.Add(localDate);
+                    dates.Add(new GeneratedDate(
+                        source: this,
+                        date: localDate));
                 }
             }
 

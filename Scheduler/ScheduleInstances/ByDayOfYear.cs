@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using Scheduler.Generation;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -68,13 +69,15 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public override IEnumerable<Scheduler.Date> GenerateDates()
+        public override IEnumerable<GeneratedDate> GenerateDates()
         {
             foreach (var year in Enumerable.Range(YearFrom, YearTo - YearFrom + 1))
             {
                 var yearMonth = new YearMonth {Year = year, Month = Month};
 
-                yield return yearMonth.ToLocalDate(DayOfYear, RollStrategy);
+                yield return new GeneratedDate(
+                    source: this,
+                    date: yearMonth.ToLocalDate(DayOfYear, RollStrategy));
             }
         }
 

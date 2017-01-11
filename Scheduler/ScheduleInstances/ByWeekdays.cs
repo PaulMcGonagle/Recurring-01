@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using Scheduler.Generation;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -20,13 +21,13 @@ namespace Scheduler.ScheduleInstances
             CountToDefault = 52;
         }
 
-        public override IEnumerable<Scheduler.Date> GenerateDates()
+        public override IEnumerable<GeneratedDate> GenerateDates()
         {
             var start = EdgeRange.ToVertex.From ?? DateTimeHelper.GetToday(Clock).AddWeeks(-(CountFrom ?? CountFromDefault));
             var end = EdgeRange.ToVertex.To ?? DateTimeHelper.GetToday(Clock).AddWeeks((CountTo ?? CountToDefault));
 
             var range = DateTimeHelper.Range(start: start, end: end);
-            return range.Where(d => Days.Contains(d.IsoDayOfWeek));
+            return range.Where(d => Days.Contains(d.IsoDayOfWeek)).Select(d => new GeneratedDate(source: this, date: d));
         }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)
