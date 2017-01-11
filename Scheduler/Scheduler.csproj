@@ -86,7 +86,6 @@
     <Compile Include="Generation\GeneratedDates.cs" />
     <Compile Include="Generation\GeneratedEvent.cs" />
     <Compile Include="Generation\GeneratedEvents.cs" />
-    <Compile Include="Generation\Generator.cs" />
     <Compile Include="Generation\IGeneratedDate.cs" />
     <Compile Include="Generation\IGeneratedDates.cs" />
     <Compile Include="ISerials.cs" />
