@@ -83,9 +83,12 @@
     <Compile Include="Backup.cs" />
     <Compile Include="Date.cs" />
     <Compile Include="Generation\GeneratedDate.cs" />
+    <Compile Include="Generation\GeneratedDates.cs" />
     <Compile Include="Generation\GeneratedEvent.cs" />
     <Compile Include="Generation\GeneratedEvents.cs" />
     <Compile Include="Generation\Generator.cs" />
+    <Compile Include="Generation\IGeneratedDate.cs" />
+    <Compile Include="Generation\IGeneratedDates.cs" />
     <Compile Include="ISerials.cs" />
     <Compile Include="Persistance\Edge.cs" />
     <Compile Include="Persistance\Edges.cs" />

@@ -86,7 +86,7 @@ namespace Scheduler.Test.Repeating
 
             public void WhenDatesAreReturned()
             {
-                _exception = Record.Exception(() => { var dates = _sut.GenerateDates().ToList(); });
+                _exception = Record.Exception(() => { var dates = _sut.Generate().ToList(); });
             }
 
             public void ThenDatesThrowsADateOutOfBoundsException(int expectedExceptionYear,
@@ -159,7 +159,7 @@ namespace Scheduler.Test.Repeating
         public class ValidateDates
         {
             private ByDayOfYear _sut;
-            private IEnumerable<GeneratedDate> _dates;
+            private IEnumerable<IGeneratedDate> _dates;
 
             [Fact]
             public void Execute()
@@ -232,7 +232,7 @@ namespace Scheduler.Test.Repeating
 
             public void WhenDatesAreRetrieved()
             {
-                _dates = _sut.GenerateDates();
+                _dates = _sut.Generate();
             }
 
             public void ThenAllDatesShouldBeThese(IEnumerable<Date> expectedDates)
@@ -246,7 +246,7 @@ namespace Scheduler.Test.Repeating
         public class ValidateRollStrategy
         {
             private ByDayOfYear _sut;
-            private IEnumerable<GeneratedDate> _dates;
+            private IEnumerable<IGeneratedDate> _dates;
 
             [Fact]
             public void Execute()
@@ -391,7 +391,7 @@ namespace Scheduler.Test.Repeating
 
             public void WhenDatesAreRetrieved()
             {
-                _dates = _sut.GenerateDates();
+                _dates = _sut.Generate();
             }
 
             public void ThenAllDatesShouldBeThese(IEnumerable<Date> expectedDates)

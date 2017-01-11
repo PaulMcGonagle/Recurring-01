@@ -23,12 +23,12 @@ namespace Scheduler
 
         public List<Range> Breaks = new List<Range>();
 
-        public override IEnumerable<GeneratedDate> GenerateDates()
+        public override GeneratedDates Generate()
         {
-            var inclusions = InclusionsEdges.SelectMany(i => i.ToVertex.GenerateDates());
-            var exclusions = ExclusionsEdges.SelectMany(i => i.ToVertex.GenerateDates());
+            var inclusions = InclusionsEdges.SelectMany(i => i.ToVertex.Generate());
+            var exclusions = ExclusionsEdges.SelectMany(i => i.ToVertex.Generate());
 
-            var list = new List<GeneratedDate>();
+            var list = new GeneratedDates();
 
             list.AddRange(inclusions);
             list.RemoveAll(l => exclusions.Select(e => e.Date.Value).Contains(l.Date.Value));

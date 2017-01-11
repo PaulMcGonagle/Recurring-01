@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using ArangoDB.Client;
-using ArangoDB.Client.Data;
 using NodaTime;
 
 namespace Scheduler.Persistance
@@ -31,7 +26,7 @@ namespace Scheduler.Persistance
             FromVertex = fromVertex;
 
             if (!FromVertex.IsPersisted)
-                return Vertex.SaveResult.Incomplete;
+                return SaveResult.Incomplete;
 
             return Save(new Func<SaveResult>[]
             {

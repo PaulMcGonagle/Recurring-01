@@ -9,7 +9,7 @@ namespace Scheduler.Generation
     {
         public Instant Time { get; set; }
 
-        EdgeVertex<Event> Source { get; set; }
+        private EdgeVertex<Event> Source { get; set; }
 
         public IList<Episode> Episodes { get; set; }
 
@@ -38,11 +38,14 @@ namespace Scheduler.Generation
 
                 Episodes = new List<Episode>();
 
-                foreach (var date in serial.EdgeSchedule.Schedule.GenerateDates())
+                var generatedDates = serial.EdgeSchedule.Schedule.Generate();
+
+                foreach (var generatedDate in generatedDates)
                 {
-                    Episode episode = new Episode
+                    var episode = new Episode
                     {
-                        From = DateTimeHelper.GetZonedDateTime(date.Date.Value.At(serial.From ?? new LocalTime(0, 0)), serial.TimeZoneProvider),
+                        SourceGeneratedDate = new EdgeVertex<IGeneratedDate>(generatedDate),
+                        From = DateTimeHelper.GetZonedDateTime(generatedDate.Date.Value.At(serial.From ?? new LocalTime(0, 0)), serial.TimeZoneProvider),
                         Period = serial.Period,                                
                     };
 

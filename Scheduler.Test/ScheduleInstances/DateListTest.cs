@@ -12,8 +12,8 @@ namespace Scheduler.Test.ScheduleInstances
     {
         public class VerifyDay
         {
-            DateList _sut;
-            IEnumerable<GeneratedDate> _dates;
+            private DateList _sut;
+            private IEnumerable<IGeneratedDate> _dates;
 
             [Fact]
             public void Execute()
@@ -42,7 +42,7 @@ namespace Scheduler.Test.ScheduleInstances
 
             public void WhenDatesAreRetrieved()
             {
-                _dates = _sut.GenerateDates();
+                _dates = _sut.Generate();
             }
 
             public void ThenOnlyTheseDateAreReturned(IEnumerable<Date> expectedDates)

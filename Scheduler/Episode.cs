@@ -2,12 +2,15 @@
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
+using Scheduler.Generation;
 using Scheduler.Persistance;
 
 namespace Scheduler
 {
     public class Episode : Vertex, IComparable
     {
+        public EdgeVertex<IGeneratedDate> SourceGeneratedDate { get; set; }
+
         private ZonedDateTime _from;
         public ZonedDateTime From
         {

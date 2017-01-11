@@ -35,8 +35,6 @@ namespace Scheduler
             }
         }
 
-
-
         public override SaveResult Save(IArangoDatabase db, IClock clock)
         {
             return Save(new Func<SaveResult>[]

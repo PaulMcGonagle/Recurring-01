@@ -16,12 +16,17 @@ namespace Scheduler.ScheduleInstances
             set;
         }
 
-        public override IEnumerable<GeneratedDate> GenerateDates()
+        public override GeneratedDates Generate()
         {
-            return Items.Select(i => new GeneratedDate(
-                source: this,
-                date: i))
-                .ToList();
+            var generatedDates = new GeneratedDates();
+
+            generatedDates.AddRange(
+                Items.Select(i => new GeneratedDate(
+                    source: this,
+                    date: i))
+                .ToList());
+
+            return generatedDates;
         }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)

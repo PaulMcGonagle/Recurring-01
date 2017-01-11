@@ -1,11 +1,10 @@
 ﻿using System;
-using NodaTime;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
 
 namespace Scheduler.Generation
 {
-    public class GeneratedDate : Vertex, IComparable
+    public class GeneratedDate : Vertex, IGeneratedDate
     {
         public Date Date { get; set; }
 

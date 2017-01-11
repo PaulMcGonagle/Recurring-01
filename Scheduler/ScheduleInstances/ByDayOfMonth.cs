@@ -61,9 +61,9 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public override IEnumerable<GeneratedDate> GenerateDates()
+        public override GeneratedDates Generate()
         {
-            var dates = new List<GeneratedDate>();
+            var dates = new GeneratedDates();
 
             var yearMonths = YearMonth.Range(YearMonthFrom, YearMonthTo, Increment);
 

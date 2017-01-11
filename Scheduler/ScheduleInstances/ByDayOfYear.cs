@@ -69,16 +69,20 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public override IEnumerable<GeneratedDate> GenerateDates()
+        public override GeneratedDates Generate()
         {
+            var generatedDates = new GeneratedDates();
+
             foreach (var year in Enumerable.Range(YearFrom, YearTo - YearFrom + 1))
             {
                 var yearMonth = new YearMonth {Year = year, Month = Month};
 
-                yield return new GeneratedDate(
+                generatedDates.Add(new GeneratedDate(
                     source: this,
-                    date: yearMonth.ToLocalDate(DayOfYear, RollStrategy));
+                    date: yearMonth.ToLocalDate(DayOfYear, RollStrategy)));
             }
+
+            return generatedDates;
         }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)

@@ -14,7 +14,7 @@ namespace Scheduler.Test.Repeating
         public class VerifyDates
         {
             private ByWeekday _repeatingDay;
-            private IEnumerable<GeneratedDate> _generatedDates;
+            private IEnumerable<IGeneratedDate> _generatedDates;
 
             [Fact]
             public void Execute()
@@ -41,7 +41,7 @@ namespace Scheduler.Test.Repeating
 
             public void WhenDatesAreGenerated()
             {
-                _generatedDates = _repeatingDay.GenerateDates();
+                _generatedDates = _repeatingDay.Generate();
             }
 
             public void ThenAllDatesShouldBeThisDay(IsoDayOfWeek dayOfWeek)

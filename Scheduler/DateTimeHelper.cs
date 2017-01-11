@@ -17,10 +17,10 @@ namespace Scheduler
 
         public const RollStrategyType RollStrategyDefault = RollStrategyType.Skip;
 
-        public static Scheduler.Date GetToday(IClock clock)
+        public static Date GetToday(IClock clock)
         {
             var zone = NodaTime.TimeZones.BclDateTimeZone.ForSystemDefault();
-            return new Scheduler.Date(clock.Now.InZone(zone).LocalDateTime.Date);
+            return new Date(clock.Now.InZone(zone).LocalDateTime.Date);
         }
 
         public static LocalDateTime GetLocalDateTime(this IClock clock)
@@ -32,10 +32,10 @@ namespace Scheduler
         public static YearMonth GetLocalYearMonth(this IClock clock)
         {
             var localDateTime = GetLocalDateTime(clock);
-            return localDateTime.ToYearMonth(); ;
+            return localDateTime.ToYearMonth();
         }
 
-        public static Scheduler.Date AddWeeks(this Scheduler.Date dt, int weeks)
+        public static Date AddWeeks(this Date dt, int weeks)
         {
             return new Date(dt.Value.PlusDays(weeks * 7));
         }
@@ -47,7 +47,7 @@ namespace Scheduler
             return london.AtStrictly(ldt);
         }
 
-        public static ZonedDateTime GetZonedDateTime(Scheduler.Date ld, LocalTime lt, string timeZoneProvider)
+        public static ZonedDateTime GetZonedDateTime(Date ld, LocalTime lt, string timeZoneProvider)
         {
             return GetZonedDateTime(ld.Value.At(lt), timeZoneProvider);
         }
@@ -59,9 +59,9 @@ namespace Scheduler
             return calendar.GetDaysInMonth(year, (int)month);
         }
 
-        public static Scheduler.Date GetLocalDate(int year, YearMonth.MonthValue month, int day)
+        public static Date GetLocalDate(int year, YearMonth.MonthValue month, int day)
         {
-            return new Scheduler.Date(year, month, day);
+            return new Date(year, month, day);
         }
 
         public static LocalDate GetNextWeekday(LocalDate input, IsoDayOfWeek requiredDayOfWeek, bool rollBack = false)
@@ -82,26 +82,26 @@ namespace Scheduler
 
         public static YearMonth ToYearMonth(this LocalDateTime value)
         {
-            return new Scheduler.Date(value.Date).ToYearMonth();
+            return new Date(value.Date).ToYearMonth();
         }
 
-        public static YearMonth ToYearMonth(this Scheduler.Date value)
+        public static YearMonth ToYearMonth(this Date value)
         {
             return new YearMonth { Date = value };
         }
 
-        public static IEnumerable<Scheduler.Date> Range(Scheduler.Date start, int count, int interval = 1)
+        public static IEnumerable<Date> Range(Date start, int count, int interval = 1)
         {
-            return Enumerable.Range(0, count).Select(i => new Scheduler.Date(start.Value.PlusDays(i * interval)));
+            return Enumerable.Range(0, count).Select(i => new Date(start.Value.PlusDays(i * interval)));
         }
 
-        public static IEnumerable<Scheduler.Date> Range(Scheduler.Date start, Scheduler.Date end, int interval = 1)
+        public static IEnumerable<Date> Range(Date start, Date end, int interval = 1)
         {
             var period = Period.Between(start.Value, end.Value, PeriodUnits.Days);
 
             var days = Convert.ToInt32((period.Days + 1) / interval);
 
-            return Range(start, days, 1);
+            return Range(start, days);
         }
 
         public static YearMonth.MonthValue ToMonthValue(this int month)

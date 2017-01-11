@@ -14,14 +14,14 @@ namespace Scheduler.ScheduleInstances
             set;
         }
 
-        public override IEnumerable<GeneratedDate> GenerateDates()
+        public override GeneratedDates Generate()
         {
-            var results = new List<GeneratedDate>
-            {
+            var results = new GeneratedDates();
+
+            results.Add(
                 new GeneratedDate(
                     source: this,
-                    date: Date),
-            };
+                    date: Date));
 
             return results;
         }

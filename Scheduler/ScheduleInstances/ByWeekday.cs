@@ -51,7 +51,7 @@ namespace Scheduler.ScheduleInstances
             return byWeekday;
         }
 
-        public override IEnumerable<GeneratedDate> GenerateDates()
+        public override GeneratedDates Generate()
         {
             if (Clock == null)
                 throw new ArgumentNullException($"Clock");
@@ -87,7 +87,7 @@ namespace Scheduler.ScheduleInstances
                 weeks = CountTo ?? CountToDefault;
             }
 
-            var results = new List<GeneratedDate>
+            var results = new GeneratedDates
             {
                 new GeneratedDate(
                     source: this, 

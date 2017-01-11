@@ -15,7 +15,7 @@ namespace Scheduler.Test
         public class VerifyExclusionsAreExcluded
         {
             CompositeSchedule _sut;
-            private IEnumerable<GeneratedDate> _dates;
+            private IEnumerable<IGeneratedDate> _dates;
 
             [Fact]
             public void Execute()
@@ -67,7 +67,7 @@ namespace Scheduler.Test
 
             public void WhenDatesAreRetrieved()
             {
-                _dates = _sut.GenerateDates();
+                _dates = _sut.Generate();
             }
 
             public void ThenTheFirstDateIs(Date expectedFirstDate)
