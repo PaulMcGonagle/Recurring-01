@@ -11,7 +11,7 @@ using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Users;
 
-namespace SchemaGeneration
+namespace ScheduleGeneration
 {
     public static class Generate
     {
@@ -31,37 +31,28 @@ namespace SchemaGeneration
             {
                 ///////////////////// insert and update documents /////////////////////////
                 //db.CreateCollection("Event");
+                var fakeClock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10));
 
-                var e = new Event(new Serials
-                    {
-                        new Serial(new CompositeSchedule
-                            {
-                                InclusionsEdges = new EdgeVertexs<Schedule>()
-                                {
-                                    new EdgeVertex<Schedule>(new ByWeekday(
-                                        clock: new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
-                                        weekday: IsoDayOfWeek.Wednesday)
-                                        {
-                                            EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05),
-                                        }
-                                    )
-                                },
-                            })
-                            {
-                                From = new LocalTime(16, 30),
-                                Period = new PeriodBuilder { Minutes = 45 }.Build(),
-                                TimeZoneProvider = "Europe/London",
-                            }
-                    })
-                {
-                    Location = new EdgeVertex<Location>(new Location
+                var e = Event.Create
+                (
+                    schedule:
+                    ByWeekday.Create
+                    (
+                        clock: fakeClock,
+                        weekday: IsoDayOfWeek.Wednesday,
+                        range: new Range(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05)
+                    ),
+                    from: new LocalTime(16, 30),
+                    period: new PeriodBuilder {Minutes = 45}.Build(),
+                    timeZoneProvider: "Europe/London",
+                    location: new Location
                     {
                         Address = @"Flat 9
 26 Bryanston Square
 London
 W1H 2DS"
-                    }),
-                };
+                    }
+                );
 
                 // insert new document and creates 'Person' collection on the fly
                 db.Insert<Event>(e);

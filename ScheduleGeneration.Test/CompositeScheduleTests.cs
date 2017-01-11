@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using ArangoDB.Client;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NodaTime;
 using NodaTime.Testing;
@@ -16,10 +18,9 @@ using Shouldly;
 using TestStack.BDDfy;
 using Xunit;
 
-namespace ScheduleGeneration.Test.ScheduleInstances
+namespace ScheduleGeneration.Test
 {
-    [TestClass]
-    public class ByWeekdayTests
+    public class CompositeScheduleTests
     {
         public class GeneratesSingleEpisode
         {
@@ -46,12 +47,10 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 )
                 {
                     {
-                       Event.Create(
+                        Event.Create(
                             schedule: new ByWeekday(fakeClock, IsoDayOfWeek.Wednesday)
                             {
-                                EdgeRange =
-                                    new EdgeRange(new Scheduler.Range(2016, YearMonth.MonthValue.February, 20, 2016,
-                                        YearMonth.MonthValue.May, 15)),
+                                EdgeRange = new EdgeRange(new Scheduler.Range(2016, YearMonth.MonthValue.February, 20, 2016, YearMonth.MonthValue.May, 15)),
                             },
                             from: new LocalTime(16, 30),
                             period: new PeriodBuilder {Minutes = 45}.Build(),

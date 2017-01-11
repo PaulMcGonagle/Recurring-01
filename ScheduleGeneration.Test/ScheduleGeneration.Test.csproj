@@ -97,6 +97,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CompositeScheduleTests.cs" />
     <Compile Include="ScheduleInstances\ByWeekdayTests.cs" />
     <Compile Include="ScheduleInstances\SingleDayTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

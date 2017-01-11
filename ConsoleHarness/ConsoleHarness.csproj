@@ -99,6 +99,10 @@
       <Project>{38134490-cb1f-4604-9880-5f21a13aa399}</Project>
       <Name>MySerializer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ScheduleGeneration\ScheduleGeneration.csproj">
+      <Project>{8a55c9b2-6518-4482-af5c-d29cb81cc5f8}</Project>
+      <Name>ScheduleGeneration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Scheduler.Test\Scheduler.Test.csproj">
       <Project>{c9002a62-8518-4668-933c-60572835793c}</Project>
       <Name>Scheduler.Test</Name>
@@ -106,10 +110,6 @@
     <ProjectReference Include="..\Scheduler\Scheduler.csproj">
       <Project>{3189f8e6-b2ab-4b6e-8f28-756372c7644e}</Project>
       <Name>Scheduler</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SchemaGeneration\SchemaGeneration.csproj">
-      <Project>{8a55c9b2-6518-4482-af5c-d29cb81cc5f8}</Project>
-      <Name>SchemaGeneration</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

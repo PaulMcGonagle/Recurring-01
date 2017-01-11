@@ -4,6 +4,8 @@ using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
 using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
+using Scheduler.ScheduleInstances;
 using Scheduler.Users;
 
 namespace Scheduler
@@ -51,6 +53,28 @@ namespace Scheduler
                 () => Location?.Save(db, clock, this) ?? SaveDummy(),
                 () => base.Save(db, clock),
             });
+        }
+
+        public static Event Create(Schedule schedule, LocalTime from, Period period, string timeZoneProvider, Location location = null)
+        {
+            return new Event(new Serials
+            {
+                new Serial(new CompositeSchedule()
+                {
+                    InclusionsEdges = new EdgeVertexs<Schedule>
+                    {
+                        new EdgeVertex<Schedule>(schedule),
+                    },
+                })
+                {
+                    From = from,
+                    Period = period,
+                    TimeZoneProvider = timeZoneProvider,
+                }
+            })
+            {
+                Location = location != null ? new EdgeVertex<Location>(location) : null,
+            };
         }
     }
 }

@@ -5,6 +5,9 @@ using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
 using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
+using Scheduler.ScheduleInstances;
+using Scheduler.Users;
 
 namespace Scheduler
 {
@@ -30,6 +33,29 @@ namespace Scheduler
             //list = list.Exclude(Breaks);
 
             return list;
+        }
+
+        public static CompositeSchedule Create(
+            IClock clock, 
+            Schedule schedule, 
+            LocalTime from, 
+            Period period, 
+            string timeZoneProvider, 
+            Location location = null)
+        {
+            return new CompositeSchedule
+            {
+                InclusionsEdges = new EdgeVertexs<Schedule>()
+                {
+                    new EdgeVertex<Schedule>(new ByWeekday(
+                        clock: clock,
+                        weekday: IsoDayOfWeek.Wednesday)
+                        {
+                            EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05),
+                        }
+                    )
+                },
+            };
         }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)

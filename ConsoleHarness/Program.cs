@@ -34,7 +34,7 @@ namespace ConsoleHarness
 
         static void Main(string[] args)
         {
-            var a = SchemaGeneration.Generate.Go("sample");
+            var a = ScheduleGeneration.Generate.Go("sample");
 
             ReadKey();
         }

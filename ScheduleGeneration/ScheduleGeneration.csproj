@@ -7,8 +7,8 @@
     <ProjectGuid>{8A55C9B2-6518-4482-AF5C-D29CB81CC5F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SchemaGeneration</RootNamespace>
-    <AssemblyName>SchemaGeneration</AssemblyName>
+    <RootNamespace>ScheduleGeneration</RootNamespace>
+    <AssemblyName>ScheduleGeneration</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
