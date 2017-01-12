@@ -5,7 +5,7 @@ namespace Scheduler.Generation
 {
     public interface IGeneratedEvent
     {
-        IList<Episode> Episodes { get; set; }
+        IEpisodes Episodes { get; set; }
         Instant Time { get; set; }
 
         void Generate(IClock clock, Event source);

@@ -8,9 +8,17 @@ namespace Scheduler
 {
     public class Serials : List<Serial>, ISerials
     {
-        public IEnumerable<Episode> Episodes
+        public IEpisodes Episodes
         {
-            get { return this.SelectMany(ce => ce.Episodes); }
+            get
+            {
+                var episodes = new Episodes();
+
+                episodes.AddRange(
+                    this.SelectMany(ce => ce.Episodes));
+
+                return episodes;
+            }
         }
 
         public Vertex.SaveResult Save(IArangoDatabase db, IClock clock)

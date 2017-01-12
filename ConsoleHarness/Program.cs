@@ -109,7 +109,7 @@ namespace ConsoleHarness
             }
         }
 
-        static void DisplayList(IEnumerable<Episode> appointments)
+        static void DisplayList(IEpisodes appointments)
         {
             if (appointments == null)
             {

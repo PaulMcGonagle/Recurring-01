@@ -7,7 +7,7 @@ using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public class Episode : Vertex, IComparable
+    public class Episode : Vertex, IComparable, IEpisode
     {
         public EdgeVertex<IGeneratedDate> SourceGeneratedDate { get; set; }
         public EdgeVertex<ISerial> SourceSerial { get; set; }

@@ -24,7 +24,7 @@ namespace Scheduler
         public string TimeZoneProvider;
 
         [IgnoreDataMember]
-        public IEnumerable<Episode> Episodes
+        public IEpisodes Episodes
         {
             get
             {
@@ -40,13 +40,18 @@ namespace Scheduler
                 if (TimeZoneProvider == null)
                     throw new ArgumentException("TimeZoneProvider");
 
-                return EdgeSchedule.ToVertex
-                    .Generate()
-                    .Select(o => new Episode
-                    {
-                        From = DateTimeHelper.GetZonedDateTime(o.Date, From.Value, TimeZoneProvider),
-                        Period = Period,
-                    });
+                var episodes = new Episodes();
+
+                episodes.AddRange(
+                    EdgeSchedule.ToVertex
+                        .Generate()
+                        .Select(o => new Episode
+                        {
+                            From = DateTimeHelper.GetZonedDateTime(o.Date, From.Value, TimeZoneProvider),
+                            Period = Period,
+                        }));
+
+                return episodes;
             }
         }
 

@@ -11,7 +11,7 @@ namespace Scheduler.Generation
 
         private EdgeVertex<Event> Source { get; set; }
 
-        public IList<Episode> Episodes { get; set; }
+        public IEpisodes Episodes { get; set; }
 
         public void Generate(IClock clock, Event source)
         {
@@ -36,7 +36,7 @@ namespace Scheduler.Generation
                 if (serial.TimeZoneProvider == null)
                     throw new ArgumentException("TimeZoneProvider");
 
-                Episodes = new List<Episode>();
+                Episodes = new Episodes();
 
                 var generatedDates = serial.EdgeSchedule.Schedule.Generate();
 

@@ -5,6 +5,6 @@ namespace Scheduler
 {
     public interface ISerial : IVertex
     {
-        IEnumerable<Episode> Episodes { get; }
+        IEpisodes Episodes { get; }
     }
 }

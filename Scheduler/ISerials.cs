@@ -11,7 +11,7 @@ namespace Scheduler
 {
     public interface ISerials : IList<Serial>
     {
-        IEnumerable<Episode> Episodes { get; }
+        IEpisodes Episodes { get; }
 
         Vertex.SaveResult Save(IArangoDatabase db, IClock clock);
     }

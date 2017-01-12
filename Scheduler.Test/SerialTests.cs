@@ -14,7 +14,7 @@ namespace Scheduler.Test
         public class VerifyDateOutOfBoundsExceptionIsThrown
         {
             private Serial _sut;
-            private IEnumerable<Episode> _dates;
+            private IEpisodes _episodes;
 
             [Fact]
             public void Execute()
@@ -38,7 +38,7 @@ namespace Scheduler.Test
                                 Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
                                 TimeZoneProvider = timeZoneProvider,
                             },
-                            new List<Episode>
+                            new Episodes
                             {
                                 new Episode
                                 {
@@ -69,19 +69,19 @@ namespace Scheduler.Test
 
             public void WhenEpisodesAreRetrieved()
             {
-                _dates = _sut.Episodes;
+                _episodes = _sut.Episodes;
             }
 
-            public void ThenEpisodesAreExpected(IEnumerable<Episode> expectedEpisodes)
+            public void ThenEpisodesAreExpected(IEpisodes expectedEpisodes)
             {
-                _dates.ShouldBe(expectedEpisodes);
+                _episodes.ShouldBe(expectedEpisodes);
             }
         }
 
         public class VerifyMissingPropertyThrowsArgumentException
         {
             private Serial _sut;
-            private IEnumerable<Episode> _dates;
+            private IEpisodes _episodes;
             private System.Exception _exception;
 
             [Fact]
@@ -126,7 +126,7 @@ namespace Scheduler.Test
 
             public void WhenEpisodesAreRetrieved()
             {
-                _exception = Record.Exception(() => { _dates = _sut.Episodes; });
+                _exception = Record.Exception(() => { _episodes = _sut.Episodes; });
             }
 
             public void ThenArgumentExceptionIsThrown(string parameterName)
