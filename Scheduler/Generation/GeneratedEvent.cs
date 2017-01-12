@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Scheduler.Generation
 {
-    public class GeneratedEvent : Vertex
+    public class GeneratedEvent : Vertex, IGeneratedEvent
     {
         public Instant Time { get; set; }
 
@@ -45,6 +45,7 @@ namespace Scheduler.Generation
                     var episode = new Episode
                     {
                         SourceGeneratedDate = new EdgeVertex<IGeneratedDate>(generatedDate),
+                        SourceSerial = new EdgeVertex<ISerial>(serial),
                         From = DateTimeHelper.GetZonedDateTime(generatedDate.Date.Value.At(serial.From ?? new LocalTime(0, 0)), serial.TimeZoneProvider),
                         Period = serial.Period,                                
                     };

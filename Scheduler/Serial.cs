@@ -40,11 +40,13 @@ namespace Scheduler
                 if (TimeZoneProvider == null)
                     throw new ArgumentException("TimeZoneProvider");
 
-                return EdgeSchedule.ToVertex.Generate().Select(o => new Episode
-                {
-                    From = DateTimeHelper.GetZonedDateTime(o.Date, From.Value, TimeZoneProvider),
-                    Period = Period,
-                });
+                return EdgeSchedule.ToVertex
+                    .Generate()
+                    .Select(o => new Episode
+                    {
+                        From = DateTimeHelper.GetZonedDateTime(o.Date, From.Value, TimeZoneProvider),
+                        Period = Period,
+                    });
             }
         }
 

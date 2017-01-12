@@ -10,6 +10,7 @@ namespace Scheduler
     public class Episode : Vertex, IComparable
     {
         public EdgeVertex<IGeneratedDate> SourceGeneratedDate { get; set; }
+        public EdgeVertex<ISerial> SourceSerial { get; set; }
 
         private ZonedDateTime _from;
         public ZonedDateTime From

@@ -2,7 +2,7 @@
 
 namespace Scheduler.Generation
 {
-    public interface IGeneratedDates : IList<IGeneratedDate>
+    public interface IGeneratedEvents : IList<IGeneratedEvent>
     {
     }
 }

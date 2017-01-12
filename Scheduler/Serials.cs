@@ -6,7 +6,7 @@ using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public class Serials : List<Serial>, ISerial, ISerials
+    public class Serials : List<Serial>, ISerials
     {
         public IEnumerable<Episode> Episodes
         {

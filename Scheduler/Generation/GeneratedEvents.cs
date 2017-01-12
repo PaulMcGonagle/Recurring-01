@@ -2,17 +2,8 @@
 
 namespace Scheduler.Generation
 {
-    public class GeneratedEvents
+    public class GeneratedEvents : List<IGeneratedEvent>
     {
-        private List<GeneratedEvent> _items;
 
-        public IEnumerable<GeneratedEvent> Items
-        {
-            get
-            {
-                return _items;
-            }
-            set { _items = (List<GeneratedEvent>) value; }
-        }
     }
 }
