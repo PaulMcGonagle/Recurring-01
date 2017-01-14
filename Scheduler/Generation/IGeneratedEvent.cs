@@ -8,6 +8,6 @@ namespace Scheduler.Generation
         IEpisodes Episodes { get; set; }
         Instant Time { get; set; }
 
-        void Generate(IClock clock, Event source);
+        void Generate(IClock clock, IEvent source);
     }
 }

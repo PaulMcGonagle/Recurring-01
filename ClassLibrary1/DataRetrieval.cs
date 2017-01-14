@@ -132,15 +132,15 @@ namespace TestData
                     .Add("Example.AutumnTerm",
                         new CompositeSchedule()
                         {
-                            InclusionsEdges = new EdgeVertexs<Schedule>
+                            InclusionsEdges = new EdgeVertexs<ISchedule>
                             {
-                                new EdgeVertex<Schedule>((Schedule)ScheduleArchive["Schools.Term.201617.Autumn"]),
-                                new EdgeVertex<Schedule>((Schedule)ScheduleArchive["Schools.Term.201617.Winter"]),
-                                new EdgeVertex<Schedule>((Schedule)ScheduleArchive["Schools.Term.201617.Summer"]),
+                                new EdgeVertex<ISchedule>((ISchedule)ScheduleArchive["Schools.Term.201617.Autumn"]),
+                                new EdgeVertex<ISchedule>((ISchedule)ScheduleArchive["Schools.Term.201617.Winter"]),
+                                new EdgeVertex<ISchedule>((ISchedule)ScheduleArchive["Schools.Term.201617.Summer"]),
                             },
-                            ExclusionsEdges = new EdgeVertexs<Schedule>
+                            ExclusionsEdges = new EdgeVertexs<ISchedule>
                             {
-                                new EdgeVertex<Schedule>((Schedule)ScheduleArchive["BankHolidays"]),
+                                new EdgeVertex<ISchedule>((ISchedule)ScheduleArchive["BankHolidays"]),
                             },
                             Breaks = new List<Range>
                             {

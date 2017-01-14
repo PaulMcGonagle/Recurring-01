@@ -38,7 +38,8 @@ namespace Scheduler.Test
 
             var dateList = new DateList();
 
-            _term.ExclusionsEdges.Add(new EdgeVertex<Schedule>(new DateList { Items = _holidays }));
+            ISchedule d = new DateList {Items = _holidays};
+            _term.ExclusionsEdges.Add(new EdgeVertex<ISchedule>(d));
         }
 
         public void ThenThereShouldBeNoWeekendDays()
@@ -59,9 +60,9 @@ namespace Scheduler.Test
         {
             return new CompositeSchedule
             {
-                InclusionsEdges = new EdgeVertexs<Schedule>
+                InclusionsEdges = new EdgeVertexs<ISchedule>
                 {
-                    new EdgeVertex<Schedule>(new ByWeekdays
+                    new EdgeVertex<ISchedule>(new ByWeekdays
                         {
                             Days = ScheduleTestHelper.Weekdays,
                             EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.September, 06, 2016, YearMonth.MonthValue.December, 19),

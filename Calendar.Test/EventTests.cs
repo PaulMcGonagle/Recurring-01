@@ -17,7 +17,7 @@ namespace MyCalendar.Test
     {
         public class CreateAndValidateEvent
         {
-            private Event _sut;
+            private IEvent _sut;
             private ISerials _serials;
 
             private const string TimeZoneProvider = "Europe/London";
@@ -86,7 +86,7 @@ namespace MyCalendar.Test
         }
         public class VerifyTimeInOtherTimeZone
         {
-            private Event _sut;
+            private IEvent _sut;
             private ISerials _serials;
 
             private const string TimeZoneProvider = "Europe/London";

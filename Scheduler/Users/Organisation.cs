@@ -7,7 +7,7 @@ using Scheduler.Persistance;
 
 namespace Scheduler.Users
 {
-    public class Organisation : Vertex
+    public class Organisation : Vertex, IOrganisation
     {
         public string Title { get; set; }
 

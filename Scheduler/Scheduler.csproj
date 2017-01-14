@@ -93,11 +93,14 @@
     <Compile Include="Generation\IGeneratedEvents.cs" />
     <Compile Include="IEpisode.cs" />
     <Compile Include="IEpisodes.cs" />
+    <Compile Include="IEvent.cs" />
     <Compile Include="ISerials.cs" />
     <Compile Include="Persistance\Edge.cs" />
     <Compile Include="Persistance\Edges.cs" />
     <Compile Include="Persistance\EdgeVertex.cs" />
     <Compile Include="Persistance\EdgeVertexs.cs" />
+    <Compile Include="Persistance\IEdgeVertex.cs" />
+    <Compile Include="Persistance\IEdgeVertexs.cs" />
     <Compile Include="Persistance\IVertex.cs" />
     <Compile Include="Persistance\Vertex.cs" />
     <Compile Include="Episode.cs" />
@@ -111,6 +114,10 @@
     <Compile Include="CompositeSchedule.cs" />
     <Compile Include="Serial.cs" />
     <Compile Include="ISerial.cs" />
+    <Compile Include="Users\ILocation.cs" />
+    <Compile Include="Users\IOrganisation.cs" />
+    <Compile Include="Users\IProfile.cs" />
+    <Compile Include="Users\IUser.cs" />
     <Compile Include="Users\Location.cs" />
     <Compile Include="Users\Organisation.cs" />
     <Compile Include="Users\Profile.cs" />

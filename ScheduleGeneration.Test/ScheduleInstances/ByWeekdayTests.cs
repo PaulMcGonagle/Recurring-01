@@ -23,7 +23,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
     {
         public class GeneratesSingleEpisode
         {
-            private Event _event;
+            private IEvent _event;
             private IClock _clock;
             private IArangoDatabase _db;
             private IGeneratedEvent _generatedEvent;

@@ -8,7 +8,7 @@ using Scheduler.Users;
 
 namespace Scheduler
 {
-    public class Event : Vertex
+    public class Event : Vertex, IEvent
     {
         public Event(ISerials serials)
         {
@@ -59,9 +59,9 @@ namespace Scheduler
             {
                 new Serial(new CompositeSchedule()
                 {
-                    InclusionsEdges = new EdgeVertexs<Schedule>
+                    InclusionsEdges = new EdgeVertexs<ISchedule>
                     {
-                        new EdgeVertex<Schedule>(schedule),
+                        new EdgeVertex<ISchedule>(schedule),
                     },
                 })
                 {

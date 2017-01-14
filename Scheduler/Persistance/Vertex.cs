@@ -57,7 +57,7 @@ namespace Scheduler.Persistance
             return SaveResult.Success;
         }
 
-        protected SaveResult Save(IEnumerable<Func<SaveResult>> saveFuncs)
+        internal static SaveResult Save(IEnumerable<Func<SaveResult>> saveFuncs)
         {
             foreach (var saveFunc in saveFuncs)
             {

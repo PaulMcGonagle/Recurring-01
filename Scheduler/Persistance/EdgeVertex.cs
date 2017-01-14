@@ -3,7 +3,7 @@ using NodaTime;
 
 namespace Scheduler.Persistance
 {
-    public class EdgeVertex<T> where T : IVertex
+    public class EdgeVertex<T> : IEdgeVertex<T> where T : IVertex
     {
         public EdgeVertex(T toVertex)
         {

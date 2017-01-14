@@ -9,18 +9,18 @@ namespace Scheduler.Generation
     {
         public Instant Time { get; set; }
 
-        private EdgeVertex<Event> Source { get; set; }
+        private EdgeVertex<IEvent> Source { get; set; }
 
         public IEpisodes Episodes { get; set; }
 
-        public void Generate(IClock clock, Event source)
+        public void Generate(IClock clock, IEvent source)
         {
             Time = clock.Now;
 
             if (source.IsDirty)
                 throw new ArgumentException("Event has not yet been persisted");
 
-            Source = new EdgeVertex<Event>(source);
+            Source = new EdgeVertex<IEvent>(source);
 
             foreach (var serial in source.Serials)
             {

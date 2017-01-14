@@ -24,7 +24,7 @@ namespace ScheduleGeneration.Test
     {
         public class GeneratesSingleEpisode
         {
-            private Event _event;
+            private IEvent _event;
             private IClock _clock;
             private IArangoDatabase _db;
             private GeneratedEvent _generatedEvent;

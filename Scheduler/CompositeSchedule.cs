@@ -16,10 +16,10 @@ namespace Scheduler
     {
 
         [IgnoreDataMember]
-        public EdgeVertexs<Schedule> InclusionsEdges { get; set; } = new EdgeVertexs<Schedule>();
+        public IEdgeVertexs<ISchedule> InclusionsEdges { get; set; } = new EdgeVertexs<ISchedule>();
 
         [IgnoreDataMember]
-        public EdgeVertexs<Schedule> ExclusionsEdges { get; set; } = new EdgeVertexs<Schedule>();
+        public IEdgeVertexs<ISchedule> ExclusionsEdges { get; set; } = new EdgeVertexs<ISchedule>();
 
         public List<Range> Breaks = new List<Range>();
 
@@ -48,9 +48,9 @@ namespace Scheduler
         {
             return new CompositeSchedule
             {
-                InclusionsEdges = new EdgeVertexs<Schedule>()
+                InclusionsEdges = new EdgeVertexs<ISchedule>()
                 {
-                    new EdgeVertex<Schedule>(new ByWeekday(
+                    new EdgeVertex<ISchedule>(new ByWeekday(
                         clock: clock,
                         weekday: IsoDayOfWeek.Wednesday)
                         {
@@ -64,7 +64,7 @@ namespace Scheduler
         public override SaveResult Save(IArangoDatabase db, IClock clock)
         {
 
-            return Save(new Func<SaveResult>[]
+            return Vertex.Save(new Func<SaveResult>[]
             {
                 () => Save<CompositeSchedule>(db),
                 () => InclusionsEdges.Save(db, clock, this),

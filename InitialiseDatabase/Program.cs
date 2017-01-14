@@ -89,7 +89,7 @@ namespace InitialiseDatabase
                     Surname = "McGonagle",
                     Email = "paul@anemail.com",
                     HomeTimeZoneProvider = "Europe/London",
-                    Organisations = new EdgeVertexs<Organisation>()
+                    Organisations = new EdgeVertexs<IOrganisation>()
                 }.Save(db, clock);
 
                 new Scheduler.Users.Profile
@@ -104,35 +104,35 @@ namespace InitialiseDatabase
                     {
                         new Serial(new CompositeSchedule
                             {
-                                InclusionsEdges = new EdgeVertexs<Schedule>
+                                InclusionsEdges = new EdgeVertexs<ISchedule>
                                 {
-                                    new EdgeVertex<Schedule>(new ByDayOfMonth
+                                    new EdgeVertex<ISchedule>(new ByDayOfMonth
                                         {
                                             EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
                                             Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
                                             DayOfMonth = 10,
                                         })
                                     ,
-                                    new EdgeVertex<Schedule>(new SingleDay
+                                    new EdgeVertex<ISchedule>(new SingleDay
                                         {
                                             Date = new Date(2000, YearMonth.MonthValue.January, 01),
                                         })
                                     ,
-                                    new EdgeVertex<Schedule>(new ByDayOfYear
+                                    new EdgeVertex<ISchedule>(new ByDayOfYear
                                         {
                                             EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
                                             Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
                                             DayOfYear = 08,
                                         }
                                     ),
-                                    new EdgeVertex<Schedule>(new ByWeekday(
+                                    new EdgeVertex<ISchedule>(new ByWeekday(
                                             clock: new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
                                             weekday: IsoDayOfWeek.Thursday)
                                         {
                                             EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
                                         }
                                     ),
-                                    new EdgeVertex<Schedule>(new ByWeekdays
+                                    new EdgeVertex<ISchedule>(new ByWeekdays
                                         {
                                             EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
                                             Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
@@ -143,7 +143,7 @@ namespace InitialiseDatabase
                                             }
                                         }
                                     ),
-                                    new EdgeVertex<Schedule>(new DateList
+                                    new EdgeVertex<ISchedule>(new DateList
                                         {
                                             Items = new List<Date>
                                             {
@@ -189,9 +189,9 @@ namespace InitialiseDatabase
                     {
                         new Serial(new CompositeSchedule()
                             {
-                                InclusionsEdges = new EdgeVertexs<Schedule>
+                                InclusionsEdges = new EdgeVertexs<ISchedule>
                                         {
-                                            new EdgeVertex<Schedule>(new ByDayOfMonth
+                                            new EdgeVertex<ISchedule>(new ByDayOfMonth
                                                 {
                                                     EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
                                                     Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
@@ -215,9 +215,9 @@ namespace InitialiseDatabase
                     {
                         new Serial(new CompositeSchedule()
                             {
-                                InclusionsEdges = new EdgeVertexs<Schedule>
+                                InclusionsEdges = new EdgeVertexs<ISchedule>
                                 {
-                                    new EdgeVertex<Schedule>(new SingleDay
+                                    new EdgeVertex<ISchedule>(new SingleDay
                                         {
                                             Date = new Date(2000, YearMonth.MonthValue.January, 01),
                                         })
@@ -238,9 +238,9 @@ namespace InitialiseDatabase
                     {
                         new Serial(new CompositeSchedule()
                             {
-                                InclusionsEdges = new EdgeVertexs<Schedule>
+                                InclusionsEdges = new EdgeVertexs<ISchedule>
                                 {
-                                    new EdgeVertex<Schedule>(new ByWeekdays
+                                    new EdgeVertex<ISchedule>(new ByWeekdays
                                         {
                                             EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
                                             Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
@@ -264,9 +264,9 @@ namespace InitialiseDatabase
                     {
                         new Serial(new CompositeSchedule()
                             {
-                                InclusionsEdges = new EdgeVertexs<Schedule>
+                                InclusionsEdges = new EdgeVertexs<ISchedule>
                                 {
-                                    new EdgeVertex<Schedule>(new DateList
+                                    new EdgeVertex<ISchedule>(new DateList
                                         {
                                             Items = new List<Date>
                                             {

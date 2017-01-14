@@ -6,7 +6,7 @@ using Scheduler.Persistance;
 
 namespace Scheduler.Users
 {
-    public class Location : Vertex
+    public class Location : Vertex, ILocation
     {
         public string Latitude { get; set; }
         public string Longitude { get; set; }

@@ -24,7 +24,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
     {
         public class GeneratesSingleEpisode
         {
-            private Event _event;
+            private IEvent _event;
             private IClock _clock;
             private IArangoDatabase _db;
             private IGeneratedEvent _generatedEvent;
@@ -91,7 +91,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
 
         public class MissingFieldsRaiseExpectedException
         {
-            private Event _event;
+            private IEvent _event;
             private IClock _clock;
             private IArangoDatabase _db;
             private IGeneratedEvent _generatedEvent;
@@ -116,9 +116,9 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                         {
                             new Serial(new CompositeSchedule()
                                 {
-                                    InclusionsEdges = new EdgeVertexs<Schedule>
+                                    InclusionsEdges = new EdgeVertexs<ISchedule>
                                     {
-                                        new EdgeVertex<Schedule>(new SingleDay
+                                        new EdgeVertex<ISchedule>(new SingleDay
                                         {
                                             Date = new Date(2016, YearMonth.MonthValue.January, 01),
                                         })
