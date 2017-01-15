@@ -1,6 +1,4 @@
-﻿using ArangoDB.Client;
-using NodaTime;
-using Scheduler.Persistance;
+﻿using Scheduler.Persistance;
 
 namespace Scheduler.Users
 {

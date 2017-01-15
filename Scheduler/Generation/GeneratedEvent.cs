@@ -1,7 +1,7 @@
 ﻿using NodaTime;
 using Scheduler.Persistance;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace Scheduler.Generation
 {
@@ -22,37 +22,9 @@ namespace Scheduler.Generation
 
             Source = new EdgeVertex<IEvent>(source);
 
-            foreach (var serial in source.Serials)
-            {
-                if (serial.EdgeSchedule?.Schedule == null)
-                    throw new ArgumentException("Schedule");
+            Episodes = new Episodes();
 
-                if (!serial.From.HasValue)
-                    throw new ArgumentException("From");
-
-                if (serial.Period == null)
-                    throw new ArgumentException("Period");
-
-                if (serial.TimeZoneProvider == null)
-                    throw new ArgumentException("TimeZoneProvider");
-
-                Episodes = new Episodes();
-
-                var generatedDates = serial.EdgeSchedule.Schedule.Generate();
-
-                foreach (var generatedDate in generatedDates)
-                {
-                    var episode = new Episode
-                    {
-                        SourceGeneratedDate = new EdgeVertex<IGeneratedDate>(generatedDate),
-                        SourceSerial = new EdgeVertex<ISerial>(serial),
-                        From = DateTimeHelper.GetZonedDateTime(generatedDate.Date.Value.At(serial.From ?? new LocalTime(0, 0)), serial.TimeZoneProvider),
-                        Period = serial.Period,                                
-                    };
-
-                    Episodes.Add(episode);
-                }
-            }
+            Episodes.AddRange(source.Serials.SelectMany(s => s.Episodes));
         }
     }
 }

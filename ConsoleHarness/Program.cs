@@ -39,6 +39,8 @@ namespace ConsoleHarness
             ReadKey();
         }
 
+#region Display
+
         private static void DisplayGrid(IEnumerable<Scheduler.Date> dates)
         {
             if (dates == null)
@@ -109,18 +111,20 @@ namespace ConsoleHarness
             }
         }
 
-        static void DisplayList(IEpisodes appointments)
+        static void DisplayList(IEpisodes episodes)
         {
-            if (appointments == null)
+            if (episodes == null)
             {
                 WriteLine("empty");
                 return;
             }
 
-            foreach (var a in appointments)
+            foreach (var a in episodes)
             {
                 WriteLine(a.ToString());
             }
         }
+
+#endregion
     }
 }

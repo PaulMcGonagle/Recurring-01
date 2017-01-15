@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
+using Scheduler.Generation;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
 
@@ -47,6 +48,8 @@ namespace Scheduler
                         .Generate()
                         .Select(o => new Episode
                         {
+                            SourceSerial = new EdgeVertex<ISerial>(this),
+                            SourceGeneratedDate = new EdgeVertex<IGeneratedDate>(o),
                             From = DateTimeHelper.GetZonedDateTime(o.Date, From.Value, TimeZoneProvider),
                             Period = Period,
                         }));
@@ -61,6 +64,7 @@ namespace Scheduler
             {
                 () => Save<Serial>(db),
                 () => EdgeSchedule?.Save(db, clock, this) ?? SaveDummy(),
+                () => Episodes?.Save(db, clock) ?? SaveDummy(),
                 () => base.Save(db, clock),
             });
         }
