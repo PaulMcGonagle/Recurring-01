@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using Scheduler.Generation;
+using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 
 namespace Scheduler.ScheduleInstances
@@ -39,7 +40,7 @@ namespace Scheduler.ScheduleInstances
         public static ByWeekday Create(
             IClock clock,
             IsoDayOfWeek weekday,
-            Range range)
+            DateRange range)
         {
             var byWeekday = new ByWeekday(
                 clock: clock,

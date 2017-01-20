@@ -1,27 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
 using Scheduler.Generation;
 using Scheduler.Persistance;
+using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 
 namespace Scheduler
 {
     public class Serial : Vertex, ISerial
     {
-        public Serial(ISchedule schedule)
+        public Serial(
+            ISchedule schedule, 
+            ITimeRange timeRange, 
+            string timeZoneProvider)
         {
             EdgeSchedule = new EdgeSchedule(schedule);
+            TimeRange = timeRange;
+            TimeZoneProvider = timeZoneProvider;
         }
 
         [IgnoreDataMember]
         public EdgeSchedule EdgeSchedule;
 
-        public LocalTime? From;
-        public Period Period;
+        public Ranges.ITimeRange TimeRange;
         public string TimeZoneProvider;
 
         [IgnoreDataMember]
@@ -32,10 +36,10 @@ namespace Scheduler
                 if (EdgeSchedule?.Schedule == null)
                     throw new ArgumentException("Schedule");
 
-                if (!From.HasValue)
-                    throw new ArgumentException("From");
+                if (TimeRange == null)
+                    throw new ArgumentException("TimeRange");
 
-                if (Period == null)
+                if (TimeRange?.Period == null)
                     throw new ArgumentException("Period");
 
                 if (TimeZoneProvider == null)
@@ -50,8 +54,8 @@ namespace Scheduler
                         {
                             SourceSerial = new EdgeVertex<ISerial>(this),
                             SourceGeneratedDate = new EdgeVertex<IGeneratedDate>(o),
-                            From = DateTimeHelper.GetZonedDateTime(o.Date, From.Value, TimeZoneProvider),
-                            Period = Period,
+                            From = DateTimeHelper.GetZonedDateTime(o.Date, TimeRange.From, TimeZoneProvider),
+                            Period = TimeRange.Period,
                         }));
 
                 return episodes;

@@ -10,6 +10,7 @@ using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Generation;
 using Scheduler.Persistance;
+using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Users;
@@ -46,8 +47,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                     {
                         Event.Create(
                             schedule: new SingleDay { Date = new Date(2016, YearMonth.MonthValue.January, 01) },
-                            from: new LocalTime(16, 30),
-                            period: new PeriodBuilder {Minutes = 45}.Build(),
+                            timerange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder {Minutes = 45}.Build()),
                             timeZoneProvider: "Europe/London"),
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
@@ -112,28 +112,29 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 )
                 {
                     {
-                        new Event(new Serials
+                        new Event
                         {
-                            new Serial(new CompositeSchedule()
+                            Serials = new Serials
                                 {
-                                    InclusionsEdges = new EdgeVertexs<ISchedule>
-                                    {
-                                        new EdgeVertex<ISchedule>(new SingleDay
-                                        {
-                                            Date = new Date(2016, YearMonth.MonthValue.January, 01),
-                                        })
-                                        ,
-                                    },
-                                })
-                            {
-                                //From = new LocalTime(16, 30),
-                                Period = new PeriodBuilder {Minutes = 45}.Build(),
-                                TimeZoneProvider = "Europe/London",
-                            }
-                        }),
+                                    new Serial(
+                                        schedule: new CompositeSchedule()
+                                            {
+                                                InclusionsEdges = new EdgeVertexs<ISchedule>
+                                                {
+                                                    new EdgeVertex<ISchedule>(new SingleDay
+                                                    {
+                                                        Date = new Date(2016, YearMonth.MonthValue.January, 01),
+                                                    })
+                                                    ,
+                                                },
+                                            },
+                                        timeRange: null,
+                                        timeZoneProvider: "Europe/London")
+                                },
+                        },
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
-                        "From"
+                        "TimeRange"
                     },
                     {
                         Event.Create(
@@ -141,8 +142,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                         {
                                             Date = new Date(2016, YearMonth.MonthValue.January, 01),
                                         },
-                            from: new LocalTime(16, 30),
-                            period: null,
+                            timerange: new TimeRange(new LocalTime(16, 30), null),
                             timeZoneProvider: "Europe/London"),
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
@@ -154,8 +154,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                         {
                                             Date = new Date(2016, YearMonth.MonthValue.January, 01),
                                         },
-                            from: new LocalTime(16, 30),
-                            period: new PeriodBuilder {Minutes = 45}.Build(),
+                            timerange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder {Minutes = 45}.Build()),
                             timeZoneProvider: null),
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),

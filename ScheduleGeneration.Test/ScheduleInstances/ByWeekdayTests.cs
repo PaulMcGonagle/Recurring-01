@@ -8,6 +8,7 @@ using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Generation;
 using Scheduler.Persistance;
+using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Test;
@@ -50,11 +51,10 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                             schedule: new ByWeekday(fakeClock, IsoDayOfWeek.Wednesday)
                             {
                                 EdgeRange =
-                                    new EdgeRange(new Scheduler.Range(2016, YearMonth.MonthValue.February, 20, 2016,
+                                    new EdgeRange(new DateRange(2016, YearMonth.MonthValue.February, 20, 2016,
                                         YearMonth.MonthValue.May, 15)),
                             },
-                            from: new LocalTime(16, 30),
-                            period: new PeriodBuilder {Minutes = 45}.Build(),
+                            timerange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder {Minutes = 45}.Build()),
                             timeZoneProvider: "Europe/London",
                             location: TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                         mockDb.Object,

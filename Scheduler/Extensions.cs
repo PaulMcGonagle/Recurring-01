@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Scheduler.Ranges;
 
 namespace Scheduler
 {
@@ -20,7 +21,7 @@ namespace Scheduler
             return inputDates.Union(exclusions);
         }
 
-        public static IEnumerable<Date> Exclude(this IEnumerable<Date> inputDates, IEnumerable<Range> exclusions)
+        public static IEnumerable<Date> Exclude(this IEnumerable<Date> inputDates, IEnumerable<DateRange> exclusions)
         {
             foreach (var exclusion in exclusions)
             {
@@ -33,7 +34,7 @@ namespace Scheduler
             return inputDates;
         }
 
-        public static IEnumerable<Date> Include(this IEnumerable<Date> inputDates, IEnumerable<Range> inclusions)
+        public static IEnumerable<Date> Include(this IEnumerable<Date> inputDates, IEnumerable<DateRange> inclusions)
         {
             foreach (var exclusion in inclusions)
             {

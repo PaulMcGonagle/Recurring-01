@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NodaTime;
 using Scheduler.Persistance;
+using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Shouldly;
 using TestStack.BDDfy;
@@ -26,24 +27,20 @@ namespace Scheduler.Test
                         {
                             new Serials
                             {
-                                new Serial(new SingleDay
+                                new Serial(
+                                    schedule: new SingleDay
                                             {
                                                 Date = new Date(2016, YearMonth.MonthValue.March, 05),
-                                            })
-                                {
-                                    From = new LocalTime(12, 35),
-                                    TimeZoneProvider = timeZoneProvider,
-                                    Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build(),
-                                },
-                                new Serial(new SingleDay
+                                            },
+                                    timeRange: new TimeRange(new LocalTime(12, 35), new PeriodBuilder {Hours = 00, Minutes = 30}.Build()),
+                                    timeZoneProvider: timeZoneProvider),
+                                new Serial(
+                                    schedule: new SingleDay
                                         {
                                             Date = new Date(2016, YearMonth.MonthValue.August, 01),
-                                        })
-                                {
-                                    From = new LocalTime(09, 20),
-                                    TimeZoneProvider = timeZoneProvider,
-                                    Period = new PeriodBuilder {Hours = 20, Minutes = 45}.Build(),
-                                },
+                                        },
+                                    timeRange: new TimeRange(new LocalTime(09, 20), new PeriodBuilder {Hours = 20, Minutes = 45}.Build()),
+                                    timeZoneProvider: timeZoneProvider),
                             },
                             new Episodes
                             {
@@ -94,27 +91,24 @@ namespace Scheduler.Test
                 this.WithExamples(new ExampleTable("sut", "parameterName")
                     {
                         {
-                            new Serial(new DateList { Items = new List<Date>(), })
-                            {
-                                Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
-                                TimeZoneProvider = timeZoneProvider,
-                            },
-                            "From"
+                            new Serial(
+                                schedule: new DateList { Items = new List<Date>(), },
+                                timeRange: null,
+                                timeZoneProvider: timeZoneProvider),
+                            "TimeRange"
                         },
                         {
-                            new Serial(new DateList { Items = new List<Date>(), })
-                            {
-                                From = new LocalTime(15, 30),
-                                TimeZoneProvider = timeZoneProvider,
-                            },
+                            new Serial(
+                                schedule: new DateList { Items = new List<Date>(), },
+                                timeRange: new TimeRange(new LocalTime(15, 30), null),
+                                timeZoneProvider: timeZoneProvider),
                             "Period"
                         },
                         {
-                            new Serial(new DateList { Items = new List<Date>(), })
-                            {
-                                From = new LocalTime(15, 30),
-                                Period = new PeriodBuilder {Hours = 00, Minutes = 30,}.Build(),
-                            },
+                            new Serial(
+                                schedule: new DateList { Items = new List<Date>(), },
+                                timeRange: new TimeRange(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
+                                timeZoneProvider: null),
                             "TimeZoneProvider"
                         },
                     })

@@ -6,6 +6,7 @@ using ArangoDB.Client;
 using NodaTime;
 using Scheduler.Generation;
 using Scheduler.Persistance;
+using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Users;
@@ -21,7 +22,7 @@ namespace Scheduler
         [IgnoreDataMember]
         public IEdgeVertexs<ISchedule> ExclusionsEdges { get; set; } = new EdgeVertexs<ISchedule>();
 
-        public List<Range> Breaks = new List<Range>();
+        public IDateRanges Breaks = new DateRanges();
 
         public override GeneratedDates Generate()
         {
@@ -33,18 +34,18 @@ namespace Scheduler
             list.AddRange(inclusions);
             list.RemoveAll(l => exclusions.Select(e => e.Date.Value).Contains(l.Date.Value));
 
-            //list = list.Exclude(Breaks);
+            var removeAll = list.RemoveAll(d => Breaks.Contains(d.Date.Value));
 
             return list;
         }
 
         public static CompositeSchedule Create(
             IClock clock, 
-            Schedule schedule, 
-            LocalTime from, 
-            Period period, 
-            string timeZoneProvider, 
-            Location location = null)
+            Schedule schedule,
+            DateRange dateRange
+            //string timeZoneProvider, 
+            //Location location = null
+            )
         {
             return new CompositeSchedule
             {
@@ -54,7 +55,7 @@ namespace Scheduler
                         clock: clock,
                         weekday: IsoDayOfWeek.Wednesday)
                         {
-                            EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05),
+                            EdgeRange = new EdgeRange(dateRange),
                         }
                     )
                 },

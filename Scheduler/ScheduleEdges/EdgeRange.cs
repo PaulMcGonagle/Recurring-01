@@ -1,10 +1,11 @@
 ﻿using Scheduler.Persistance;
+using Scheduler.Ranges;
 
 namespace Scheduler.ScheduleEdges
 {
-    public class EdgeRange : EdgeVertex<Range>
+    public class EdgeRange : EdgeVertex<DateRange>
     {
-        public EdgeRange(Range toVertex)
+        public EdgeRange(DateRange toVertex)
             : base(toVertex)
         {
 
@@ -17,7 +18,7 @@ namespace Scheduler.ScheduleEdges
             int toYear,
             YearMonth.MonthValue toMonth,
             int toDay)
-            : this(new Range(
+            : this(new DateRange(
                 fromYear: fromYear,
                 fromMonth: fromMonth,
                 fromDay: fromDay,
@@ -28,7 +29,7 @@ namespace Scheduler.ScheduleEdges
 
         }
 
-        public Range Range
+        public DateRange Range
         {
             get { return ToVertex; }
             set { ToVertex = value; }

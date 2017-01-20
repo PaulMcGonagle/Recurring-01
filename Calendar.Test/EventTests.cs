@@ -4,6 +4,7 @@ using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Persistance;
+using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Test;
@@ -30,23 +31,25 @@ namespace MyCalendar.Test
                 this.WithExamples(new ExampleTable("sut", "expectedWeekday", "expectedStartTime", "expectedEndTime")
                     {
                         {
-                            new Event(new Serials
+                            new Event
+                            {
+                                Serials = new Serials
                                 {
                                     {
-                                        new Serial(new ByWeekday(
-                                            clock: fakeClock,
-                                            weekday: IsoDayOfWeek.Thursday)
-                                            {
-                                                EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.September, 22, 2016, YearMonth.MonthValue.December, 20),
-                                            })
-                                        {
-                                            From = new LocalTime(16, 45),
-                                            Period = new PeriodBuilder { Minutes = 45}.Build(),
-                                            TimeZoneProvider = TimeZoneProvider,
-                                        }
-                                    }
-                                })
-                            {
+                                        new Serial(
+                                            schedule: new ByWeekday(
+                                                clock: fakeClock,
+                                                weekday: IsoDayOfWeek.Thursday),
+                                            timeRange: new TimeRange(new LocalTime(16, 45), new PeriodBuilder { Minutes = 45}.Build()),
+                                            timeZoneProvider: TimeZoneProvider)
+
+
+                                                //dater
+                                                //{
+                                                //    EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.September, 22, 2016, YearMonth.MonthValue.December, 20),
+                                                //}),
+                                    },
+                                },
                                 Title = "Street dance",
                             },
                             IsoDayOfWeek.Thursday,
@@ -74,12 +77,12 @@ namespace MyCalendar.Test
                     .ShouldAllBe(d => d.Equals((int)expectedWeekday));
             }
 
-            public void ThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
+            public void AndThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
             {
                 _serials.Episodes.Select(e => e.From.TimeOfDay).ShouldAllBe(d => d.Equals(expectedStartTime));
             }
 
-            public void ThenAllEndTimesAreCorrect(LocalTime expectedEndTime)
+            public void AndThenAllEndTimesAreCorrect(LocalTime expectedEndTime)
             {
                 _serials.Episodes.Select(e => e.To.TimeOfDay).ShouldAllBe(d => d.Equals(expectedEndTime));
             }
@@ -99,20 +102,19 @@ namespace MyCalendar.Test
                 this.WithExamples(new ExampleTable("sut", "expectedStartTime", "expectedEndTime")
                     {
                         {
-                            new Event(new Serials
-                                {
-                                    new Serial(new SingleDay
+                            new Event
+                            {
+                                Serials = 
+                                    new Serials
+                                    {
+                                        new Serial(
+                                            schedule: new SingleDay
                                             {
                                                 Date = new Scheduler.Date(2016, YearMonth.MonthValue.July, 01),
-                                            }
-                                        )
-                                    {
-                                        From = new LocalTime(14, 00),
-                                        Period = new PeriodBuilder { Minutes = 1 }.Build(),
-                                        TimeZoneProvider = "Europe/London",
-                                    }
-                                })
-                            {
+                                            },
+                                            timeRange: new TimeRange(new LocalTime(14, 00), new PeriodBuilder { Minutes = 1 }.Build()),
+                                            timeZoneProvider: "Europe/London")
+                                    },
                                 Title = "Street dance",
                             },
                             new LocalTime(14, 00),
@@ -137,7 +139,7 @@ namespace MyCalendar.Test
                 _serials.Episodes.Select(e => e.From.TimeOfDay).ShouldAllBe(d => d.Equals(expectedStartTime));
             }
 
-            public void ThenAllEndTimesAreCorrect(LocalTime expectedEndTime)
+            public void AndThenAllEndTimesAreCorrect(LocalTime expectedEndTime)
             {
             }
         }

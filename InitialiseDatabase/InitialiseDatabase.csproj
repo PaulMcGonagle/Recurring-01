@@ -81,6 +81,10 @@
       <Project>{86c11284-0c67-4a55-81fb-b4f82083eb6c}</Project>
       <Name>TestData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Generators\Generators.csproj">
+      <Project>{851f7920-1e14-43b4-8ee3-62a378815151}</Project>
+      <Name>Generators</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Scheduler\Scheduler.csproj">
       <Project>{3189f8e6-b2ab-4b6e-8f28-756372c7644e}</Project>
       <Name>Scheduler</Name>

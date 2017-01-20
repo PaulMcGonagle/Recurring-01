@@ -4,16 +4,13 @@ using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
 using Scheduler.Persistance;
+using Scheduler.Ranges;
 using Scheduler.Users;
 
 namespace Scheduler
 {
     public class Event : Vertex, IEvent
     {
-        public Event(ISerials serials)
-        {
-            Serials = serials;
-        }
         private EdgeVertex<Location> _location;
 
         [IgnoreDataMember]
@@ -53,24 +50,23 @@ namespace Scheduler
             });
         }
 
-        public static Event Create(Schedule schedule, LocalTime from, Period period, string timeZoneProvider, Location location = null)
+        public static Event Create(Schedule schedule, TimeRange timerange, string timeZoneProvider, Location location = null)
         {
-            return new Event(new Serials
+            return new Event
             {
-                new Serial(new CompositeSchedule()
-                {
-                    InclusionsEdges = new EdgeVertexs<ISchedule>
+                Serials = new Serials()
                     {
-                        new EdgeVertex<ISchedule>(schedule),
+                        new Serial(
+                            schedule: new CompositeSchedule()
+                            {
+                                InclusionsEdges = new EdgeVertexs<ISchedule>
+                                {
+                                    new EdgeVertex<ISchedule>(schedule),
+                                },
+                            },
+                            timeRange: timerange,
+                            timeZoneProvider: timeZoneProvider)
                     },
-                })
-                {
-                    From = from,
-                    Period = period,
-                    TimeZoneProvider = timeZoneProvider,
-                }
-            })
-            {
                 Location = location != null ? new EdgeVertex<Location>(location) : null,
             };
         }

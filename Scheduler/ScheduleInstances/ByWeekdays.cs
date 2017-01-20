@@ -5,6 +5,10 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using Scheduler.Generation;
+using Scheduler.Persistance;
+using Scheduler.Ranges;
+using Scheduler.ScheduleEdges;
+using Scheduler.Users;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -15,10 +19,31 @@ namespace Scheduler.ScheduleInstances
         [IgnoreDataMember]
         public IClock Clock { get; set; }
 
+        public ByWeekdays(
+            IClock clock,
+            IEnumerable<IsoDayOfWeek> weekdays)
+        {
+            Clock = clock;
+            Days = weekdays;
+        }
+
         public ByWeekdays()
         {
             CountFromDefault = 0;
             CountToDefault = 52;
+        }
+
+        public static ByWeekdays Create(
+            IClock clock,
+            IEnumerable<IsoDayOfWeek> weekdays,
+            DateRange dateRange)
+        {
+            return new ByWeekdays(
+                clock: clock,
+                weekdays: weekdays)
+            {
+                EdgeRange = new EdgeRange(dateRange),
+            };
         }
 
         public override GeneratedDates Generate()

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using ArangoDB.Client;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
-using Scheduler.Persistance;
-using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Users;
 
@@ -34,40 +30,40 @@ namespace ScheduleGeneration
                 //db.CreateCollection("Event");
                 var fakeClock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10));
 
-                var e = Event.Create
-                (
-                    schedule:
-                    ByWeekday.Create
-                    (
-                        clock: fakeClock,
-                        weekday: IsoDayOfWeek.Wednesday,
-                        range: new Range(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05)
-                    ),
-                    from: new LocalTime(16, 30),
-                    period: new PeriodBuilder {Minutes = 45}.Build(),
-                    timeZoneProvider: "Europe/London",
-                    location: new Location
-                    {
-                        Address = @"Flat 9
-26 Bryanston Square
-London
-W1H 2DS"
-                    }
-                );
+//                var e = Event.Create
+//                (
+//                    schedule:
+//                    ByWeekday.Create
+//                    (
+//                        clock: fakeClock,
+//                        weekday: IsoDayOfWeek.Wednesday,
+//                        range: new Range(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05)
+//                    ),
+//                    from: new LocalTime(16, 30),
+//                    period: new PeriodBuilder {Minutes = 45}.Build(),
+//                    timeZoneProvider: "Europe/London",
+//                    location: new Location
+//                    {
+//                        Address = @"Flat 9
+//26 Bryanston Square
+//London
+//W1H 2DS"
+//                    }
+//                );
 
-                // insert new document and creates 'Person' collection on the fly
-                db.Insert<Event>(e);
+//                // insert new document and creates 'Person' collection on the fly
+//                db.Insert<Event>(e);
 
-                e.Title = "new title";
+//                e.Title = "new title";
 
-                // partially updates person, only 'Age' attribute will be updated
-                await db.UpdateAsync<Event>(e);
+//                // partially updates person, only 'Age' attribute will be updated
+//                await db.UpdateAsync<Event>(e);
 
-                // returns 27
-                string title = db.Query<Event>()
-                                  .Where(p => AQL.Contains(p.Title, "new title"))
-                                  .Select(p => p.Title)
-                                  .FirstOrDefault();
+//                // returns 27
+//                string title = db.Query<Event>()
+//                                  .Where(p => AQL.Contains(p.Title, "new title"))
+//                                  .Select(p => p.Title)
+//                                  .FirstOrDefault();
 
                 /////////////////////// aql modification queries ////////////////////////////
 
