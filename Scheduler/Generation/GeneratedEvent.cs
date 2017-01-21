@@ -13,18 +13,18 @@ namespace Scheduler.Generation
 
         public IEpisodes Episodes { get; set; }
 
-        public void Generate(IClock clock, IEvent source)
+        public static GeneratedEvent Generate(IClock clock, IEvent source)
         {
-            Time = clock.Now;
-
             if (source.IsDirty)
                 throw new ArgumentException("Event has not yet been persisted");
 
-            Source = new EdgeVertex<IEvent>(source);
-
-            Episodes = new Episodes();
-
-            Episodes.AddRange(source.Serials.SelectMany(s => s.Episodes));
+            return new GeneratedEvent
+            {
+                Time = clock.Now,
+                Source = new EdgeVertex<IEvent>(source),
+                Episodes = new Episodes(
+                    episodes: source.Serials.SelectMany(s => s.ToVertex.Episodes)),
+            };
         }
     }
 }

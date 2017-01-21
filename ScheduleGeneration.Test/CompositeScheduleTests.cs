@@ -100,9 +100,7 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenGenerated()
             {
-                _generatedEvent = new GeneratedEvent();
-
-                _generatedEvent.Generate(_clock, _event);
+                _generatedEvent = GeneratedEvent.Generate(_clock, _event);
             }
 
             public void ThenDatesAreAsExpected(IEnumerable<LocalDateTime> expectedEpisodes)

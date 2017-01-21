@@ -7,6 +7,16 @@ namespace Scheduler
 {
     public class Episodes : List<IEpisode>, IEpisodes
     {
+        public Episodes(IEnumerable<IEpisode> episodes)
+        {
+            this.AddRange(episodes);
+        }
+
+        public Episodes()
+        {
+            
+        }
+
         public Vertex.SaveResult Save(IArangoDatabase db, IClock clock)
         {
             foreach (var episode in this)

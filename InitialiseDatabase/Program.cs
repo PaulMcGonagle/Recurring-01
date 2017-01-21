@@ -32,9 +32,30 @@ namespace InitialiseDatabase
                 }),
             };
 
-            var events = generator.GenerateSerials(
+            var events = generator.GenerateEvents(
                 sourceFile: "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\HG.xml",
                 organisation: organisation);
+
+            var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
+
+            var generatedEvents = new GeneratedEvents
+            (
+                events.Select(e => GeneratedEvent.Generate(fakeClock, e))
+            );
+
+            using (var db = SchedulerDatabase.Database.Retrieve())
+            {
+                foreach (var @event in events)
+                {
+                    @event.Save(db, fakeClock);
+                }
+            }
+
+            ConsoleOutput.Output.DisplayList(events
+                .First()
+                .Serials
+                .SelectMany(s => s.ToVertex.Episodes)
+                .Select(e => e.To));
         }
 
         public static async Task Go(string databaseName)
@@ -135,14 +156,12 @@ W1H 2DS"
 
                 var result = e.Save(db, clock);
 
-                var generatedEvent = new GeneratedEvent();
-
-                generatedEvent.Generate(clock, e);
+                var generatedEvent = GeneratedEvent.Generate(clock, e);
 
                 if (result != Vertex.SaveResult.Success)
                     throw new Exception($"Invalid e.SaveResult: {result}");
 
-                result = e.Serials.Episodes.Save(db, fakeClock);
+                result = e.Serials.Save(db, fakeClock, e);
 
                 if (result != Vertex.SaveResult.Success)
                     throw new Exception($"Invalid Episodes.Save: {result}");
@@ -165,9 +184,8 @@ W1H 2DS"
                 
                 new Event
                 { 
-                    Serials = new Serials
-                        {
-                            new Serial(
+                    Serials = new EdgeVertexs<ISerial>(
+                        toVertex: new Serial(
                                 schedule: new CompositeSchedule()
                                 {
                                     InclusionsEdges = new EdgeVertexs<ISchedule>
@@ -182,16 +200,14 @@ W1H 2DS"
                                             },
                                 },
                                 timeRange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
-                                timeZoneProvider: "Europe/London")
-                        },
+                                timeZoneProvider: "Europe/London")),
                     Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                 }.Save(db, clock);
 
                 new Event
                 {
-                    Serials = new Serials
-                        {
-                            new Serial(
+                    Serials = new EdgeVertexs<ISerial>(
+                        toVertex: new Serial(
                                 schedule: new CompositeSchedule()
                                 {
                                     InclusionsEdges = new EdgeVertexs<ISchedule>
@@ -204,16 +220,14 @@ W1H 2DS"
                                     },
                                 },
                                 timeRange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
-                                timeZoneProvider: "Europe/London")
-                        },
+                                timeZoneProvider: "Europe/London")),
                     Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                 }.Save(db, clock);
 
                 new Event
                 {
-                    Serials = new Serials
-                    {
-                        new Serial(
+                    Serials = new EdgeVertexs<ISerial>(
+                        toVertex: new Serial(
                             schedule:new CompositeSchedule()
                             {
                                 InclusionsEdges = new EdgeVertexs<ISchedule>
@@ -231,35 +245,32 @@ W1H 2DS"
                                     ),                                },
                                 },
                             timeRange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
-                            timeZoneProvider: "Europe/London")
-                    }
+                            timeZoneProvider: "Europe/London")),
                 }.Save(db, clock);
                 
                 new Event
                 {
-                    Serials = new Serials
-                    {
-                        new Serial(
-                            schedule: new CompositeSchedule()
-                            {
-                                InclusionsEdges = new EdgeVertexs<ISchedule>
+                    Serials = new EdgeVertexs<ISerial>(
+                        toVertex: new Serial(
+                                schedule: new CompositeSchedule()
                                 {
-                                    new EdgeVertex<ISchedule>(new DateList
-                                        {
-                                            Items = new List<Date>
+                                    InclusionsEdges = new EdgeVertexs<ISchedule>
+                                    {
+                                        new EdgeVertex<ISchedule>(new DateList
                                             {
-                                                new Date(2010, YearMonth.MonthValue.August, 09),
-                                                new Date(2008, YearMonth.MonthValue.May, 30),
-                                                new Date(1974, YearMonth.MonthValue.February, 09),
-                                                new Date(1971, YearMonth.MonthValue.March, 15),
+                                                Items = new List<Date>
+                                                {
+                                                    new Date(2010, YearMonth.MonthValue.August, 09),
+                                                    new Date(2008, YearMonth.MonthValue.May, 30),
+                                                    new Date(1974, YearMonth.MonthValue.February, 09),
+                                                    new Date(1971, YearMonth.MonthValue.March, 15),
+                                                }
                                             }
-                                        }
-                                    ),
+                                        ),
+                                    },
                                 },
-                            },
-                            timeRange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
-                            timeZoneProvider: "Europe/London")
-                    }
+                                timeRange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                                timeZoneProvider: "Europe/London")),
                 }.Save(db, clock);
             }
         }

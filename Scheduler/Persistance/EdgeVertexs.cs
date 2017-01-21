@@ -11,14 +11,24 @@ namespace Scheduler.Persistance
     {
         public EdgeVertexs()
         {
+
+        }
+
+        public EdgeVertexs(IEnumerable<IEdgeVertex<T>> edgeVertexs)
+            : base(edgeVertexs)
+        {
             
         }
 
-        public EdgeVertexs(IVertex toVertex)
+        public EdgeVertexs(T toVertex)
         {
-            var t = new EdgeVertex<IVertex>(toVertex: toVertex);
+            Add(new EdgeVertex<T>(toVertex: toVertex));
+        }
 
-            Add((IEdgeVertex<T>)t);
+        public EdgeVertexs(IEnumerable<T> toVertexs)
+            : this(toVertexs.Select(t => new EdgeVertex<T>(toVertex: t)))
+        {
+
         }
 
         public Vertex.SaveResult Save(IArangoDatabase db, IClock clock, Vertex fromVertex)

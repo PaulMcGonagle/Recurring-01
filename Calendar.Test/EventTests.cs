@@ -19,7 +19,7 @@ namespace MyCalendar.Test
         public class CreateAndValidateEvent
         {
             private IEvent _sut;
-            private ISerials _serials;
+            private IEdgeVertexs<ISerial> _serials;
 
             private const string TimeZoneProvider = "Europe/London";
 
@@ -33,23 +33,13 @@ namespace MyCalendar.Test
                         {
                             new Event
                             {
-                                Serials = new Serials
-                                {
-                                    {
-                                        new Serial(
-                                            schedule: new ByWeekday(
-                                                clock: fakeClock,
-                                                weekday: IsoDayOfWeek.Thursday),
-                                            timeRange: new TimeRange(new LocalTime(16, 45), new PeriodBuilder { Minutes = 45}.Build()),
-                                            timeZoneProvider: TimeZoneProvider)
-
-
-                                                //dater
-                                                //{
-                                                //    EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.September, 22, 2016, YearMonth.MonthValue.December, 20),
-                                                //}),
-                                    },
-                                },
+                                Serials = new EdgeVertexs<ISerial>(
+                                    toVertex: new Serial(
+                                                schedule: new ByWeekday(
+                                                    clock: fakeClock,
+                                                    weekday: IsoDayOfWeek.Thursday),
+                                                timeRange: new TimeRange(new LocalTime(16, 45), new PeriodBuilder { Minutes = 45}.Build()),
+                                                timeZoneProvider: TimeZoneProvider)),
                                 Title = "Street dance",
                             },
                             IsoDayOfWeek.Thursday,
@@ -72,25 +62,29 @@ namespace MyCalendar.Test
 
             public void ThenAllSerialsHaveTheCorrectWeekday(IsoDayOfWeek expectedWeekday)
             {
-                _serials.Episodes
+                _serials.SelectMany(s => s.ToVertex.Episodes)
                     .Select(e => e.From.DayOfWeek)
                     .ShouldAllBe(d => d.Equals((int)expectedWeekday));
             }
 
             public void AndThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
             {
-                _serials.Episodes.Select(e => e.From.TimeOfDay).ShouldAllBe(d => d.Equals(expectedStartTime));
+                _serials.SelectMany(s => s.ToVertex.Episodes)
+                    .Select(e => e.From.TimeOfDay)
+                    .ShouldAllBe(d => d.Equals(expectedStartTime));
             }
 
             public void AndThenAllEndTimesAreCorrect(LocalTime expectedEndTime)
             {
-                _serials.Episodes.Select(e => e.To.TimeOfDay).ShouldAllBe(d => d.Equals(expectedEndTime));
+                _serials.SelectMany(s => s.ToVertex.Episodes)
+                    .Select(e => e.To.TimeOfDay)
+                    .ShouldAllBe(d => d.Equals(expectedEndTime));
             }
         }
         public class VerifyTimeInOtherTimeZone
         {
             private IEvent _sut;
-            private ISerials _serials;
+            private IEdgeVertexs<ISerial> _serials;
 
             private const string TimeZoneProvider = "Europe/London";
 
@@ -105,16 +99,13 @@ namespace MyCalendar.Test
                             new Event
                             {
                                 Serials = 
-                                    new Serials
-                                    {
-                                        new Serial(
+                                    new EdgeVertexs<ISerial>(new Serial(
                                             schedule: new SingleDay
                                             {
                                                 Date = new Scheduler.Date(2016, YearMonth.MonthValue.July, 01),
                                             },
                                             timeRange: new TimeRange(new LocalTime(14, 00), new PeriodBuilder { Minutes = 1 }.Build()),
-                                            timeZoneProvider: "Europe/London")
-                                    },
+                                            timeZoneProvider: "Europe/London")),
                                 Title = "Street dance",
                             },
                             new LocalTime(14, 00),
@@ -136,7 +127,9 @@ namespace MyCalendar.Test
 
             public void ThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
             {
-                _serials.Episodes.Select(e => e.From.TimeOfDay).ShouldAllBe(d => d.Equals(expectedStartTime));
+                _serials.SelectMany(s => s.ToVertex.Episodes)
+                    .Select(e => e.From.TimeOfDay)
+                    .ShouldAllBe(d => d.Equals(expectedStartTime));
             }
 
             public void AndThenAllEndTimesAreCorrect(LocalTime expectedEndTime)

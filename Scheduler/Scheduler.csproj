@@ -94,6 +94,7 @@
     <Compile Include="IEpisode.cs" />
     <Compile Include="IEpisodes.cs" />
     <Compile Include="IEvent.cs" />
+    <Compile Include="ITag.cs" />
     <Compile Include="Ranges\DateRanges.cs" />
     <Compile Include="Ranges\IDateRange.cs" />
     <Compile Include="ISerials.cs" />
@@ -114,11 +115,13 @@
     <Compile Include="Schedule.cs" />
     <Compile Include="ScheduleEdges\EdgeRange.cs" />
     <Compile Include="ScheduleEdges\EdgeSchedule.cs" />
+    <Compile Include="ScheduleEdges\EdgeTag.cs" />
     <Compile Include="Serials.cs" />
     <Compile Include="CompositeSchedule.cs" />
     <Compile Include="Serial.cs" />
     <Compile Include="ISerial.cs" />
     <Compile Include="Ranges\TimeRange.cs" />
+    <Compile Include="Tag.cs" />
     <Compile Include="Users\ILocation.cs" />
     <Compile Include="Users\IOrganisation.cs" />
     <Compile Include="Users\IProfile.cs" />

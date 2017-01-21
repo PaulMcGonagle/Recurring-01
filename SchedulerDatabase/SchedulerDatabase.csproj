@@ -4,18 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{61F8C04C-1D89-4B7A-93D4-635730CBDB08}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{30538699-571B-4B17-9F6D-BA7564512521}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>InitialiseDatabase</RootNamespace>
-    <AssemblyName>InitialiseDatabase</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>SchedulerDatabase</RootNamespace>
+    <AssemblyName>SchedulerDatabase</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,14 +36,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NodaTime, Version=1.3.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
-      <HintPath>..\packages\NodaTime.1.3.0\lib\net35-Client\NodaTime.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NodaTime.Testing, Version=1.3.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
-      <HintPath>..\packages\NodaTime.Testing.1.3.2\lib\net35-Client\NodaTime.Testing.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Remotion.Linq, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
@@ -65,38 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Calendar\MyCalendar.csproj">
-      <Project>{26aa57ae-e333-4237-9178-bae1b1d80b25}</Project>
-      <Name>MyCalendar</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClassLibrary1\TestData.csproj">
-      <Project>{86c11284-0c67-4a55-81fb-b4f82083eb6c}</Project>
-      <Name>TestData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ConsoleOutput\ConsoleOutput.csproj">
-      <Project>{d53ac907-3125-4727-84f3-c5b60117ce42}</Project>
-      <Name>ConsoleOutput</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Generators\Generators.csproj">
-      <Project>{851f7920-1e14-43b4-8ee3-62a378815151}</Project>
-      <Name>Generators</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SchedulerDatabase\SchedulerDatabase.csproj">
-      <Project>{30538699-571b-4b17-9f6d-ba7564512521}</Project>
-      <Name>SchedulerDatabase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Scheduler\Scheduler.csproj">
-      <Project>{3189f8e6-b2ab-4b6e-8f28-756372c7644e}</Project>
-      <Name>Scheduler</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

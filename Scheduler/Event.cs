@@ -37,14 +37,14 @@ namespace Scheduler
         }
 
         [IgnoreDataMember]
-        public ISerials Serials { get; set; }
+        public IEdgeVertexs<ISerial> Serials { get; set; }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)
         {
             return Save(new Func<SaveResult>[]
             {
                 () => Save<Event>(db),
-                () => Save(db, clock, Serials.Select(serial => (Vertex)serial)),
+                () => Serials.Save(db, clock, this),
                 () => Location?.Save(db, clock, this) ?? SaveDummy(),
                 () => base.Save(db, clock),
             });
@@ -52,21 +52,30 @@ namespace Scheduler
 
         public static Event Create(Schedule schedule, TimeRange timerange, string timeZoneProvider, Location location = null)
         {
+            var serial = new Serial(
+                schedule: new CompositeSchedule()
+                {
+                    InclusionsEdges = new EdgeVertexs<ISchedule>
+                    {
+                        new EdgeVertex<ISchedule>(schedule),
+                    },
+                },
+                timeRange: timerange,
+                timeZoneProvider: timeZoneProvider);
+
             return new Event
             {
-                Serials = new Serials()
-                    {
-                        new Serial(
-                            schedule: new CompositeSchedule()
+                Serials = new EdgeVertexs<ISerial>(
+                    toVertex: new Serial(
+                        schedule: new CompositeSchedule()
+                        {
+                            InclusionsEdges = new EdgeVertexs<ISchedule>
                             {
-                                InclusionsEdges = new EdgeVertexs<ISchedule>
-                                {
-                                    new EdgeVertex<ISchedule>(schedule),
-                                },
+                                new EdgeVertex<ISchedule>(schedule),
                             },
-                            timeRange: timerange,
-                            timeZoneProvider: timeZoneProvider)
-                    },
+                        },
+                        timeRange: timerange,
+                        timeZoneProvider: timeZoneProvider)),
                 Location = location != null ? new EdgeVertex<Location>(location) : null,
             };
         }

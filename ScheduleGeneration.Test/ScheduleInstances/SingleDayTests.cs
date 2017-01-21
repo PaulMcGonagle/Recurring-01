@@ -78,9 +78,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
 
             public void WhenGenerated()
             {
-                _generatedEvent = new GeneratedEvent();
-
-                _generatedEvent.Generate(_clock, _event);
+                _generatedEvent = GeneratedEvent.Generate(_clock, _event);
             }
 
             public void ThenDatesAreAsExpected(IEnumerable<LocalDateTime> expectedEpisodes)
@@ -94,7 +92,6 @@ namespace ScheduleGeneration.Test.ScheduleInstances
             private IEvent _event;
             private IClock _clock;
             private IArangoDatabase _db;
-            private IGeneratedEvent _generatedEvent;
             private Exception _exception;
 
             [Fact]
@@ -104,6 +101,21 @@ namespace ScheduleGeneration.Test.ScheduleInstances
 
                 mockDb.Setup(x => x.Insert<Vertex>(It.IsAny<Vertex>(), null, null)).Returns(TestHelper.MockInsertSuccess.Object);
 
+                var t = new EdgeVertexs<ISerial>(
+                    toVertex: new Serial(
+                        schedule: new CompositeSchedule()
+                        {
+                            InclusionsEdges = new EdgeVertexs<ISchedule>
+                            {
+                                new EdgeVertex<ISchedule>(new SingleDay
+                                {
+                                    Date = new Date(2016, YearMonth.MonthValue.January, 01),
+                                })
+                                ,
+                            },
+                        },
+                        timeRange: null,
+                        timeZoneProvider: "Europe/London"));
                 this.WithExamples(new ExampleTable(
                     "SUT",
                     "db",
@@ -114,9 +126,8 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                     {
                         new Event
                         {
-                            Serials = new Serials
-                                {
-                                    new Serial(
+                            Serials = t/* new EdgeVertexs<ISerial>(
+                                toVertex: new Serial(
                                         schedule: new CompositeSchedule()
                                             {
                                                 InclusionsEdges = new EdgeVertexs<ISchedule>
@@ -129,8 +140,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                                 },
                                             },
                                         timeRange: null,
-                                        timeZoneProvider: "Europe/London")
-                                },
+                                        timeZoneProvider: "Europe/London"))*/,
                         },
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
@@ -183,11 +193,9 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 _event.Save(_db, _clock);
             }
 
-            public void AndWhenGenerated()
+            public void AndWhenEventsAreGenerated()
             {
-                _generatedEvent = new GeneratedEvent();
-
-                _exception = Record.Exception(() => _generatedEvent.Generate(_clock, _event));
+                _exception = Record.Exception(() => GeneratedEvent.Generate(_clock, _event));
             }
 
             public void ThenArgumentExceptionIsThrown(string expectedMessage)

@@ -10,6 +10,7 @@ using NodaTime.Testing;
 using NodaTime.Text;
 using Scheduler;
 using Scheduler.Generation;
+using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
@@ -19,7 +20,7 @@ namespace Generators
 {
     public class Generator
     {
-        public List<IEvent> GenerateSerials(string sourceFile, Organisation organisation)
+        public List<IEvent> GenerateEvents(string sourceFile, Organisation organisation)
         {
             List<IEvent> events = new List<IEvent>();
 
@@ -133,7 +134,7 @@ namespace Generators
                     var @event = new Event
                     {
                         Title = organisation.Title + "." + termName + "." + className,
-                        Serials = serials,
+                        Serials = new EdgeVertexs<ISerial>(toVertexs: serials),
                         Location = organisation.Location,
                     };
 
