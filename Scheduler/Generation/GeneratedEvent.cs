@@ -17,19 +17,19 @@ namespace Scheduler.Generation
         [IgnoreDataMember]
         public IEdgeVertexs<IEpisode> Episodes { get; set; }
 
-        public static GeneratedEvent Generate(IClock clock, IEvent source)
+        public static void Generate(IClock clock, IEvent source)
         {
             if (source.IsDirty)
                 throw new ArgumentException("Event has not yet been persisted");
 
-            return new GeneratedEvent
+            source.GeneratedEvent = new EdgeVertex<IGeneratedEvent>(new GeneratedEvent
             {
                 Time = clock.Now,
                 Source = new Link<IEvent>(source),
                 Episodes = new EdgeVertexs<IEpisode>(
                     source.Serials.SelectMany(s => s.ToVertex.Episodes)
                     ),
-            };
+            });
         }
 
         #region Save

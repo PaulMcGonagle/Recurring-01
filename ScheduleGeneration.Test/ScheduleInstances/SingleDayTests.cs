@@ -28,7 +28,6 @@ namespace ScheduleGeneration.Test.ScheduleInstances
             private IEvent _event;
             private IClock _clock;
             private IArangoDatabase _db;
-            private IGeneratedEvent _generatedEvent;
 
             [Fact]
             public void Execute()
@@ -78,12 +77,12 @@ namespace ScheduleGeneration.Test.ScheduleInstances
 
             public void WhenGenerated()
             {
-                _generatedEvent = GeneratedEvent.Generate(_clock, _event);
+                GeneratedEvent.Generate(_clock, _event);
             }
 
             public void ThenDatesAreAsExpected(IEnumerable<LocalDateTime> expectedEpisodes)
             {
-                _generatedEvent.Episodes.Select(e => e.ToVertex.From.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
+                _event.GeneratedEvent.ToVertex.Episodes.Select(e => e.ToVertex.From.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
             }
         }
 

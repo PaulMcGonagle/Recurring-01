@@ -48,7 +48,7 @@ namespace InitialiseDatabase
 
             foreach (var @event in events)
             {
-                @event.GeneratedEvent = new EdgeVertex<IGeneratedEvent>(GeneratedEvent.Generate(fakeClock, @event));
+                GeneratedEvent.Generate(fakeClock, @event);
             }
 
             using (var db = SchedulerDatabase.Database.Retrieve())
@@ -164,7 +164,7 @@ W1H 2DS"
 
                 var result = e.Save(db, clock);
 
-                var generatedEvent = GeneratedEvent.Generate(clock, e);
+                GeneratedEvent.Generate(clock, e);
 
                 if (result != Vertex.SaveResult.Success)
                     throw new Exception($"Invalid e.SaveResult: {result}");

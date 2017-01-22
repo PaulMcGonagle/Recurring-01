@@ -100,12 +100,17 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenGenerated()
             {
-                _generatedEvent = GeneratedEvent.Generate(_clock, _event);
+                GeneratedEvent.Generate(_clock, _event);
             }
 
-            public void ThenDatesAreAsExpected(IEnumerable<LocalDateTime> expectedEpisodes)
+            public void ThenGeneratedEventExists()
             {
-                _generatedEvent.Episodes.Select(e => e.ToVertex.From.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
+                _event.GeneratedEvent.ShouldNotBeNull();
+            }
+
+            public void AndThenDatesAreAsExpected(IEnumerable<LocalDateTime> expectedEpisodes)
+            {
+                _event.GeneratedEvent.ToVertex.Episodes.Select(e => e.ToVertex.From.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
             }
         }
     }
