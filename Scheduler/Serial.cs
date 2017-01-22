@@ -25,7 +25,7 @@ namespace Scheduler
         [IgnoreDataMember]
         public EdgeSchedule EdgeSchedule;
 
-        public Ranges.ITimeRange TimeRange;
+        public ITimeRange TimeRange;
         public string TimeZoneProvider;
 
         [IgnoreDataMember]

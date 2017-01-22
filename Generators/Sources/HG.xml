@@ -30,8 +30,8 @@
       </term>
     </terms>
     <events>
-      <!--<event term="Autumn" class="Playtime"/>
-      <event term="Autumn" class="Lunchtime"/>
+      <event term="Autumn" class="Playtime"/>
+      <!--<event term="Autumn" class="Lunchtime"/>
       <event term="Autumn" class="Literacy"/>
       <event term="Autumn" class="Guided Reading"/>
       <event term="Autumn" class="Assembly"/>
@@ -41,10 +41,10 @@
       <event term="Autumn" class="Science"/>
       <event term="Autumn" class="PE"/>
       <event term="Autumn" class="History"/>
-      <event term="Autumn" class="RE"/>-->
+      <event term="Autumn" class="RE"/>
       <event term="Autumn" class="Spanish"/>
       <event term="Autumn" class="ICT"/>
-      <!--<event term="Autumn" class="Library"/>
+      <event term="Autumn" class="Library"/>
       <event term="Autumn" class="PSHCE"/>
       <event term="Autumn" class="Other"/>-->
     </events>

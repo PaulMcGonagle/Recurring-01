@@ -2,6 +2,8 @@
 using Scheduler.Persistance;
 using System;
 using System.Linq;
+using System.Runtime.Serialization;
+using ArangoDB.Client;
 
 namespace Scheduler.Generation
 {
@@ -9,9 +11,11 @@ namespace Scheduler.Generation
     {
         public Instant Time { get; set; }
 
-        private EdgeVertex<IEvent> Source { get; set; }
+        [IgnoreDataMember]
+        private ILink<IEvent> Source { get; set; }
 
-        public IEpisodes Episodes { get; set; }
+        [IgnoreDataMember]
+        public IEdgeVertexs<IEpisode> Episodes { get; set; }
 
         public static GeneratedEvent Generate(IClock clock, IEvent source)
         {
@@ -21,10 +25,25 @@ namespace Scheduler.Generation
             return new GeneratedEvent
             {
                 Time = clock.Now,
-                Source = new EdgeVertex<IEvent>(source),
-                Episodes = new Episodes(
-                    episodes: source.Serials.SelectMany(s => s.ToVertex.Episodes)),
+                Source = new Link<IEvent>(source),
+                Episodes = new EdgeVertexs<IEpisode>(
+                    source.Serials.SelectMany(s => s.ToVertex.Episodes)
+                    ),
             };
         }
+
+        #region Save
+
+        public override SaveResult Save(IArangoDatabase db, IClock clock)
+        {
+            return Save(new Func<SaveResult>[]
+            {
+                () => Save<GeneratedEvent>(db),
+                //() => Source.Save(db, clock, this),
+                () => base.Save(db, clock),
+            });
+        }
+
+        #endregion
     }
 }

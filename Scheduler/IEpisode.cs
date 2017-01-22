@@ -5,15 +5,13 @@ using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public interface IEpisode
+    public interface IEpisode : IVertex
     {
         ZonedDateTime From { get; set; }
         Period Period { get; set; }
         EdgeVertex<IGeneratedDate> SourceGeneratedDate { get; set; }
         EdgeVertex<ISerial> SourceSerial { get; set; }
         ZonedDateTime To { get; }
-
-        Vertex.SaveResult Save(IArangoDatabase db, IClock clock);
         string ToString();
     }
 }

@@ -56,8 +56,13 @@ namespace SchedulerDatabase
                 db.CreateCollection("DateList");
                 db.CreateCollection("SingleDay");
                 db.CreateCollection("Episode");
+                db.CreateCollection("GeneratedDate");
+                db.CreateCollection("GeneratedEvent");
                 db.CreateCollection("Edge", type: CollectionType.Edge);
+                db.CreateCollection("Relation", type: CollectionType.Edge);
             }
+
+            _isInitialised = true;
         }
 
         public static IArangoDatabase Retrieve()

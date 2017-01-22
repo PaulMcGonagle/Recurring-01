@@ -12,7 +12,7 @@ namespace ScheduleGeneration
 {
     public static class Generate
     {
-        public static async Task Go(string databaseName)
+        public static void Go(string databaseName)
         {
             ArangoDatabase.ChangeSetting(s =>
             {

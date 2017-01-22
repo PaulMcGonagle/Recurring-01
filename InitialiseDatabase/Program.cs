@@ -38,10 +38,18 @@ namespace InitialiseDatabase
 
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
 
-            var generatedEvents = new GeneratedEvents
-            (
-                events.Select(e => GeneratedEvent.Generate(fakeClock, e))
-            );
+            using (var db = SchedulerDatabase.Database.Retrieve())
+            {
+                foreach (var @event in events)
+                {
+                    @event.Save(db, fakeClock);
+                }
+            }
+
+            foreach (var @event in events)
+            {
+                @event.GeneratedEvent = new EdgeVertex<IGeneratedEvent>(GeneratedEvent.Generate(fakeClock, @event));
+            }
 
             using (var db = SchedulerDatabase.Database.Retrieve())
             {
@@ -58,7 +66,7 @@ namespace InitialiseDatabase
                 .Select(e => e.To));
         }
 
-        public static async Task Go(string databaseName)
+        public static void Go(string databaseName)
         {
             ArangoDatabase.ChangeSetting(s =>
             {

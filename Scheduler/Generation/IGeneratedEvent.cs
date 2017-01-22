@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using ArangoDB.Client;
 using NodaTime;
+using Scheduler.Persistance;
 
 namespace Scheduler.Generation
 {
-    public interface IGeneratedEvent
+    public interface IGeneratedEvent : IVertex
     {
-        IEpisodes Episodes { get; set; }
+        IEdgeVertexs<IEpisode> Episodes { get; set; }
         Instant Time { get; set; }
     }
 }
