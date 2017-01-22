@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
@@ -52,11 +53,6 @@ namespace Scheduler
                 return fromCompare;
 
             return Period.Ticks.CompareTo(c.Period.Ticks);
-        }
-
-        public override string ToString()
-        {
-            return From.ToString() + " " + To.ToString();
         }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
@@ -14,6 +15,11 @@ namespace Scheduler.Users
 
         [IgnoreDataMember]
         public Serials Serials { get; set; }
+
+        protected override IEnumerable<IVertex> Links
+        {
+            get { return Serials; }
+        }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)
         {

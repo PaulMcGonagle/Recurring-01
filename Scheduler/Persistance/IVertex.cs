@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
@@ -33,7 +34,9 @@ namespace Scheduler.Persistance
 
         void SetToDelete();
 
-        #region Save
+        IEnumerable<IVertex> GetLinks(int depth);
+
+            #region Save
 
         Vertex.SaveResult Save(IArangoDatabase db, IClock clock);
 

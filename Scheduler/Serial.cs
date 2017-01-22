@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
@@ -59,6 +60,24 @@ namespace Scheduler
                         }));
 
                 return episodes;
+            }
+        }
+
+        protected override IEnumerable<IVertex> Links
+        {
+            get
+            {
+                var list = new List<IVertex>();
+
+                list.AddRange(Episodes);
+
+                if (EdgeSchedule != null)
+                {
+                    list.Add(EdgeSchedule.Edge);
+                    list.Add(EdgeSchedule.ToVertex);
+                }
+
+                return list;
             }
         }
 

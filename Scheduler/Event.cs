@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
@@ -42,6 +43,24 @@ namespace Scheduler
 
         [IgnoreDataMember]
         public IEdgeVertex<IGeneratedEvent> GeneratedEvent { get; set; }
+
+        protected override IEnumerable<IVertex> Links
+        {
+            get
+            {
+                var list = new List<IVertex>();
+
+                list.AddRange(Serials.Select(s => s.ToVertex));
+
+                if (GeneratedEvent != null)
+                {
+                    list.Add(GeneratedEvent.ToVertex);
+                    list.Add(GeneratedEvent.Edge);
+                }
+
+                return list;
+            }
+        }
 
         public override SaveResult Save(IArangoDatabase db, IClock clock)
         {

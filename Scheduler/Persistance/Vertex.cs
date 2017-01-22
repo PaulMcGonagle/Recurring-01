@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
@@ -49,6 +50,22 @@ namespace Scheduler.Persistance
             if (!IsDirty)
                 IsDirty = true;
         }
+
+        public IEnumerable<IVertex> GetLinks(int depth)
+        {
+            var links = Links;
+
+            if (depth > 0)
+            {
+                var depthLinks = links.SelectMany(l => l.GetLinks(depth - 1));
+
+                links = links.Union(depthLinks);
+            }
+
+            return links;
+        }
+
+        protected virtual IEnumerable<IVertex> Links => new List<IVertex>();
 
         #region Save
 

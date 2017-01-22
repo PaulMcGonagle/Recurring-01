@@ -28,7 +28,6 @@ namespace ScheduleGeneration.Test
             private IEvent _event;
             private IClock _clock;
             private IArangoDatabase _db;
-            private GeneratedEvent _generatedEvent;
 
             [Fact]
             public void Execute()

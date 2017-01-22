@@ -59,11 +59,28 @@ namespace InitialiseDatabase
                 }
             }
 
-            ConsoleOutput.Output.DisplayList(events
-                .First()
-                .Serials
-                .SelectMany(s => s.ToVertex.Episodes)
-                .Select(e => e.To));
+            var links = @events.SelectMany(e => e.GetLinks(4)).ToList();
+
+            SortedDictionary<string, IVertex> cache = new SortedDictionary<string, IVertex>();
+
+            foreach (var link in links)
+            {
+                if (!link.IsPersisted)
+                    using (var db = SchedulerDatabase.Database.Retrieve())
+                    {
+                        link.Save(db, fakeClock);
+                    }
+
+                if (!cache.ContainsKey(link.Id))
+                    cache.Add(link.Id, link);
+            }
+
+            ConsoleOutput.Output.DisplayList(
+                events
+                    .First()
+                    .Serials
+                    .SelectMany(s => s.ToVertex.Episodes)
+                    .Select(e => e.To));
         }
 
         public static void Go(string databaseName)
