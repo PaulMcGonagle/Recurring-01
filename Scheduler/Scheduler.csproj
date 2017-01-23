@@ -118,6 +118,7 @@
     <Compile Include="Ranges\DateRange.cs" />
     <Compile Include="SaveException.cs" />
     <Compile Include="Schedule.cs" />
+    <Compile Include="ScheduleEdges\EdgeDate.cs" />
     <Compile Include="ScheduleEdges\EdgeRange.cs" />
     <Compile Include="ScheduleEdges\EdgeSchedule.cs" />
     <Compile Include="ScheduleEdges\EdgeTag.cs" />

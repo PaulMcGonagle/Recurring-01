@@ -39,7 +39,7 @@ namespace Scheduler.ScheduleInstances
             get
             {
                 if (EdgeRange?.ToVertex?.From != null)
-                    return new Date(EdgeRange.ToVertex.From.Value).ToYearMonth();
+                    return new Date(EdgeRange.ToVertex.From.Date.Value).ToYearMonth();
 
                 var yearMonth = Clock.GetLocalYearMonth();
 
@@ -53,7 +53,7 @@ namespace Scheduler.ScheduleInstances
             get
             {
                 if (EdgeRange?.ToVertex?.To != null)
-                    return new Date(EdgeRange.ToVertex.To.Value).ToYearMonth();
+                    return new Date(EdgeRange.ToVertex.To.Date.Value).ToYearMonth();
 
                 var yearMonth = Clock.GetLocalYearMonth();
 

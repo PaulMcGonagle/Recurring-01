@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using ArangoDB.Client;
 using NodaTime;
-using Scheduler.Persistance;
 
 namespace Scheduler
 {
@@ -9,7 +8,7 @@ namespace Scheduler
     {
         public Episodes(IEnumerable<IEpisode> episodes)
         {
-            this.AddRange(episodes);
+            AddRange(episodes);
         }
 
         public Episodes()
@@ -19,7 +18,7 @@ namespace Scheduler
 
         public void Save(IArangoDatabase db, IClock clock)
         {
-            this.ForEach(e => e.Save(db, clock));
+            ForEach(e => e.Save(db, clock));
         }
     }
 }

@@ -157,8 +157,8 @@ namespace Generators
             var end = ParseAttributeAsLocalDate(daterange, "end");
 
             return new DateRange(
-                from: new Date(start),
-                to: new Date(end));
+                from: new EdgeDate(start),
+                to: new EdgeDate(end));
         }
 
         private static TimeRange RetrieveTimeRange(XElement input, string elementName = "timerange")

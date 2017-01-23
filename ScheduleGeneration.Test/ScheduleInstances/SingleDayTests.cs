@@ -173,12 +173,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
 
             public void WhenEventIsSaved()
             {
-                _event.Save(_db, _clock);
-            }
-
-            public void AndWhenEventsAreGenerated()
-            {
-                _exception = Record.Exception(() => GeneratedEvent.Generate(_clock, _event));
+                _exception = Record.Exception(() => _event.Save(_db, _clock));
             }
 
             public void ThenArgumentExceptionIsThrown(string expectedMessage)

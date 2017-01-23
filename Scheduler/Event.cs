@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
@@ -73,17 +72,6 @@ namespace Scheduler
 
         public static Event Create(Schedule schedule, TimeRange timerange, string timeZoneProvider, Location location = null)
         {
-            var serial = new Serial(
-                schedule: new CompositeSchedule()
-                {
-                    InclusionsEdges = new EdgeVertexs<ISchedule>
-                    {
-                        new EdgeVertex<ISchedule>(schedule),
-                    },
-                },
-                timeRange: timerange,
-                timeZoneProvider: timeZoneProvider);
-
             return new Event
             {
                 Serials = new EdgeVertexs<ISerial>(

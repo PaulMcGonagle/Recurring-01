@@ -16,7 +16,7 @@ namespace Scheduler
             }
         }
 
-        public static IEnumerable<Date> Include(this IEnumerable<Scheduler.Date> inputDates, IEnumerable<Date> exclusions)
+        public static IEnumerable<Date> Include(this IEnumerable<Date> inputDates, IEnumerable<Date> exclusions)
         {
             return inputDates.Union(exclusions);
         }
@@ -27,8 +27,8 @@ namespace Scheduler
             {
                 inputDates =
                     inputDates
-                        .Where(inputDate => exclusion.From == null || inputDate.Value < exclusion.From.Value
-                        || exclusion.To == null || inputDate.Value > exclusion.To.Value);
+                        .Where(inputDate => exclusion.From == null || inputDate.Value < exclusion.From.Date.Value
+                        || exclusion.To == null || inputDate.Value > exclusion.To.Date.Value);
             }
 
             return inputDates;
@@ -40,8 +40,8 @@ namespace Scheduler
             {
                 inputDates =
                     inputDates
-                        .Where(inputDate => exclusion.From == null || inputDate.Value >= exclusion.From.Value
-                        || exclusion.To == null || inputDate.Value <= exclusion.To.Value);
+                        .Where(inputDate => exclusion.From == null || inputDate.Value >= exclusion.From.Date.Value
+                        || exclusion.To == null || inputDate.Value <= exclusion.To.Date.Value);
             }
 
             return inputDates;

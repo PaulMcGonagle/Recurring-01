@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
@@ -9,7 +7,6 @@ using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
-using Scheduler.Users;
 
 namespace Scheduler
 {
@@ -34,7 +31,7 @@ namespace Scheduler
             list.AddRange(inclusions);
             list.RemoveAll(l => exclusions.Select(e => e.Date.Value).Contains(l.Date.Value));
 
-            var removeAll = list.RemoveAll(d => Breaks.Contains(d.Date.Value));
+            list.RemoveAll(d => Breaks.Contains(d.Date.Value));
 
             return list;
         }

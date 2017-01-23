@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using ArangoDB.Client;
 using NodaTime;
-using Scheduler.Persistance;
 
 namespace Scheduler
 {

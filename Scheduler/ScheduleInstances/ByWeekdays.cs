@@ -48,8 +48,8 @@ namespace Scheduler.ScheduleInstances
 
         public override GeneratedDates Generate()
         {
-            var start = EdgeRange.ToVertex.From ?? DateTimeHelper.GetToday(Clock).AddWeeks(-(CountFrom ?? CountFromDefault));
-            var end = EdgeRange.ToVertex.To ?? DateTimeHelper.GetToday(Clock).AddWeeks((CountTo ?? CountToDefault));
+            var start = EdgeRange.ToVertex.From.Date ?? DateTimeHelper.GetToday(Clock).AddWeeks(-(CountFrom ?? CountFromDefault));
+            var end = EdgeRange.ToVertex.To.Date ?? DateTimeHelper.GetToday(Clock).AddWeeks((CountTo ?? CountToDefault));
 
             var range = DateTimeHelper.Range(start: start, end: end);
 

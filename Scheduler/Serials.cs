@@ -2,7 +2,6 @@
 using System.Linq;
 using ArangoDB.Client;
 using NodaTime;
-using Scheduler.Persistance;
 
 namespace Scheduler
 {
@@ -27,8 +26,6 @@ namespace Scheduler
             {
                 serial.Save(db, clock);
             }
-
-            return;
         }
     }
 }

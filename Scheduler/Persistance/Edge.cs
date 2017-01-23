@@ -29,6 +29,8 @@ namespace Scheduler.Persistance
             if (!FromVertex.IsPersisted)
                 throw new SaveException(SaveResult.Incomplete, this.GetType(), $"FromVertex has not been persisted ({FromVertex.ToString()})");
 
+            ToVertex.Save(db, clock);
+
             Save<Edge>(db);
         }
 

@@ -1,5 +1,4 @@
-﻿using ArangoDB.Client;
-using NodaTime;
+﻿using NodaTime;
 using Scheduler.Generation;
 using Scheduler.Persistance;
 

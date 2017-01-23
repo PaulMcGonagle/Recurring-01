@@ -1,12 +1,7 @@
-﻿using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 using ArangoDB.Client;
 using NodaTime;
 using NodaTime.Testing;
-using Scheduler;
-using Scheduler.ScheduleInstances;
-using Scheduler.Users;
 
 namespace ScheduleGeneration
 {

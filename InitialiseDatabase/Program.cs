@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using ArangoDB.Client;
 using Generators;
 using NodaTime;
@@ -19,6 +18,7 @@ namespace InitialiseDatabase
 {
     class Program
     {
+        // ReSharper disable once UnusedParameter.Local
         static void Main(string[] args)
         {
             Generator generator = new Generator();

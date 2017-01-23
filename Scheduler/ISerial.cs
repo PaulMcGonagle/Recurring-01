@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Scheduler.Persistance;
+﻿using Scheduler.Persistance;
 
 namespace Scheduler
 {

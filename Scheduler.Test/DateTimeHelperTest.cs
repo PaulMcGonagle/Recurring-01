@@ -2,12 +2,13 @@
 using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
-using NodaTime.Testing;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestStack.BDDfy;
 using Xunit;
 
 namespace Scheduler.Test
 {
+    [TestClass]
     public class DateTimeHelperRangeTest
     {
         public class RangeVerification
@@ -21,10 +22,12 @@ namespace Scheduler.Test
             [Fact]
             public void Execute()
             {
-
-                var fakeClock = ScheduleTestHelper.GetFakeClock(2016, 05, 01);
-
-                this.WithExamples(new ExampleTable("dateFrom", "count", "interval", "expectedDates")
+                this.WithExamples(
+                    new ExampleTable(
+                        "dateFrom", 
+                        "count", 
+                        "interval", 
+                        "expectedDates")
                     {
                         {
                             new Date(2016, YearMonth.MonthValue.December, 01),

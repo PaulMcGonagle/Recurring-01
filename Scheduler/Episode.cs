@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
@@ -8,7 +7,7 @@ using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public class Episode : Vertex, IComparable, IEpisode
+    public class Episode : Vertex, IEpisode
     {
         [IgnoreDataMember]
         public EdgeVertex<IGeneratedDate> SourceGeneratedDate { get; set; }
