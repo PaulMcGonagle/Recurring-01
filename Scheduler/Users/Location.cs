@@ -21,13 +21,10 @@ namespace Scheduler.Users
             get { return Serials; }
         }
 
-        public override SaveResult Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-            return Save(new Func<SaveResult>[]
-                       {
-                () => Save<Location>(db),
-                () => base.Save(db, clock),
-            });
+            Save<Location>(db);
+            base.Save(db, clock);
         }
     }
 }

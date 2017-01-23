@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArangoDB.Client;
-using ArangoDB.Client.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NodaTime;
@@ -11,9 +10,7 @@ using Scheduler;
 using Scheduler.Generation;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
-using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
-using Scheduler.Users;
 using Shouldly;
 using TestStack.BDDfy;
 using Xunit;
@@ -34,7 +31,8 @@ namespace ScheduleGeneration.Test.ScheduleInstances
             {
                 var mockDb = new Mock<IArangoDatabase>();
 
-                mockDb.Setup(x => x.Insert<Vertex>(It.IsAny<Vertex>(), null, null)).Returns(TestHelper.MockInsertSuccess.Object);
+                mockDb.Setup(x => x.Insert<Vertex>(It.IsAny<Vertex>(), null, null))
+                    .Returns(TestHelper.MockInsertSuccess.Object);
 
                 this.WithExamples(new ExampleTable(
                     "SUT",
@@ -98,23 +96,9 @@ namespace ScheduleGeneration.Test.ScheduleInstances
             {
                 var mockDb = new Mock<IArangoDatabase>();
 
-                mockDb.Setup(x => x.Insert<Vertex>(It.IsAny<Vertex>(), null, null)).Returns(TestHelper.MockInsertSuccess.Object);
+                mockDb.Setup(x => x.Insert<Vertex>(It.IsAny<Vertex>(), null, null))
+                    .Returns(TestHelper.MockInsertSuccess.Object);
 
-                var t = new EdgeVertexs<ISerial>(
-                    toVertex: new Serial(
-                        schedule: new CompositeSchedule()
-                        {
-                            InclusionsEdges = new EdgeVertexs<ISchedule>
-                            {
-                                new EdgeVertex<ISchedule>(new SingleDay
-                                {
-                                    Date = new Date(2016, YearMonth.MonthValue.January, 01),
-                                })
-                                ,
-                            },
-                        },
-                        timeRange: null,
-                        timeZoneProvider: "Europe/London"));
                 this.WithExamples(new ExampleTable(
                     "SUT",
                     "db",
@@ -125,21 +109,21 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                     {
                         new Event
                         {
-                            Serials = t/* new EdgeVertexs<ISerial>(
+                            Serials = new EdgeVertexs<ISerial>(
                                 toVertex: new Serial(
-                                        schedule: new CompositeSchedule()
+                                    schedule: new CompositeSchedule()
+                                        {
+                                            InclusionsEdges = new EdgeVertexs<ISchedule>
                                             {
-                                                InclusionsEdges = new EdgeVertexs<ISchedule>
+                                                new EdgeVertex<ISchedule>(new SingleDay
                                                 {
-                                                    new EdgeVertex<ISchedule>(new SingleDay
-                                                    {
-                                                        Date = new Date(2016, YearMonth.MonthValue.January, 01),
-                                                    })
-                                                    ,
-                                                },
+                                                    Date = new Date(2016, YearMonth.MonthValue.January, 01),
+                                                })
+                                                ,
                                             },
-                                        timeRange: null,
-                                        timeZoneProvider: "Europe/London"))*/,
+                                        },
+                                    timeRange: null,
+                                    timeZoneProvider: "Europe/London")),
                         },
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),

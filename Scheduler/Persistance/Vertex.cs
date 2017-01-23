@@ -69,43 +69,20 @@ namespace Scheduler.Persistance
 
         #region Save
 
-        protected static SaveResult SaveDummy()
-        {
-            return SaveResult.Success;
-        }
-
-        internal static SaveResult Save(IEnumerable<Func<SaveResult>> saveFuncs)
-        {
-            foreach (var saveFunc in saveFuncs)
-            {
-                var result = saveFunc.Invoke();
-
-                if (result != SaveResult.Success)
-                    return result;
-            }
-
-            return SaveResult.Success;
-        }
-
-        protected SaveResult Save(IArangoDatabase db, IClock clock, IEnumerable<Vertex> vertexs)
+        protected void Save(IArangoDatabase db, IClock clock, IEnumerable<Vertex> vertexs)
         {
             foreach (var vertex in vertexs)
             {
-                var result = vertex.Save(db, clock);
-
-                if (result != SaveResult.Success)
-                    return result;
+                vertex.Save(db, clock);
             }
-
-            return SaveResult.Success;
         }
 
-        internal SaveResult Save<T>(IArangoDatabase db) where T : Vertex
+        internal void Save<T>(IArangoDatabase db) where T : Vertex
         {
             if (db == null) throw new ArgumentNullException(nameof(db));
 
             if (!IsDirty)
-                return SaveResult.Success;
+                return;
 
             if (IsPersisted
                 && !ToDelete)
@@ -114,7 +91,7 @@ namespace Scheduler.Persistance
 
                 if (existing.Rev != Rev)
                 {
-                    return SaveResult.Conflict;
+                    throw new SaveException(SaveResult.Conflict, this.GetType(), $"Rev differs: {existing.Rev} vs {Rev}");
                 }
             }
 
@@ -126,21 +103,33 @@ namespace Scheduler.Persistance
 
             IsDirty = false;
 
-            return SaveResult.Success;
+            return;
         }
 
-        public virtual SaveResult Save(IArangoDatabase db, IClock clock)
+        public virtual void Save(IArangoDatabase db, IClock clock)
         {
             if (GetType().Name == "Backup")
             {
-                return SaveResult.Success;
+                return;
             }
 
-            var backup = Backup.Create(clock, this);
+            Backup backup;
 
-            var result = backup.Save(db, clock);
+            try
+            {
+                backup = Backup.Create(clock, this);
 
-            return result;
+                backup.Save(db, clock);
+            }
+            catch (SaveException saveException)
+            {
+                throw new SaveException(saveException.SaveResult, typeof(Backup), $"Unable to save backup of {Id}");
+            }
+        }
+
+        protected static Exception NewSaveException(SaveResult saveResult, System.Type sourceType, string message)
+        {
+            return new Exception($"Save Exception: SaveResult={saveResult} saving type={sourceType}, message={message}");
         }
 
         #endregion
@@ -148,7 +137,6 @@ namespace Scheduler.Persistance
         int IComparable.CompareTo(object obj)
         {
             throw new NotImplementedException();
-            //return String.Compare(Key, ((PersistableEntity)obj).Key, StringComparison.Ordinal);
         }
     }
 }

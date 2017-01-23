@@ -15,13 +15,11 @@ namespace Scheduler.Users
 
         public EdgeVertexs<IOrganisation> Organisations { get; set; }
 
-        public override SaveResult Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-            return Save(new Func<SaveResult>[] {
-                () => Save<Profile>(db),
-                () => Organisations?.Save(db, clock, this) ?? SaveDummy(),
-                () => base.Save(db, clock),
-            });
+            Save<Profile>(db);
+            Organisations?.Save(db, clock, this);
+            base.Save(db, clock);
         }
     }
 }

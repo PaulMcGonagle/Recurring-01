@@ -10,7 +10,7 @@ namespace Scheduler.Persistance
 
     //    #region Save
 
-    //    public override SaveResult Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
+    //    public override void Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
     //    {
     //        return Save(new Func<SaveResult>[]
     //        {

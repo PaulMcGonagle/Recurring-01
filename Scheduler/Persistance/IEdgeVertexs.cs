@@ -6,6 +6,6 @@ namespace Scheduler.Persistance
 {
     public interface IEdgeVertexs<T> : IList<IEdgeVertex<T>> where T : IVertex
     {
-        Vertex.SaveResult Save(IArangoDatabase db, IClock clock, Vertex fromVertex);
+        void Save(IArangoDatabase db, IClock clock, Vertex fromVertex);
     }
 }

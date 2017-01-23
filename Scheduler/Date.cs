@@ -43,13 +43,10 @@ namespace Scheduler
             return Value.ToString();
         }
 
-        public override SaveResult Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-            return Save(new Func<SaveResult>[]
-            {
-                () => Save<Date>(db),
-                () => base.Save(db, clock),
-            });
+            Save<Date>(db);
+            base.Save(db, clock);
         }
     }
 }

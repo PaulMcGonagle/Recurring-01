@@ -57,7 +57,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                             timeZoneProvider: "Europe/London",
                             location: TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                         mockDb.Object,
-                        new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
+                        ScheduleTestHelper.GetFakeClock(2016, 12, 03, 12, 15),
 
                         new List<LocalDateTime>
                         {

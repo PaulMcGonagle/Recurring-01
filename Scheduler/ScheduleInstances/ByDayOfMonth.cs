@@ -82,13 +82,10 @@ namespace Scheduler.ScheduleInstances
             return dates;
         }
 
-        public override SaveResult Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-            return Save(new Func<SaveResult>[]
-            {
-                () => Save<ByDayOfMonth>(db),
-                () => base.Save(db, clock),
-            });
+            Save<ByDayOfMonth>(db);
+            base.Save(db, clock);
         }
     }
 }

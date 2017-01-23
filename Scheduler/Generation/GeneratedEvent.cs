@@ -34,14 +34,12 @@ namespace Scheduler.Generation
 
         #region Save
 
-        public override SaveResult Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-            return Save(new Func<SaveResult>[]
-            {
-                () => Save<GeneratedEvent>(db),
-                //() => Source.Save(db, clock, this),
-                () => base.Save(db, clock),
-            });
+            Save<GeneratedEvent>(db);
+            // ToDo what about Source.Save?
+            //() => Source.Save(db, clock, this);
+            base.Save(db, clock);
         }
 
         #endregion

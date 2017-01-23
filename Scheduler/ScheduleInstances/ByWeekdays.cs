@@ -60,13 +60,10 @@ namespace Scheduler.ScheduleInstances
             return generatedDates;
         }
 
-        public override SaveResult Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-            return Save(new Func<SaveResult>[]
-            {
-                () => Save<ByWeekdays>(db),
-                () => base.Save(db, clock),
-            });
+            Save<ByWeekdays>(db);
+            base.Save(db, clock);
         }
     }
 }

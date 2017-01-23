@@ -7,6 +7,6 @@ namespace Scheduler.Persistance
     {
         string Label { get; set; }
 
-        Vertex.SaveResult Save(IArangoDatabase db, IClock clock, Vertex fromVertex);
+        void Save(IArangoDatabase db, IClock clock, Vertex fromVertex);
     }
 }

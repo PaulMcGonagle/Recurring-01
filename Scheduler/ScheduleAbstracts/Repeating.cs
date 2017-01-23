@@ -22,21 +22,15 @@ namespace Scheduler.ScheduleAbstracts
         {
             throw new NotImplementedException();
         }
+        
+        #region Save
 
-#region Save
-
-        public override SaveResult Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-            if (EdgeRange == null)
-                return SaveResult.Incomplete;
-
-            var results = base.Save(db, clock);
-
-            if (results != SaveResult.Success) return results;
-
-            return EdgeRange.Save(db, clock, this);
+            base.Save(db, clock);
+            EdgeRange?.Save(db, clock, this);
         }
 
-#endregion
+        #endregion
     }
 }

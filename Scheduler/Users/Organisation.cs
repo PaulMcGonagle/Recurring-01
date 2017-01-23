@@ -17,14 +17,11 @@ namespace Scheduler.Users
         [IgnoreDataMember]
         public List<Event> Events { get; set; }
 
-        public override SaveResult Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-            return Save(new Func<SaveResult>[]
-                       {
-                () => Save<Organisation>(db),
-                () => Location?.Save(db, clock, this) ?? SaveDummy(), 
-                () => base.Save(db, clock),
-            });
+            Save<Organisation>(db);
+            Location?.Save(db, clock, this);
+            base.Save(db, clock);
         }
     }
 }

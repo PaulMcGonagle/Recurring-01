@@ -31,14 +31,14 @@ namespace Scheduler.Persistance
 
         }
 
-        public Vertex.SaveResult Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
+        public void Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
         {
             foreach (var edge in this)
             {
                 edge.Save(db, clock, fromVertex);
             }
 
-            return Vertex.SaveResult.Success;
+            return;
         }
 
         public void SetToDelete()
@@ -47,7 +47,7 @@ namespace Scheduler.Persistance
 
         }
 
-        public Vertex.SaveResult Save(IArangoDatabase db, IClock clock)
+        public void Save(IArangoDatabase db, IClock clock)
         {
             throw new NotImplementedException();
         }

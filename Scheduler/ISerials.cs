@@ -13,6 +13,6 @@ namespace Scheduler
     {
         IEpisodes Episodes { get; }
 
-        Vertex.SaveResult Save(IArangoDatabase db, IClock clock);
+        void Save(IArangoDatabase db, IClock clock);
     }
 }

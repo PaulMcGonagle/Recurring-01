@@ -17,17 +17,9 @@ namespace Scheduler
             
         }
 
-        public Vertex.SaveResult Save(IArangoDatabase db, IClock clock)
+        public void Save(IArangoDatabase db, IClock clock)
         {
-            foreach (var episode in this)
-            {
-                var result = episode.Save(db, clock);
-
-                if (result != Vertex.SaveResult.Success)
-                    return result;
-            }
-
-            return Vertex.SaveResult.Success;
+            this.ForEach(e => e.Save(db, clock));
         }
     }
 }

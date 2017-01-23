@@ -7,7 +7,7 @@ namespace Scheduler
 {
     public interface IEpisodes : IList<IEpisode>
     {
-        Vertex.SaveResult Save(IArangoDatabase db, IClock clock);
+        void Save(IArangoDatabase db, IClock clock);
 
         void AddRange(IEnumerable<IEpisode> episodes);
     }

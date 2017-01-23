@@ -16,9 +16,9 @@ namespace ScheduleGeneration.Test
             {
                 var result = new Mock<IDocumentIdentifierResult>();
 
-                result.Object.Id = Guid.NewGuid().ToString();
-                result.Object.Key = Guid.NewGuid().ToString();
-                result.Object.Rev = Guid.NewGuid().ToString();
+                result.SetupGet(r => r.Id).Returns(Guid.NewGuid().ToString());
+                result.SetupGet(r => r.Key).Returns(Guid.NewGuid().ToString());
+                result.SetupGet(r => r.Rev).Returns(Guid.NewGuid().ToString());
 
                 return result;
             }

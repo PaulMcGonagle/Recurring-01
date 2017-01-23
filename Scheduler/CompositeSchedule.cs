@@ -62,16 +62,12 @@ namespace Scheduler
             };
         }
 
-        public override SaveResult Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-
-            return Vertex.Save(new Func<SaveResult>[]
-            {
-                () => Save<CompositeSchedule>(db),
-                () => InclusionsEdges.Save(db, clock, this),
-                () => ExclusionsEdges.Save(db, clock, this),
-                () => base.Save(db, clock),
-            });
+            Save<CompositeSchedule>(db);
+            InclusionsEdges.Save(db, clock, this);
+            ExclusionsEdges.Save(db, clock, this);
+            base.Save(db, clock);
         }
     }
 }

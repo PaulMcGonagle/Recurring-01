@@ -55,13 +55,10 @@ namespace Scheduler
             return Period.Ticks.CompareTo(c.Period.Ticks);
         }
 
-        public override SaveResult Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-            return Save(new Func<SaveResult>[]
-            {
-                () => Save<Episode>(db),
-                () => base.Save(db, clock),
-            });
+            Save<Episode>(db);
+            base.Save(db, clock);
         }
     }
 }

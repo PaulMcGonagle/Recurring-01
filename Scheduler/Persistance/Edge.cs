@@ -22,18 +22,14 @@ namespace Scheduler.Persistance
 
         #region Save
 
-        public SaveResult Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
+        public void Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
         {
             FromVertex = fromVertex;
 
             if (!FromVertex.IsPersisted)
-                return SaveResult.Incomplete;
+                throw new SaveException(SaveResult.Incomplete, this.GetType(), $"FromVertex has not been persisted ({FromVertex.ToString()})");
 
-            return Save(new Func<SaveResult>[]
-            {
-                () => ToVertex.Save(db, clock),
-                () => Save<Edge>(db),
-            });
+            Save<Edge>(db);
         }
 
         #endregion

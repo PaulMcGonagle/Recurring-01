@@ -62,16 +62,13 @@ namespace Scheduler
             }
         }
 
-        public override SaveResult Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-            return Save(new Func<SaveResult>[]
-            {
-                () => Save<Event>(db),
-                () => Serials.Save(db, clock, this),
-                () => GeneratedEvent?.Save(db, clock, this) ?? SaveDummy(),
-                () => Location?.Save(db, clock, this) ?? SaveDummy(),
-                () => base.Save(db, clock),
-            });
+            Save<Event>(db);
+            Serials.Save(db, clock, this);
+            GeneratedEvent?.Save(db, clock, this);
+            Location?.Save(db, clock, this);
+            base.Save(db, clock);
         }
 
         public static Event Create(Schedule schedule, TimeRange timerange, string timeZoneProvider, Location location = null)

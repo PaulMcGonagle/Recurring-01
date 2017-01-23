@@ -8,14 +8,14 @@ namespace Scheduler.Persistance
     {
         #region Save
 
-        public Vertex.SaveResult Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
+        public void Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
         {
             foreach (var edge in this)
             {
                 edge.Save(db, clock, fromVertex);
             }
 
-            return Vertex.SaveResult.Success;
+            return;
         }
 
         #endregion

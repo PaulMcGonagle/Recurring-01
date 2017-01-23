@@ -36,9 +36,9 @@ namespace Scheduler.Persistance
 
         IEnumerable<IVertex> GetLinks(int depth);
 
-            #region Save
+        #region Save
 
-        Vertex.SaveResult Save(IArangoDatabase db, IClock clock);
+        void Save(IArangoDatabase db, IClock clock);
 
         #endregion
     }

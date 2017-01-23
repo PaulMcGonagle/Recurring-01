@@ -14,17 +14,9 @@ namespace Scheduler.Generation
             AddRange(generatedEvents);
         }
 
-        public Vertex.SaveResult Save(IArangoDatabase db, IClock clock)
+        public void Save(IArangoDatabase db, IClock clock)
         {
-            foreach (var generatedEvent in this)
-            {
-                var result = generatedEvent.Save(db, clock);
-
-                if (result != Vertex.SaveResult.Success)
-                    return result;
-            }
-
-            return Vertex.SaveResult.Success;
+            this.ForEach(e => e.Save(db, clock));
         }
     }
 }

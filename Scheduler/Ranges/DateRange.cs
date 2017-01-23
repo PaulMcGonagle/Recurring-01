@@ -40,13 +40,10 @@ namespace Scheduler.Ranges
             return From.Value <= localDate && localDate <= To.Value;
         }
 
-        public override SaveResult Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-            return Save(new Func<SaveResult>[]
-            {
-                () => Save<DateRange>(db),
-                () => base.Save(db, clock),
-            });
+            Save<DateRange>(db);
+            base.Save(db, clock);
         }
     }
 }

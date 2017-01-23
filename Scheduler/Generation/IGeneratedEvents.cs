@@ -7,6 +7,6 @@ namespace Scheduler.Generation
 {
     public interface IGeneratedEvents : IList<IGeneratedEvent>
     {
-        Vertex.SaveResult Save(IArangoDatabase db, IClock clock);
+        void Save(IArangoDatabase db, IClock clock);
     }
 }

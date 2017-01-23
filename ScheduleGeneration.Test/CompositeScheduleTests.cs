@@ -32,7 +32,7 @@ namespace ScheduleGeneration.Test
             [Fact]
             public void Execute()
             {
-                var fakeClock = ScheduleTestHelper.GetFakeClock(2016, 05, 01);
+                var fakeClock = new FakeClock(Instant.FromUtc(2016, 05, 01, 0, 0));
 
                 var mockDb = new Mock<IArangoDatabase>();
 
