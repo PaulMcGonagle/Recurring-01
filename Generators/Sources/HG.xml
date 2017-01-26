@@ -2,36 +2,44 @@
 <generators>
   <generator title="Hampden Gurney School Terms">
     <tags>
-      <tag id="type">School</tag>
+      <tag id="type" value="School">
+        <tags>
+          <tag id="type" value="Primary"/>
+        </tags>
+      </tag>
       <tag id="type">Term</tag>
     </tags>
     <terms>
       <term name="Autumn">
         <tags>
-          <tag id="year">2016/17</tag>
+          <tag id="year" value="2016/17">
+            <tags>
+              <tag id="year" value="2016/17"/>
+            </tags>
+          </tag>
         </tags>
-        <daterange start="2016-09-02" end="2016-12-21"/>
+        <rangeDate start="2016-09-02" end="2016-12-21"/>
         <breaks>
           <break name="half-term">
-            <daterange start="2016-10-26" end="2016-11-02"/>
+            <rangeDate start="2016-10-26" end="2016-11-02"/>
           </break>
         </breaks>
       </term>
       <term name="Winter">
         <tags>
-          <tag id="year">2016/17</tag>
+          <tag id="year" value="2016/17"/>
         </tags>
-        <daterange start="2017-01-05" end="2017-03-28"/>
+        <rangeDate start="2017-01-05" end="2017-03-28"/>
         <breaks>
-          <break name="half-term">
-            <daterange start="2017-02-25" end="2017-03-02"/>
+          <break name="Half-Term">
+            <rangeDate start="2017-02-25" end="2017-03-02"/>
           </break>
         </breaks>
       </term>
     </terms>
     <events>
       <event term="Autumn" class="Playtime"/>
-      <!--<event term="Autumn" class="Lunchtime"/>
+      <event term="Autumn" class="Lunchtime"/>
       <event term="Autumn" class="Literacy"/>
       <event term="Autumn" class="Guided Reading"/>
       <event term="Autumn" class="Assembly"/>
@@ -46,44 +54,44 @@
       <event term="Autumn" class="ICT"/>
       <event term="Autumn" class="Library"/>
       <event term="Autumn" class="PSHCE"/>
-      <event term="Autumn" class="Other"/>-->
+      <event term="Autumn" class="Other"/>
     </events>
     <sessions>
       <session name="9am">
-        <timerange start="09:00" end="10:00"/>
+        <rangeTime start="09:00" end="10:00"/>
       </session>
       <session name="9am double">
-        <timerange start="09:00" end="10:00"/>
+        <rangeTime start="09:00" end="10:00"/>
       </session>
       <session name="10am">
-        <timerange start="10:00" end="10:30"/>
+        <rangeTime start="10:00" end="10:30"/>
       </session>
       <session name="10:30am">
-        <timerange start="10:00" end="10:30"/>
+        <rangeTime start="10:00" end="10:30"/>
       </session>
       <session name="Morning playtime">
-        <timerange start="10:50" end="11:05"/>
+        <rangeTime start="10:50" end="11:05"/>
       </session>
       <session name="11:05am">
-        <timerange start="11:05" end="12:00"/>
+        <rangeTime start="11:05" end="12:00"/>
       </session>
       <session name="Lunch">
-        <timerange start="12:00" end="13:00"/>
+        <rangeTime start="12:00" end="13:00"/>
       </session>
       <session name="1pm">
-        <timerange start="13:00" end="14:00"/>
+        <rangeTime start="13:00" end="14:00"/>
       </session>
       <session name="1pm double">
-        <timerange start="13:00" end="14:30"/>
+        <rangeTime start="13:00" end="14:30"/>
       </session>
       <session name="2pm">
-        <timerange start="14:00" end="14:30"/>
+        <rangeTime start="14:00" end="14:30"/>
       </session>
       <session name="Afternoon playtime">
-        <timerange start="14:30" end="14:45"/>
+        <rangeTime start="14:30" end="14:45"/>
       </session>
       <session name="2:45pm">
-        <timerange start="14:45" end="15:30"/>
+        <rangeTime start="14:45" end="15:30"/>
       </session>
     </sessions>
     <times>
@@ -142,7 +150,7 @@
             <weekdays>
               <weekday>Friday</weekday>
             </weekdays>
-            <timerange start="10:00" end="10:25"/>
+            <rangeTime start="10:00" end="10:25"/>
           </schedule>
         </schedules>
       </class>
@@ -156,7 +164,7 @@
             </weekdays>
           </schedule>
           <schedule weekday="Friday">
-            <timerange start="10:25" end="10:50"/>
+            <rangeTime start="10:25" end="10:50"/>
           </schedule>
         </schedules>
       </class>

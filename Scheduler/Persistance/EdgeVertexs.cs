@@ -31,6 +31,22 @@ namespace Scheduler.Persistance
 
         }
 
+        public new void AddRange(IEnumerable<IEdgeVertex<T>> items)
+        {
+            foreach (var item in items)
+            {
+                this.Add(item);
+            }
+        }
+
+        public void AddRange(IEnumerable<T> items)
+        {
+            foreach (var item in items)
+            {
+                this.Add(new EdgeVertex<T>(item));
+            }
+        }
+
         public void Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
         {
             foreach (var edge in this)

@@ -2,7 +2,7 @@
 
 namespace Scheduler.ScheduleEdges
 {
-    public class EdgeSchedule : EdgeVertex<ISchedule>
+    public class EdgeSchedule : EdgeVertex<ISchedule>, IEdgeSchedule
     {
         public EdgeSchedule(ISchedule toVertex)
             : base(toVertex)

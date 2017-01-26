@@ -15,7 +15,7 @@ namespace Scheduler
     {
         public Serial(
             ISchedule schedule, 
-            ITimeRange timeRange, 
+            IEdgeRangeTime timeRange, 
             string timeZoneProvider)
         {
             EdgeSchedule = new EdgeSchedule(schedule);
@@ -24,9 +24,9 @@ namespace Scheduler
         }
 
         [IgnoreDataMember]
-        public EdgeSchedule EdgeSchedule;
-
-        public ITimeRange TimeRange;
+        public IEdgeSchedule EdgeSchedule;
+        [IgnoreDataMember]
+        public IEdgeRangeTime TimeRange;
         public string TimeZoneProvider;
 
         [IgnoreDataMember]
@@ -40,7 +40,7 @@ namespace Scheduler
                 if (TimeRange == null)
                     throw new ArgumentException("TimeRange");
 
-                if (TimeRange?.Period == null)
+                if (TimeRange?.Range?.Period == null)
                     throw new ArgumentException("Period");
 
                 if (TimeZoneProvider == null)
@@ -49,14 +49,14 @@ namespace Scheduler
                 var episodes = new Episodes();
 
                 episodes.AddRange(
-                    EdgeSchedule.ToVertex
+                    EdgeSchedule.Schedule
                         .Generate()
                         .Select(o => new Episode
                         {
                             SourceSerial = new EdgeVertex<ISerial>(this),
                             SourceGeneratedDate = new EdgeVertex<IGeneratedDate>(o),
-                            From = DateTimeHelper.GetZonedDateTime(o.Date, TimeRange.From, TimeZoneProvider),
-                            Period = TimeRange.Period,
+                            From = DateTimeHelper.GetZonedDateTime(o.Date, TimeRange.Range.From, TimeZoneProvider),
+                            Period = TimeRange.Range?.Period,
                         }));
 
                 return episodes;
@@ -74,7 +74,7 @@ namespace Scheduler
                 if (EdgeSchedule != null)
                 {
                     list.Add(EdgeSchedule.Edge);
-                    list.Add(EdgeSchedule.ToVertex);
+                    list.Add(EdgeSchedule.Schedule);
                 }
 
                 return list;
@@ -86,6 +86,7 @@ namespace Scheduler
             Save<Serial>(db);
             EdgeSchedule?.Save(db, clock, this);
             Episodes?.Save(db, clock);
+            TimeRange?.Save(db, clock, this);
             base.Save(db, clock);
         }
     }

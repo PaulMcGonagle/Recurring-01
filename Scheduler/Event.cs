@@ -6,6 +6,7 @@ using NodaTime;
 using Scheduler.Generation;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
+using Scheduler.ScheduleEdges;
 using Scheduler.Users;
 
 namespace Scheduler
@@ -41,6 +42,9 @@ namespace Scheduler
         public IEdgeVertexs<ISerial> Serials { get; set; }
 
         [IgnoreDataMember]
+        public IEdgeVertexs<ITag> Tags { get; set; } = new EdgeVertexs<ITag>();
+
+        [IgnoreDataMember]
         public IEdgeVertex<IGeneratedEvent> GeneratedEvent { get; set; }
 
         protected override IEnumerable<IVertex> Links
@@ -65,12 +69,13 @@ namespace Scheduler
         {
             Save<Event>(db);
             Serials.Save(db, clock, this);
+            Tags.Save(db, clock, this);
             GeneratedEvent?.Save(db, clock, this);
             Location?.Save(db, clock, this);
             base.Save(db, clock);
         }
 
-        public static Event Create(Schedule schedule, TimeRange timerange, string timeZoneProvider, Location location = null)
+        public static Event Create(Schedule schedule, ITimeRange rangeTime, string timeZoneProvider, Location location = null)
         {
             return new Event
             {
@@ -83,7 +88,7 @@ namespace Scheduler
                                 new EdgeVertex<ISchedule>(schedule),
                             },
                         },
-                        timeRange: timerange,
+                        timeRange: new EdgeRangeTime(rangeTime),
                         timeZoneProvider: timeZoneProvider)),
                 Location = location != null ? new EdgeVertex<Location>(location) : null,
             };

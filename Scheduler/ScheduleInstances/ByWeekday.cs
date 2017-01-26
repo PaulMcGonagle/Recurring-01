@@ -46,7 +46,7 @@ namespace Scheduler.ScheduleInstances
                 clock: clock,
                 weekday: weekday)
             {
-                EdgeRange = new EdgeRange(range),
+                EdgeRange = new EdgeRangeDate(range),
             };
 
             return byWeekday;

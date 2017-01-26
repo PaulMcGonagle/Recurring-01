@@ -35,7 +35,7 @@ namespace Scheduler.Test
                                             new Date(2016, YearMonth.MonthValue.January, 07),
                                         }
                                     },
-                                timeRange: new TimeRange(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
+                                timeRange: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
                                 timeZoneProvider: timeZoneProvider),
                             new Episodes
                             {
@@ -100,14 +100,14 @@ namespace Scheduler.Test
                         {
                             new Serial(
                                 schedule: new DateList { Items = new List<Date>(), },
-                                timeRange: new TimeRange(new LocalTime(15, 30), null),
+                                timeRange: new EdgeRangeTime(new LocalTime(15, 30), null),
                                 timeZoneProvider: timeZoneProvider),
                             "Period"
                         },
                         {
                             new Serial(
                                 schedule: new DateList { Items = new List<Date>(), },
-                                timeRange: new TimeRange(new LocalTime(15, 30), new PeriodBuilder {Minutes = 30,}.Build()),
+                                timeRange: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Minutes = 30,}.Build()),
                                 timeZoneProvider: null),
                             "TimeZoneProvider"
                         },

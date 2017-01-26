@@ -8,6 +8,7 @@ namespace Scheduler
     {
         EdgeVertex<Location> Location { get; set; }
         IEdgeVertexs<ISerial> Serials { get; set; }
+        IEdgeVertexs<ITag> Tags { get; set; }
         string Title { get; set; }
         IEdgeVertex<IGeneratedEvent> GeneratedEvent { get; set; }
     }

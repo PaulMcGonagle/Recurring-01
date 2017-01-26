@@ -26,7 +26,7 @@ namespace Scheduler.Test.Repeating
                             new ByWeekdays
                             {
                                 Days = new List<IsoDayOfWeek> {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
-                                EdgeRange = new EdgeRange(2000, YearMonth.MonthValue.April, 15, 2010, YearMonth.MonthValue.November, 28),
+                                EdgeRange = new EdgeRangeDate(2000, YearMonth.MonthValue.April, 15, 2010, YearMonth.MonthValue.November, 28),
                             },
                             new List<IsoDayOfWeek> {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
                             new Date(2000, YearMonth.MonthValue.April, 15),

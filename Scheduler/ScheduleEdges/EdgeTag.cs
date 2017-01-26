@@ -2,15 +2,15 @@
 
 namespace Scheduler.ScheduleEdges
 {
-    public class EdgeTag : EdgeVertex<Tag>
+    public class EdgeTag : EdgeVertex<ITag>, IEdgeTag
     {
-        public EdgeTag(Tag toVertex)
+        public EdgeTag(ITag toVertex)
             : base(toVertex)
         {
             
         }
 
-        public Tag Tag
+        public ITag Tag
         {
             get { return ToVertex; }
             set { ToVertex = value;  }

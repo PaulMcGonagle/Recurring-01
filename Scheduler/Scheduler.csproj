@@ -119,9 +119,15 @@
     <Compile Include="SaveException.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="ScheduleEdges\EdgeDate.cs" />
-    <Compile Include="ScheduleEdges\EdgeRange.cs" />
+    <Compile Include="ScheduleEdges\EdgeRangeDate.cs" />
+    <Compile Include="ScheduleEdges\EdgeRangeTime.cs" />
     <Compile Include="ScheduleEdges\EdgeSchedule.cs" />
     <Compile Include="ScheduleEdges\EdgeTag.cs" />
+    <Compile Include="ScheduleEdges\IEdgeDate.cs" />
+    <Compile Include="ScheduleEdges\IEdgeRangeDate.cs" />
+    <Compile Include="ScheduleEdges\IEdgeRangeTime.cs" />
+    <Compile Include="ScheduleEdges\IEdgeSchedule.cs" />
+    <Compile Include="ScheduleEdges\IEdgeTag.cs" />
     <Compile Include="Serials.cs" />
     <Compile Include="CompositeSchedule.cs" />
     <Compile Include="Serial.cs" />

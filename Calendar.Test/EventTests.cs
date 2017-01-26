@@ -38,7 +38,7 @@ namespace MyCalendar.Test
                                                 schedule: new ByWeekday(
                                                     clock: fakeClock,
                                                     weekday: IsoDayOfWeek.Thursday),
-                                                timeRange: new TimeRange(new LocalTime(16, 45), new PeriodBuilder { Minutes = 45}.Build()),
+                                                timeRange: new EdgeRangeTime(new TimeRange(new LocalTime(16, 45), new PeriodBuilder { Minutes = 45}.Build())),
                                                 timeZoneProvider: TimeZoneProvider)),
                                 Title = "Street dance",
                             },
@@ -104,7 +104,7 @@ namespace MyCalendar.Test
                                             {
                                                 Date = new Scheduler.Date(2016, YearMonth.MonthValue.July, 01),
                                             },
-                                            timeRange: new TimeRange(new LocalTime(14, 00), new PeriodBuilder { Minutes = 1 }.Build()),
+                                            timeRange: new EdgeRangeTime(new LocalTime(14, 00), new PeriodBuilder { Minutes = 1 }.Build()),
                                             timeZoneProvider: "Europe/London")),
                                 Title = "Street dance",
                             },

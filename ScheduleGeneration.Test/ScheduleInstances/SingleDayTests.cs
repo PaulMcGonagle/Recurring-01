@@ -44,7 +44,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                     {
                         Event.Create(
                             schedule: new SingleDay { Date = new Date(2016, YearMonth.MonthValue.January, 01) },
-                            timerange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder {Minutes = 45}.Build()),
+                            rangeTime: new TimeRange(new LocalTime(16, 30), new PeriodBuilder {Minutes = 45}.Build()),
                             timeZoneProvider: "Europe/London"),
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
@@ -135,7 +135,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                         {
                                             Date = new Date(2016, YearMonth.MonthValue.January, 01),
                                         },
-                            timerange: new TimeRange(new LocalTime(16, 30), null),
+                            rangeTime: new TimeRange(new LocalTime(16, 30), null),
                             timeZoneProvider: "Europe/London"),
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
@@ -147,7 +147,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                         {
                                             Date = new Date(2016, YearMonth.MonthValue.January, 01),
                                         },
-                            timerange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder {Minutes = 45}.Build()),
+                            rangeTime: new TimeRange(new LocalTime(16, 30), new PeriodBuilder {Minutes = 45}.Build()),
                             timeZoneProvider: null),
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),

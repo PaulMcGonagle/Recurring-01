@@ -21,8 +21,6 @@ namespace InitialiseDatabase
         // ReSharper disable once UnusedParameter.Local
         static void Main(string[] args)
         {
-            Generator generator = new Generator();
-
             Organisation organisation = new Organisation
             {
                 Title = "Hampden Gurney Primary School",
@@ -32,7 +30,7 @@ namespace InitialiseDatabase
                 }),
             };
 
-            var events = generator.GenerateEvents(
+            var events = Generator.GenerateEvents(
                 sourceFile: "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\HG.xml",
                 organisation: organisation);
 
@@ -168,7 +166,7 @@ namespace InitialiseDatabase
                         weekday: IsoDayOfWeek.Wednesday,
                         range: new DateRange(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05)
                     ),
-                    timerange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                    rangeTime: new TimeRange(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                     timeZoneProvider: "Europe/London",
                     location: new Location
                     {
@@ -213,14 +211,14 @@ W1H 2DS"
                                                 {
                                                     new EdgeVertex<ISchedule>(new ByDayOfMonth
                                                         {
-                                                            EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
+                                                            EdgeRange = new EdgeRangeDate(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
                                                             Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
                                                             DayOfMonth = 10,
                                                         })
                                                     ,
                                                 },
                                     },
-                                    timeRange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                                    timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                                     timeZoneProvider: "Europe/London")),
                         Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                     }.Save(db, clock);
@@ -240,7 +238,7 @@ W1H 2DS"
                                             ,
                                         },
                                     },
-                                    timeRange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                                    timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                                     timeZoneProvider: "Europe/London")),
                         Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                     }.Save(db, clock);
@@ -255,7 +253,7 @@ W1H 2DS"
                                     {
                                         new EdgeVertex<ISchedule>(new ByWeekdays
                                             {
-                                                EdgeRange = new EdgeRange(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
+                                                EdgeRange = new EdgeRangeDate(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
                                                 Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
                                                 Days = new List<IsoDayOfWeek>
                                                 {
@@ -265,7 +263,7 @@ W1H 2DS"
                                             }
                                         ),                                },
                                     },
-                                timeRange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                                timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                                 timeZoneProvider: "Europe/London")),
                     }.Save(db, clock);
                 
@@ -290,7 +288,7 @@ W1H 2DS"
                                             ),
                                         },
                                     },
-                                    timeRange: new TimeRange(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                                    timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                                     timeZoneProvider: "Europe/London")),
                     }.Save(db, clock);
                 }

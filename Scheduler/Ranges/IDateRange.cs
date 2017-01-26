@@ -1,9 +1,10 @@
 ﻿using NodaTime;
+using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
 
 namespace Scheduler.Ranges
 {
-    public interface IDateRange
+    public interface IDateRange : IVertex
     {
         EdgeDate From { get; }
         EdgeDate To { get; }

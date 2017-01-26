@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<generators>
+  <generator title="Hampden Gurney School Terms">
+    <tags>
+      <tag id="type" value="School">
+        <tags>
+          <tag id="type" value="Primary"/>
+        </tags>
+      </tag>
+      <tag id="type">Term</tag>
+    </tags>
+    <terms>
+      <term name="Autumn">
+        <tags>
+          <tag id="year" value="2016/17">
+            <tags>
+              <tag id="year" value="2016/17"/>
+            </tags>
+          </tag>
+        </tags>
+        <rangeDate start="2016-09-02" end="2016-12-21"/>
+        <breaks>
+          <break name="half-term">
+            <rangeDate start="2016-10-26" end="2016-11-02"/>
+          </break>
+        </breaks>
+      </term>
+      <term name="Winter">
+        <tags>
+          <tag id="year" value="2016/17"/>
+        </tags>
+        <rangeDate start="2017-01-05" end="2017-03-28"/>
+        <breaks>
+          <break name="Half-Term">
+            <rangeDate start="2017-02-25" end="2017-03-02"/>
+          </break>
+        </breaks>
+      </term>
+    </terms>
+    <events>
+      <event term="Autumn" class="Literacy">
+        <tags>
+          <tag id="id_A" value="value_A">
+            <tags>
+              <tag id="id_B" value="value_B"/>
+            </tags>
+          </tag>
+        </tags>
+      </event>
+    </events>
+    <sessions>
+      <session name="9am">
+        <rangeTime start="09:00" end="10:00"/>
+      </session>
+    </sessions>
+    <times>
+      <time name="Start of day">09:00</time>
+      <time name="End of day">15:30</time>
+    </times>
+    <classes>
+      <class name="Literacy">
+        <schedules>
+          <schedule session="9am">
+            <weekdays>
+              <weekday>Monday</weekday>
+              <weekday>Tuesday</weekday>
+              <weekday>Wednesday</weekday>
+              <weekday>Friday</weekday>
+            </weekdays>
+          </schedule>
+        </schedules>
+      </class>
+    </classes>
+  </generator>
+</generators>

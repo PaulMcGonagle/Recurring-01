@@ -3,15 +3,15 @@ using Scheduler.Ranges;
 
 namespace Scheduler.ScheduleEdges
 {
-    public class EdgeRange : EdgeVertex<DateRange>
+    public class EdgeRangeDate : EdgeVertex<IDateRange>, IEdgeRangeDate
     {
-        public EdgeRange(DateRange toVertex)
+        public EdgeRangeDate(DateRange toVertex)
             : base(toVertex)
         {
 
         }
 
-        public EdgeRange(
+        public EdgeRangeDate(
             int fromYear, 
             YearMonth.MonthValue fromMonth, 
             int fromDay, 
@@ -29,7 +29,7 @@ namespace Scheduler.ScheduleEdges
 
         }
 
-        public DateRange Range
+        public IDateRange Range
         {
             get { return ToVertex; }
             set { ToVertex = value; }

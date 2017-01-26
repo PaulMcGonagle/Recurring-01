@@ -1,8 +1,10 @@
-﻿using NodaTime;
+﻿using ArangoDB.Client;
+using NodaTime;
+using Scheduler.Persistance;
 
 namespace Scheduler.Ranges
 {
-    public class TimeRange : ITimeRange
+    public class TimeRange : Vertex, ITimeRange
     {
         public LocalTime From { get; set; }
 
@@ -12,6 +14,12 @@ namespace Scheduler.Ranges
         {
             From = from;
             Period = period;
+        }
+
+        public override void Save(IArangoDatabase db, IClock clock)
+        {
+            Save<TimeRange>(db);
+            base.Save(db, clock);
         }
     }
 }

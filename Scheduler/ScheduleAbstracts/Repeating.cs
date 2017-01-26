@@ -10,7 +10,7 @@ namespace Scheduler.ScheduleAbstracts
     public abstract class Repeating : Schedule
     {
         [IgnoreDataMember]
-        public EdgeRange EdgeRange;
+        public IEdgeRangeDate EdgeRange;
         public int? CountFrom;
         public int? CountTo;
         public int CountFromDefault { get; set; }

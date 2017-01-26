@@ -214,7 +214,7 @@ namespace Scheduler.Test.Repeating
                                 DayOfYear = 05,
                                 Month = YearMonth.MonthValue.April,
                                 Clock = fakeClock,
-                                EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.March, 01, 2020, YearMonth.MonthValue.April, 30),
+                                EdgeRange = new EdgeRangeDate(2016, YearMonth.MonthValue.March, 01, 2020, YearMonth.MonthValue.April, 30),
                                 RollStrategy = RepeatingDay.RollStrategyType.Skip
                             },
                             Enumerable.Range(2016, 5)

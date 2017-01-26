@@ -65,7 +65,7 @@ namespace Scheduler.Test
                     new EdgeVertex<ISchedule>(new ByWeekdays
                         {
                             Days = ScheduleTestHelper.Weekdays,
-                            EdgeRange = new EdgeRange(2016, YearMonth.MonthValue.September, 06, 2016, YearMonth.MonthValue.December, 19),
+                            EdgeRange = new EdgeRangeDate(2016, YearMonth.MonthValue.September, 06, 2016, YearMonth.MonthValue.December, 19),
                         })
                 },
             };

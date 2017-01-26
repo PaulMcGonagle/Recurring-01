@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 using NodaTime;
 using NodaTime.Testing;
 using NodaTime.Text;
 using Scheduler;
-using Scheduler.Generation;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
@@ -20,7 +16,7 @@ namespace Generators
 {
     public class Generator
     {
-        public List<IEvent> GenerateEvents(string sourceFile, Organisation organisation)
+        public static IEnumerable<IEvent> GenerateEvents(string sourceFile, IOrganisation organisation)
         {
             List<IEvent> events = new List<IEvent>();
 
@@ -53,6 +49,10 @@ namespace Generators
                     .Elements("events")
                     .Elements("event")
                     .ToList();
+                var inputTags = inputGenerator
+                    .Elements("tags")
+                    .Elements("tag")
+                    .ToList();
 
                 foreach (var inputEvent in inputEvents.Where(c => c != null))
                 {
@@ -60,7 +60,7 @@ namespace Generators
                     var className = inputEvent?.Attribute("class")?.Value;
 
                     var term = inputTerms?.SingleOrDefault(t => t.Attribute("name").Value == termName);
-                    var termRange = RetreiveDateRange(term);
+                    var termRange = RetrieveDateRange(term);
 
                     var inputClass = inputClasses
                         .SingleOrDefault(c => c.Attribute("name")?.Value == className);
@@ -71,6 +71,8 @@ namespace Generators
                         ?.Elements("schedules")
                         .Elements("schedule")
                         .ToList();
+
+                    var eventTags = RetrieveTags(inputEvent);
 
                     ISerials serials = new Serials();
 
@@ -98,6 +100,11 @@ namespace Generators
                             .Elements("break")
                             .ToList();
 
+                        var inputScheduleTags = term
+                            .Elements("tags")
+                            .Elements("tag")
+                            .ToList();
+
                         ISchedule schedule;
 
                         if (inputBreaks.Count > 0)
@@ -107,14 +114,16 @@ namespace Generators
                                 schedule: byWeekdays,
                                 dateRange: termRange);
 
-                            foreach (var @inputBreak in inputBreaks)
+                            foreach (var inputBreak in inputBreaks)
                             {
-                                string name = @inputBreak?.Attribute("name").Value;
+                                string name = inputBreak?.Attribute("name").Value;
 
-                                var breakRange = RetreiveDateRange(@inputBreak);
+                                var breakRange = RetrieveDateRange(inputBreak);
 
-                                compositeSchedule.Breaks.Add(breakRange);
+                                compositeSchedule.Breaks.Add(new EdgeVertex<IDateRange>(breakRange));
                             }
+
+                            compositeSchedule.Tags.AddRange(RetrieveTags(term));
 
                             schedule = compositeSchedule;
                         }
@@ -125,7 +134,7 @@ namespace Generators
 
                         var serial = new Serial(
                             schedule: schedule,
-                            timeRange: timeRange,
+                            timeRange: new EdgeRangeTime(timeRange),
                             timeZoneProvider: "Europe/London");
 
                         serials.Add(serial);
@@ -136,6 +145,7 @@ namespace Generators
                         Title = organisation.Title + "." + termName + "." + className,
                         Serials = new EdgeVertexs<ISerial>(toVertexs: serials),
                         Location = organisation.Location,
+                        Tags = new EdgeVertexs<ITag>(eventTags),
                     };
 
                     events.Add(@event);
@@ -146,30 +156,64 @@ namespace Generators
         }
 
 
-        private static DateRange RetreiveDateRange(XElement input, string elementName = "daterange")
+        private static DateRange RetrieveDateRange(XElement input, string elementName = "rangeDate")
         {
-            var daterange = input.Element(elementName);
+            var rangeDate = input.Element(elementName);
 
-            if (daterange == null)
+            if (rangeDate == null)
                 throw new ArgumentException("Could not find Element {elementName}");
 
-            var start = ParseAttributeAsLocalDate(daterange, "start");
-            var end = ParseAttributeAsLocalDate(daterange, "end");
+            var start = ParseAttributeAsLocalDate(rangeDate, "start");
+            var end = ParseAttributeAsLocalDate(rangeDate, "end");
 
             return new DateRange(
                 from: new EdgeDate(start),
                 to: new EdgeDate(end));
         }
 
-        private static TimeRange RetrieveTimeRange(XElement input, string elementName = "timerange")
-        {
-            var timerange = input.Element(elementName);
 
-            if (timerange == null)
+        private static ITag RetrieveTag(XElement inputTag)
+        {
+            var inputRelatedTags = inputTag
+                .Elements("tags")
+                .Elements("tag")
+                .ToList();
+
+            var relatedTags = inputRelatedTags.Select(RetrieveTag);
+
+            var inputIdent = ParseAttribute(inputTag, "id");
+            var inputValue= ParseAttribute(inputTag, "value");
+
+            var tag = new Tag(inputIdent.Value, inputValue.Value);
+
+            tag.RelatedTags.AddRange(relatedTags.Select(relatedTag => new EdgeTag(relatedTag)));
+
+            return tag;
+        }
+
+        private static IEnumerable<ITag> RetrieveTags(XElement input)
+        {
+            var inputRelatedTags = input
+                .Elements("tags")
+                .Elements("tag")
+                .ToList();
+
+
+            foreach (var inputRelatedTag in inputRelatedTags)
+            {
+                yield return RetrieveTag(inputRelatedTag);
+            }
+        }
+
+        private static ITimeRange RetrieveTimeRange(XElement input, string elementName = "rangeTime")
+        {
+            var rangeTime = input.Element(elementName);
+
+            if (rangeTime == null)
                 throw new ArgumentException("Could not find Element {elementName}");
 
-            var start = ParseAttributeAsLocalTime(timerange, "start");
-            var end = ParseAttributeAsLocalTime(timerange, "end");
+            var start = ParseAttributeAsLocalTime(rangeTime, "start");
+            var end = ParseAttributeAsLocalTime(rangeTime, "end");
 
             Period period = Period.Between(start, end, PeriodUnits.AllTimeUnits);
 

@@ -19,7 +19,11 @@ namespace Scheduler
         [IgnoreDataMember]
         public IEdgeVertexs<ISchedule> ExclusionsEdges { get; set; } = new EdgeVertexs<ISchedule>();
 
-        public IDateRanges Breaks = new DateRanges();
+        [IgnoreDataMember]
+        public IEdgeVertexs<IDateRange> Breaks = new EdgeVertexs<IDateRange>();
+
+        [IgnoreDataMember]
+        public IEdgeVertexs<ITag> Tags = new EdgeVertexs<ITag>();
 
         public override GeneratedDates Generate()
         {
@@ -31,7 +35,7 @@ namespace Scheduler
             list.AddRange(inclusions);
             list.RemoveAll(l => exclusions.Select(e => e.Date.Value).Contains(l.Date.Value));
 
-            list.RemoveAll(d => Breaks.Contains(d.Date.Value));
+            list.RemoveAll(d => Breaks.Select(b => b.ToVertex.Contains(d.Date.Value)).Any());
 
             return list;
         }
@@ -40,8 +44,6 @@ namespace Scheduler
             IClock clock, 
             Schedule schedule,
             DateRange dateRange
-            //string timeZoneProvider, 
-            //Location location = null
             )
         {
             return new CompositeSchedule
@@ -52,7 +54,7 @@ namespace Scheduler
                         clock: clock,
                         weekday: IsoDayOfWeek.Wednesday)
                         {
-                            EdgeRange = new EdgeRange(dateRange),
+                            EdgeRange = new EdgeRangeDate(dateRange),
                         }
                     )
                 },
@@ -64,6 +66,8 @@ namespace Scheduler
             Save<CompositeSchedule>(db);
             InclusionsEdges.Save(db, clock, this);
             ExclusionsEdges.Save(db, clock, this);
+            Breaks.Save(db, clock, this);
+            Tags.Save(db, clock, this);
             base.Save(db, clock);
         }
     }

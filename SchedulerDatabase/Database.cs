@@ -47,6 +47,7 @@ namespace SchedulerDatabase
                 db.CreateCollection("DateRange");
                 db.CreateCollection("TimeRange");
                 db.CreateCollection("Date");
+                db.CreateCollection("Tag");
                 db.CreateCollection("Serial");
                 db.CreateCollection("CompositeSchedule");
                 db.CreateCollection("ByDayOfMonth");
