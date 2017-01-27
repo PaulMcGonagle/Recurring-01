@@ -24,6 +24,8 @@ namespace ScheduleGeneration.Test
             private string _sourceFile;
             private IOrganisation _organisation;
             private IEnumerable<IEvent> _events;
+            private IEvent _event;
+            private ISerial _serial;
 
             [Fact]
             public void Execute()
@@ -31,7 +33,9 @@ namespace ScheduleGeneration.Test
                 this.WithExamples(new ExampleTable(
                     "sourceFile",
                     "organisation",
-                    "expectedTags")
+                    "expectedEventTags",
+                    "expectedEventTags",
+                    "expectedEventTags")
                     {
                         {
                             "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\ScheduleGeneration.Test\\TestData\\BasicSchoolSchedule.xml",
@@ -43,14 +47,46 @@ namespace ScheduleGeneration.Test
                             {
                                 new Tag
                                 {
-                                    Ident = "id_A",
-                                    Value = "value_A",
+                                    Ident = "event_id_A",
+                                    Value = "event_value_A",
                                     RelatedTags = new EdgeVertexs<ITag>
                                         {
                                             new EdgeTag(new Tag
                                             {
-                                                Ident = "id_B",
-                                                Value = "value_B",
+                                                Ident = "event_id_B",
+                                                Value = "event_value_B",
+                                            }),
+                                        },
+                                },
+                            },
+                            new List<ITag>
+                            {
+                                new Tag
+                                {
+                                    Ident = "event_id_A",
+                                    Value = "event_value_A",
+                                    RelatedTags = new EdgeVertexs<ITag>
+                                        {
+                                            new EdgeTag(new Tag
+                                            {
+                                                Ident = "event_id_B",
+                                                Value = "event_value_B",
+                                            }),
+                                        },
+                                },
+                            },
+                            new List<ITag>
+                            {
+                                new Tag
+                                {
+                                    Ident = "event_id_A",
+                                    Value = "event_value_A",
+                                    RelatedTags = new EdgeVertexs<ITag>
+                                        {
+                                            new EdgeTag(new Tag
+                                            {
+                                                Ident = "event_id_B",
+                                                Value = "event_value_B",
                                             }),
                                         },
                                 },
@@ -78,13 +114,25 @@ namespace ScheduleGeneration.Test
             public void ThenOneEventIsGenerated()
             {
                 _events.Count().ShouldBe(1);
+
+                _event = _events.Single();
             }
 
-            public void AndThenTagsAreAsExpected(IEnumerable<ITag> expectedTags)
+            public void AndThenEventTagsAreAsExpected(IEnumerable<ITag> expectedEventTags)
             {
-                var @event = _events.Single();
+                _event.Tags.Select(t => t.ToVertex).ShouldBe(expectedEventTags);
+            }
 
-                @event.Tags.Select(t => t.ToVertex).ShouldBe(expectedTags);
+            public void AndThenEventHasOneSerial(IEnumerable<ITag> expectedEventTags)
+            {
+                _event.Serials.Count().ShouldBe(1);
+
+                _serial = _event.Serials.Single().ToVertex;
+            }
+
+            public void AndThenSerialHasTagsAsExpected(IEnumerable<ITag> expectedEventTags)
+            {
+                _serial.Tags.Select(t => t.ToVertex).ShouldBe(expectedEventTags);
             }
         }
     }

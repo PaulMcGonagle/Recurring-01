@@ -29,40 +29,38 @@ namespace Generators
 
             foreach (var inputGenerator in inputGenerators.Where(g => g != null))
             {
-                var inputClasses = inputGenerator
+                var inputGeneratorClasses = inputGenerator
                     .Elements("classes")
                     .Elements("class")
                     .ToList();
-                var inputTerms = inputGenerator
+                var inputGeneratorTerms = inputGenerator
                     .Elements("terms")
                     .Elements("term")
                     .ToList();
-                var inputTimes = inputGenerator
+                var inputGeneratorTimes = inputGenerator
                     .Elements("times")
                     .Elements("time")
                     .ToList();
-                var inputSessions = inputGenerator
+                var inputGeneratorSessions = inputGenerator
                     .Elements("sessions")
                     .Elements("session")
                     .ToList();
-                var inputEvents = inputGenerator
+                var inputGeneratorEvents = inputGenerator
                     .Elements("events")
                     .Elements("event")
                     .ToList();
-                var inputTags = inputGenerator
-                    .Elements("tags")
-                    .Elements("tag")
-                    .ToList();
 
-                foreach (var inputEvent in inputEvents.Where(c => c != null))
+                var generatorTags = RetrieveTags(inputGenerator);
+
+                foreach (var inputEvent in inputGeneratorEvents.Where(c => c != null))
                 {
                     var termName = inputEvent?.Attribute("term")?.Value;
                     var className = inputEvent?.Attribute("class")?.Value;
 
-                    var term = inputTerms?.SingleOrDefault(t => t.Attribute("name").Value == termName);
+                    var term = inputGeneratorTerms?.SingleOrDefault(t => t.Attribute("name").Value == termName);
                     var termRange = RetrieveDateRange(term);
 
-                    var inputClass = inputClasses
+                    var inputClass = inputGeneratorClasses
                         .SingleOrDefault(c => c.Attribute("name")?.Value == className);
 
                     var title = inputClass?.Attribute("name").Value;
@@ -85,10 +83,12 @@ namespace Generators
 
                         var sessionName = inputSchedule?.Attribute("session")?.Value;
 
-                        var inputSession = inputSessions
+                        var inputSession = inputGeneratorSessions
                             .FirstOrDefault(s => s.Attribute("name")?.Value == sessionName);
 
                         var timeRange = RetrieveTimeRange(inputSession ?? inputSchedule);
+
+                        var scheduleTags = RetrieveTags(inputSchedule);
 
                         var byWeekdays = ByWeekdays.Create(
                             clock: fakeClock,
@@ -98,11 +98,6 @@ namespace Generators
                         var inputBreaks = term
                             .Elements("breaks")
                             .Elements("break")
-                            .ToList();
-
-                        var inputScheduleTags = term
-                            .Elements("tags")
-                            .Elements("tag")
                             .ToList();
 
                         ISchedule schedule;
@@ -123,8 +118,6 @@ namespace Generators
                                 compositeSchedule.Breaks.Add(new EdgeVertex<IDateRange>(breakRange));
                             }
 
-                            compositeSchedule.Tags.AddRange(RetrieveTags(term));
-
                             schedule = compositeSchedule;
                         }
                         else
@@ -136,6 +129,11 @@ namespace Generators
                             schedule: schedule,
                             timeRange: new EdgeRangeTime(timeRange),
                             timeZoneProvider: "Europe/London");
+
+                        var compositeScheduleTags = scheduleTags.Union(eventTags);
+
+                        serial.Tags = new EdgeVertexs<ITag>(compositeScheduleTags);
+
 
                         serials.Add(serial);
                     }

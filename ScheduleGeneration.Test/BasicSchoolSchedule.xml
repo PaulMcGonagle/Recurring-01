@@ -2,14 +2,22 @@
 <generators>
   <generator title="Hampden Gurney School Terms">
     <tags>
-      <tag id="generator_id_A" value="generator_value_A">
+      <tag id="type" value="School">
         <tags>
-          <tag id="generator_id_B" value="generator_value_B"/>
+          <tag id="type" value="Primary"/>
         </tags>
       </tag>
+      <tag id="type">Term</tag>
     </tags>
     <terms>
       <term name="Autumn">
+        <tags>
+          <tag id="year" value="2016/17">
+            <tags>
+              <tag id="year" value="2016/17"/>
+            </tags>
+          </tag>
+        </tags>
         <rangeDate start="2016-09-02" end="2016-12-21"/>
         <breaks>
           <break name="half-term">
@@ -17,13 +25,24 @@
           </break>
         </breaks>
       </term>
+      <term name="Winter">
+        <tags>
+          <tag id="year" value="2016/17"/>
+        </tags>
+        <rangeDate start="2017-01-05" end="2017-03-28"/>
+        <breaks>
+          <break name="Half-Term">
+            <rangeDate start="2017-02-25" end="2017-03-02"/>
+          </break>
+        </breaks>
+      </term>
     </terms>
     <events>
       <event term="Autumn" class="Literacy">
         <tags>
-          <tag id="event_id_A" value="event_value_A">
+          <tag id="id_A" value="value_A">
             <tags>
-              <tag id="event_id_B" value="event_value_B"/>
+              <tag id="id_B" value="value_B"/>
             </tags>
           </tag>
         </tags>
@@ -48,13 +67,6 @@
               <weekday>Wednesday</weekday>
               <weekday>Friday</weekday>
             </weekdays>
-            <tags>
-              <tag id="schedule_id_A" value="schedule_value_A">
-                <tags>
-                  <tag id="schedule_id_B" value="schedule_value_B"/>
-                </tags>
-              </tag>
-            </tags>
           </schedule>
         </schedules>
       </class>

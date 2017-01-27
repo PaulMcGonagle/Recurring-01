@@ -42,7 +42,7 @@ namespace Scheduler
         public IEdgeVertexs<ISerial> Serials { get; set; }
 
         [IgnoreDataMember]
-        public IEdgeVertexs<ITag> Tags { get; set; } = new EdgeVertexs<ITag>();
+        public IEdgeVertexs<ITag> Tags { get; set; }
 
         [IgnoreDataMember]
         public IEdgeVertex<IGeneratedEvent> GeneratedEvent { get; set; }
@@ -69,7 +69,6 @@ namespace Scheduler
         {
             Save<Event>(db);
             Serials.Save(db, clock, this);
-            Tags.Save(db, clock, this);
             GeneratedEvent?.Save(db, clock, this);
             Location?.Save(db, clock, this);
             base.Save(db, clock);

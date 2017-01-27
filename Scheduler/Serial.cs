@@ -27,6 +27,9 @@ namespace Scheduler
         public IEdgeSchedule EdgeSchedule;
         [IgnoreDataMember]
         public IEdgeRangeTime TimeRange;
+        [IgnoreDataMember]
+        public IEdgeVertexs<ITag> Tags { get; set; }
+
         public string TimeZoneProvider;
 
         [IgnoreDataMember]
@@ -86,6 +89,7 @@ namespace Scheduler
             Save<Serial>(db);
             EdgeSchedule?.Save(db, clock, this);
             Episodes?.Save(db, clock);
+            Tags?.Save(db, clock, this);
             TimeRange?.Save(db, clock, this);
             base.Save(db, clock);
         }

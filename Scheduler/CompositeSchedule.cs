@@ -22,9 +22,6 @@ namespace Scheduler
         [IgnoreDataMember]
         public IEdgeVertexs<IDateRange> Breaks = new EdgeVertexs<IDateRange>();
 
-        [IgnoreDataMember]
-        public IEdgeVertexs<ITag> Tags = new EdgeVertexs<ITag>();
-
         public override GeneratedDates Generate()
         {
             var inclusions = InclusionsEdges.SelectMany(i => i.ToVertex.Generate());
@@ -67,7 +64,6 @@ namespace Scheduler
             InclusionsEdges.Save(db, clock, this);
             ExclusionsEdges.Save(db, clock, this);
             Breaks.Save(db, clock, this);
-            Tags.Save(db, clock, this);
             base.Save(db, clock);
         }
     }
