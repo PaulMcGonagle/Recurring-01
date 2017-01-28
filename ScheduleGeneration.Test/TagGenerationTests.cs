@@ -26,6 +26,9 @@ namespace ScheduleGeneration.Test
             private IEnumerable<IEvent> _events;
             private IEvent _event;
             private ISerial _serial;
+            private IEnumerable<ITag> _providedGeneratorTags;
+            private IEnumerable<ITag> _providedEventTags;
+            private IEnumerable<ITag> _providedScheduleTags;
 
             [Fact]
             public void Execute()
@@ -33,9 +36,9 @@ namespace ScheduleGeneration.Test
                 this.WithExamples(new ExampleTable(
                     "sourceFile",
                     "organisation",
+                    "expectedGeneratorTags",
                     "expectedEventTags",
-                    "expectedEventTags",
-                    "expectedEventTags")
+                    "expectedScheduleTags")
                     {
                         {
                             "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\ScheduleGeneration.Test\\TestData\\BasicSchoolSchedule.xml",
@@ -47,14 +50,14 @@ namespace ScheduleGeneration.Test
                             {
                                 new Tag
                                 {
-                                    Ident = "event_id_A",
-                                    Value = "event_value_A",
+                                    Ident = "generator_id_A",
+                                    Value = "generator_value_A",
                                     RelatedTags = new EdgeVertexs<ITag>
                                         {
                                             new EdgeTag(new Tag
                                             {
-                                                Ident = "event_id_B",
-                                                Value = "event_value_B",
+                                                Ident = "generator_id_B",
+                                                Value = "generator_value_B",
                                             }),
                                         },
                                 },
@@ -73,23 +76,23 @@ namespace ScheduleGeneration.Test
                                                 Value = "event_value_B",
                                             }),
                                         },
-                                },
+                                }
                             },
                             new List<ITag>
                             {
                                 new Tag
                                 {
-                                    Ident = "event_id_A",
-                                    Value = "event_value_A",
+                                    Ident = "_schedule_id_A",
+                                    Value = "_schedule_value_A",
                                     RelatedTags = new EdgeVertexs<ITag>
                                         {
                                             new EdgeTag(new Tag
                                             {
-                                                Ident = "event_id_B",
-                                                Value = "event_value_B",
+                                                Ident = "_schedule_id_B",
+                                                Value = "_schedule_value_B",
                                             }),
                                         },
-                                },
+                                }
                             }
                         },
                     })
@@ -106,6 +109,21 @@ namespace ScheduleGeneration.Test
                 _organisation = organisation;
             }
 
+            public void AndGivenGeneratorTags(IEnumerable<ITag> expectedGeneratorTags)
+            {
+                _providedGeneratorTags = expectedGeneratorTags;
+            }
+
+            public void AndGivenEventTags(IEnumerable<ITag> expectedEventTags)
+            {
+                _providedEventTags = expectedEventTags;
+            }
+
+            public void AndGivenScheduleTags(IEnumerable<ITag> expectedScheduleTags)
+            {
+                _providedScheduleTags = expectedScheduleTags;
+            }
+
             public void WhenEventsAreGenerated()
             {
                 _events = Generator.GenerateEvents(_sourceFile, _organisation);
@@ -118,21 +136,23 @@ namespace ScheduleGeneration.Test
                 _event = _events.Single();
             }
 
-            public void AndThenEventTagsAreAsExpected(IEnumerable<ITag> expectedEventTags)
+            public void AndThenEventTagsAreAsExpected()
             {
-                _event.Tags.Select(t => t.ToVertex).ShouldBe(expectedEventTags);
+                Tag.Compare(_event.Tags.Select(t => t.ToVertex), _providedEventTags).ShouldBe(0);
             }
 
-            public void AndThenEventHasOneSerial(IEnumerable<ITag> expectedEventTags)
+            public void AndThenEventHasOneSerial()
             {
                 _event.Serials.Count().ShouldBe(1);
 
                 _serial = _event.Serials.Single().ToVertex;
             }
 
-            public void AndThenSerialHasTagsAsExpected(IEnumerable<ITag> expectedEventTags)
+            public void AndThenSerialTagsAreAsExpected()
             {
-                _serial.Tags.Select(t => t.ToVertex).ShouldBe(expectedEventTags);
+                var expectedSerialTags = _providedEventTags.Union(_providedScheduleTags);
+
+                Tag.Compare(_serial.Tags.Select(t => t.ToVertex), expectedSerialTags).ShouldBe(0);
             }
         }
     }

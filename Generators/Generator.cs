@@ -130,9 +130,9 @@ namespace Generators
                             timeRange: new EdgeRangeTime(timeRange),
                             timeZoneProvider: "Europe/London");
 
-                        var compositeScheduleTags = scheduleTags.Union(eventTags);
+                        var serialTags = scheduleTags.Union(eventTags);
 
-                        serial.Tags = new EdgeVertexs<ITag>(compositeScheduleTags);
+                        serial.Tags = new EdgeVertexs<ITag>(serialTags);
 
 
                         serials.Add(serial);

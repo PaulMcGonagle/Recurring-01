@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
@@ -40,30 +41,35 @@ namespace Scheduler
             if (compare != 0)
                 return compare;
 
-            var compareTagSubs = compareTag
-                .RelatedTags
+            return Compare(this.RelatedTags.Select(r => r.ToVertex), RelatedTags.Select(r => r.ToVertex));
+        }
+
+        public static int Compare(IEnumerable<ITag> compareFrom, IEnumerable<ITag> compareTo)
+        {
+            if (!compareFrom.Any() && !compareTo.Any())
+                return 0;
+
+            int compareResult = 0;
+
+            var listFrom = compareFrom
                 .ToList();
 
-            var tagSubs = RelatedTags
+            listFrom.Sort();
+
+            var listTo = compareTo
                 .ToList();
 
-            compare = tagSubs.Count.CompareTo(compareTagSubs.Count);
+            listTo.Sort();
 
-            if (compare != 0)
-                return compare;
-
-            compareTagSubs.Sort();
-            tagSubs.Sort();
-
-            for (var i = 0; i < tagSubs.Count(); i++)
+            for (var i = 0; i < listFrom.Count(); i++)
             {
-                compare = tagSubs[i].ToVertex.CompareTo(compareTagSubs[i].ToVertex);
+                compareResult = listFrom[i].CompareTo(listFrom[i]);
 
-                if (compare != 0)
-                    return compare;
+                if (compareResult != 0)
+                    return compareResult;
             }
 
-            return compare;
+            return compareResult;
         }
 
         public override void Save(IArangoDatabase db, IClock clock)
