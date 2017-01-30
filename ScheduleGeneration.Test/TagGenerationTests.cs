@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using Generators;
 using Scheduler;
 using Scheduler.Persistance;
@@ -22,6 +23,8 @@ namespace ScheduleGeneration.Test
         public class VerifyTags
         {
             private string _sourceFile;
+            private XElement _source;
+
             private IOrganisation _organisation;
             private IEnumerable<IEvent> _events;
             private IEvent _event;
@@ -38,7 +41,9 @@ namespace ScheduleGeneration.Test
                     "organisation",
                     "expectedGeneratorTags",
                     "expectedEventTags",
-                    "expectedScheduleTags")
+                    "expectedScheduleTags",
+                    "eventPath",
+                    "serialPath")
                     {
                         {
                             "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\ScheduleGeneration.Test\\TestData\\BasicSchoolSchedule.xml",
@@ -93,7 +98,9 @@ namespace ScheduleGeneration.Test
                                             }),
                                         },
                                 }
-                            }
+                            },
+                            "./generator/events/event",
+                            "./generator/classes/class/schedules/schedule | ./generator/events/event"
                         },
                     })
                     .BDDfy();
@@ -102,6 +109,8 @@ namespace ScheduleGeneration.Test
             public void GivenASourceFile(string sourceFile)
             {
                 _sourceFile = sourceFile;
+
+                _source = XElement.Load(sourceFile);
             }
 
             public void AndGivenAnOrganisation(IOrganisation organisation)
@@ -136,9 +145,13 @@ namespace ScheduleGeneration.Test
                 _event = _events.Single();
             }
 
-            public void AndThenEventTagsAreAsExpected()
+            public void AndThenGenerationTagsAreValid(string eventPath)
             {
-                Tag.Compare(_event.Tags.Select(t => t.ToVertex), _providedEventTags).ShouldBe(0);
+                var source = _source.XPathSelectElement(eventPath);
+
+                source.ShouldNotBeNull();
+
+                CompareTagsToSource(_event.Tags.Select(e => e.ToVertex), source);
             }
 
             public void AndThenEventHasOneSerial()
@@ -148,12 +161,32 @@ namespace ScheduleGeneration.Test
                 _serial = _event.Serials.Single().ToVertex;
             }
 
-            public void AndThenSerialTagsAreAsExpected()
+            public void AndThenSerialTagsAreValid(string serialPath)
             {
-                var expectedSerialTags = _providedEventTags.Union(_providedScheduleTags);
+                var source = _source.XPathSelectElement(serialPath);
 
-                Tag.Compare(_serial.Tags.Select(t => t.ToVertex), expectedSerialTags).ShouldBe(0);
+                source.ShouldNotBeNull();
+
+                CompareTagsToSource(_event.Tags.Select(e => e.ToVertex), source);
             }
+        }
+
+        private static void CompareTagsToSource(IEnumerable<ITag> tags, XElement source)
+        {
+            var sourceTags = source.XPathSelectElements("./tags/tag");
+
+            tags.Count().ShouldBe(sourceTags.Count());
+
+            foreach (var tag in tags)
+            {
+                var sourceTag = sourceTags
+                    .Where(st => st.Attribute("id").Value == tag.Ident && st.Attribute("value").Value == tag.Value);
+
+                sourceTag.ShouldHaveSingleItem();
+
+                CompareTagsToSource(tag.RelatedTags.Select(rl => rl.ToVertex), sourceTag.Single());
+            }
+
         }
     }
 }

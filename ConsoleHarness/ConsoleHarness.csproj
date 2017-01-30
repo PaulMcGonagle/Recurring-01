@@ -99,10 +99,6 @@
       <Project>{38134490-cb1f-4604-9880-5f21a13aa399}</Project>
       <Name>MySerializer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ScheduleGeneration\ScheduleGeneration.csproj">
-      <Project>{8a55c9b2-6518-4482-af5c-d29cb81cc5f8}</Project>
-      <Name>ScheduleGeneration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Scheduler.Test\Scheduler.Test.csproj">
       <Project>{c9002a62-8518-4668-933c-60572835793c}</Project>
       <Name>Scheduler.Test</Name>
