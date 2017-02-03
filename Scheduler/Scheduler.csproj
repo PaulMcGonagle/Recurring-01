@@ -98,7 +98,6 @@
     <Compile Include="Persistance\ILink.cs" />
     <Compile Include="Persistance\IRelation.cs" />
     <Compile Include="Persistance\Link.cs" />
-    <Compile Include="Persistance\Relation.cs" />
     <Compile Include="Ranges\DateRanges.cs" />
     <Compile Include="Ranges\IDateRange.cs" />
     <Compile Include="ISerials.cs" />

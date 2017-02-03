@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ArangoDB.Client;
+using ArangoDB.Client.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NodaTime;
@@ -33,7 +35,13 @@ namespace ScheduleGeneration.Test.ScheduleInstances
 
                 var mockDb = new Mock<IArangoDatabase>();
 
-                mockDb.Setup(x => x.Insert<Vertex>(It.IsAny<Vertex>(), null, null))
+                mockDb.Setup(x => x.Insert<Vertex>(It.IsAny<Vertex>(), It.IsAny<bool?>(), It.IsAny<Action<BaseResult>>()))
+                    .Callback((object vertex, bool? b, Action<BaseResult> a) =>
+                    {
+                        ((Vertex)vertex).Id = Guid.NewGuid().ToString().Substring(8);
+                        ((Vertex)vertex).Key = Guid.NewGuid().ToString().Substring(8);
+                        ((Vertex)vertex).Rev = Guid.NewGuid().ToString().Substring(8);
+                    })
                     .Returns(TestHelper.MockInsertSuccess.Object);
 
                 this.WithExamples(new ExampleTable(

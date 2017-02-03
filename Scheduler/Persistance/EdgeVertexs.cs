@@ -47,7 +47,7 @@ namespace Scheduler.Persistance
             }
         }
 
-        public void Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
+        public void Save(IArangoDatabase db, IClock clock, IVertex fromVertex)
         {
             foreach (var edge in this)
             {

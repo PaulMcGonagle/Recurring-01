@@ -73,6 +73,22 @@ namespace InitialiseDatabase
                     cache.Add(link.Id, link);
             }
 
+            using (var db = SchedulerDatabase.Database.Retrieve())
+            {
+                var qResult = db.Query<Event>()
+                    .For(@event => db.Query<Edge>()
+                    .Where(edge => @event.Id == edge.FromId)
+                    .Select(edge => new { @event, edge }))
+                    .ToList();
+
+                var qEvent = db.Query<Event>()
+                    .Select(@event => new { @event })
+                    .ToList();
+
+                var qEdge = db.Query<Edge>()
+                    .ToList();
+            }
+
             ConsoleOutput.Output.DisplayList(
                 events
                     .First()

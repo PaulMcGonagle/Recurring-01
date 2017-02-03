@@ -175,9 +175,11 @@ namespace ScheduleGeneration.Test
         {
             var sourceTags = source.XPathSelectElements("./tags/tag");
 
-            tags.Count().ShouldBe(sourceTags.Count());
+            var enumeratedTags = tags as ITag[] ?? tags.ToArray();
 
-            foreach (var tag in tags)
+            enumeratedTags.Count().ShouldBe(sourceTags.Count());
+
+            foreach (var tag in enumeratedTags)
             {
                 var sourceTag = sourceTags
                     .Where(st => st.Attribute("id").Value == tag.Ident && st.Attribute("value").Value == tag.Value);
@@ -186,7 +188,6 @@ namespace ScheduleGeneration.Test
 
                 CompareTagsToSource(tag.RelatedTags.Select(rl => rl.ToVertex), sourceTag.Single());
             }
-
         }
     }
 }

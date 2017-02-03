@@ -68,7 +68,7 @@ namespace Scheduler
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<Event>(db);
-            Serials.Save(db, clock, this);
+            Serials?.Save(db, clock, this);
             GeneratedEvent?.Save(db, clock, this);
             Location?.Save(db, clock, this);
             base.Save(db, clock);

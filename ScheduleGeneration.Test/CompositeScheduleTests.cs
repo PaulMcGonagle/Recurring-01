@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArangoDB.Client;
+using ArangoDB.Client.Data;
 using Moq;
 using NodaTime;
 using NodaTime.Testing;
@@ -36,8 +37,13 @@ namespace ScheduleGeneration.Test
 
                 var mockDb = new Mock<IArangoDatabase>();
 
-                mockDb.Setup(x => x.Insert<Vertex>(It.IsAny<Vertex>(), null, null))
-                    .Returns(TestHelper.MockInsertSuccess.Object);
+                mockDb.Setup(x => x.Insert<Vertex>(It.IsAny<Vertex>(), It.IsAny<bool?>(), It.IsAny<Action<BaseResult>>()))
+                    .Callback((object vertex, bool? b, Action<BaseResult> a) =>
+                    {
+                        ((Vertex)vertex).Id = Guid.NewGuid().ToString().Substring(8);
+                        ((Vertex)vertex).Key = Guid.NewGuid().ToString().Substring(8);
+                        ((Vertex)vertex).Rev = Guid.NewGuid().ToString().Substring(8);
+                    });
 
                 this.WithExamples(new ExampleTable(
                     "SUT",
@@ -85,6 +91,8 @@ namespace ScheduleGeneration.Test
             public void AndGivenDatabase(IArangoDatabase db)
             {
                 _db = db;
+
+
             }
 
             public void AndGivenClock(IClock clock)

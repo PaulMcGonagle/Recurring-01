@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using ArangoDB.Client.Data;
 using NodaTime;
 
 namespace Scheduler.Persistance
@@ -16,23 +17,23 @@ namespace Scheduler.Persistance
             Incomplete,
         }
 
-        [IgnoreDataMember]
-        public string Key { get; protected set; }
+        [DocumentProperty(Identifier = IdentifierType.Key)]
+        public string Key { get; set; }
 
-        [IgnoreDataMember]
-        public string Id { get; protected set; }
+        [DocumentProperty(Identifier = IdentifierType.Handle)]
+        public string Id { get; set; }
 
-        [IgnoreDataMember]
-        public string Rev { get; protected set; }
+        [DocumentProperty(Identifier = IdentifierType.Revision)]
+        public string Rev { get; set; }
 
         [IgnoreDataMember]
         public virtual bool IsDirty { get; private set; } = true;
 
         [IgnoreDataMember]
-        public virtual bool IsPersisted => Key != null;
+        public virtual bool IsPersisted => !IsNew;
 
         [IgnoreDataMember]
-        public virtual bool IsNew => !IsPersisted;
+        public virtual bool IsNew => Key == null;
 
         [IgnoreDataMember]
         public bool ToDelete { get; private set; } = false;
@@ -43,6 +44,7 @@ namespace Scheduler.Persistance
         public void SetToDelete()
         {
             ToDelete = true;
+            IsDirty = true;
         }
 
         protected void SetDirty()
@@ -69,7 +71,7 @@ namespace Scheduler.Persistance
 
         #region Save
 
-        protected void Save(IArangoDatabase db, IClock clock, IEnumerable<Vertex> vertexs)
+        protected void Save(IArangoDatabase db, IClock clock, IEnumerable<IVertex> vertexs)
         {
             foreach (var vertex in vertexs)
             {
@@ -77,7 +79,7 @@ namespace Scheduler.Persistance
             }
         }
 
-        internal void Save<T>(IArangoDatabase db) where T : Vertex
+        internal void Save<T>(IArangoDatabase db) where T : IVertex
         {
             if (db == null) throw new ArgumentNullException(nameof(db));
 
@@ -95,11 +97,20 @@ namespace Scheduler.Persistance
                 }
             }
 
-            var result = IsNew ? db.Insert<T>(this) : ToDelete ? db.Remove<T>(this) : db.Update<T>(this);
+            if (IsNew)
+            {
+                db.Insert<T>(this, null, null);
+            }
+            else if (ToDelete)
+            {
+                db.Remove<T>(this, null, null, null);
 
-            Key = result.Key;
-            Id = result.Id;
-            Rev = result.Rev;
+                ToDelete = false;
+            }
+            else
+            {
+                db.Update<T>(this, null, null, null, null, null, null);
+            }
 
             IsDirty = false;
 

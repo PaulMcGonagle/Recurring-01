@@ -6,7 +6,7 @@ namespace Scheduler.Persistance
 {
     public interface IEdgeVertexs<T> : IList<IEdgeVertex<T>> where T : IVertex
     {
-        void Save(IArangoDatabase db, IClock clock, Vertex fromVertex);
+        void Save(IArangoDatabase db, IClock clock, IVertex fromVertex);
 
         void AddRange(IEnumerable<IEdgeVertex<T>> items);
 

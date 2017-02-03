@@ -10,20 +10,20 @@ namespace SchedulerDatabase
 {
     public static class Database
     {
-        public static string DatabaseName { get; } = "Scheduling";
+        public static string DatabaseName { get; private set; } = "Scheduling";
 
         private static bool _isInitialised = false;
 
-        public static void Initialise(string databaseName)
+        public static void Initialise(string databaseName = null)
         {
-            if (string.IsNullOrEmpty(databaseName))
-                databaseName = DatabaseName;
+            if (!string.IsNullOrEmpty(databaseName))
+                DatabaseName = databaseName;
 
             ArangoDatabase.ChangeSetting(s =>
             {
                 Console.WriteLine("ChangeSetting");
                 s.Url = "http://localhost:8529";
-                s.Database = databaseName;
+                s.Database = DatabaseName;
 
                 // you can set other settings if you need
                 s.Credential = new NetworkCredential("root", "arango123");

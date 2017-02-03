@@ -9,27 +9,31 @@ namespace Scheduler.Persistance
     public class Edge : Vertex
     {
         [IgnoreDataMember]
-        public Vertex FromVertex { get; set; }
+        public IVertex FromVertex { get; set; }
 
         [IgnoreDataMember]
         public IVertex ToVertex { get; set; }
 
         [DocumentProperty(Identifier = IdentifierType.EdgeFrom)]
-        public string FromId => FromVertex.Id;
+        public string FromId { get; set; }
 
         [DocumentProperty(Identifier = IdentifierType.EdgeTo)]
-        public string ToId => ToVertex.Id;
+        public string ToId { get; set; }
 
         #region Save
 
-        public void Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
+        public void Save(IArangoDatabase db, IClock clock, IVertex fromVertex)
         {
             FromVertex = fromVertex;
+
+            FromId = fromVertex.Id;
 
             if (!FromVertex.IsPersisted)
                 throw new SaveException(SaveResult.Incomplete, this.GetType(), $"FromVertex has not been persisted ({FromVertex.ToString()})");
 
             ToVertex.Save(db, clock);
+
+            ToId = ToVertex.Id;
 
             Save<Edge>(db);
         }

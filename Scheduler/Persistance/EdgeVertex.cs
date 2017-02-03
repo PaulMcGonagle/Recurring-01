@@ -25,7 +25,7 @@ namespace Scheduler.Persistance
 
         #region Save
 
-        public void Save(IArangoDatabase db, IClock clock, Vertex fromVertex)
+        public void Save(IArangoDatabase db, IClock clock, IVertex fromVertex)
         {
             Edge.Save(db, clock, fromVertex);
         }

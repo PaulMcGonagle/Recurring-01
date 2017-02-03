@@ -17,7 +17,7 @@ namespace Scheduler
         public string SourceId { get; set; }
         public string SourceRev { get; set; }
 
-        public static Backup Create(IClock clock, Vertex source)
+        public static Backup Create(IClock clock, IVertex source)
         {
             var backup = new Backup
             {

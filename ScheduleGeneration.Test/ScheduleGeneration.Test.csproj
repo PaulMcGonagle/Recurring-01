@@ -99,6 +99,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CompositeScheduleTests.cs" />
+    <Compile Include="Persistance\VertexPersistanceTests.cs" />
     <Compile Include="ScheduleInstances\ByWeekdayTests.cs" />
     <Compile Include="ScheduleInstances\SingleDayTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,6 +122,10 @@
     <ProjectReference Include="..\Scheduler.Test\Scheduler.Test.csproj">
       <Project>{C9002A62-8518-4668-933C-60572835793C}</Project>
       <Name>Scheduler.Test</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SchedulerDatabase\SchedulerDatabase.csproj">
+      <Project>{30538699-571b-4b17-9f6d-ba7564512521}</Project>
+      <Name>SchedulerDatabase</Name>
     </ProjectReference>
     <ProjectReference Include="..\Scheduler\Scheduler.csproj">
       <Project>{3189f8e6-b2ab-4b6e-8f28-756372c7644e}</Project>
