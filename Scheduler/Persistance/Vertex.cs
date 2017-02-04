@@ -18,13 +18,13 @@ namespace Scheduler.Persistance
         }
 
         [DocumentProperty(Identifier = IdentifierType.Key)]
-        public string Key { get; set; }
+        public virtual string Key { get; set; }
 
         [DocumentProperty(Identifier = IdentifierType.Handle)]
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
         [DocumentProperty(Identifier = IdentifierType.Revision)]
-        public string Rev { get; set; }
+        public virtual string Rev { get; set; }
 
         [IgnoreDataMember]
         public virtual bool IsDirty { get; private set; } = true;
@@ -36,15 +36,16 @@ namespace Scheduler.Persistance
         public virtual bool IsNew => Key == null;
 
         [IgnoreDataMember]
-        public bool ToDelete { get; private set; } = false;
+        public virtual bool ToDelete { get; private set; } = false;
 
         [IgnoreDataMember]
-        public bool IsDeleted => !IsDirty && Key == null;
+        public virtual bool IsDeleted => !IsDirty && Key == null;
 
         public void SetToDelete()
         {
             ToDelete = true;
-            IsDirty = true;
+
+            SetDirty();
         }
 
         protected void SetDirty()
