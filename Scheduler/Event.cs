@@ -53,12 +53,20 @@ namespace Scheduler
             {
                 var list = new List<IVertex>();
 
-                list.AddRange(Serials.Select(s => s.ToVertex));
+                if (Serials != null)
+                    list.AddRange(Serials.Select(s => s.ToVertex));
+                if (Tags != null)
+                    list.AddRange(Tags.Select(t => t.ToVertex));
 
                 if (GeneratedEvent != null)
                 {
                     list.Add(GeneratedEvent.ToVertex);
                     list.Add(GeneratedEvent.Edge);
+                }
+                if (Location != null)
+                {
+                    list.Add(Location.ToVertex);
+                    list.Add(Location.Edge);
                 }
 
                 return list;
@@ -69,6 +77,7 @@ namespace Scheduler
         {
             Save<Event>(db);
             Serials?.Save(db, clock, this);
+            Tags?.Save(db, clock, this);
             GeneratedEvent?.Save(db, clock, this);
             Location?.Save(db, clock, this);
             base.Save(db, clock);

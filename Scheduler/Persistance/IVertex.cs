@@ -9,13 +9,13 @@ namespace Scheduler.Persistance
     public interface IVertex : IComparable
     {
         [IgnoreDataMember]
-        string Key { get; }
+        string Key { get; set; }
 
         [IgnoreDataMember]
-        string Id { get; }
+        string Id { get; set; }
 
         [IgnoreDataMember]
-        string Rev { get; }
+        string Rev { get; set; }
 
         [IgnoreDataMember]
         bool IsDirty { get; }

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using ArangoDB.Client;
 
 namespace SchedulerDatabase
@@ -12,7 +9,7 @@ namespace SchedulerDatabase
     {
         public static string DatabaseName { get; private set; } = "Scheduling";
 
-        private static bool _isInitialised = false;
+        private static bool _isInitialised;
 
         public static void Initialise(string databaseName = null)
         {

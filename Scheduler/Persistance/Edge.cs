@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
 
@@ -29,7 +27,7 @@ namespace Scheduler.Persistance
             FromId = fromVertex.Id;
 
             if (!FromVertex.IsPersisted)
-                throw new SaveException(SaveResult.Incomplete, this.GetType(), $"FromVertex has not been persisted ({FromVertex.ToString()})");
+                throw new SaveException(SaveResult.Incomplete, GetType(), $"FromVertex has not been persisted ({FromVertex})");
 
             ToVertex.Save(db, clock);
 

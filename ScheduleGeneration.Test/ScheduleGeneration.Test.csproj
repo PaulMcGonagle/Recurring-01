@@ -99,6 +99,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CompositeScheduleTests.cs" />
+    <Compile Include="MockVertexFactory.cs" />
+    <Compile Include="Persistance\EventPersistanceTests.cs" />
     <Compile Include="Persistance\VertexPersistanceTests.cs" />
     <Compile Include="ScheduleInstances\ByWeekdayTests.cs" />
     <Compile Include="ScheduleInstances\SingleDayTests.cs" />

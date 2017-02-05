@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
 
@@ -35,7 +34,7 @@ namespace Scheduler.Persistance
         {
             foreach (var item in items)
             {
-                this.Add(item);
+                Add(item);
             }
         }
 
@@ -43,7 +42,7 @@ namespace Scheduler.Persistance
         {
             foreach (var item in items)
             {
-                this.Add(new EdgeVertex<T>(item));
+                Add(new EdgeVertex<T>(item));
             }
         }
 
@@ -54,12 +53,12 @@ namespace Scheduler.Persistance
                 edge.Save(db, clock, fromVertex);
             }
 
-            return;
+            RemoveAll(e => e.ToVertex.IsDeleted);
         }
 
         public void SetToDelete()
         {
-            this.ForEach(e => e.ToVertex.SetToDelete());
+            ForEach(e => e.ToVertex.SetToDelete());
 
         }
 

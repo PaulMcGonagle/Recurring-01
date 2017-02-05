@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
-using ArangoDB.Client.Data;
 using NodaTime;
 
 namespace Scheduler.Persistance
@@ -29,6 +28,14 @@ namespace Scheduler.Persistance
         [IgnoreDataMember]
         public virtual bool IsDirty { get; private set; } = true;
 
+        public virtual bool GetIsDirty(bool includeLinks = false)
+        {
+            return (
+                IsDirty
+                || Links.Any(t => t.IsDirty)
+            );
+        }
+
         [IgnoreDataMember]
         public virtual bool IsPersisted => !IsNew;
 
@@ -36,7 +43,7 @@ namespace Scheduler.Persistance
         public virtual bool IsNew => Key == null;
 
         [IgnoreDataMember]
-        public virtual bool ToDelete { get; private set; } = false;
+        public virtual bool ToDelete { get; private set; }
 
         [IgnoreDataMember]
         public virtual bool IsDeleted => !IsDirty && Key == null;
@@ -94,7 +101,7 @@ namespace Scheduler.Persistance
 
                 if (existing.Rev != Rev)
                 {
-                    throw new SaveException(SaveResult.Conflict, this.GetType(), $"Rev differs: {existing.Rev} vs {Rev}");
+                    throw new SaveException(SaveResult.Conflict, GetType(), $"Rev differs: {existing.Rev} vs {Rev}");
                 }
             }
 
@@ -114,8 +121,6 @@ namespace Scheduler.Persistance
             }
 
             IsDirty = false;
-
-            return;
         }
 
         public virtual void Save(IArangoDatabase db, IClock clock)
@@ -139,7 +144,7 @@ namespace Scheduler.Persistance
             }
         }
 
-        protected static Exception NewSaveException(SaveResult saveResult, System.Type sourceType, string message)
+        protected static Exception NewSaveException(SaveResult saveResult, Type sourceType, string message)
         {
             return new Exception($"Save Exception: SaveResult={saveResult} saving type={sourceType}, message={message}");
         }

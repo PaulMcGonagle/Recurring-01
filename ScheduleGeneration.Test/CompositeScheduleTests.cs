@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArangoDB.Client;
 using ArangoDB.Client.Data;
 using Moq;
@@ -14,8 +12,6 @@ using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
-using Scheduler.Test;
-using Scheduler.Users;
 using Shouldly;
 using TestStack.BDDfy;
 using Xunit;
