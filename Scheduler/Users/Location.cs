@@ -18,7 +18,12 @@ namespace Scheduler.Users
 
         protected override IEnumerable<IVertex> Links
         {
-            get { return Serials; }
+            get
+            {
+                if (Serials != null)
+                    foreach (var serial in Serials)
+                        yield return serial;
+            }
         }
 
         public override void Save(IArangoDatabase db, IClock clock)

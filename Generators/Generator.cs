@@ -100,6 +100,8 @@ namespace Generators
                             .Elements("break")
                             .ToList();
 
+                        var inputTermTags = RetrieveTags(term);
+
                         ISchedule schedule;
 
                         if (inputBreaks.Count > 0)
@@ -130,7 +132,9 @@ namespace Generators
                             timeRange: new EdgeRangeTime(timeRange),
                             timeZoneProvider: "Europe/London");
 
-                        var serialTags = scheduleTags.Union(eventTags);
+                        var serialTags = scheduleTags
+                            .Union(eventTags)
+                            .Union(inputTermTags);
 
                         serial.Tags = new EdgeVertexs<ITag>(serialTags);
 
@@ -169,20 +173,25 @@ namespace Generators
                 to: new EdgeDate(end));
         }
 
-
-        private static ITag RetrieveTag(XElement inputTag)
+        private static IList<XElement> RetrieveInputTags(XElement input)
         {
-            var inputRelatedTags = inputTag
+            return input
                 .Elements("tags")
                 .Elements("tag")
                 .ToList();
+        }
+
+        private static ITag RetrieveTag(XElement inputTag)
+        {
+            var inputRelatedTags = RetrieveInputTags(inputTag);
 
             var relatedTags = inputRelatedTags.Select(RetrieveTag);
 
             var inputIdent = ParseAttribute(inputTag, "id");
             var inputValue= ParseAttribute(inputTag, "value");
-
-            var tag = new Tag(inputIdent.Value, inputValue.Value);
+            var inputPayload = inputTag.Elements("payload").FirstOrDefault();
+            
+            var tag = new Tag(inputIdent.Value, inputValue.Value, inputPayload?.Value);
 
             tag.RelatedTags.AddRange(relatedTags.Select(relatedTag => new EdgeTag(relatedTag)));
 
@@ -191,11 +200,7 @@ namespace Generators
 
         private static IEnumerable<ITag> RetrieveTags(XElement input)
         {
-            var inputRelatedTags = input
-                .Elements("tags")
-                .Elements("tag")
-                .ToList();
-
+            var inputRelatedTags = RetrieveInputTags(input);
 
             foreach (var inputRelatedTag in inputRelatedTags)
             {

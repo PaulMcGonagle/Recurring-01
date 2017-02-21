@@ -6,6 +6,7 @@ namespace Scheduler
     {
         string Ident { get; set; }
         string Value { get; set; }
+        string Payload { get; set; }
 
         EdgeVertexs<ITag> RelatedTags { get; set; }
     }

@@ -8,13 +8,13 @@ namespace Scheduler.Persistance
 {
     public interface IVertex : IComparable
     {
-        [IgnoreDataMember]
+        [DocumentProperty(Identifier = IdentifierType.Key)]
         string Key { get; set; }
 
-        [IgnoreDataMember]
+        [DocumentProperty(Identifier = IdentifierType.Handle)]
         string Id { get; set; }
 
-        [IgnoreDataMember]
+        [DocumentProperty(Identifier = IdentifierType.Revision)]
         string Rev { get; set; }
 
         [IgnoreDataMember]

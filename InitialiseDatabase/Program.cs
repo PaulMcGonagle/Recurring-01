@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using ArangoDB.Client;
 using Generators;
 using NodaTime;
@@ -75,18 +76,23 @@ namespace InitialiseDatabase
 
             using (var db = SchedulerDatabase.Database.Retrieve())
             {
-                var qResult = db.Query<Event>()
-                    .For(@event => db.Query<Edge>()
+                var qEvents = db.Query<Event>();
+                var qEdges = db.Query<Edge>();
+
+                var qResult = qEvents
+                    .For(@event => qEdges
                     .Where(edge => @event.Id == edge.FromId)
                     .Select(edge => new { @event, edge }))
                     .ToList();
 
-                var qEvent = db.Query<Event>()
+                var qEvent = qEvents
                     .Select(@event => new { @event })
                     .ToList();
 
-                var qEdge = db.Query<Edge>()
+                var qEvent2 = qEvents
                     .ToList();
+
+                var e1 = qEvent.First();
             }
 
             ConsoleOutput.Output.DisplayList(

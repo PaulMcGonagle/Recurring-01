@@ -73,6 +73,7 @@ namespace ScheduleGeneration.Test
                                 {
                                     Ident = "event_id_A",
                                     Value = "event_value_A",
+                                    Payload = "<![CDATA[\r\n<detail>\r\n<url>http://www.hampdengurneyschool.org.uk/</url>\r\n</detail>\r\n]]>\r\n",
                                     RelatedTags = new EdgeVertexs<ITag>
                                         {
                                             new EdgeTag(new Tag

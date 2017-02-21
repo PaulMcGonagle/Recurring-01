@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<generators>
+  <generator title="Caterlink Menu">
+    <terms>
+      <term name="Summer 2016 Week 1">
+        <tags>
+          <tag id="Menu">
+            <metadata>
+              <![CDATA[
+                <menu>
+                  <main>Chicken & Broccoli Wholemeal Pasta Bake (made with free range chicken)</main>
+                  <vegetarian>Vegetable Goulash with Rice</vegetarian>
+                  <dessert>Rice Pudding with Mixed Berries</dessert>
+                  <dessert>Yoghurt / Fresh Fruit Platter</dessert>
+                </menu>
+              ]]>
+            </metadata>
+          </tag>
+        </tags>
+        <dates>
+          <date value="2016-04-11"/>
+          <date value="2016-05-02"/>
+          <date value="2016-05-23"/>
+          <date value="2016-06-20"/>
+          <date value="2016-07-11"/>
+        </dates>
+      </term>
+    </terms>
+  </generator>
+</generators>

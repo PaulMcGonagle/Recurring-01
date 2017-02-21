@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using Newtonsoft.Json;
 using NodaTime;
 using Scheduler.Persistance;
 
@@ -16,6 +17,12 @@ namespace Scheduler
             Value = value;
         }
 
+        public Tag(string ident, string value, string payload)
+            : this(ident, value)
+        {
+            Payload = payload;
+        }
+
         public Tag()
         {
             
@@ -23,6 +30,7 @@ namespace Scheduler
 
         public string Ident { get; set; }
         public string Value { get; set; }
+        public string Payload { get; set; }
 
         protected string CombinedKey(Tag tag)
         {
@@ -41,7 +49,14 @@ namespace Scheduler
             if (compare != 0)
                 return compare;
 
-            return Compare(this.RelatedTags.Select(r => r.ToVertex), RelatedTags.Select(r => r.ToVertex));
+            compare = Compare(this.RelatedTags.Select(r => r.ToVertex), RelatedTags.Select(r => r.ToVertex));
+
+            if (compare != 0)
+                return compare;
+
+            compare = this.Payload.CompareTo(compareTag.Payload);
+
+            return compare;
         }
 
         public static int Compare(IEnumerable<ITag> compareFrom, IEnumerable<ITag> compareTo)
