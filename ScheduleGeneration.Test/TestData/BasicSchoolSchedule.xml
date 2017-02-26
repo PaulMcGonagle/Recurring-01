@@ -23,11 +23,12 @@
         <tags>
           <tag id="event_id_A" value="event_value_A">
             <payload>
-              <![CDATA[
-                <detail>
-                  <url>http://www.hampdengurneyschool.org.uk/</url>
-                </detail>
-              ]]>
+              { 
+                "detail" :
+                  {
+                    "url": "http://www.hampdengurneyschool.org.uk"
+                  }
+              }
             </payload>
             <tags>
               <tag id="event_id_B" value="event_value_B"/>

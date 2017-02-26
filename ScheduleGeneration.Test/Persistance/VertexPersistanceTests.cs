@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
+using Scheduler.Persistance;
 using Shouldly;
 using TestStack.BDDfy;
 using Xunit;
@@ -266,7 +267,7 @@ namespace ScheduleGeneration.Test.Persistance
             [Fact]
             public void Execute()
             {
-                var mockDb = MockVertexFactory<Event>.GetArangoDatabase();
+                var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
 
                 var fakeClock = new FakeClock(Instant.FromUtc(2016, 05, 01, 0, 0));
 

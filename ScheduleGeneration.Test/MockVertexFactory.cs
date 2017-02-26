@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArangoDB.Client;
 using ArangoDB.Client.Data;
 using Moq;
@@ -13,10 +9,10 @@ namespace ScheduleGeneration.Test
 {
     internal static class MockVertexFactory<T> where T : Vertex
     {
-        private static readonly string Id = Guid.NewGuid().ToString().Replace("-", "").Substring(8);
-        private static readonly string RevInitial = Guid.NewGuid().ToString().Replace("-", "").Substring(8);
-        private static readonly string RevUpdated = Guid.NewGuid().ToString().Replace("-", "").Substring(8);
-        private static readonly string Key = "Vertex\\" + Id;
+        public static string Id { get; } = Guid.NewGuid().ToString().Replace("-", "").Substring(8);
+        public static string Rev { get; } = Guid.NewGuid().ToString().Replace("-", "").Substring(8);
+
+        private static string Key => typeof(T).Name + "\\" + Id;
 
         public static Mock<IArangoDatabase> GetArangoDatabase()
         {
@@ -33,15 +29,14 @@ namespace ScheduleGeneration.Test
                 {
                     ((T)document).Id = Id;
                     ((T)document).Key = Key;
-                    ((T)document).Rev = RevInitial;
+                    ((T)document).Rev = Rev;
                 })
                 .Returns(new DocumentIdentifierBaseResult
                 {
                     Id = Id,
                     Key = Key,
-                    Rev = RevInitial,
+                    Rev = Rev,
                     ErrorMessage = null,
-
                 });
 
             mockDb.Setup(x => x.Remove<T>(
@@ -74,14 +69,14 @@ namespace ScheduleGeneration.Test
                 {
                     ((T)document).Id = Id;
                     ((T)document).Key = Key;
-                    ((T)document).Rev = RevUpdated;
+                    ((T)document).Rev = Rev;
                 });
 
             var mockRetrieved = new Mock<T>();
 
             mockRetrieved.SetupGet(x => x.Id).Returns(Id);
             mockRetrieved.SetupGet(x => x.Key).Returns(Key);
-            mockRetrieved.SetupGet(x => x.Rev).Returns(RevInitial);
+            mockRetrieved.SetupGet(x => x.Rev).Returns(Rev);
 
             mockDb.Setup(x => x.Document<T>(
                     It.IsAny<string>(),
@@ -92,8 +87,28 @@ namespace ScheduleGeneration.Test
                     string id,
                     string ifMatchRev,
                     string ifNoneMatchRev,
-                    Action<BaseResult> baseResult) => { })
+                    Action<BaseResult> baseResult) =>
+                { })
                 .Returns(() => mockRetrieved.Object);
+
+            var mockRetrievedEvent = new Mock<Event>();
+
+            mockRetrievedEvent.SetupGet(x => x.Id).Returns(Id);
+            mockRetrievedEvent.SetupGet(x => x.Key).Returns(Key);
+            mockRetrievedEvent.SetupGet(x => x.Rev).Returns(Rev);
+
+            mockDb.Setup(x => x.Document<Event>(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<Action<BaseResult>>()))
+                .Callback((
+                    string id,
+                    string ifMatchRev,
+                    string ifNoneMatchRev,
+                    Action<BaseResult> baseResult) =>
+                { })
+                .Returns(() => mockRetrievedEvent.Object);
 
             return mockDb;
         }

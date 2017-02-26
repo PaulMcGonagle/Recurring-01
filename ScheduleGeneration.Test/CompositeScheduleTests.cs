@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ArangoDB.Client;
-using ArangoDB.Client.Data;
-using Moq;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
@@ -31,15 +28,7 @@ namespace ScheduleGeneration.Test
             {
                 var fakeClock = new FakeClock(Instant.FromUtc(2016, 05, 01, 0, 0));
 
-                var mockDb = new Mock<IArangoDatabase>();
-
-                mockDb.Setup(x => x.Insert<Vertex>(It.IsAny<Vertex>(), It.IsAny<bool?>(), It.IsAny<Action<BaseResult>>()))
-                    .Callback((object vertex, bool? b, Action<BaseResult> a) =>
-                    {
-                        ((Vertex)vertex).Id = Guid.NewGuid().ToString().Substring(8);
-                        ((Vertex)vertex).Key = Guid.NewGuid().ToString().Substring(8);
-                        ((Vertex)vertex).Rev = Guid.NewGuid().ToString().Substring(8);
-                    });
+                var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
 
                 this.WithExamples(new ExampleTable(
                     "SUT",

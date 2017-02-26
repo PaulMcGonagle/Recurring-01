@@ -28,12 +28,15 @@ namespace Scheduler.Persistance
         [IgnoreDataMember]
         public virtual bool IsDirty { get; private set; } = true;
 
-        public virtual bool GetIsDirty(bool includeLinks = false)
+        public virtual bool IsLinksDirty
         {
-            return (
-                IsDirty
-                || Links.Any(t => t.IsDirty)
-            );
+            get
+            {
+                return (
+                    IsDirty
+                    || Links.Any(t => t.IsDirty)
+                );
+            }
         }
 
         [IgnoreDataMember]
@@ -79,7 +82,7 @@ namespace Scheduler.Persistance
 
         #region Save
 
-        protected void Save(IArangoDatabase db, IClock clock, IEnumerable<IVertex> vertexs)
+        protected static void Save(IArangoDatabase db, IClock clock, IEnumerable<IVertex> vertexs)
         {
             foreach (var vertex in vertexs)
             {
@@ -130,11 +133,9 @@ namespace Scheduler.Persistance
                 return;
             }
 
-            Backup backup;
-
             try
             {
-                backup = Backup.Create(clock, this);
+                var backup = Backup.Create(clock, this);
 
                 backup.Save(db, clock);
             }

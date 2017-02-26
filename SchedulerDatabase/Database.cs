@@ -58,7 +58,6 @@ namespace SchedulerDatabase
                 db.CreateCollection("GeneratedEvent");
                 db.CreateCollection("Edge", type: CollectionType.Edge);
                 db.CreateCollection("Relation", type: CollectionType.Edge);
-                db.CreateCollection("ManualPersistance");
             }
 
             _isInitialised = true;
@@ -68,7 +67,7 @@ namespace SchedulerDatabase
         {
             if (!_isInitialised)
             {
-                Initialise(null);
+                Initialise();
             }
 
             return ArangoDatabase.CreateWithSetting();

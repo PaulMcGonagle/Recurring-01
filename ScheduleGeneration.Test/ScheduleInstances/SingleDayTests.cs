@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArangoDB.Client;
-using ArangoDB.Client.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
@@ -21,6 +19,57 @@ namespace ScheduleGeneration.Test.ScheduleInstances
     [TestClass]
     public class SingleDayTests
     {
+        public class VerifyCanBeSaved
+        {
+            private SingleDay _singleDay;
+            private IClock _clock;
+            private IArangoDatabase _db;
+
+            [Fact]
+            public void Execute()
+            {
+                var mockDb = MockVertexFactory<Schedule>.GetArangoDatabase();
+
+                this.WithExamples(new ExampleTable(
+                    "SUT",
+                    "db",
+                    "clock"
+                )
+                {
+                    {
+                        new SingleDay { Date = new Date(2016, YearMonth.MonthValue.January, 01) },
+                        mockDb.Object,
+                        new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15))
+                    },
+                }).BDDfy();
+            }
+
+            public void GivenSingleDay(SingleDay sut)
+            {
+                _singleDay = sut;
+            }
+
+            public void AndGivenDatabase(IArangoDatabase db)
+            {
+                _db = db;
+            }
+
+            public void AndGivenClock(IClock clock)
+            {
+                _clock = clock;
+            }
+
+            public void WhenEventIsSaved()
+            {
+                _singleDay.Save(_db, _clock);
+            }
+            
+            public void ThenEventIsPersisted()
+            {
+                _singleDay.IsPersisted.ShouldBeTrue();
+            }
+        }
+
         public class GeneratesSingleEpisode
         {
             private IEvent _event;
@@ -30,16 +79,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
             [Fact]
             public void Execute()
             {
-                var mockDb = new Mock<IArangoDatabase>();
-
-                mockDb.Setup(x => x.Insert<Vertex>(It.IsAny<Vertex>(), It.IsAny<bool?>(), It.IsAny<Action<BaseResult>>()))
-                    .Callback((object vertex, bool? b, Action<BaseResult> a) =>
-                    {
-                        ((Vertex)vertex).Id = Guid.NewGuid().ToString().Substring(8);
-                        ((Vertex)vertex).Key = Guid.NewGuid().ToString().Substring(8);
-                        ((Vertex)vertex).Rev = Guid.NewGuid().ToString().Substring(8);
-                    })
-                    .Returns(TestHelper.MockInsertSuccess.Object);
+                var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
 
                 this.WithExamples(new ExampleTable(
                     "SUT",
@@ -101,17 +141,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
             [Fact]
             public void Execute()
             {
-                var mockDb = new Mock<IArangoDatabase>();
-
-                mockDb.Setup(x => x.Insert<Vertex>(It.IsAny<Vertex>(), It.IsAny<bool?>(), It.IsAny<Action<BaseResult>>()))
-                    .Callback((object vertex, bool? b, Action<BaseResult> a) =>
-                    {
-                        ((Vertex)vertex).Id = Guid.NewGuid().ToString().Substring(8);
-                        ((Vertex)vertex).Key = Guid.NewGuid().ToString().Substring(8);
-                        ((Vertex)vertex).Rev = Guid.NewGuid().ToString().Substring(8);
-                    })
-                    .Returns(TestHelper.MockInsertSuccess.Object);
-
+                var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
 
                 this.WithExamples(new ExampleTable(
                     "SUT",

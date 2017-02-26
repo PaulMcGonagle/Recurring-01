@@ -33,7 +33,8 @@ namespace InitialiseDatabase
 
             var events = Generator.GenerateEvents(
                 sourceFile: "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\HG.xml",
-                organisation: organisation);
+                organisation: organisation)
+                .ToList();
 
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
 
@@ -77,7 +78,11 @@ namespace InitialiseDatabase
             using (var db = SchedulerDatabase.Database.Retrieve())
             {
                 var qEvents = db.Query<Event>();
+                var lEvents = qEvents
+                    .ToList();
                 var qEdges = db.Query<Edge>();
+                var lEdges = qEvents
+                    .ToList();
 
                 var qResult = qEvents
                     .For(@event => qEdges
