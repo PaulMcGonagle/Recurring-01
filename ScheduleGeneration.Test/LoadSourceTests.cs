@@ -27,7 +27,7 @@ namespace ScheduleGeneration.Test
             private IClock _clock;
             private IEnumerable<IEvent> _events;
             private IEvent _event;
-            private IGeneratedEvent _generatedEvent;
+            private IInstance _instance;
 
             [Fact]
             public void Execute()

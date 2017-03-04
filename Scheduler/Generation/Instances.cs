@@ -5,13 +5,13 @@ using Scheduler.Persistance;
 
 namespace Scheduler.Generation
 {
-    public class GeneratedEvents : List<IGeneratedEvent>
+    public class Instances : List<IInstance>
     {
-        public GeneratedEvents() { }
+        public Instances() { }
 
-        public GeneratedEvents(IEnumerable<IGeneratedEvent> generatedEvents)
+        public Instances(IEnumerable<IInstance> instances)
         {
-            AddRange(generatedEvents);
+            AddRange(instances);
         }
 
         public void Save(IArangoDatabase db, IClock clock)

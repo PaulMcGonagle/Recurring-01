@@ -7,7 +7,7 @@ using ArangoDB.Client;
 
 namespace Scheduler.Generation
 {
-    public class GeneratedEvent : Vertex, IGeneratedEvent
+    public class Instance : Vertex, IInstance
     {
         public Instant Time { get; set; }
 
@@ -22,7 +22,7 @@ namespace Scheduler.Generation
             if (source.IsDirty)
                 throw new ArgumentException("Event has not yet been persisted");
 
-            source.GeneratedEvent = new EdgeVertex<IGeneratedEvent>(new GeneratedEvent
+            source.Instance = new EdgeVertex<IInstance>(new Instance
             {
                 Time = clock.Now,
                 Source = new Link<IEvent>(source),
@@ -36,7 +36,7 @@ namespace Scheduler.Generation
 
         public override void Save(IArangoDatabase db, IClock clock)
         {
-            Save<GeneratedEvent>(db);
+            Save<Instance>(db);
             // ToDo what about Source.Save?
             //() => Source.Save(db, clock, this);
             base.Save(db, clock);

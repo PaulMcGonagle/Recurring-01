@@ -38,7 +38,7 @@ namespace InitialiseDatabase
 
             foreach (var @event in events)
             {
-                GeneratedEvent.Generate(fakeClock, @event);
+                Instance.Generate(fakeClock, @event);
             }
 
             using (var db = SchedulerDatabase.Database.Retrieve())
@@ -198,7 +198,7 @@ W1H 2DS"
                 {
                     e.Save(db, clock);
 
-                    GeneratedEvent.Generate(clock, e);
+                    Instance.Generate(clock, e);
 
                     e.Serials.Save(db, fakeClock, e);
                 

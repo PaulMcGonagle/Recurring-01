@@ -5,8 +5,9 @@ using Scheduler.Persistance;
 
 namespace Scheduler.Generation
 {
-    public interface IGeneratedEvents : IList<IGeneratedEvent>
+    public interface IInstance : IVertex
     {
-        void Save(IArangoDatabase db, IClock clock);
+        IEdgeVertexs<IEpisode> Episodes { get; set; }
+        Instant Time { get; set; }
     }
 }

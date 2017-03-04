@@ -94,17 +94,17 @@ namespace ScheduleGeneration.Test.ScheduleInstances
 
             public void AndWhenGenerated()
             {
-                GeneratedEvent.Generate(_clock, _event);
+                Instance.Generate(_clock, _event);
             }
 
-            public void ThenGeneratedEventExists()
+            public void ThenInstanceExists()
             {
-                _event.GeneratedEvent.ShouldNotBeNull();
+                _event.Instance.ShouldNotBeNull();
             }
 
             public void AndThenGeneratedDatesAreAsExpected(IEnumerable<LocalDateTime> expectedEpisodes)
             {
-                _event.GeneratedEvent.ToVertex.Episodes.Select(e => e.ToVertex.From.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
+                _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.From.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
             }
         }
     }
@@ -184,17 +184,17 @@ namespace ScheduleGeneration.Test.ScheduleInstances
 
         public void AndWhenGenerated()
         {
-            GeneratedEvent.Generate(_clock, _event);
+            Instance.Generate(_clock, _event);
         }
 
-        public void ThenGeneratedEventExists()
+        public void ThenInstanceExists()
         {
-            _event.GeneratedEvent.ShouldNotBeNull();
+            _event.Instance.ShouldNotBeNull();
         }
 
         public void AndThenGeneratedDatesAreAsExpected(IEnumerable<LocalDateTime> expectedEpisodes)
         {
-            _event.GeneratedEvent.ToVertex.Episodes.Select(e => e.ToVertex.From.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
+            _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.From.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Scheduler
         public IEdgeVertexs<ITag> Tags { get; set; }
 
         [IgnoreDataMember]
-        public IEdgeVertex<IGeneratedEvent> GeneratedEvent { get; set; }
+        public IEdgeVertex<IInstance> Instance { get; set; }
 
         protected override IEnumerable<IVertex> Links
         {
@@ -58,10 +58,10 @@ namespace Scheduler
                 if (Tags != null)
                     list.AddRange(Tags.Select(t => t.ToVertex));
 
-                if (GeneratedEvent != null)
+                if (Instance != null)
                 {
-                    list.Add(GeneratedEvent.ToVertex);
-                    list.Add(GeneratedEvent.Edge);
+                    list.Add(Instance.ToVertex);
+                    list.Add(Instance.Edge);
                 }
                 if (Location != null)
                 {
@@ -78,7 +78,7 @@ namespace Scheduler
             Save<Event>(db);
             Serials?.Save(db, clock, this);
             Tags?.Save(db, clock, this);
-            GeneratedEvent?.Save(db, clock, this);
+            Instance?.Save(db, clock, this);
             Location?.Save(db, clock, this);
             base.Save(db, clock);
         }
