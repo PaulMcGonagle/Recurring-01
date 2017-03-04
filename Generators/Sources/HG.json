@@ -1,0 +1,47 @@
+﻿{
+  "generator": [
+    {
+      "tag": [
+        {
+          "id": "name",
+          "value": "Hampden Gurney Primary School"
+        },
+        {
+          "id": "type",
+          "value": "School",
+          "tag": [
+            {
+              "id": "type",
+              "value": "Primary"
+            }
+          ]
+        },
+        { "id": "type", "value": "Term" }
+      ],
+      "term": [
+        {
+          "name": "Autumn",
+          "tag": [
+            {
+              "id": "year",
+              "value": "2016/17"
+            }
+          ],
+          "rangeDate": {
+            "start": "2016-09-02",
+            "end": "2016-12-21"
+          },
+          "break": [
+            {
+              "name": "half-term",
+              "rangeDate": {
+                "start": "2016-10-26",
+                "end": "2016-11-02"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

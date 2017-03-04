@@ -99,6 +99,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CompositeScheduleTests.cs" />
+    <Compile Include="LoadSourceTests.cs" />
     <Compile Include="MockVertexFactory.cs" />
     <Compile Include="Persistance\EventPersistanceTests.cs" />
     <Compile Include="Persistance\VertexPersistanceTests.cs" />
@@ -135,7 +136,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\BasicSchoolSchedule.xml" />
+    <Content Include="TestData\BasicSchoolSchedule.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

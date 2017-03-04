@@ -1,7 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <generators>
-  <generator title="Hampden Gurney School Terms">
+  <generator>
     <tags>
+      <tag id="organisation" value="Hampden Gurney Primary School">
+        <payload>
+          {
+            "detail":{
+              "url": "http://www.hampdengurneyschool.org.uk",
+              "location":{
+                "address": "9/26 Bryanston Square, London, W1H 2DS"
+              }
+            }
+          }
+        </payload>
+      </tag>
       <tag id="generator_id_A" value="generator_value_A">
         <tags>
           <tag id="generator_id_B" value="generator_value_B"/>
@@ -31,9 +43,10 @@
               }
             </payload>
             <tags>
-              <tag id="event_id_B" value="event_value_B"/>
+              <tag id="event_id_AB" value="event_value_AB"/>
             </tags>
           </tag>
+          <tag id="event_id_B" value="event_value_B"/>
         </tags>
       </event>
     </events>

@@ -5,7 +5,7 @@
       <term name="Summer 2016 Week 1">
         <tags>
           <tag id="Menu">
-            <metadata>
+            <payload>
               <![CDATA[
                 <menu>
                   <main>Chicken & Broccoli Wholemeal Pasta Bake (made with free range chicken)</main>
@@ -14,7 +14,7 @@
                   <dessert>Yoghurt / Fresh Fruit Platter</dessert>
                 </menu>
               ]]>
-            </metadata>
+            </payload>
           </tag>
         </tags>
         <dates>

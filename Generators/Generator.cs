@@ -16,7 +16,7 @@ namespace Generators
 {
     public class Generator
     {
-        public static IEnumerable<IEvent> GenerateEvents(string sourceFile, IOrganisation organisation)
+        public static IEnumerable<IEvent> GenerateEvents(string sourceFile)
         {
             List<IEvent> events = new List<IEvent>();
 
@@ -51,6 +51,9 @@ namespace Generators
                     .ToList();
 
                 var generatorTags = RetrieveTags(inputGenerator);
+
+                var organisation = generatorTags?
+                    .SingleOrDefault(t => t.Ident == "organisation");
 
                 foreach (var inputEvent in inputGeneratorEvents.Where(c => c != null))
                 {
@@ -142,11 +145,13 @@ namespace Generators
                         serials.Add(serial);
                     }
 
+                    var organisationPayload = organisation?.Payload;
+
                     var @event = new Event
                     {
-                        Title = organisation.Title + "." + termName + "." + className,
+                        Title = organisation.Value + "." + termName + "." + className,
                         Serials = new EdgeVertexs<ISerial>(toVertexs: serials),
-                        Location = organisation.Location,
+                        //Location = organisation.Location,
                         Tags = new EdgeVertexs<ITag>(eventTags),
                     };
 
@@ -255,7 +260,9 @@ namespace Generators
             var attribute = input.Attribute(name);
 
             if (attribute == null)
+            {
                 throw new ArgumentNullException(name);
+            }
 
             return attribute;
         }

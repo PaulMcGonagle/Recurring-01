@@ -22,18 +22,8 @@ namespace InitialiseDatabase
         // ReSharper disable once UnusedParameter.Local
         static void Main(string[] args)
         {
-            Organisation organisation = new Organisation
-            {
-                Title = "Hampden Gurney Primary School",
-                Location = new EdgeVertex<Location>(new Location
-                {
-                    Address = "Nutford Street",
-                }),
-            };
-
             var events = Generator.GenerateEvents(
-                sourceFile: "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\HG.xml",
-                organisation: organisation)
+                sourceFile: "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\HG.xml")
                 .ToList();
 
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));

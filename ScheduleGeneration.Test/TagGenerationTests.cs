@@ -25,8 +25,8 @@ namespace ScheduleGeneration.Test
             private string _sourceFile;
             private XElement _source;
 
-            private IOrganisation _organisation;
             private IEnumerable<IEvent> _events;
+            private IOrganisation _organisation;
             private IEvent _event;
             private ISerial _serial;
             private IEnumerable<ITag> _providedGeneratorTags;
@@ -38,7 +38,7 @@ namespace ScheduleGeneration.Test
             {
                 this.WithExamples(new ExampleTable(
                     "sourceFile",
-                    "organisation",
+                    "expectedOrganisation",
                     "expectedGeneratorTags",
                     "expectedEventTags",
                     "expectedScheduleTags",
@@ -114,14 +114,14 @@ namespace ScheduleGeneration.Test
                 _source = XElement.Load(sourceFile);
             }
 
-            public void AndGivenAnOrganisation(IOrganisation organisation)
-            {
-                _organisation = organisation;
-            }
-
             public void AndGivenGeneratorTags(IEnumerable<ITag> expectedGeneratorTags)
             {
                 _providedGeneratorTags = expectedGeneratorTags;
+            }
+
+            public void AndGivenAnOrganisation(IOrganisation expectedOrganisation)
+            {
+                _organisation = expectedOrganisation;
             }
 
             public void AndGivenEventTags(IEnumerable<ITag> expectedEventTags)
@@ -136,7 +136,7 @@ namespace ScheduleGeneration.Test
 
             public void WhenEventsAreGenerated()
             {
-                _events = Generator.GenerateEvents(_sourceFile, _organisation);
+                _events = Generator.GenerateEvents(_sourceFile);
             }
 
             public void ThenOneEventIsGenerated()
@@ -172,7 +172,7 @@ namespace ScheduleGeneration.Test
             }
         }
 
-        private static void CompareTagsToSource(IEnumerable<ITag> tags, XElement source)
+        public static void CompareTagsToSource(IEnumerable<ITag> tags, XElement source)
         {
             var sourceTags = source.XPathSelectElements("./tags/tag");
 
