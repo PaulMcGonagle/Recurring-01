@@ -19,6 +19,7 @@
           <tag id="generator_id_B" value="generator_value_B"/>
         </tags>
       </tag>
+      <tag id="TimeZoneProvider" value="Europe/London"/>
     </tags>
     <terms>
       <term name="Autumn 2016/17">

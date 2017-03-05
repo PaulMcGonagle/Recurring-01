@@ -130,10 +130,14 @@ namespace Generators
                             schedule = byWeekdays;
                         }
 
+                        var timeZoneProviderTag = generatorTags.SingleOrDefault(t => t.Ident == "TimeZoneProvider");
+
+                        var timeZoneProvider = timeZoneProviderTag != null ? timeZoneProviderTag.Value : "Europe/London";
+
                         var serial = new Serial(
                             schedule: schedule,
                             timeRange: new EdgeRangeTime(timeRange),
-                            timeZoneProvider: "Europe/London");
+                            timeZoneProvider: timeZoneProvider);
 
                         var serialTags = scheduleTags
                             .Union(eventTags)

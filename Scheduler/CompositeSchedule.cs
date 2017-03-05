@@ -32,7 +32,10 @@ namespace Scheduler
             list.AddRange(inclusions);
             list.RemoveAll(l => exclusions.Select(e => e.Date.Value).Contains(l.Date.Value));
 
-            list.RemoveAll(d => Breaks.Select(b => b.ToVertex.Contains(d.Date.Value)).Any());
+            foreach (var @break in Breaks)
+            {
+                list.RemoveAll(d => @break.ToVertex.Contains(d.Date.Value));
+            }
 
             return list;
         }

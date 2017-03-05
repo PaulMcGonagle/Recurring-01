@@ -37,5 +37,10 @@ namespace Scheduler.Persistance
         }
 
         #endregion
+
+        public override string ToString()
+        {
+            return $"Edge to: {ToVertex}";
+        }
     }
 }

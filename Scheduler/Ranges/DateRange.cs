@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Runtime.Serialization;
+using System.Text;
 using ArangoDB.Client;
 using NodaTime;
 using Scheduler.Persistance;
@@ -37,6 +38,11 @@ namespace Scheduler.Ranges
             {
                 throw new ArgumentOutOfRangeException($"Range is invalid: From={From?.Date?.Value}, To={To?.Date?.Value}");
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{From.Date}->{To.Date}";
         }
 
         public bool Contains(LocalDate localDate)

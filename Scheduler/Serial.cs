@@ -6,7 +6,6 @@ using ArangoDB.Client;
 using NodaTime;
 using Scheduler.Generation;
 using Scheduler.Persistance;
-using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 
 namespace Scheduler
