@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using NodaTime;
 using NodaTime.Testing;
 using NodaTime.Text;
@@ -20,152 +22,197 @@ namespace Generators
         {
             List<IEvent> events = new List<IEvent>();
 
-            XElement xelement = XElement.Load(sourceFile);
+            XElement xSource = XElement.Load(sourceFile);
 
-            IEnumerable<XElement> inputGenerators = xelement
+            IEnumerable<XElement> xGenerators = xSource
                 .Elements("generator");
 
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
 
-            foreach (var inputGenerator in inputGenerators.Where(g => g != null))
+            foreach (var xGenerator in xGenerators)
             {
-                var inputGeneratorClasses = inputGenerator
-                    .Elements("classes")
-                    .Elements("class")
+                var xYears = xGenerator
+                    .Elements("years")
+                    .Elements("year")
                     .ToList();
-                var inputGeneratorTerms = inputGenerator
+                var xGeneratorTerms = xGenerator
                     .Elements("terms")
                     .Elements("term")
                     .ToList();
-                var inputGeneratorTimes = inputGenerator
+                var xGeneratorTimes = xGenerator
                     .Elements("times")
                     .Elements("time")
                     .ToList();
-                var inputGeneratorSessions = inputGenerator
-                    .Elements("sessions")
-                    .Elements("session")
-                    .ToList();
-                var inputGeneratorEvents = inputGenerator
-                    .Elements("events")
-                    .Elements("event")
-                    .ToList();
 
-                var generatorTags = RetrieveTags(inputGenerator);
-
-                var organisation = generatorTags?
-                    .SingleOrDefault(t => t.Ident == "organisation");
-
-                foreach (var inputEvent in inputGeneratorEvents.Where(c => c != null))
+                foreach (var xYear in xYears)
                 {
-                    var termName = inputEvent?.Attribute("term")?.Value;
-                    var className = inputEvent?.Attribute("class")?.Value;
-
-                    var term = inputGeneratorTerms?.SingleOrDefault(t => t.Attribute("name").Value == termName);
-                    var termRange = RetrieveDateRange(term);
-
-                    var inputClass = inputGeneratorClasses
-                        .SingleOrDefault(c => c.Attribute("name")?.Value == className);
-
-                    var title = inputClass?.Attribute("name").Value;
-
-                    var inputSchedules = inputClass
-                        ?.Elements("schedules")
-                        .Elements("schedule")
+                    var xClasses = xYear
+                        .Elements("classes")
+                        .Elements("class")
                         .ToList();
 
-                    var eventTags = RetrieveTags(inputEvent);
+                    var xSessions = xYear
+                        .Elements("sessions")
+                        .Elements("session")
+                        .ToList();
 
-                    ISerials serials = new Serials();
+                    var generatorTags = RetrieveTags(xGenerator)
+                        .ToList();
 
-                    foreach (var inputSchedule in inputSchedules)
+                    var organisation = generatorTags?
+                        .SingleOrDefault(t => t.Ident == "organisation");
+
+                    var xYearReferenceTerms = xYear
+                        .Elements("references")
+                        .Elements("reference")
+                        .Where(tr => tr.Attribute("type")?.Value == "term")
+                        .ToList();
+
+                    var xReferencedTerms = RetrieveReferences(xSource, "term", xYearReferenceTerms)
+                        .ToList();
+
+                    foreach (var xClass in xClasses.Where(c => c != null))
                     {
-                        var weekdays = inputSchedule
-                            ?.Elements("weekdays")
-                            .Elements("weekday")
-                            .Select(w => (IsoDayOfWeek)Enum.Parse(typeof(IsoDayOfWeek), w.Value));
+                        var className = xClass?.Attribute("name")?.Value;
 
-                        var sessionName = inputSchedule?.Attribute("session")?.Value;
-
-                        var inputSession = inputGeneratorSessions
-                            .FirstOrDefault(s => s.Attribute("name")?.Value == sessionName);
-
-                        var timeRange = RetrieveTimeRange(inputSession ?? inputSchedule);
-
-                        var scheduleTags = RetrieveTags(inputSchedule);
-
-                        var byWeekdays = ByWeekdays.Create(
-                            clock: fakeClock,
-                            weekdays: weekdays,
-                            dateRange: termRange);
-
-                        var inputBreaks = term
-                            .Elements("breaks")
-                            .Elements("break")
+                        var xClassTerms = xClass
+                            .Elements("terms")
+                            .Elements("term")
                             .ToList();
 
-                        var inputTermTags = RetrieveTags(term);
+                        var xTermsCombined = xReferencedTerms
+                            .Union(xClassTerms);
 
-                        ISchedule schedule;
-
-                        if (inputBreaks.Count > 0)
+                        foreach (var xTerm in xTermsCombined)
                         {
-                            var compositeSchedule = CompositeSchedule.Create(
-                                clock: fakeClock,
-                                schedule: byWeekdays,
-                                dateRange: termRange);
+                            var termName = xTerm.Attribute("name")?.Value;
 
-                            foreach (var inputBreak in inputBreaks)
+                            var termRange = RetrieveDateRange(xTerm);
+
+                            var xClassSchedules = xClass
+                                .Elements("schedules")
+                                .Elements("schedule")
+                                .ToList();
+
+                            var yearTags = RetrieveTags(xYear);
+
+                            ISerials serials = new Serials();
+
+                            foreach (var xClassSchedule in xClassSchedules)
                             {
-                                string name = inputBreak?.Attribute("name").Value;
+                                var xClassScheduleWeekdays = xClassSchedule
+                                    ?.Elements("weekdays")
+                                    .Elements("weekday")
+                                    .Select(w => (IsoDayOfWeek) Enum.Parse(typeof(IsoDayOfWeek), w.Value));
 
-                                var breakRange = RetrieveDateRange(inputBreak);
+                                var sessionName = xClassSchedule?.Attribute("session")?.Value;
 
-                                compositeSchedule.Breaks.Add(new EdgeVertex<IDateRange>(breakRange));
+                                var xSession = xSessions
+                                    .FirstOrDefault(s => s.Attribute("name")?.Value == sessionName);
+
+                                var timeRange = RetrieveTimeRange(xSession ?? xClassSchedule);
+
+                                var scheduleTags = RetrieveTags(xClassSchedule);
+
+                                var byWeekdays = ByWeekdays.Create(
+                                    clock: fakeClock,
+                                    weekdays: xClassScheduleWeekdays,
+                                    dateRange: termRange);
+
+                                var xTermBreaks = xTerm
+                                    .Elements("breaks")
+                                    .Elements("break")
+                                    .ToList();
+
+                                var termTags = RetrieveTags(xTerm);
+
+                                ISchedule schedule;
+
+                                if (xTermBreaks.Count > 0)
+                                {
+                                    var compositeSchedule = CompositeSchedule.Create(
+                                        clock: fakeClock,
+                                        schedule: byWeekdays,
+                                        dateRange: termRange);
+
+                                    foreach (var xTermBreak in xTermBreaks)
+                                    {
+                                        var name = xTermBreak?.Attribute("name")?.Value;
+
+                                        var xTermBreakRange = RetrieveDateRange(xTermBreak);
+
+                                        compositeSchedule.Breaks.Add(new EdgeVertex<IDateRange>(xTermBreakRange));
+                                    }
+
+                                    schedule = compositeSchedule;
+                                }
+                                else
+                                {
+                                    schedule = byWeekdays;
+                                }
+
+                                var timeZoneProviderTag =
+                                    generatorTags.SingleOrDefault(t => t.Ident == "TimeZoneProvider");
+
+                                var timeZoneProvider = timeZoneProviderTag != null
+                                    ? timeZoneProviderTag.Value
+                                    : "Europe/London";
+
+                                var serial = new Serial(
+                                    schedule: schedule,
+                                    timeRange: new EdgeRangeTime(timeRange),
+                                    timeZoneProvider: timeZoneProvider);
+
+                                var serialTags = scheduleTags
+                                    .Union(generatorTags)
+                                    .Union(yearTags)
+                                    .Union(termTags);
+
+                                serial.Tags = new EdgeVertexs<ITag>(serialTags);
+
+
+                                serials.Add(serial);
                             }
 
-                            schedule = compositeSchedule;
+                            var organisationPayload = organisation?.Payload;
+
+                            var @event = new Event
+                            {
+                                Title = organisation.Value + "." + termName + "." + className,
+                                Serials = new EdgeVertexs<ISerial>(toVertexs: serials),
+                                //Location = organisation.Location,
+                                Tags = new EdgeVertexs<ITag>(yearTags),
+                            };
+
+                            events.Add(@event);
                         }
-                        else
-                        {
-                            schedule = byWeekdays;
-                        }
-
-                        var timeZoneProviderTag = generatorTags.SingleOrDefault(t => t.Ident == "TimeZoneProvider");
-
-                        var timeZoneProvider = timeZoneProviderTag != null ? timeZoneProviderTag.Value : "Europe/London";
-
-                        var serial = new Serial(
-                            schedule: schedule,
-                            timeRange: new EdgeRangeTime(timeRange),
-                            timeZoneProvider: timeZoneProvider);
-
-                        var serialTags = scheduleTags
-                            .Union(eventTags)
-                            .Union(inputTermTags);
-
-                        serial.Tags = new EdgeVertexs<ITag>(serialTags);
-
-
-                        serials.Add(serial);
                     }
-
-                    var organisationPayload = organisation?.Payload;
-
-                    var @event = new Event
-                    {
-                        Title = organisation.Value + "." + termName + "." + className,
-                        Serials = new EdgeVertexs<ISerial>(toVertexs: serials),
-                        //Location = organisation.Location,
-                        Tags = new EdgeVertexs<ITag>(eventTags),
-                    };
-
-                    events.Add(@event);
                 }
             }
 
             return events;
         }
 
+        private static IEnumerable<XElement> RetrieveReferences(XElement xElement, string type, List<XElement> xReferences)
+        {
+            var paths = xReferences
+                .Where(tr => tr.Attribute("type")?.Value == type)
+                .Select(tr => tr.Attribute("path")?.Value)
+                .Where(p => p != null);
+
+            foreach (var path in paths)
+            {
+                var item = xElement.XPathSelectElement(path);
+
+                if (item == null)
+                    throw new Exception($"Unable to load reference {path}");
+
+                if (item.Name != type)
+                    throw new Exception($"Reference {path} expected type '{type}' but found '{item.Name}'");
+
+                yield return item;
+            }
+        }
 
         private static DateRange RetrieveDateRange(XElement input, string elementName = "rangeDate")
         {

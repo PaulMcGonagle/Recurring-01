@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Castle.Core.Internal;
 using Generators;
 using Scheduler;
 using Scheduler.Persistance;
@@ -29,9 +30,12 @@ namespace ScheduleGeneration.Test
             private IOrganisation _organisation;
             private IEvent _event;
             private ISerial _serial;
-            private IEnumerable<ITag> _providedGeneratorTags;
-            private IEnumerable<ITag> _providedEventTags;
-            private IEnumerable<ITag> _providedScheduleTags;
+
+            private IEnumerable<XElement> _providedGeneratorTags;
+            private IEnumerable<XElement> _providedScheduleTags;
+            private IEnumerable<XElement> _providedClassTags;
+            private IEnumerable<XElement> _providedTermTags;
+            private IEnumerable<XElement> _providedYearTags;
 
             [Fact]
             public void Execute()
@@ -39,11 +43,11 @@ namespace ScheduleGeneration.Test
                 this.WithExamples(new ExampleTable(
                     "sourceFile",
                     "expectedOrganisation",
-                    "expectedGeneratorTags",
-                    "expectedEventTags",
-                    "expectedScheduleTags",
-                    "eventPath",
-                    "serialPath")
+                    "generatorTagPath",
+                    "scheduleTagPath",
+                    "classTagPath",
+                    "termTagPath",
+                    "yearTagPath")
                     {
                         {
                             "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\ScheduleGeneration.Test\\TestData\\BasicSchoolSchedule.xml",
@@ -51,57 +55,11 @@ namespace ScheduleGeneration.Test
                             {
                                 Title = "a test organisation",
                             },
-                            new List<ITag>
-                            {
-                                new Tag
-                                {
-                                    Ident = "generator_id_A",
-                                    Value = "generator_value_A",
-                                    RelatedTags = new EdgeVertexs<ITag>
-                                        {
-                                            new EdgeTag(new Tag
-                                            {
-                                                Ident = "generator_id_B",
-                                                Value = "generator_value_B",
-                                            }),
-                                        },
-                                },
-                            },
-                            new List<ITag>
-                            {
-                                new Tag
-                                {
-                                    Ident = "event_id_A",
-                                    Value = "event_value_A",
-                                    Payload = @"{ ""detail"" : { ""url"": ""http://www.hampdengurneyschool.org.uk"" } }",
-                                    RelatedTags = new EdgeVertexs<ITag>
-                                        {
-                                            new EdgeTag(new Tag
-                                            {
-                                                Ident = "event_id_B",
-                                                Value = "event_value_B",
-                                            }),
-                                        },
-                                }
-                            },
-                            new List<ITag>
-                            {
-                                new Tag
-                                {
-                                    Ident = "_schedule_id_A",
-                                    Value = "_schedule_value_A",
-                                    RelatedTags = new EdgeVertexs<ITag>
-                                        {
-                                            new EdgeTag(new Tag
-                                            {
-                                                Ident = "_schedule_id_B",
-                                                Value = "_schedule_value_B",
-                                            }),
-                                        },
-                                }
-                            },
-                            "./generator/events/event",
-                            "./generator/classes/class/schedules/schedule | ./generator/events/event"
+                            "./generator/tags/tag",
+                            "./generator/years/year/classes/class/schedules/schedule/tags/tag",
+                            "./generator/years/year/classes/class/tags/tag",
+                            "./generator/years/year/tags/tag",
+                            "./generator/terms/term/tags/tag"
                         },
                     })
                     .BDDfy();
@@ -114,24 +72,34 @@ namespace ScheduleGeneration.Test
                 _source = XElement.Load(sourceFile);
             }
 
-            public void AndGivenGeneratorTags(IEnumerable<ITag> expectedGeneratorTags)
-            {
-                _providedGeneratorTags = expectedGeneratorTags;
-            }
-
             public void AndGivenAnOrganisation(IOrganisation expectedOrganisation)
             {
                 _organisation = expectedOrganisation;
             }
 
-            public void AndGivenEventTags(IEnumerable<ITag> expectedEventTags)
+            public void AndGivenGeneratorTagPath(string generatorTagPath)
             {
-                _providedEventTags = expectedEventTags;
+                _providedGeneratorTags = _source.XPathSelectElements(generatorTagPath);
             }
 
-            public void AndGivenScheduleTags(IEnumerable<ITag> expectedScheduleTags)
+            public void AndGivenClassTagPath(string classTagPath)
             {
-                _providedScheduleTags = expectedScheduleTags;
+                _providedClassTags = _source.XPathSelectElements(classTagPath);
+            }
+
+            public void AndGivenTermTagPath(string termTagPath)
+            {
+                _providedTermTags = _source.XPathSelectElements(termTagPath);
+            }
+
+            public void AndGivenScheduleTagPath(string scheduleTagPath)
+            {
+                _providedScheduleTags = _source.XPathSelectElements(scheduleTagPath);
+            }
+
+            public void AndGivenYearTagPath(string yearTagPath)
+            {
+                _providedYearTags = _source.XPathSelectElements(yearTagPath);
             }
 
             public void WhenEventsAreGenerated()
@@ -146,13 +114,12 @@ namespace ScheduleGeneration.Test
                 _event = _events.Single();
             }
 
-            public void AndThenGenerationTagsAreValid(string eventPath)
+            public void AndThenEventTagsAreValid()
             {
-                var source = _source.XPathSelectElement(eventPath);
+                var expectedTags = _providedYearTags
+                    .ToList();
 
-                source.ShouldNotBeNull();
-
-                CompareTagsToSource(_event.Tags.Select(e => e.ToVertex), source);
+                CompareTagsToSource(_event.Tags.Select(e => e.ToVertex), expectedTags);
             }
 
             public void AndThenEventHasOneSerial()
@@ -162,19 +129,28 @@ namespace ScheduleGeneration.Test
                 _serial = _event.Serials.Single().ToVertex;
             }
 
-            public void AndThenSerialTagsAreValid(string serialPath)
+            public void AndThenSerialTagsAreValid()
             {
-                var source = _source.XPathSelectElement(serialPath);
+                var expectedTags = _providedScheduleTags
+                    .Union(_providedGeneratorTags)
+                    .Union(_providedYearTags)
+                    .Union(_providedTermTags)
+                    .ToList();
 
-                source.ShouldNotBeNull();
-
-                CompareTagsToSource(_event.Tags.Select(e => e.ToVertex), source);
+                CompareTagsToSource(_serial.Tags.Select(s => s.ToVertex), expectedTags);
             }
         }
 
-        public static void CompareTagsToSource(IEnumerable<ITag> tags, XElement source)
+        public static void CompareTagsToSource(IEnumerable<ITag> tags, IEnumerable<XElement> sourceTags)
         {
-            var sourceTags = source.XPathSelectElements("./tags/tag");
+            sourceTags = sourceTags.ToList();
+
+            if (sourceTags.IsNullOrEmpty())
+            {
+                tags.ShouldBeEmpty();
+
+                return;
+            }
 
             var enumeratedTags = tags as ITag[] ?? tags.ToArray();
 
@@ -183,11 +159,12 @@ namespace ScheduleGeneration.Test
             foreach (var tag in enumeratedTags)
             {
                 var sourceTag = sourceTags
-                    .Where(st => st.Attribute("id").Value == tag.Ident && st.Attribute("value").Value == tag.Value);
+                    .Where(st => st.Attribute("id")?.Value == tag.Ident)
+                    .Where(st => st.Attribute("value")?.Value == tag.Value);
 
                 sourceTag.ShouldHaveSingleItem();
 
-                CompareTagsToSource(tag.RelatedTags.Select(rl => rl.ToVertex), sourceTag.Single());
+                //CompareTagsToSource(tag.RelatedTags.Select(rl => rl.ToVertex), sourceTag.Single());
             }
         }
     }
