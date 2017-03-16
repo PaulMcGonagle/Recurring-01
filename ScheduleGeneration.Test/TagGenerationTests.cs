@@ -58,8 +58,8 @@ namespace ScheduleGeneration.Test
                             "./generator/tags/tag",
                             "./generator/years/year/classes/class/schedules/schedule/tags/tag",
                             "./generator/years/year/classes/class/tags/tag",
-                            "./generator/years/year/tags/tag",
-                            "./generator/terms/term/tags/tag"
+                            "./generator/terms/term/tags/tag",
+                            "./generator/years/year/tags/tag"
                         },
                     })
                     .BDDfy();
