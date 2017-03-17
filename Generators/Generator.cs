@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using NodaTime;
@@ -12,7 +11,6 @@ using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
-using Scheduler.Users;
 
 namespace Generators
 {
@@ -20,11 +18,11 @@ namespace Generators
     {
         public static IEnumerable<IEvent> GenerateEvents(string sourceFile)
         {
-            List<IEvent> events = new List<IEvent>();
+            var events = new List<IEvent>();
 
-            XElement xSource = XElement.Load(sourceFile);
+            var xSource = XElement.Load(sourceFile);
 
-            IEnumerable<XElement> xGenerators = xSource
+            var xGenerators = xSource
                 .Elements("generator");
 
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
@@ -59,7 +57,7 @@ namespace Generators
                     var generatorTags = RetrieveTags(xGenerator)
                         .ToList();
 
-                    var organisation = generatorTags?
+                    var organisation = generatorTags
                         .SingleOrDefault(t => t.Ident == "organisation");
 
                     var xYearReferenceTerms = xYear
@@ -73,7 +71,7 @@ namespace Generators
 
                     foreach (var xClass in xClasses.Where(c => c != null))
                     {
-                        var className = xClass?.Attribute("name")?.Value;
+                        var className = xClass.Attribute("name")?.Value;
 
                         var xClassTerms = xClass
                             .Elements("terms")
@@ -94,7 +92,8 @@ namespace Generators
                                 .Elements("schedule")
                                 .ToList();
 
-                            var yearTags = RetrieveTags(xYear);
+                            var yearTags = RetrieveTags(xYear)
+                                .ToList();
 
                             ISerials serials = new Serials();
 
@@ -137,8 +136,6 @@ namespace Generators
 
                                     foreach (var xTermBreak in xTermBreaks)
                                     {
-                                        var name = xTermBreak?.Attribute("name")?.Value;
-
                                         var xTermBreakRange = RetrieveDateRange(xTermBreak);
 
                                         compositeSchedule.Breaks.Add(new EdgeVertex<IDateRange>(xTermBreakRange));
@@ -170,7 +167,6 @@ namespace Generators
 
                                 serial.Tags = new EdgeVertexs<ITag>(serialTags);
 
-
                                 serials.Add(serial);
                             }
 
@@ -178,8 +174,8 @@ namespace Generators
 
                             var @event = new Event
                             {
-                                Title = organisation.Value + "." + termName + "." + className,
-                                Serials = new EdgeVertexs<ISerial>(toVertexs: serials),
+                                Title = organisation?.Value + "." + termName + "." + className,
+                                Serials = new EdgeVertexs<ISerial>(serials),
                                 //Location = organisation.Location,
                                 Tags = new EdgeVertexs<ITag>(yearTags),
                             };
@@ -286,7 +282,7 @@ namespace Generators
             var attribute = input.Attribute(name);
 
             var localDatePattern = LocalDatePattern.CreateWithInvariantCulture("yyyy-MM-dd");
-            var parseResult = localDatePattern.Parse(attribute.Value);
+            var parseResult = localDatePattern.Parse(attribute?.Value);
 
             return parseResult.Value;
         }
