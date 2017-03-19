@@ -49,10 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generator.cs" />
+    <Compile Include="GeneratorClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\Term.cs" />
     <Compile Include="Types\Terms.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Sources\HG.xml">

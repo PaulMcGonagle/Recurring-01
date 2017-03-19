@@ -6,6 +6,7 @@ using ArangoDB.Client;
 using Newtonsoft.Json;
 using NodaTime;
 using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
 
 namespace Scheduler
 {
@@ -35,6 +36,23 @@ namespace Scheduler
         protected string CombinedKey(Tag tag)
         {
             return $"{tag.Ident}.{tag.Value}";
+        }
+
+        public ITag Connect(ITag connectTag)
+        {
+            RelatedTags.Add(new EdgeTag(connectTag));
+
+            return connectTag;
+        }
+
+        public ITag Connect(string ident, string value)
+        {
+            return Connect(new Tag(ident: ident, value: value));
+        }
+
+        public void Connect(IEnumerable<ITag> connectTags)
+        {
+            RelatedTags.AddRange(connectTags.Select(ct => new EdgeTag(ct)));
         }
 
         [IgnoreDataMember]

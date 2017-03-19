@@ -1,4 +1,5 @@
-﻿using Scheduler.Persistance;
+﻿using System.Collections.Generic;
+using Scheduler.Persistance;
 
 namespace Scheduler
 {
@@ -9,5 +10,9 @@ namespace Scheduler
         string Payload { get; set; }
 
         EdgeVertexs<ITag> RelatedTags { get; set; }
+
+        ITag Connect(ITag connectTag);
+        ITag Connect(string ident, string value);
+        void Connect(IEnumerable<ITag> connectTags);
     }
 }

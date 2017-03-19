@@ -22,7 +22,7 @@ namespace InitialiseDatabase
         // ReSharper disable once UnusedParameter.Local
         static void Main(string[] args)
         {
-            var events = Generator.GenerateEvents(
+            var vertexs = GeneratorClasses.Generate(
                 sourceFile: "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\HG.xml")
                 .ToList();
 
@@ -30,26 +30,26 @@ namespace InitialiseDatabase
 
             using (var db = SchedulerDatabase.Database.Retrieve())
             {
-                foreach (var @event in events)
+                foreach (var vertex in vertexs)
                 {
-                    @event.Save(db, fakeClock);
+                    vertex.Save(db, fakeClock);
                 }
             }
 
-            foreach (var @event in events)
+            foreach (var vertex in vertexs.OfType<Event>())
             {
-                Instance.Generate(fakeClock, @event);
+                Instance.Generate(fakeClock, vertex);
             }
 
             using (var db = SchedulerDatabase.Database.Retrieve())
             {
-                foreach (var @event in events)
+                foreach (var @event in vertexs)
                 {
                     @event.Save(db, fakeClock);
                 }
             }
 
-            var links = @events.SelectMany(e => e.GetLinks(4)).ToList();
+            var links = vertexs.SelectMany(e => e.GetLinks(4)).ToList();
 
             SortedDictionary<string, IVertex> cache = new SortedDictionary<string, IVertex>();
 
@@ -91,7 +91,8 @@ namespace InitialiseDatabase
             }
 
             ConsoleOutput.Output.DisplayList(
-                events
+                vertexs
+                    .OfType<Event>()
                     .First()
                     .Serials
                     .SelectMany(s => s.ToVertex.Episodes)

@@ -28,6 +28,7 @@ namespace Scheduler.Persistance
         [IgnoreDataMember]
         public virtual bool IsDirty { get; private set; } = true;
 
+        [IgnoreDataMember]
         public virtual bool IsLinksDirty
         {
             get

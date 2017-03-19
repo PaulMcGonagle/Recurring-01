@@ -104,7 +104,9 @@ namespace ScheduleGeneration.Test
 
             public void WhenEventsAreGenerated()
             {
-                _events = Generator.GenerateEvents(_sourceFile);
+                var vertexs = GeneratorClasses.Generate(_sourceFile);
+
+                _events = vertexs.OfType<Event>();
             }
 
             public void ThenOneEventIsGenerated()

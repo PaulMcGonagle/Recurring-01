@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 using ArangoDB.Client;
+using Castle.Core.Internal;
 using Generators;
 using NodaTime;
 using NodaTime.Testing;
@@ -114,6 +115,7 @@ namespace ScheduleGeneration.Test
 
             private IClock _clock;
             private IArangoDatabase _db;
+            private IEnumerable<IVertex> _vertexs;
             private IEnumerable<IEvent> _events;
 
             [Fact]
@@ -170,20 +172,27 @@ namespace ScheduleGeneration.Test
                 _clock = clock;
             }
 
-            public void WhenEventIsGenerated()
+            public void WhenVertexsGenerated()
             {
-                _events = Generator.GenerateEvents(_sourceFile);
+                _vertexs = GeneratorClasses.Generate(_sourceFile)
+                    .ToList();
             }
 
-            public void AndWhenEventsAreSaved()
+            public void AndWhenVertexsAreSaved()
             {
-                foreach (var @event in _events)
+                foreach (var vertex in _vertexs)
                 {
-                    @event.Save(_db, _clock);
+                    //vertex.Id = "abc";
+                    vertex.Save(_db, _clock);
                 }
             }
 
-            public void AndWhenGenerated()
+            public void AndWhenEventsAreRetrieved()
+            {
+                _events = _vertexs.OfType<Event>();
+            }
+
+            public void AndWhenIntancesAreGenerated()
             {
                 foreach (var @event in _events)
                 {
