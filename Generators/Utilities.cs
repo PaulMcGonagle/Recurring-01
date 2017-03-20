@@ -76,17 +76,14 @@ namespace Generators
 
         public static ITag RetrieveTag(XElement inputXTag)
         {
-            var xTag = RetrieveXTags(inputXTag);
-
-            var relatedTags = xTag.Select(RetrieveTag);
-
             var inputIdent = ParseAttribute(inputXTag, "id");
             var inputValue = ParseAttribute(inputXTag, "value");
             var inputPayload = inputXTag.Elements("payload").FirstOrDefault();
 
             var tag = new Tag(inputIdent.Value, inputValue.Value, inputPayload?.Value);
 
-            tag.RelatedTags.AddRange(relatedTags.Select(relatedTag => new EdgeTag(relatedTag)));
+            tag.RelatedTags.AddRange(RetrieveXTags(inputXTag)
+                .Select(relatedTag => new EdgeTag(RetrieveTag(relatedTag))));
 
             return tag;
         }

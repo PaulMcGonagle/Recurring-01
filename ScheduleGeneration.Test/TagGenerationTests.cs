@@ -35,7 +35,7 @@ namespace ScheduleGeneration.Test
             private IEnumerable<XElement> _providedScheduleTags;
             private IEnumerable<XElement> _providedClassTags;
             private IEnumerable<XElement> _providedTermTags;
-            private IEnumerable<XElement> _providedYearTags;
+            private IEnumerable<XElement> _providedGroupTags;
 
             [Fact]
             public void Execute()
@@ -47,7 +47,7 @@ namespace ScheduleGeneration.Test
                     "scheduleTagPath",
                     "classTagPath",
                     "termTagPath",
-                    "yearTagPath")
+                    "groupTagPath")
                     {
                         {
                             "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\ScheduleGeneration.Test\\TestData\\BasicSchoolSchedule.xml",
@@ -56,10 +56,10 @@ namespace ScheduleGeneration.Test
                                 Title = "a test organisation",
                             },
                             "./generator/tags/tag",
-                            "./generator/years/year/classes/class/schedules/schedule/tags/tag",
-                            "./generator/years/year/classes/class/tags/tag",
+                            "./generator/groups/group/classes/class/schedules/schedule/tags/tag",
+                            "./generator/groups/group/classes/class/tags/tag",
                             "./generator/terms/term/tags/tag",
-                            "./generator/years/year/tags/tag"
+                            "./generator/groups/group/tags/tag"
                         },
                     })
                     .BDDfy();
@@ -97,9 +97,9 @@ namespace ScheduleGeneration.Test
                 _providedScheduleTags = _source.XPathSelectElements(scheduleTagPath);
             }
 
-            public void AndGivenYearTagPath(string yearTagPath)
+            public void AndGivenYearTagPath(string groupTagPath)
             {
-                _providedYearTags = _source.XPathSelectElements(yearTagPath);
+                _providedGroupTags = _source.XPathSelectElements(groupTagPath);
             }
 
             public void WhenEventsAreGenerated()
@@ -118,7 +118,7 @@ namespace ScheduleGeneration.Test
 
             public void AndThenEventTagsAreValid()
             {
-                var expectedTags = _providedYearTags
+                var expectedTags = _providedGroupTags
                     .ToList();
 
                 CompareTagsToSource(_event.Tags.Select(e => e.ToVertex), expectedTags);
@@ -135,7 +135,7 @@ namespace ScheduleGeneration.Test
             {
                 var expectedTags = _providedScheduleTags
                     .Union(_providedGeneratorTags)
-                    .Union(_providedYearTags)
+                    .Union(_providedGroupTags)
                     .Union(_providedTermTags)
                     .ToList();
 

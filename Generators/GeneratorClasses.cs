@@ -27,9 +27,9 @@ namespace Generators
 
             foreach (var xGenerator in xGenerators)
             {
-                var xYears = xGenerator
-                    .Elements("years")
-                    .Elements("year")
+                var xGroups = xGenerator
+                    .Elements("groups")
+                    .Elements("group")
                     .ToList();
                 var xGeneratorTerms = xGenerator
                     .Elements("terms")
@@ -46,28 +46,28 @@ namespace Generators
                 var organisation = generatorTags
                     .Single(t => t.Ident == "organisation");
 
-                foreach (var xYear in xYears)
+                foreach (var xGroup in xGroups)
                 {
-                    var xYearClasses = xYear
+                    var xYearClasses = xGroup
                         .Elements("classes")
                         .Elements("class")
                         .ToList();
 
-                    var xYearSessions = xYear
+                    var xYearSessions = xGroup
                         .Elements("sessions")
                         .Elements("session")
                         .ToList();
 
-                    var yearName = xYear.Attribute("name")?.Value;
+                    var groupName = xGroup.Attribute("name")?.Value;
 
-                    var year = organisation.Connect("year", yearName);
+                    var group = organisation.Connect("group", groupName);
 
-                    var yearTags = Utilities.RetrieveTags(xYear)
+                    var groupTags = Utilities.RetrieveTags(xGroup)
                         .ToList();
 
-                    year.Connect(yearTags);
+                    group.Connect(groupTags);
 
-                    var xYearReferenceTerms = xYear
+                    var xYearReferenceTerms = xGroup
                         .Elements("references")
                         .Elements("reference")
                         .Where(tr => tr.Attribute("type")?.Value == "term")
@@ -79,7 +79,7 @@ namespace Generators
                     foreach (var xClass in xYearClasses.Where(c => c != null))
                     {
                         var className = xClass.Attribute("name")?.Value;
-                        var classTag = year.Connect("class", className);
+                        var classTag = group.Connect("class", className);
 
                         var xClassTerms = xClass
                             .Elements("terms")
@@ -167,7 +167,7 @@ namespace Generators
 
                                 var serialTags = scheduleTags
                                     .Union(generatorTags)
-                                    .Union(yearTags)
+                                    .Union(groupTags)
                                     .Union(termTags);
 
                                 serial.Tags = new EdgeVertexs<ITag>(serialTags);
@@ -179,7 +179,7 @@ namespace Generators
                             {
                                 Title = organisation?.Value + "." + termName + "." + className,
                                 Serials = new EdgeVertexs<ISerial>(serials),
-                                Tags = new EdgeVertexs<ITag>(yearTags),
+                                Tags = new EdgeVertexs<ITag>(groupTags),
                             };
 
                             yield return @event;

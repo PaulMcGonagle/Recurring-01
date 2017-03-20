@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using ArangoDB.Client;
 using Newtonsoft.Json;
 using NodaTime;
@@ -67,42 +68,54 @@ namespace Scheduler
             if (compare != 0)
                 return compare;
 
-            compare = Compare(this.RelatedTags.Select(r => r.ToVertex), RelatedTags.Select(r => r.ToVertex));
+            compare = Compare(RelatedTags.Select(r => r.ToVertex), RelatedTags.Select(r => r.ToVertex));
 
             if (compare != 0)
                 return compare;
 
-            compare = this.Payload.CompareTo(compareTag.Payload);
+            //todo Introduce Payload Json comparison
+            compare = string.Compare(Payload, compareTag.Payload, StringComparison.Ordinal);
 
             return compare;
         }
 
         public static int Compare(IEnumerable<ITag> compareFrom, IEnumerable<ITag> compareTo)
         {
-            if (!compareFrom.Any() && !compareTo.Any())
+            var compareFromList = compareFrom
+                .ToList();
+            var compareToList = compareTo
+                .ToList();
+
+            if (!compareFromList.Any() && !compareToList.Any())
                 return 0;
 
-            int compareResult = 0;
+            var compareResult = 0;
 
-            var listFrom = compareFrom
-                .ToList();
+            compareFromList.Sort();
+            compareToList.Sort();
 
-            listFrom.Sort();
-
-            var listTo = compareTo
-                .ToList();
-
-            listTo.Sort();
-
-            for (var i = 0; i < listFrom.Count(); i++)
+            for (var i = 0; i < compareFromList.Count(); i++)
             {
-                compareResult = listFrom[i].CompareTo(listFrom[i]);
+                compareResult = compareFromList[i].CompareTo(compareToList[i]);
 
                 if (compareResult != 0)
                     return compareResult;
             }
 
             return compareResult;
+        }
+
+        public override string ToString()
+        {
+            var s = new StringBuilder($"ident: {Ident}, value: \"{Value}\"");
+
+            if (RelatedTags.Count > 0)
+            {
+                s.Append(" { ");
+                s.Append(string.Join(", ", RelatedTags.Select(rt => " { " + rt.ToVertex.ToString() + " } ")));
+                s.Append(" } ");
+            }
+            return s.ToString();
         }
 
         public override void Save(IArangoDatabase db, IClock clock)

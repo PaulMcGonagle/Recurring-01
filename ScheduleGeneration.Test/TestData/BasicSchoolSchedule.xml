@@ -46,8 +46,8 @@
       <time name="Start of day" value="09:00"/>
       <time name="End of day" value="15:30"/>
     </times>
-    <years>
-      <year name="Year2">
+    <groups>
+      <group name="Year2">
         <classes>
           <class name="Literacy">
             <schedules>
@@ -79,7 +79,7 @@
         <tags>
           <tag id="year_id_A" value="year_value_A"/>
         </tags>
-      </year>
-    </years>
+      </group>
+    </groups>
   </generator>
 </generators>

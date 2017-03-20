@@ -5,8 +5,8 @@
       <tag id="organisation" value="Hampden Gurney Primary School"/>
       <tag id="TimeZoneProvider" value="Europe/London"/>
     </tags>
-    <years>
-      <year>
+    <groups>
+      <group>
         <classes>
           <class name="Literacy">
             <terms>
@@ -27,7 +27,7 @@
             </schedules>
           </class>
         </classes>
-      </year>
-    </years>
+      </group>
+    </groups>
   </generator>
 </generators>

@@ -23,7 +23,6 @@
       </tag>
       <tag id="type" value="Term"/>
       <tag id="TimeZoneProvider" value="Europe/London"/>
-
     </tags>
     <terms>
       <term name="Autumn.2016/17">
@@ -64,8 +63,8 @@
       <time name="StartOfDay">09:00</time>
       <time name="EndOfDay">15:30</time>
     </times>
-    <years>
-      <year name="Reception">
+    <groups>
+      <group name="Reception">
         <classes>
           <class name="Register and News">
             <schedules>
@@ -81,6 +80,7 @@
               </schedule>
             </schedules>
           </class>
+          <!--
           <class name="Phonics and Literacy">
             <schedules>
               <schedule>
@@ -303,13 +303,14 @@
               </schedule>
             </schedules>
           </class>
+          -->
         </classes>
         <references>
           <reference type="term" path="./generator/terms/term[@name='Autumn.2016/17']"/>
         </references>
-      </year>
+      </group>
       <!--
-      <year name="Year2.2016/17">
+      <group name="Year2.2016/17">
         <sessions>
           <session name="9am">
             <rangeTime start="09:00" end="10:00"/>
@@ -534,8 +535,8 @@
         <references>
           <reference path="./generator/term/term[@name='Autumn.2016/17']"/>
         </terms>
-      </year>
+      </group>
       -->
-    </years>
+    </groups>
   </generator>
 </generators>
