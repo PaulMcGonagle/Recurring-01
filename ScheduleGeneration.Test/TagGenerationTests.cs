@@ -139,11 +139,46 @@ namespace ScheduleGeneration.Test
                     .Union(_providedTermTags)
                     .ToList();
 
-                CompareTagsToSource(_serial.Tags.Select(s => s.ToVertex), expectedTags);
+                CompareTagsToSource(_serial.Tags
+                    .Select(s => s.ToVertex)
+                    .Where(s => s.Ident != "term"), expectedTags);
+
+                _serial.Tags
+                    .Select(s => s.ToVertex)
+                    .Single(s => s.Ident == "term")
+                    ?.Value.ShouldBe("Autumn.2016/17");
+
             }
         }
 
         public static void CompareTagsToSource(IEnumerable<ITag> tags, IEnumerable<XElement> sourceTags)
+        {
+            sourceTags = sourceTags.ToList();
+
+            if (sourceTags.IsNullOrEmpty())
+            {
+                tags.ShouldBeEmpty();
+
+                return;
+            }
+
+            var enumeratedTags = tags as ITag[] ?? tags.ToArray();
+
+            enumeratedTags.Count().ShouldBe(sourceTags.Count());
+
+            foreach (var tag in enumeratedTags)
+            {
+                var sourceTag = sourceTags
+                    .Where(st => st.Attribute("id")?.Value == tag.Ident)
+                    .Where(st => st.Attribute("value")?.Value == tag.Value);
+
+                sourceTag.ShouldHaveSingleItem();
+
+                //CompareTagsToSource(tag.RelatedTags.Select(rl => rl.ToVertex), sourceTag.Single());
+            }
+        }
+
+        public static void ShouldBeSameAs(IEnumerable<ITag> tags, IEnumerable<XElement> sourceTags)
         {
             sourceTags = sourceTags.ToList();
 

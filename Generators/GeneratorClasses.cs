@@ -46,6 +46,15 @@ namespace Generators
                 var organisation = generatorTags
                     .Single(t => t.Ident == "organisation");
 
+                var timeZoneProviderTag = generatorTags
+                    .SingleOrDefault(t => t.Ident == "timeZoneProvider");
+
+                var timeZoneProvider = timeZoneProviderTag != null
+                    ? timeZoneProviderTag.Value
+                    : "Europe/London";
+
+                organisation.Connect("timeZoneProvider", timeZoneProvider);
+
                 foreach (var xGroup in xGroups)
                 {
                     var xYearClasses = xGroup
@@ -92,6 +101,7 @@ namespace Generators
                         foreach (var xTerm in xTermsCombined)
                         {
                             var termName = xTerm.Attribute("name")?.Value;
+                            var termTag = classTag.Connect("term", termName);
 
                             var termRange = Utilities.RetrieveDateRange(xTerm);
 
@@ -153,13 +163,6 @@ namespace Generators
                                     schedule = byWeekdays;
                                 }
 
-                                var timeZoneProviderTag =
-                                    generatorTags.SingleOrDefault(t => t.Ident == "TimeZoneProvider");
-
-                                var timeZoneProvider = timeZoneProviderTag != null
-                                    ? timeZoneProviderTag.Value
-                                    : "Europe/London";
-
                                 var serial = new Serial(
                                     schedule: schedule,
                                     timeRange: new EdgeRangeTime(timeRange),
@@ -171,13 +174,14 @@ namespace Generators
                                     .Union(termTags);
 
                                 serial.Tags = new EdgeVertexs<ITag>(serialTags);
+                                serial.Tags.Add(new EdgeTag(termTag));
 
                                 serials.Add(serial);
                             }
 
                             var @event = new Event
                             {
-                                Title = organisation?.Value + "." + termName + "." + className,
+                                Title = organisation?.Value + "." + termName + "." + groupName + "." + className,
                                 Serials = new EdgeVertexs<ISerial>(serials),
                                 Tags = new EdgeVertexs<ITag>(groupTags),
                             };

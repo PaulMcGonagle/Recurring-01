@@ -79,6 +79,18 @@ namespace Scheduler
             return compare;
         }
 
+        protected override IEnumerable<IVertex> Links
+        {
+            get
+            {
+                var list = new List<IVertex>();
+
+                list.AddRange(RelatedTags.Select(rt => rt.ToVertex));
+
+                return list;
+            }
+        }
+
         public static int Compare(IEnumerable<ITag> compareFrom, IEnumerable<ITag> compareTo)
         {
             var compareFromList = compareFrom
@@ -107,7 +119,7 @@ namespace Scheduler
 
         public override string ToString()
         {
-            var s = new StringBuilder($"ident: {Ident}, value: \"{Value}\"");
+            var s = new StringBuilder($"Tag ident: {Ident}, value: \"{Value}\"");
 
             if (RelatedTags.Count > 0)
             {

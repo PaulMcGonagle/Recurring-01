@@ -36,9 +36,21 @@ namespace InitialiseDatabase
                 }
             }
 
-            foreach (var vertex in vertexs.OfType<Event>())
+            foreach (var organisation in vertexs.OfType<Tag>()
+                .Where(t => t.Ident == "organisation"))
             {
-                Instance.Generate(fakeClock, vertex);
+                var timeZoneProvider =
+                    organisation.RelatedTags.Single(rt => rt.ToVertex.Ident == "timeZoneProvider").ToVertex.Value;
+                
+                var oLinks = organisation.GetLinks(8)
+                    .ToList();
+
+                foreach (var vertex in oLinks.OfType<Event>())
+                {
+                    Instance.Generate(fakeClock, vertex);
+                }
+
+
             }
 
             using (var db = SchedulerDatabase.Database.Retrieve())
@@ -177,22 +189,21 @@ namespace InitialiseDatabase
 
                 var e = Event.Create
                 (
-                    schedule:
-                    ByWeekday.Create
-                    (
-                        clock: fakeClock,
-                        weekday: IsoDayOfWeek.Wednesday,
-                        range: new DateRange(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05)
-                    ),
+                    schedule: ByWeekday.Create
+                        (
+                            clock: fakeClock,
+                            weekday: IsoDayOfWeek.Wednesday,
+                            range: new DateRange(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05)
+                        ),
                     rangeTime: new TimeRange(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                     timeZoneProvider: "Europe/London",
                     location: new Location
-                    {
-                        Address = @"Flat 9
+                        {
+                            Address = @"Flat 9
 26 Bryanston Square
 London
 W1H 2DS"
-                    }
+                        }
                 );
 
                 try
@@ -207,8 +218,6 @@ W1H 2DS"
 
                     // partially updates person, only 'Age' attribute will be updated
                     e.Save(db, clock);
-
-
                 
                     // returns 27
                     var entity = db
@@ -223,7 +232,7 @@ W1H 2DS"
                     { 
                         Serials = new EdgeVertexs<ISerial>(
                             toVertex: new Serial(
-                                    schedule: new CompositeSchedule()
+                                schedule: new CompositeSchedule()
                                     {
                                         InclusionsEdges = new EdgeVertexs<ISchedule>
                                                 {
@@ -236,8 +245,8 @@ W1H 2DS"
                                                     ,
                                                 },
                                     },
-                                    timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
-                                    timeZoneProvider: "Europe/London")),
+                                timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                                timeZoneProvider: "Europe/London")),
                         Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                     }.Save(db, clock);
 
@@ -245,7 +254,7 @@ W1H 2DS"
                     {
                         Serials = new EdgeVertexs<ISerial>(
                             toVertex: new Serial(
-                                    schedule: new CompositeSchedule()
+                                schedule: new CompositeSchedule()
                                     {
                                         InclusionsEdges = new EdgeVertexs<ISchedule>
                                         {
@@ -256,8 +265,8 @@ W1H 2DS"
                                             ,
                                         },
                                     },
-                                    timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
-                                    timeZoneProvider: "Europe/London")),
+                                timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                                timeZoneProvider: "Europe/London")),
                         Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                     }.Save(db, clock);
 
@@ -266,20 +275,21 @@ W1H 2DS"
                         Serials = new EdgeVertexs<ISerial>(
                             toVertex: new Serial(
                                 schedule:new CompositeSchedule()
-                                {
-                                    InclusionsEdges = new EdgeVertexs<ISchedule>
                                     {
-                                        new EdgeVertex<ISchedule>(new ByWeekdays
-                                            {
-                                                EdgeRange = new EdgeRangeDate(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
-                                                Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
-                                                Days = new List<IsoDayOfWeek>
+                                        InclusionsEdges = new EdgeVertexs<ISchedule>
+                                        {
+                                            new EdgeVertex<ISchedule>(new ByWeekdays
                                                 {
-                                                    IsoDayOfWeek.Saturday,
-                                                    IsoDayOfWeek.Sunday,
+                                                    EdgeRange = new EdgeRangeDate(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
+                                                    Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
+                                                    Days = new List<IsoDayOfWeek>
+                                                    {
+                                                        IsoDayOfWeek.Saturday,
+                                                        IsoDayOfWeek.Sunday,
+                                                    }
                                                 }
-                                            }
-                                        ),                                },
+                                            ),
+                                        },
                                     },
                                 timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                                 timeZoneProvider: "Europe/London")),
@@ -289,7 +299,7 @@ W1H 2DS"
                     {
                         Serials = new EdgeVertexs<ISerial>(
                             toVertex: new Serial(
-                                    schedule: new CompositeSchedule()
+                                schedule: new CompositeSchedule()
                                     {
                                         InclusionsEdges = new EdgeVertexs<ISchedule>
                                         {
@@ -306,8 +316,8 @@ W1H 2DS"
                                             ),
                                         },
                                     },
-                                    timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
-                                    timeZoneProvider: "Europe/London")),
+                                timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                                timeZoneProvider: "Europe/London")),
                     }.Save(db, clock);
                 }
                 catch (SaveException exception)
