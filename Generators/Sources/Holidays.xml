@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<generators>
+  <generator name="Holiday Calendars">
+    <calendars>
+      <calendar>
+        <dates>
+          <date value="2017-01-01"/>
+          <date value="2017-01-02">
+            <tag id="name" value="New Year's Day"/>
+          </date>
+        </dates>
+        <tags>
+          <tag id="name" value="Public Holidays"/>
+          <tag id="locale" value="UK"/>
+          <tag id="year" value="2017"/>
+        </tags>
+      </calendar>
+    </calendars>
+  </generator>
+</generators>

@@ -59,9 +59,12 @@
       </term>
     </terms>
     <times>
-      <time name="StartOfDay">09:00</time>
-      <time name="EndOfDay">15:30</time>
+      <time name="StartOfDay" value="09:00"/>
+      <time name="EndOfDay" value="15:30"/>
     </times>
+    <dates>
+      <date name="New Year's Day 2017" value="2017-01-02"/>
+    </dates>
     <groups>
       <group name="Reception">
         <classes>

@@ -98,6 +98,21 @@ namespace Generators
             }
         }
 
+        public static IEnumerable<Date> RetrieveDates(XElement xInput)
+        {
+            var xDates = xInput
+                .Elements("dates")
+                .Elements("date")
+                .ToList();
+
+            foreach (var xDate in xDates)
+            {
+                var date = new Date(ParseAttributeAsLocalDate(xDate, "value"));
+
+                yield return date;
+            }
+        }
+
         public static LocalDate ParseAttributeAsLocalDate(XElement input, string name)
         {
             var attribute = input.Attribute(name);
@@ -122,7 +137,7 @@ namespace Generators
         {
             if (input == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(input));
             }
 
             var attribute = input.Attribute(name);

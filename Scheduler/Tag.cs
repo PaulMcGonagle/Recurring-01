@@ -41,6 +41,9 @@ namespace Scheduler
 
         public ITag Connect(ITag connectTag)
         {
+            if (connectTag == null)
+                return null;
+
             RelatedTags.Add(new EdgeTag(connectTag));
 
             return connectTag;

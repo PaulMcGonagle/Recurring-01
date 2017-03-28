@@ -28,6 +28,7 @@ namespace ScheduleGeneration.Test
             private XElement _source;
             private IClock _clock;
             private IArangoDatabase _db;
+            private IGenerator _generator;
             private IEnumerable<IEvent> _events;
             private IEvent _event;
             private IInstance _instance;
@@ -102,9 +103,14 @@ namespace ScheduleGeneration.Test
                 _timeZoneProviderPath = timeZoneProviderPath;
             }
 
-            public void WhenEventsAreGenerated()
+            public void WhenGeneratorIsRetrieved()
             {
-                var vertexs = GeneratorClasses.Generate(_sourceFile);
+                _generator = GeneratorFactory.Get("classes");
+            }
+
+            public void AndWhenEventsAreGenerated()
+            {
+                var vertexs = _generator.Generate(_sourceFile);
 
                 _events = vertexs.OfType<Event>();
             }
@@ -182,6 +188,7 @@ namespace ScheduleGeneration.Test
             private XElement _source;
             private IClock _clock;
             private IArangoDatabase _db;
+            private IGenerator _generator;
             private IEnumerable<IEvent> _events;
             private IEvent _event;
             private IInstance _instance;
@@ -256,9 +263,14 @@ namespace ScheduleGeneration.Test
                 _timeZoneProviderPath = timeZoneProviderPath;
             }
 
-            public void WhenEventsAreGenerated()
+            public void WhenGeneratorIsRetrieved()
             {
-                var vertexs = GeneratorClasses.Generate(_sourceFile);
+                _generator = GeneratorFactory.Get("classes");
+            }
+
+            public void AndWhenEventsAreGenerated()
+            {
+                var vertexs = _generator.Generate(_sourceFile);
 
                 _events = vertexs.OfType<Event>();
             }

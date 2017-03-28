@@ -1,17 +1,10 @@
-﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Castle.Core.Internal;
 using Generators;
 using Scheduler;
-using Scheduler.Persistance;
-using Scheduler.ScheduleEdges;
 using Scheduler.Users;
 using Shouldly;
 using TestStack.BDDfy;
@@ -25,6 +18,7 @@ namespace ScheduleGeneration.Test
         {
             private string _sourceFile;
             private XElement _source;
+            private IGenerator _generator;
 
             private IEnumerable<IEvent> _events;
             private IOrganisation _organisation;
@@ -102,9 +96,14 @@ namespace ScheduleGeneration.Test
                 _providedGroupTags = _source.XPathSelectElements(groupTagPath);
             }
 
-            public void WhenEventsAreGenerated()
+            public void WhenGeneratorIsRetrieved()
             {
-                var vertexs = GeneratorClasses.Generate(_sourceFile);
+                _generator = GeneratorFactory.Get("classes");
+            }
+
+            public void AndWhenEventsAreGenerated()
+            {
+                var vertexs = _generator.Generate(_sourceFile);
 
                 _events = vertexs.OfType<Event>();
             }
@@ -173,8 +172,6 @@ namespace ScheduleGeneration.Test
                     .Where(st => st.Attribute("value")?.Value == tag.Value);
 
                 sourceTag.ShouldHaveSingleItem();
-
-                //CompareTagsToSource(tag.RelatedTags.Select(rl => rl.ToVertex), sourceTag.Single());
             }
         }
 

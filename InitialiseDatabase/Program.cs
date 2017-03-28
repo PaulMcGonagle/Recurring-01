@@ -22,8 +22,10 @@ namespace InitialiseDatabase
         // ReSharper disable once UnusedParameter.Local
         static void Main(string[] args)
         {
-            var vertexs = GeneratorClasses.Generate(
-                sourceFile: "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\HG.xml")
+            var generator = GeneratorFactory.Get("holidays");
+;
+            var vertexs = generator.Generate(
+                sourceFile: "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\Holidays.xml")
                 .ToList();
 
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));

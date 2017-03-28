@@ -99,6 +99,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CompositeScheduleTests.cs" />
+    <Compile Include="LoadHolidaysTests.cs" />
     <Compile Include="LoadSourceTests.cs" />
     <Compile Include="MockVertexFactory.cs" />
     <Compile Include="Persistance\EventPersistanceTests.cs" />

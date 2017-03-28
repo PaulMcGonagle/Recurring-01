@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Xml.Linq;
 using ArangoDB.Client;
-using Castle.Core.Internal;
 using Generators;
 using NodaTime;
 using NodaTime.Testing;
@@ -115,14 +114,13 @@ namespace ScheduleGeneration.Test
 
             private IClock _clock;
             private IArangoDatabase _db;
+            private IGenerator _generator;
             private IEnumerable<IVertex> _vertexs;
             private IEnumerable<IEvent> _events;
 
             [Fact]
             public void Execute()
             {
-                var fakeClock = new FakeClock(Instant.FromUtc(2016, 05, 01, 0, 0));
-
                 var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
 
                 this.WithExamples(new ExampleTable(
@@ -172,9 +170,14 @@ namespace ScheduleGeneration.Test
                 _clock = clock;
             }
 
-            public void WhenVertexsGenerated()
+            public void WhenGeneratorIsRetrieved()
             {
-                _vertexs = GeneratorClasses.Generate(_sourceFile)
+                _generator = GeneratorFactory.Get("classes");
+            }
+
+            public void AndWhenVertexsGenerated()
+            {
+                _vertexs = _generator.Generate(_sourceFile)
                     .ToList();
             }
 

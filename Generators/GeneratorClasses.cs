@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using System.Xml.XPath;
 using NodaTime;
 using NodaTime.Testing;
-using NodaTime.Text;
 using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
@@ -14,9 +12,9 @@ using Scheduler.ScheduleInstances;
 
 namespace Generators
 {
-    public class GeneratorClasses
+    public class GeneratorClasses : IGenerator
     {
-        public static IEnumerable<IVertex> Generate(string sourceFile)
+        public IEnumerable<IVertex> Generate(string sourceFile)
         {
             var xSource = XElement.Load(sourceFile);
 
