@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using ArangoDB.Client;
 using Generators;
 using NodaTime;
 using NodaTime.Testing;
-using NodaTime.Testing.TimeZones;
 using Scheduler;
 using Scheduler.Generation;
 using Scheduler.Persistance;
@@ -32,9 +27,6 @@ namespace ScheduleGeneration.Test
             private IEnumerable<IEvent> _events;
             private IEvent _event;
             private IInstance _instance;
-            private IList<LocalDate> _expectedLocalDates;
-            private LocalTime _expectedLocalTime;
-            private Period _expectedPeriod;
             private IEnumerable<IEpisode> _episodes;
             private string _timeZoneProviderPath;
             private string _timeZoneProvider;
@@ -94,8 +86,6 @@ namespace ScheduleGeneration.Test
                 IList<LocalDate> expectedLocalDates,
                 Period expectedPeriod)
             {
-                _expectedLocalDates = expectedLocalDates;
-                _expectedPeriod = expectedPeriod;
             }
 
             public void AndGivenATimeZoneProviderPath(string timeZoneProviderPath)
@@ -115,29 +105,29 @@ namespace ScheduleGeneration.Test
                 _events = vertexs.OfType<Event>();
             }
 
-            private void AndWhenASingleEventIsRetrieved()
+            public void AndWhenASingleEventIsRetrieved()
             {
                 _events.ShouldHaveSingleItem();
 
                 _event = _events.Single();
             }
 
-            private void AndWhenEventIsSaved()
+            public void AndWhenEventIsSaved()
             {
                 _event.Save(_db, _clock);
             }
 
-            private void AndWhenInstanceIsGenerated()
+            public void AndWhenInstanceIsGenerated()
             {
                 Instance.Generate(_clock, _event);
             }
 
-            private void AndWhenInstanceIsRetrieved()
+            public void AndWhenInstanceIsRetrieved()
             {
                 _instance = _event.Instance.ToVertex;
             }
 
-            private void AndWhenEpisodesAreRetrieved()
+            public void AndWhenEpisodesAreRetrieved()
             {
                 _episodes = _instance
                     .Episodes
@@ -145,22 +135,22 @@ namespace ScheduleGeneration.Test
                     .ToList();
             }
 
-            private void AndWhenTimeZoneProviderIsFound()
+            public void AndWhenTimeZoneProviderIsFound()
             {
                 var sourceTimeZone = _source.XPathSelectElement(_timeZoneProviderPath)?.Attribute("value");
 
                 sourceTimeZone.ShouldNotBeNull();
 
-                _timeZoneProvider = sourceTimeZone.Value;
+                _timeZoneProvider = sourceTimeZone?.Value;
 
             }
 
-            private void ThenTitleIsExpected(string expectedTitle)
+            public void ThenTitleIsExpected(string expectedTitle)
             {
                 _event.Title.ShouldBe(expectedTitle);
             }
 
-            private void AndInstancesAreExpected()
+            public void AndInstancesAreExpected()
             {
                 _instance.Episodes.ShouldNotBeEmpty();
             }
@@ -192,9 +182,6 @@ namespace ScheduleGeneration.Test
             private IEnumerable<IEvent> _events;
             private IEvent _event;
             private IInstance _instance;
-            private IList<LocalDate> _expectedLocalDates;
-            private LocalTime _expectedLocalTime;
-            private Period _expectedPeriod;
             private IEnumerable<IEpisode> _episodes;
             private string _timeZoneProviderPath;
             private string _timeZoneProvider;
@@ -254,8 +241,6 @@ namespace ScheduleGeneration.Test
                 IList<LocalDate> expectedLocalDates,
                 Period expectedPeriod)
             {
-                _expectedLocalDates = expectedLocalDates;
-                _expectedPeriod = expectedPeriod;
             }
 
             public void AndGivenATimeZoneProviderPath(string timeZoneProviderPath)
@@ -275,29 +260,29 @@ namespace ScheduleGeneration.Test
                 _events = vertexs.OfType<Event>();
             }
 
-            private void AndWhenASingleEventIsRetrieved()
+            public void AndWhenASingleEventIsRetrieved()
             {
                 _events.ShouldHaveSingleItem();
 
                 _event = _events.Single();
             }
 
-            private void AndWhenEventIsSaved()
+            public void AndWhenEventIsSaved()
             {
                 _event.Save(_db, _clock);
             }
 
-            private void AndWhenInstanceIsGenerated()
+            public void AndWhenInstanceIsGenerated()
             {
                 Instance.Generate(_clock, _event);
             }
 
-            private void AndWhenInstanceIsRetrieved()
+            public void AndWhenInstanceIsRetrieved()
             {
                 _instance = _event.Instance.ToVertex;
             }
 
-            private void AndWhenEpisodesAreRetrieved()
+            public void AndWhenEpisodesAreRetrieved()
             {
                 _episodes = _instance
                     .Episodes
@@ -305,22 +290,22 @@ namespace ScheduleGeneration.Test
                     .ToList();
             }
 
-            private void AndWhenTimeZoneProviderIsFound()
+            public void AndWhenTimeZoneProviderIsFound()
             {
                 var sourceTimeZone = _source.XPathSelectElement(_timeZoneProviderPath)?.Attribute("value");
 
                 sourceTimeZone.ShouldNotBeNull();
 
-                _timeZoneProvider = sourceTimeZone.Value;
+                _timeZoneProvider = sourceTimeZone?.Value;
 
             }
 
-            private void ThenTitleIsExpected(string expectedTitle)
+            public void ThenTitleIsExpected(string expectedTitle)
             {
                 _event.Title.ShouldBe(expectedTitle);
             }
 
-            private void AndInstancesAreExpected()
+            public void AndInstancesAreExpected()
             {
                 _instance.Episodes.ShouldNotBeEmpty();
             }

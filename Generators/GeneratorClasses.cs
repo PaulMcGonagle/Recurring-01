@@ -29,14 +29,6 @@ namespace Generators
                     .Elements("groups")
                     .Elements("group")
                     .ToList();
-                var xGeneratorTerms = xGenerator
-                    .Elements("terms")
-                    .Elements("term")
-                    .ToList();
-                var xGeneratorTimes = xGenerator
-                    .Elements("times")
-                    .Elements("time")
-                    .ToList();
 
                 var generatorTags = Utilities.RetrieveTags(xGenerator)
                     .ToList();
@@ -179,7 +171,7 @@ namespace Generators
 
                             var @event = new Event
                             {
-                                Title = organisation?.Value + "." + termName + "." + groupName + "." + className,
+                                Title = organisation.Value + "." + termName + "." + groupName + "." + className,
                                 Serials = new EdgeVertexs<ISerial>(serials),
                                 Tags = new EdgeVertexs<ITag>(groupTags),
                             };

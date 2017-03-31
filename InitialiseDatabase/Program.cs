@@ -23,7 +23,7 @@ namespace InitialiseDatabase
         static void Main(string[] args)
         {
             var generator = GeneratorFactory.Get("holidays");
-;
+
             var vertexs = generator.Generate(
                 sourceFile: "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\Holidays.xml")
                 .ToList();

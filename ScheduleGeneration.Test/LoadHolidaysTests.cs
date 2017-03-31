@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using ArangoDB.Client;
 using Generators;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Persistance;
-using Scheduler.Ranges;
-using Scheduler.ScheduleEdges;
-using Scheduler.ScheduleInstances;
 using Shouldly;
 using TestStack.BDDfy;
 using Xunit;
@@ -24,7 +17,6 @@ namespace ScheduleGeneration.Test
         public class LoadHolidays
         {
             private string _sourceFile;
-            private IClock _clock;
             private IArangoDatabase _db;
             private IGenerator _generator;
             private GeneratorHolidays _generatorHolidays;
@@ -65,7 +57,6 @@ namespace ScheduleGeneration.Test
 
             public void AndGivenAClock(IClock clock)
             {
-                _clock = clock;
             }
 
             public void AndGivenADatabase(IArangoDatabase db)

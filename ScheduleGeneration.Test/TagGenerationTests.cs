@@ -21,13 +21,11 @@ namespace ScheduleGeneration.Test
             private IGenerator _generator;
 
             private IEnumerable<IEvent> _events;
-            private IOrganisation _organisation;
             private IEvent _event;
             private ISerial _serial;
 
             private IEnumerable<XElement> _providedGeneratorTags;
             private IEnumerable<XElement> _providedScheduleTags;
-            private IEnumerable<XElement> _providedClassTags;
             private IEnumerable<XElement> _providedTermTags;
             private IEnumerable<XElement> _providedGroupTags;
 
@@ -68,7 +66,6 @@ namespace ScheduleGeneration.Test
 
             public void AndGivenAnOrganisation(IOrganisation expectedOrganisation)
             {
-                _organisation = expectedOrganisation;
             }
 
             public void AndGivenGeneratorTagPath(string generatorTagPath)
@@ -78,7 +75,7 @@ namespace ScheduleGeneration.Test
 
             public void AndGivenClassTagPath(string classTagPath)
             {
-                _providedClassTags = _source.XPathSelectElements(classTagPath);
+                _source.XPathSelectElements(classTagPath);
             }
 
             public void AndGivenTermTagPath(string termTagPath)
