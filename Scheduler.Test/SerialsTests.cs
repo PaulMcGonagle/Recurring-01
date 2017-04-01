@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NodaTime;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
@@ -80,7 +81,7 @@ namespace Scheduler.Test
         public class VerifyMissingPropertyThrowsArgumentException
         {
             private Serial _sut;
-            private IEpisodes _episodes;
+            private IEdgeVertexs<IEpisode> _episodes;
             private System.Exception _exception;
 
             [Fact]

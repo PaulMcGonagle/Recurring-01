@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NodaTime;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
@@ -15,7 +16,7 @@ namespace Scheduler.Test
         public class VerifyDateOutOfBoundsExceptionIsThrown
         {
             private Serial _sut;
-            private IEpisodes _episodes;
+            private IEdgeVertexs<IEpisode> _episodes;
 
             [Fact]
             public void Execute()
@@ -73,14 +74,16 @@ namespace Scheduler.Test
 
             public void ThenEpisodesAreExpected(IEpisodes expectedEpisodes)
             {
-                _episodes.ShouldBe(expectedEpisodes);
+                _episodes
+                    .Select(e => e.ToVertex)
+                    .ShouldBe(expectedEpisodes);
             }
         }
 
         public class VerifyMissingPropertyThrowsArgumentException
         {
             private Serial _sut;
-            private IEpisodes _episodes;
+            private IEdgeVertexs<IEpisode> _episodes;
             private System.Exception _exception;
 
             [Fact]

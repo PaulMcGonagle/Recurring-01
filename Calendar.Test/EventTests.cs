@@ -63,21 +63,21 @@ namespace MyCalendar.Test
             public void ThenAllSerialsHaveTheCorrectWeekday(IsoDayOfWeek expectedWeekday)
             {
                 _serials.SelectMany(s => s.ToVertex.Episodes)
-                    .Select(e => e.From.DayOfWeek)
+                    .Select(e => e.ToVertex.From.DayOfWeek)
                     .ShouldAllBe(d => d.Equals((int)expectedWeekday));
             }
 
             public void AndThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
             {
                 _serials.SelectMany(s => s.ToVertex.Episodes)
-                    .Select(e => e.From.TimeOfDay)
+                    .Select(e => e.ToVertex.From.TimeOfDay)
                     .ShouldAllBe(d => d.Equals(expectedStartTime));
             }
 
             public void AndThenAllEndTimesAreCorrect(LocalTime expectedEndTime)
             {
                 _serials.SelectMany(s => s.ToVertex.Episodes)
-                    .Select(e => e.To.TimeOfDay)
+                    .Select(e => e.ToVertex.To.TimeOfDay)
                     .ShouldAllBe(d => d.Equals(expectedEndTime));
             }
         }
@@ -128,7 +128,7 @@ namespace MyCalendar.Test
             public void ThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
             {
                 _serials.SelectMany(s => s.ToVertex.Episodes)
-                    .Select(e => e.From.TimeOfDay)
+                    .Select(e => e.ToVertex.From.TimeOfDay)
                     .ShouldAllBe(d => d.Equals(expectedStartTime));
             }
 

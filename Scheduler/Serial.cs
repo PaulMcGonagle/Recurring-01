@@ -32,7 +32,7 @@ namespace Scheduler
         public string TimeZoneProvider;
 
         [IgnoreDataMember]
-        public IEpisodes Episodes
+        public IEdgeVertexs<IEpisode> Episodes
         {
             get
             {
@@ -48,7 +48,7 @@ namespace Scheduler
                 if (TimeZoneProvider == null)
                     throw new ArgumentException("TimeZoneProvider");
 
-                var episodes = new Episodes();
+                var episodes = new EdgeVertexs<IEpisode>();
 
                 episodes.AddRange(
                     EdgeSchedule.Schedule
@@ -71,7 +71,7 @@ namespace Scheduler
             {
                 var list = new List<IVertex>();
 
-                list.AddRange(Episodes);
+                list.AddRange(Episodes.Select(e => e.ToVertex));
 
                 if (EdgeSchedule != null)
                 {
@@ -87,7 +87,7 @@ namespace Scheduler
         {
             Save<Serial>(db);
             EdgeSchedule?.Save(db, clock, this);
-            Episodes?.Save(db, clock);
+            Episodes?.Save(db, clock, this);
             Tags?.Save(db, clock, this);
             TimeRange?.Save(db, clock, this);
             base.Save(db, clock);

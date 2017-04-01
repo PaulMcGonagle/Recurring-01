@@ -110,6 +110,7 @@ namespace InitialiseDatabase
                     .First()
                     .Serials
                     .SelectMany(s => s.ToVertex.Episodes)
+                    .Select(e => e.ToVertex)
                     .Select(e => e.To));
         }
 
