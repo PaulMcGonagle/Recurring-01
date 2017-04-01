@@ -13,7 +13,7 @@ namespace Generators
 {
     public static class Utilities
     {
-        public static IEnumerable<XElement> RetrieveXReferences(XNode xElement, IEnumerable<XElement> xReferences, string type)
+        public static IEnumerable<XElement> RetrieveXReferences(XDocument xElement, IEnumerable<XElement> xReferences, string type)
         {
             var paths = xReferences
                 .Where(tr => tr.Attribute("type")?.Value == type)
@@ -88,9 +88,9 @@ namespace Generators
             return tag;
         }
 
-        public static IEnumerable<ITag> RetrieveTags(XElement input)
+        public static IEnumerable<ITag> RetrieveTags(XElement xInput)
         {
-            var xTags = RetrieveXTags(input);
+            var xTags = RetrieveXTags(xInput);
 
             foreach (var xTag in xTags)
             {
@@ -109,7 +109,50 @@ namespace Generators
             {
                 var date = new Date(ParseAttributeAsLocalDate(xDate, "value"));
 
+                date.Connect(RetrieveTags(xDate));
+
                 yield return date;
+            }
+        }
+
+        public static void ExpandReferences(XDocument xInput)
+        {
+            var xElements = xInput
+                .Root
+                ?.DescendantsAndSelf()
+                .ToList();
+
+            if (xElements == null)
+            {
+                return;
+            }
+
+            foreach (var xElement in xElements)
+            {
+                var xElementReferencesParent = xElement
+                    .Elements("references")
+                    .SingleOrDefault();
+
+                if (xElementReferencesParent == null)
+                {
+                    continue;
+                }
+
+                var xElementReferences = xElementReferencesParent
+                    .Elements("reference")
+                    .ToList();
+
+                foreach (var xElementReference in xElementReferences)
+                {
+                    var type = xElementReference.Attribute("type")?.Value;
+
+                    var xReferencedTags = RetrieveXReferences(xInput, xElementReferences, type)
+                        .ToList();
+
+                    xElement.Add(xReferencedTags);
+                }
+
+                xElementReferencesParent.Remove();
             }
         }
 

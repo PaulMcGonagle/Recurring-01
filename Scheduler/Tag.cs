@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using ArangoDB.Client;
-using Newtonsoft.Json;
 using NodaTime;
 using Scheduler.Persistance;
-using Scheduler.ScheduleEdges;
 
 namespace Scheduler
 {
@@ -34,37 +31,14 @@ namespace Scheduler
         public string Value { get; set; }
         public string Payload { get; set; }
 
-        protected string CombinedKey(Tag tag)
+        public static string CombinedKey(Tag tag)
         {
             return $"{tag.Ident}.{tag.Value}";
         }
 
-        public ITag Connect(ITag connectTag)
-        {
-            if (connectTag == null)
-                return null;
-
-            RelatedTags.Add(new EdgeTag(connectTag));
-
-            return connectTag;
-        }
-
-        public ITag Connect(string ident, string value)
-        {
-            return Connect(new Tag(ident: ident, value: value));
-        }
-
-        public void Connect(IEnumerable<ITag> connectTags)
-        {
-            RelatedTags.AddRange(connectTags.Select(ct => new EdgeTag(ct)));
-        }
-
-        [IgnoreDataMember]
-        public EdgeVertexs<ITag> RelatedTags { get; set; } = new EdgeVertexs<ITag>();
-
         int IComparable.CompareTo(object obj)
         {
-            var compareTag = (Tag) obj;
+            var compareTag = (Tag)obj;
 
             var compare = String.Compare(CombinedKey(this), CombinedKey((Tag)obj), StringComparison.Ordinal);
 
@@ -80,18 +54,6 @@ namespace Scheduler
             compare = string.Compare(Payload, compareTag.Payload, StringComparison.Ordinal);
 
             return compare;
-        }
-
-        protected override IEnumerable<IVertex> Links
-        {
-            get
-            {
-                var list = new List<IVertex>();
-
-                list.AddRange(RelatedTags.Select(rt => rt.ToVertex));
-
-                return list;
-            }
         }
 
         public static int Compare(IEnumerable<ITag> compareFrom, IEnumerable<ITag> compareTo)

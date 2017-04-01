@@ -2,11 +2,16 @@
 <generators>
   <generator name="Holiday Calendars">
     <calendars>
-      <calendar>
+      <calendar name="UK Public Holidays">
         <dates>
           <date value="2017-01-01"/>
           <date value="2017-01-02">
             <tag id="name" value="New Year's Day"/>
+          </date>
+          <date value="2018-01-01">
+            <references>
+              <reference type="tag" path="./generators/generator/calendars/tags/tag[@id='category']"/>
+            </references>
           </date>
         </dates>
         <tags>
@@ -15,6 +20,14 @@
           <tag id="year" value="2017"/>
         </tags>
       </calendar>
+      <tags>
+        <tag id="category" value="HolidayInstances">
+          <tag id="name" value="New Year's Day"/>
+        </tag>
+        <tag id="category" value="HolidayYear">
+          <tag id="name" value="2017"/>
+        </tag>
+      </tags>
     </calendars>
   </generator>
 </generators>

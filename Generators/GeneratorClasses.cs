@@ -16,9 +16,13 @@ namespace Generators
     {
         public IEnumerable<IVertex> Generate(string sourceFile)
         {
-            var xSource = XElement.Load(sourceFile);
+            var xSource = XDocument
+                .Load(sourceFile);
+
+            Utilities.ExpandReferences(xSource);
 
             var xGenerators = xSource
+                .Elements("generators")
                 .Elements("generator");
 
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
@@ -33,7 +37,7 @@ namespace Generators
                 var generatorTags = Utilities.RetrieveTags(xGenerator)
                     .ToList();
 
-                var organisation = generatorTags
+                var organisationTag = generatorTags
                     .Single(t => t.Ident == "organisation");
 
                 var timeZoneProviderTag = generatorTags
@@ -43,7 +47,7 @@ namespace Generators
                     ? timeZoneProviderTag.Value
                     : "Europe/London";
 
-                organisation.Connect("timeZoneProvider", timeZoneProvider);
+                organisationTag.Connect("timeZoneProvider", timeZoneProvider);
 
                 foreach (var xGroup in xGroups)
                 {
@@ -57,23 +61,19 @@ namespace Generators
                         .Elements("session")
                         .ToList();
 
+                    var xGroupTerms = xGroup
+                        .Elements("terms")
+                        .Elements("term")
+                        .ToList();
+
                     var groupName = xGroup.Attribute("name")?.Value;
 
-                    var group = organisation.Connect("group", groupName);
+                    var group = organisationTag.Connect("group", groupName);
 
                     var groupTags = Utilities.RetrieveTags(xGroup)
                         .ToList();
 
                     group.Connect(groupTags);
-
-                    var xYearReferenceTerms = xGroup
-                        .Elements("references")
-                        .Elements("reference")
-                        .Where(tr => tr.Attribute("type")?.Value == "term")
-                        .ToList();
-
-                    var xReferencedTerms = Utilities.RetrieveXReferences(xSource, xYearReferenceTerms, "term")
-                        .ToList();
 
                     foreach (var xClass in xYearClasses.Where(c => c != null))
                     {
@@ -85,10 +85,10 @@ namespace Generators
                             .Elements("term")
                             .ToList();
 
-                        var xTermsCombined = xReferencedTerms
-                            .Union(xClassTerms);
+                        var xTerms = xClassTerms
+                            .Union(xGroupTerms);
 
-                        foreach (var xTerm in xTermsCombined)
+                        foreach (var xTerm in xTerms)
                         {
                             var termName = xTerm.Attribute("name")?.Value;
                             var termTag = classTag.Connect("term", termName);
@@ -163,15 +163,14 @@ namespace Generators
                                     .Union(groupTags)
                                     .Union(termTags);
 
-                                serial.Tags = new EdgeVertexs<ITag>(serialTags);
-                                serial.Tags.Add(new EdgeTag(termTag));
+                                serial.Tags = new EdgeVertexs<ITag>(serialTags) {new EdgeTag(termTag)};
 
                                 serials.Add(serial);
                             }
 
                             var @event = new Event
                             {
-                                Title = organisation.Value + "." + termName + "." + groupName + "." + className,
+                                Title = organisationTag.Value + "." + termName + "." + groupName + "." + className,
                                 Serials = new EdgeVertexs<ISerial>(serials),
                                 Tags = new EdgeVertexs<ITag>(groupTags),
                             };
@@ -181,7 +180,7 @@ namespace Generators
                     }
                 }
 
-                yield return organisation;
+                yield return organisationTag;
             }
         }
     }

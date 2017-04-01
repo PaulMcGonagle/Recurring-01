@@ -73,9 +73,11 @@
             </tags>
           </class>
         </classes>
-        <references>
-          <reference type="term" path="./generator/terms/term[@name='Autumn.2016/17']"/>
-        </references>
+        <terms>
+          <references>
+            <reference type="term" path="./generators/generator/terms/term[@name='Autumn.2016/17']"/>
+          </references>
+        </terms>
         <tags>
           <tag id="year_id_A" value="year_value_A"/>
         </tags>

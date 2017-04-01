@@ -2,6 +2,7 @@
 using System.Linq;
 using ArangoDB.Client;
 using Generators;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
@@ -21,7 +22,8 @@ namespace ScheduleGeneration.Test
             private IGenerator _generator;
             private GeneratorHolidays _generatorHolidays;
             private IEnumerable<IVertex> _vertexs;
-            private IEnumerable<Date> _dates;
+            private IEnumerable<ISchedule> _schedules;
+            private IEnumerable<LocalDate> _dates;
 
             [Fact]
             public void Execute()
@@ -43,8 +45,9 @@ namespace ScheduleGeneration.Test
                         fakeClock,
                         new List<LocalDate>
                         {
-                            new LocalDate(2017, 01, 01),
                             new LocalDate(2017, 01, 02),
+                            new LocalDate(2017, 01, 01),
+                            new LocalDate(2018, 01, 01),
                         }
                     },
                 }).BDDfy();
@@ -81,28 +84,25 @@ namespace ScheduleGeneration.Test
                 _vertexs = _generatorHolidays.Generate(_sourceFile);
             }
 
-            public void AndWhenDatesAreRetrived()
+            public void AndWhenSchedulesAreRetrived()
             {
-                _dates = _vertexs
-                    .OfType<Date>();
+                _schedules = _vertexs
+                    .OfType<Schedule>();
             }
 
-            public void ThenDatesAreAsExpected(List<LocalDate> expectedDates)
+            public void AndWhenDatesAreRetrived()
             {
-                _dates.Count().ShouldBe(expectedDates.Count());
-
-                var generatedDates = _dates
-                    .Select(d => d.Value)
+                _dates = _schedules
+                    .SelectMany(s => s.Generate())
+                    .Select(gd => gd.Date.Value)
                     .ToList();
+            }
 
-                generatedDates.Sort();
-                
-                expectedDates.Sort();
-
-                foreach (var generatedDate in generatedDates)
-                {
-                    expectedDates.ShouldContain(generatedDate);
-                }
+            public void ThenDatesAreAsExpected(IEnumerable<LocalDate> expectedDates)
+            {
+                _dates
+                    .OrderBy(d => d)
+                    .ShouldBe(expectedDates.OrderBy(ed => ed));
             }
         }
     }

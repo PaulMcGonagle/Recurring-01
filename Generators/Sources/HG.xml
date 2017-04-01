@@ -62,9 +62,9 @@
       <time name="StartOfDay" value="09:00"/>
       <time name="EndOfDay" value="15:30"/>
     </times>
-    <dates>
+    <!--<dates>
       <date name="New Year's Day 2017" value="2017-01-02"/>
-    </dates>
+    </dates>-->
     <groups>
       <group name="Reception">
         <classes>
@@ -305,9 +305,11 @@
             </schedules>
           </class>
         </classes>
-        <references>
-          <reference type="term" path="./generator/terms/term[@name='Autumn.2016/17']"/>
-        </references>
+        <terms>
+          <references>
+            <reference type="term" path="./generators/generator/terms/term[@name='Autumn.2016/17']"/>
+          </references>
+        </terms>
       </group>
       <group name="Year2.2016/17">
         <sessions>
@@ -362,7 +364,7 @@
               </schedule>
             </schedules>
           </class>
-          <class name="Lunchtime">
+          <!--<class name="Lunchtime">
             <schedules>
               <schedule session="Lunch">
                 <weekdays>
@@ -529,11 +531,13 @@
                 </weekdays>
               </schedule>
             </schedules>
-          </class>
+          </class>-->
         </classes>
-        <references>
-          <reference path="./generator/term/term[@name='Autumn.2016/17']"/>
-        </references>
+        <terms>
+          <references>
+            <reference type="term" path="./generators/generator/terms/term[@name='Autumn.2016/17']"/>
+          </references>
+        </terms>
       </group>
     </groups>
   </generator>

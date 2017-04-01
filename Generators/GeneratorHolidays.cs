@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Scheduler;
 using Scheduler.Persistance;
+using Scheduler.ScheduleInstances;
 
 namespace Generators
 {
@@ -10,15 +11,18 @@ namespace Generators
     {
         public IEnumerable<IVertex> Generate(string sourceFile)
         {
-            var xSource = XElement
+            var xSource = XDocument
                 .Load(sourceFile);
 
+            Utilities.ExpandReferences(xSource);
+
             var xGenerators = xSource
+                .Elements("generators")
                 .Elements("generator");
 
             foreach (var xGenerator in xGenerators)
             {
-                var tagHolidayCalendar = new Tag(ident: "baseType", value: "Holidays");
+                var tagHolidayCalendar = new Tag(ident: "baseType", value: "Calendar");
 
                 var xCalendars = xGenerator
                     .Elements("calendars")
@@ -27,6 +31,8 @@ namespace Generators
 
                 foreach (var xCalendar in xCalendars)
                 {
+                    var compositeSchedule = new CompositeSchedule();
+
                     var calendarTags = Utilities
                         .RetrieveTags(xCalendar)
                         .ToList();
@@ -34,14 +40,15 @@ namespace Generators
                     tagHolidayCalendar
                         .Connect(calendarTags.SingleOrDefault(ct => ct.Ident == "name"));
 
+                    compositeSchedule.Connect(tagHolidayCalendar);
+
                     var dates = Utilities
                         .RetrieveDates(xCalendar)
                         .ToList();
 
-                    foreach (var date in dates)
-                    {
-                        yield return date;
-                    }
+                    var dateList = new DateList {Items = dates};
+
+                    yield return dateList;
                 }
 
                 yield return tagHolidayCalendar;
