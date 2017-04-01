@@ -45,8 +45,8 @@ namespace ScheduleGeneration.Test
                         fakeClock,
                         new List<LocalDate>
                         {
+                            new LocalDate(2017, 12, 25),
                             new LocalDate(2017, 01, 02),
-                            new LocalDate(2017, 01, 01),
                             new LocalDate(2018, 01, 01),
                         }
                     },

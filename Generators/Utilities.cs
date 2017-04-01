@@ -13,7 +13,7 @@ namespace Generators
 {
     public static class Utilities
     {
-        public static IEnumerable<XElement> RetrieveXReferences(XDocument xElement, IEnumerable<XElement> xReferences, string type)
+        public static IEnumerable<XElement> RetrieveXReferences(XDocument xInput, IEnumerable<XElement> xReferences, string type)
         {
             var paths = xReferences
                 .Where(tr => tr.Attribute("type")?.Value == type)
@@ -22,15 +22,17 @@ namespace Generators
 
             foreach (var path in paths)
             {
-                var item = xElement.XPathSelectElement(path);
+                var xElements = xInput
+                    .XPathSelectElements(path)
+                    .ToList();
 
-                if (item == null)
+                if (!xElements.Any())
                     throw new Exception($"Unable to load reference {path}");
 
-                if (item.Name != type)
-                    throw new Exception($"Reference {path} expected type '{type}' but found '{item.Name}'");
-
-                yield return item;
+                foreach (var xElement in xElements)
+                {
+                    yield return xElement;
+                }
             }
         }
 
@@ -129,16 +131,7 @@ namespace Generators
 
             foreach (var xElement in xElements)
             {
-                var xElementReferencesParent = xElement
-                    .Elements("references")
-                    .SingleOrDefault();
-
-                if (xElementReferencesParent == null)
-                {
-                    continue;
-                }
-
-                var xElementReferences = xElementReferencesParent
+                var xElementReferences = xElement
                     .Elements("reference")
                     .ToList();
 
@@ -152,7 +145,7 @@ namespace Generators
                     xElement.Add(xReferencedTags);
                 }
 
-                xElementReferencesParent.Remove();
+                xElementReferences.Remove();
             }
         }
 
