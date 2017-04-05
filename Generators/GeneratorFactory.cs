@@ -1,4 +1,5 @@
 ﻿using System;
+using Generators.Instances;
 
 namespace Generators
 {
@@ -13,6 +14,9 @@ namespace Generators
 
                 case "classes":
                     return new GeneratorClasses();
+
+                case "schedule":
+                    return new GeneratorSchedule();
 
                 default:
                     throw new NotImplementedException($"Unexpected generatorType '{generatorType}'");

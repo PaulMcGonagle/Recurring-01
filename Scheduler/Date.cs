@@ -6,7 +6,7 @@ using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public class Date : Vertex, IComparable
+    public class Date : Vertex, IDate, IComparable
     {
         public Date(int year, YearMonth.MonthValue month, int day)
         {

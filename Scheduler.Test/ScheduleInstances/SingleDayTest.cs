@@ -11,7 +11,7 @@ namespace Scheduler.Test.ScheduleInstances
     public class VerifyDay
     {
         private SingleDay _sut;
-        private IEnumerable<IGeneratedDate> _dates;
+        private IEnumerable<IDate> _dates;
 
         [Fact]
         public void Execute()
@@ -39,7 +39,7 @@ namespace Scheduler.Test.ScheduleInstances
         {
             _dates.Count().ShouldBe(1);
 
-            _dates.Single().Date.Value.ShouldBe(expectedDate.Value);
+            _dates.Single().Value.ShouldBe(expectedDate.Value);
         }
     }
 }

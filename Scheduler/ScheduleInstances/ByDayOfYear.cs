@@ -31,11 +31,7 @@ namespace Scheduler.ScheduleInstances
         public IClock Clock
         {
             get { return _clock ?? (_clock = SystemClock.Instance); }
-
-            set
-            {
-                _clock = value;
-            }
+            set { _clock = value; }
         }
 
         [IgnoreDataMember]
@@ -69,18 +65,13 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public override GeneratedDates Generate()
+        public override IEnumerable<IDate> Generate()
         {
-            var generatedDates = new GeneratedDates();
+            var generatedDates = new List<IDate>();
 
-            foreach (var year in Enumerable.Range(YearFrom, YearTo - YearFrom + 1))
-            {
-                var yearMonth = new YearMonth {Year = year, Month = Month};
-
-                generatedDates.Add(new GeneratedDate(
-                    source: this,
-                    date: yearMonth.ToLocalDate(DayOfYear, RollStrategy)));
-            }
+            generatedDates
+                .AddRange(Enumerable.Range(YearFrom, YearTo - YearFrom + 1)
+                    .Select(year => (new YearMonth {Year = year, Month = Month}).ToLocalDate(DayOfYear, RollStrategy)));
 
             return generatedDates;
         }

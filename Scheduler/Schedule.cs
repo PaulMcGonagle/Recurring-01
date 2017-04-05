@@ -1,10 +1,11 @@
-﻿using Scheduler.Generation;
+﻿using System.Collections.Generic;
+using Scheduler.Generation;
 using Scheduler.Persistance;
 
 namespace Scheduler
 {
     public abstract class Schedule : Vertex, ISchedule
     {
-        public abstract GeneratedDates Generate();
+        public abstract IEnumerable<IDate> Generate();
     }
 }

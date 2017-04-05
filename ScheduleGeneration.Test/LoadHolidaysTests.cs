@@ -2,10 +2,12 @@
 using System.Linq;
 using ArangoDB.Client;
 using Generators;
+using Generators.Instances;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
+using Scheduler.Generation;
 using Scheduler.Persistance;
 using Shouldly;
 using TestStack.BDDfy;
@@ -93,8 +95,8 @@ namespace ScheduleGeneration.Test
             public void AndWhenDatesAreRetrived()
             {
                 _dates = _schedules
-                    .SelectMany(s => s.Generate())
-                    .Select(gd => gd.Date.Value)
+                    .SelectMany(schedule => schedule.Generate())
+                    .Select(date => date.Value)
                     .ToList();
             }
 

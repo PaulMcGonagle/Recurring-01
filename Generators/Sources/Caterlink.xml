@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <generators>
   <generator title="Caterlink Menu">
+    <tags>
+      <tag id="organisation" value="Caterlink"/>
+    </tags>
     <terms>
-      <term name="Summer 2016 Week 1">
+      <term name="Summer 2016 Week 1.Mon">
         <tags>
+          <tag id="organisation" value="Caterlink"/>
           <tag id="Menu">
             <payload>
               <![CDATA[
@@ -18,11 +22,43 @@
           </tag>
         </tags>
         <dates>
-          <date value="2016-04-11"/>
-          <date value="2016-05-02"/>
-          <date value="2016-05-23"/>
-          <date value="2016-06-20"/>
-          <date value="2016-07-11"/>
+          <scheduleInstance>
+            <tags>
+              <tag id="type" value="ByOffset">
+                <tag id="InitialDate" value="2017-01-02"/>
+                <tag id="Interval" value="+1w"/>
+                <tag id="Count" value="4"/>
+              </tag>
+            </tags>
+          </scheduleInstance>
+        </dates>
+      </term>
+      <term name="Summer 2017 Week 1.Tue">
+        <tags>
+          <tag id="organisation" value="Caterlink"/>
+          <tag id="Menu">
+            <payload>
+              <![CDATA[
+                <menu>
+                  <main>Chicken & Broccoli Wholemeal Pasta Bake (made with free range chicken)</main>
+                  <vegetarian>Vegetable Goulash with Rice</vegetarian>
+                  <dessert>Rice Pudding with Mixed Berries</dessert>
+                  <dessert>Yoghurt / Fresh Fruit Platter</dessert>
+                </menu>
+              ]]>
+            </payload>
+          </tag>
+        </tags>
+        <dates>
+          <scheduleInstance>
+            <tags>
+              <tag id="type" value="ByOffset">
+                <tag id="InitialDate" value="2017-01-23"/>
+                <tag id="Interval" value="+1w"/>
+                <tag id="Count" value="4"/>
+              </tag>
+            </tags>
+          </scheduleInstance>
         </dates>
       </term>
     </terms>

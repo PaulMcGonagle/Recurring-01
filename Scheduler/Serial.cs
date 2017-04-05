@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
-using Scheduler.Generation;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
 
@@ -53,11 +52,11 @@ namespace Scheduler
                 episodes.AddRange(
                     EdgeSchedule.Schedule
                         .Generate()
-                        .Select(o => new Episode
+                        .Select(date => new Episode
                         {
                             SourceSerial = new EdgeVertex<ISerial>(this),
-                            SourceGeneratedDate = new EdgeVertex<IGeneratedDate>(o),
-                            From = DateTimeHelper.GetZonedDateTime(o.Date, TimeRange.Range.From, TimeZoneProvider),
+                            SourceGeneratedDate = new EdgeVertex<IDate>(date),
+                            From = DateTimeHelper.GetZonedDateTime(date, TimeRange.Range.From, TimeZoneProvider),
                             Period = TimeRange.Range?.Period,
                         }));
 

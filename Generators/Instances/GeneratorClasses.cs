@@ -10,7 +10,7 @@ using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 
-namespace Generators
+namespace Generators.Instances
 {
     public class GeneratorClasses : IGenerator
     {
@@ -18,6 +18,13 @@ namespace Generators
         {
             var xSource = XDocument
                 .Load(sourceFile);
+
+            var generatorSource = new GeneratorSource
+            {
+                Xml = xSource.ToString()
+            };
+
+            yield return generatorSource;
 
             Utilities.ExpandReferences(xSource);
 
@@ -37,7 +44,7 @@ namespace Generators
                 var generatorTags = Utilities.RetrieveTags(xGenerator)
                     .ToList();
 
-                var organisationTag = generatorTags
+                var organisation = generatorTags
                     .Single(t => t.Ident == "organisation");
 
                 var timeZoneProviderTag = generatorTags
@@ -47,16 +54,16 @@ namespace Generators
                     ? timeZoneProviderTag.Value
                     : "Europe/London";
 
-                organisationTag.Connect("timeZoneProvider", timeZoneProvider);
+                organisation.Connect("timeZoneProvider", timeZoneProvider);
 
                 foreach (var xGroup in xGroups)
                 {
-                    var xYearClasses = xGroup
+                    var xClasses = xGroup
                         .Elements("classes")
                         .Elements("class")
                         .ToList();
 
-                    var xYearSessions = xGroup
+                    var xGroupSessions = xGroup
                         .Elements("sessions")
                         .Elements("session")
                         .ToList();
@@ -66,19 +73,23 @@ namespace Generators
                         .Elements("term")
                         .ToList();
 
-                    var groupName = xGroup.Attribute("name")?.Value;
+                    var groupName = xGroup
+                        .Attribute("name")?.Value;
 
-                    var group = organisationTag.Connect("group", groupName);
+                    var group = organisation
+                        .Connect("group", groupName);
 
                     var groupTags = Utilities.RetrieveTags(xGroup)
                         .ToList();
 
                     group.Connect(groupTags);
 
-                    foreach (var xClass in xYearClasses.Where(c => c != null))
+                    foreach (var xClass in xClasses.Where(c => c != null))
                     {
-                        var className = xClass.Attribute("name")?.Value;
-                        var classTag = group.Connect("class", className);
+                        var className = xClass
+                            .Attribute("name")?.Value;
+                        var classTag = group
+                            .Connect("class", className);
 
                         var xClassTerms = xClass
                             .Elements("terms")
@@ -100,32 +111,28 @@ namespace Generators
                                 .Elements("break")
                                 .ToList();
 
-                            var xClassSchedules = xClass
+                            var xSchedules = xClass
                                 .Elements("schedules")
                                 .Elements("schedule")
                                 .ToList();
 
-                            ISerials serials = new Serials();
+                            var serials = new Serials();
 
-                            foreach (var xClassSchedule in xClassSchedules)
+                            foreach (var xSchedule in xSchedules)
                             {
-                                var xClassScheduleWeekdays = xClassSchedule
+                                var xWeekdays = xSchedule
                                     ?.Elements("weekdays")
                                     .Elements("weekday")
-                                    .Select(w => (IsoDayOfWeek)Enum.Parse(typeof(IsoDayOfWeek), w.Value));
+                                    .Select(w => (IsoDayOfWeek)Enum.Parse(typeof(IsoDayOfWeek), w.Value))
+                                    .ToList();
 
-                                var sessionName = xClassSchedule?.Attribute("session")?.Value;
+                                var timeRange = Utilities.RetrieveTimeRange(xSchedule);
 
-                                var xSession = xYearSessions
-                                    .FirstOrDefault(s => s.Attribute("name")?.Value == sessionName);
-
-                                var timeRange = Utilities.RetrieveTimeRange(xSession ?? xClassSchedule);
-
-                                var scheduleTags = Utilities.RetrieveTags(xClassSchedule);
+                                var scheduleTags = Utilities.RetrieveTags(xSchedule);
 
                                 var byWeekdays = ByWeekdays.Create(
                                     clock: fakeClock,
-                                    weekdays: xClassScheduleWeekdays,
+                                    weekdays: xWeekdays,
                                     dateRange: termRange);
 
                                 var termTags = Utilities.RetrieveTags(xTerm);
@@ -170,7 +177,7 @@ namespace Generators
 
                             var @event = new Event
                             {
-                                Title = organisationTag.Value + "." + termName + "." + groupName + "." + className,
+                                Title = organisation.Value + "." + termName + "." + groupName + "." + className,
                                 Serials = new EdgeVertexs<ISerial>(serials),
                                 Tags = new EdgeVertexs<ITag>(groupTags),
                             };
@@ -180,7 +187,7 @@ namespace Generators
                     }
                 }
 
-                yield return organisationTag;
+                yield return organisation;
             }
         }
     }

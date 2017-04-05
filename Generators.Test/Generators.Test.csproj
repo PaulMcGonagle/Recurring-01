@@ -65,7 +65,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UtilitiesTests.cs" />
+    <Compile Include="GeneratorFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

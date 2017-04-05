@@ -17,7 +17,7 @@ using Scheduler.Users;
 
 namespace InitialiseDatabase
 {
-    class Program
+    internal class Program
     {
         // ReSharper disable once UnusedParameter.Local
         static void Main(string[] args)
@@ -25,7 +25,7 @@ namespace InitialiseDatabase
             var generator = GeneratorFactory.Get("classes");
 
             var vertexs = generator.Generate(
-                sourceFile: "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\HG.xml")
+                sourceFile: "c:\\users\\paul\\documents\\sandbox\\recurring\\recurring 01\\generators\\sources\\HG.xml")
                 .ToList();
 
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
@@ -51,8 +51,6 @@ namespace InitialiseDatabase
                 {
                     Instance.Generate(fakeClock, vertex);
                 }
-
-
             }
 
             using (var db = SchedulerDatabase.Database.Retrieve())
@@ -79,39 +77,39 @@ namespace InitialiseDatabase
                     cache.Add(link.Id, link);
             }
 
-            using (var db = SchedulerDatabase.Database.Retrieve())
-            {
-                var qEvents = db.Query<Event>();
-                var lEvents = qEvents
-                    .ToList();
-                var qEdges = db.Query<Edge>();
-                var lEdges = qEvents
-                    .ToList();
+            //using (var db = SchedulerDatabase.Database.Retrieve())
+            //{
+            //    var qEvents = db.Query<Event>();
+            //    var lEvents = qEvents
+            //        .ToList();
+            //    var qEdges = db.Query<Edge>();
+            //    var lEdges = qEvents
+            //        .ToList();
 
-                var qResult = qEvents
-                    .For(@event => qEdges
-                    .Where(edge => @event.Id == edge.FromId)
-                    .Select(edge => new { @event, edge }))
-                    .ToList();
+            //    var qResult = qEvents
+            //        .For(@event => qEdges
+            //        .Where(edge => @event.Id == edge.FromId)
+            //        .Select(edge => new { @event, edge }))
+            //        .ToList();
 
-                var qEvent = qEvents
-                    .Select(@event => new { @event })
-                    .ToList();
+            //    var qEvent = qEvents
+            //        .Select(@event => new { @event })
+            //        .ToList();
 
-                var qEvent2 = qEvents
-                    .ToList();
+            //    var qEvent2 = qEvents
+            //        .ToList();
 
-                var e1 = qEvent.First();
-            }
+            //    var e1 = qEvent.First();
+            //}
 
-            ConsoleOutput.Output.DisplayList(
-                vertexs
-                    .OfType<Event>()
-                    .First()
-                    .Serials
-                    .SelectMany(s => s.ToVertex.Episodes)
-                    .Select(e => e.ToVertex)
-                    .Select(e => e.To));
+            //ConsoleOutput.Output.DisplayList(
+            //    vertexs
+            //        .OfType<Event>()
+            //       .First()
+            //        .Serials
+            //        .SelectMany(s => s.ToVertex.Episodes)
+            //        .Select(e => e.ToVertex)
+            //        .Select(e => e.To));
         }
 
         public static void Go(string databaseName)
@@ -308,7 +306,7 @@ W1H 2DS"
                                         {
                                             new EdgeVertex<ISchedule>(new DateList
                                                 {
-                                                    Items = new List<Date>
+                                                    Items = new List<IDate>
                                                     {
                                                         new Date(2010, YearMonth.MonthValue.August, 09),
                                                         new Date(2008, YearMonth.MonthValue.May, 30),

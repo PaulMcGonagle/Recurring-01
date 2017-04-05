@@ -15,16 +15,21 @@ namespace Scheduler.ScheduleInstances
     public class ByWeekdays : ScheduleAbstracts.Repeating
     {
         public IEnumerable<IsoDayOfWeek> Days;
+        private IClock _clock;
 
         [IgnoreDataMember]
-        public IClock Clock { get; set; }
+        public IClock Clock
+        {
+            get { return _clock ?? (_clock = SystemClock.Instance); }
+            set { _clock = value; }
+        }
 
         public ByWeekdays(
-            IClock clock,
-            IEnumerable<IsoDayOfWeek> weekdays)
+            IEnumerable<IsoDayOfWeek> weekdays,
+            IClock clock)
         {
-            Clock = clock;
             Days = weekdays;
+            Clock = clock;
         }
 
         public ByWeekdays()
@@ -34,30 +39,27 @@ namespace Scheduler.ScheduleInstances
         }
 
         public static ByWeekdays Create(
-            IClock clock,
             IEnumerable<IsoDayOfWeek> weekdays,
-            DateRange dateRange)
+            DateRange dateRange,
+            IClock clock)
         {
             return new ByWeekdays(
-                clock: clock,
-                weekdays: weekdays)
+                weekdays: weekdays,
+                clock: clock)
             {
                 EdgeRange = new EdgeRangeDate(dateRange),
             };
         }
 
-        public override GeneratedDates Generate()
+        public override IEnumerable<IDate> Generate()
         {
             var start = EdgeRange.ToVertex.From.Date ?? DateTimeHelper.GetToday(Clock).AddWeeks(-(CountFrom ?? CountFromDefault));
             var end = EdgeRange.ToVertex.To.Date ?? DateTimeHelper.GetToday(Clock).AddWeeks((CountTo ?? CountToDefault));
 
             var range = DateTimeHelper.Range(start: start, end: end);
 
-            var generatedDates = new GeneratedDates();
 
-            generatedDates.AddRange(range.Where(d => Days.Contains(d.IsoDayOfWeek)).Select(d => new GeneratedDate(source: this, date: d)));
-
-            return generatedDates;
+            return range.Where(d => Days.Contains(d.IsoDayOfWeek));
         }
 
         public override void Save(IArangoDatabase db, IClock clock)

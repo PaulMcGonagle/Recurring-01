@@ -8,23 +8,16 @@ namespace Scheduler.ScheduleInstances
 {
     public class DateList : Schedule
     {
-        public IEnumerable<Date> Items
+        public IEnumerable<IDate> Items
         {
             get;
             set;
         }
 
-        public override GeneratedDates Generate()
+        public override IEnumerable<IDate> Generate()
         {
-            var generatedDates = new GeneratedDates();
-
-            generatedDates.AddRange(
-                Items.Select(i => new GeneratedDate(
-                    source: this,
-                    date: i))
-                .ToList());
-
-            return generatedDates;
+            return Items
+                .ToList();
         }
 
         public override void Save(IArangoDatabase db, IClock clock)

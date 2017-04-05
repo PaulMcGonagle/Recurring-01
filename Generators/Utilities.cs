@@ -8,6 +8,7 @@ using NodaTime.Text;
 using Scheduler;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
+using Scheduler.ScheduleInstances;
 
 namespace Generators
 {
@@ -100,8 +101,10 @@ namespace Generators
             }
         }
 
-        public static IEnumerable<Date> RetrieveDates(XElement xInput)
+        public static IEnumerable<IDate> RetrieveDates(XElement xInput)
         {
+            var dates = new List<IDate>();
+
             var xDates = xInput
                 .Elements("dates")
                 .Elements("date")
@@ -113,8 +116,82 @@ namespace Generators
 
                 date.Connect(RetrieveTags(xDate));
 
-                yield return date;
+                dates.Add(date);
             }
+
+            var xScheduleInstances = xInput
+                .Elements("dates")
+                .Elements("scheduleInstance");
+
+            foreach (var xScheduleInstance in xScheduleInstances)
+            {
+                dates.AddRange(RetrieveSchedule(xScheduleInstance).Generate());
+            }
+
+            return dates;
+        }
+
+        public static ISchedule RetrieveSchedule(XElement xInput)
+        {
+            var tags = RetrieveTags(xInput);
+
+            var scheduleTag = tags
+                .SingleOrDefault(st => st.Ident == "type");
+
+            if (scheduleTag == null)
+                throw new Exception($"Unable to retrieve type");
+
+            switch (scheduleTag.Value)
+            {
+                case "ByOffset":
+                    {
+                        var initialDateTag = scheduleTag
+                            .RelatedTags
+                            .SingleOrDefault(rt => rt.ToVertex.Ident == "InitialDate");
+
+                        if (initialDateTag == null)
+                        {
+                            throw new Exception($"Unable to retrieve InitialDate tag");
+                        }
+
+                        var intervalTag = scheduleTag
+                            .RelatedTags
+                            .SingleOrDefault(rt => rt.ToVertex.Ident == "Interval");
+
+                        if (intervalTag == null)
+                            throw new Exception($"Unable to retrieve Interval tag");
+
+                        var byOffset = new ByOffset(
+                            initialDate: RetrieveLocalDate(initialDateTag.ToVertex.Value),
+                            interval: intervalTag.ToVertex.Value);
+
+                        var countTag = scheduleTag
+                            .RelatedTags
+                            .SingleOrDefault(rt => rt.ToVertex.Ident == "Count");
+
+                        if (countTag != null)
+                        {
+                            int count;
+
+                            if (!int.TryParse(countTag.ToVertex.Value, out count))
+                            {
+                                throw new Exception($"Unable to retrieve count '{countTag.ToVertex.Value}'");
+                            }
+
+                            byOffset.CountTo = count;
+                        }
+                        return byOffset;
+                    }
+                default:
+                    throw new Exception($"Unable to retrieve schedule");
+            }
+        }
+
+        public static LocalDate RetrieveLocalDate(string input)
+        {
+            var datePattern = LocalDatePattern.CreateWithInvariantCulture("yyyy-MM-dd");
+
+            return datePattern.Parse(input).Value;
         }
 
         public static void ExpandReferences(XDocument xInput)

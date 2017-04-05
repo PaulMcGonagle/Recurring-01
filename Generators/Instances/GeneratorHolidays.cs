@@ -5,7 +5,7 @@ using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
 
-namespace Generators
+namespace Generators.Instances
 {
     public class GeneratorHolidays : IGenerator
     {
@@ -13,6 +13,14 @@ namespace Generators
         {
             var xSource = XDocument
                 .Load(sourceFile);
+
+            var generatorSource = new GeneratorSource
+            {
+                Xml = xSource.ToString(),
+                GeneratorType = "holidays"
+            };
+
+            yield return generatorSource;
 
             Utilities.ExpandReferences(xSource);
 
@@ -41,6 +49,8 @@ namespace Generators
                         .Connect(calendarTags.SingleOrDefault(ct => ct.Ident == "name"));
 
                     compositeSchedule.Connect(tagHolidayCalendar);
+
+                    generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(compositeSchedule));
 
                     var dates = Utilities
                         .RetrieveDates(xCalendar)

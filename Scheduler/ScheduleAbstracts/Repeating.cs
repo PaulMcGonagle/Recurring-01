@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NodaTime;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
@@ -18,7 +19,7 @@ namespace Scheduler.ScheduleAbstracts
 
         protected int Increment = 1;
 
-        public override GeneratedDates Generate()
+        public override IEnumerable<IDate> Generate()
         {
             throw new NotImplementedException();
         }

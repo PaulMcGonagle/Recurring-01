@@ -8,11 +8,5 @@ namespace Scheduler
         string Ident { get; set; }
         string Value { get; set; }
         string Payload { get; set; }
-
-        EdgeVertexs<ITag> RelatedTags { get; set; }
-
-        ITag Connect(ITag connectTag);
-        ITag Connect(string ident, string value);
-        void Connect(IEnumerable<ITag> connectTags);
     }
 }

@@ -47,7 +47,7 @@ namespace Scheduler
             return london.AtStrictly(ldt);
         }
 
-        public static ZonedDateTime GetZonedDateTime(Date ld, LocalTime lt, string timeZoneProvider)
+        public static ZonedDateTime GetZonedDateTime(IDate ld, LocalTime lt, string timeZoneProvider)
         {
             return GetZonedDateTime(ld.Value.At(lt), timeZoneProvider);
         }
@@ -90,12 +90,12 @@ namespace Scheduler
             return new YearMonth { Date = value };
         }
 
-        public static IEnumerable<Date> Range(Date start, int count, int interval = 1)
+        public static IEnumerable<IDate> Range(Date start, int count, int interval = 1)
         {
-            return Enumerable.Range(0, count).Select(i => new Date(start.Value.PlusDays(i * interval)));
+            return new List<IDate>(Enumerable.Range(0, count).Select(i => new Date(start.Value.PlusDays(i * interval))));
         }
 
-        public static IEnumerable<Date> Range(Date start, Date end, int interval = 1)
+        public static IEnumerable<IDate> Range(Date start, Date end, int interval = 1)
         {
             var period = Period.Between(start.Value, end.Value, PeriodUnits.Days);
 

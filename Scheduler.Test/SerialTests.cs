@@ -29,7 +29,7 @@ namespace Scheduler.Test
                             new Serial(
                                 schedule: new DateList
                                     {
-                                        Items = new List<Date>()
+                                        Items = new List<IDate>()
                                         {
                                             new Date(2016, YearMonth.MonthValue.January, 05),
                                             new Date(2016, YearMonth.MonthValue.January, 06),
@@ -95,21 +95,21 @@ namespace Scheduler.Test
                     {
                         {
                             new Serial(
-                                schedule: new DateList { Items = new List<Date>(), },
+                                schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: null,
                                 timeZoneProvider: timeZoneProvider),
                             "TimeRange"
                         },
                         {
                             new Serial(
-                                schedule: new DateList { Items = new List<Date>(), },
+                                schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: new EdgeRangeTime(new LocalTime(15, 30), null),
                                 timeZoneProvider: timeZoneProvider),
                             "Period"
                         },
                         {
                             new Serial(
-                                schedule: new DateList { Items = new List<Date>(), },
+                                schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Minutes = 30,}.Build()),
                                 timeZoneProvider: null),
                             "TimeZoneProvider"

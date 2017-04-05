@@ -42,7 +42,7 @@ namespace ScheduleGeneration.Test
                 {
                     {
                         Event.Create(
-                            schedule: new ByWeekday(fakeClock, IsoDayOfWeek.Wednesday)
+                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday, fakeClock)
                             {
                                 EdgeRange = new EdgeRangeDate(new DateRange(2016, YearMonth.MonthValue.February, 20, 2016, YearMonth.MonthValue.May, 15)),
                             },
@@ -239,7 +239,7 @@ namespace ScheduleGeneration.Test
                 {
                     {
                         Event.Create(
-                            schedule: new ByWeekday(fakeClock, IsoDayOfWeek.Wednesday)
+                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday, fakeClock)
                             {
                                 EdgeRange = new EdgeRangeDate(new DateRange(2016, YearMonth.MonthValue.February, 20, 2016, YearMonth.MonthValue.May, 15)),
                             },

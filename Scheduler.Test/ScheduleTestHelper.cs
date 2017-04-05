@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NodaTime;
 using NodaTime.Testing;
+using Scheduler.Generation;
 
 namespace Scheduler.Test
 {
@@ -23,8 +24,8 @@ namespace Scheduler.Test
                     IsoDayOfWeek.Sunday
                 });
 
-        public static readonly IEnumerable<Date> BankHolidays =
-            new List<Date>(new[]
+        public static readonly IEnumerable<IDate> BankHolidays =
+            new List<IDate>(new[]
                 {
                     new Date(2016, YearMonth.MonthValue.August, 29),
                     new Date(2017, YearMonth.MonthValue.December, 26),

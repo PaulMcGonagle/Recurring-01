@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
-using Scheduler.Generation;
 using Scheduler.ScheduleInstances;
 using Shouldly;
 using TestStack.BDDfy;
@@ -14,7 +13,7 @@ namespace Scheduler.Test.Repeating
         public class VerifyDates
         {
             private ByWeekday _repeatingDay;
-            private IEnumerable<IGeneratedDate> _generatedDates;
+            private IEnumerable<IDate> _generatedDates;
 
             [Fact]
             public void Execute()
@@ -47,14 +46,14 @@ namespace Scheduler.Test.Repeating
             public void ThenAllDatesShouldBeThisDay(IsoDayOfWeek dayOfWeek)
             {
                 _generatedDates
-                    .Select(d => d.Date.IsoDayOfWeek)
-                    .ShouldAllBe(d => d == dayOfWeek);
+                    .Select(date => date.IsoDayOfWeek)
+                    .ShouldAllBe(date => date == dayOfWeek);
             }
 
             public void AndThenTheFirstDateShouldBeThis(Date firstDate)
             {
                 _generatedDates
-                    .Select(gd => gd.Date)
+                    .Select(date => date)
                     .Min()
                     .ShouldBe(firstDate);
             }
@@ -62,7 +61,7 @@ namespace Scheduler.Test.Repeating
             public void AndThenTheLastDateShouldBeThis(Date lastDate)
             {
                 _generatedDates
-                    .Select(gd => gd.Date)
+                    .Select(date => date)
                     .Max()
                     .ShouldBe(lastDate);
             }

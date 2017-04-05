@@ -126,7 +126,8 @@ namespace TestData
                         {
                             Items = _scheduleArchive
                                 .Where(s => s.Key.StartsWith("BankHolidays.2016"))
-                                .SelectMany(s => s.Value.Generate().Select(gd => gd.Date))
+                                .SelectMany(s => s.Value.Generate()
+                                    .Select(date => date))
                         });
 
                 _scheduleArchive
@@ -135,13 +136,13 @@ namespace TestData
                         {
                             InclusionsEdges = new EdgeVertexs<ISchedule>
                             {
-                                new EdgeVertex<ISchedule>((ISchedule)ScheduleArchive["Schools.Term.201617.Autumn"]),
-                                new EdgeVertex<ISchedule>((ISchedule)ScheduleArchive["Schools.Term.201617.Winter"]),
-                                new EdgeVertex<ISchedule>((ISchedule)ScheduleArchive["Schools.Term.201617.Summer"]),
+                                new EdgeVertex<ISchedule>(ScheduleArchive["Schools.Term.201617.Autumn"]),
+                                new EdgeVertex<ISchedule>(ScheduleArchive["Schools.Term.201617.Winter"]),
+                                new EdgeVertex<ISchedule>(ScheduleArchive["Schools.Term.201617.Summer"]),
                             },
                             ExclusionsEdges = new EdgeVertexs<ISchedule>
                             {
-                                new EdgeVertex<ISchedule>((ISchedule)ScheduleArchive["BankHolidays"]),
+                                new EdgeVertex<ISchedule>(ScheduleArchive["BankHolidays"]),
                             },
                             Breaks = new EdgeVertexs<IDateRange>()
                             {

@@ -93,21 +93,21 @@ namespace Scheduler.Test
                     {
                         {
                             new Serial(
-                                schedule: new DateList { Items = new List<Date>(), },
+                                schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: null,
                                 timeZoneProvider: timeZoneProvider),
                             "TimeRange"
                         },
                         {
                             new Serial(
-                                schedule: new DateList { Items = new List<Date>(), },
+                                schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: new EdgeRangeTime(new LocalTime(15, 30), null),
                                 timeZoneProvider: timeZoneProvider),
                             "Period"
                         },
                         {
                             new Serial(
-                                schedule: new DateList { Items = new List<Date>(), },
+                                schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
                                 timeZoneProvider: null),
                             "TimeZoneProvider"

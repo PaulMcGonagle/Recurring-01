@@ -3,7 +3,6 @@ using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scheduler.Generation;
 using TestStack.BDDfy;
 using Xunit;
 
@@ -15,7 +14,7 @@ namespace Scheduler.Test.Repeating
         public class ValidateRollStrategy
         {
             private ByDayOfMonth _sut;
-            private IEnumerable<IGeneratedDate> _dates;
+            private IEnumerable<IDate> _dates;
 
             [Fact]
             public void Execute()
@@ -50,7 +49,7 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Back
                             },
-                            new List<Date>
+                            new List<IDate>
                             {
                                 new Date(yearLeap, YearMonth.MonthValue.January, 30),
                                 new Date(yearLeap, YearMonth.MonthValue.February, 28),
@@ -69,7 +68,7 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Skip
                             },
-                            new List<Date>
+                            new List<IDate>
                             {
                                 new Date(yearLeap, YearMonth.MonthValue.January, 29),
                                 new Date(yearLeap, YearMonth.MonthValue.March, 29),
@@ -87,7 +86,7 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Forward
                             },
-                            new List<Date>
+                            new List<IDate>
                             {
                                 new Date(yearLeap, YearMonth.MonthValue.January, 29),
                                 new Date(yearLeap, YearMonth.MonthValue.March, 01),
@@ -111,10 +110,10 @@ namespace Scheduler.Test.Repeating
             }
 
             public void ThenAllDatesShouldBeExpected(
-                IEnumerable<Date> expectedDates)
+                IEnumerable<IDate> expectedDates)
             {
                 _dates
-                    .Select(d => d.Date.Value)
+                    .Select(d => d.Value)
                     .ShouldBe(expectedDates.Select(e => e.Value));
             }
         }

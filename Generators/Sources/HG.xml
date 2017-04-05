@@ -67,7 +67,7 @@
     </dates>-->
     <groups>
       <group name="Reception">
-        <classes>
+        <!--<classes>
           <class name="Register and News">
             <schedules>
               <schedule>
@@ -304,7 +304,7 @@
               </schedule>
             </schedules>
           </class>
-        </classes>
+        </classes>-->
         <terms>
           <reference type="term" path="./generators/generator/terms/term[@name='Autumn.2016/17']"/>
         </terms>
@@ -314,7 +314,7 @@
           <session name="9am">
             <rangeTime start="09:00" end="10:00"/>
           </session>
-          <session name="9am double">
+          <!--<session name="9am double">
             <rangeTime start="09:00" end="10:00"/>
           </session>
           <session name="10am">
@@ -346,10 +346,10 @@
           </session>
           <session name="2:45pm">
             <rangeTime start="14:45" end="15:30"/>
-          </session>
+          </session>-->
         </sessions>
         <classes>
-          <class name="Playtime">
+          <!--<class name="Playtime">
             <schedules>
               <schedule session="Morning playtime">
                 <weekdays>
@@ -362,7 +362,7 @@
               </schedule>
             </schedules>
           </class>
-          <!--<class name="Lunchtime">
+          <class name="Lunchtime">
             <schedules>
               <schedule session="Lunch">
                 <weekdays>
@@ -374,20 +374,21 @@
                 </weekdays>
               </schedule>
             </schedules>
-          </class>
+          </class>-->
           <class name="Literacy">
             <schedules>
-              <schedule session="9am">
+              <schedule>
                 <weekdays>
                   <weekday>Monday</weekday>
                   <weekday>Tuesday</weekday>
                   <weekday>Wednesday</weekday>
                   <weekday>Friday</weekday>
                 </weekdays>
+                <reference type="rangeTime" path="./generators/generator/groups/group[@name='Year2.2016/17']/sessions/session[@name='9am']/rangeTime"/>
               </schedule>
             </schedules>
           </class>
-          <class name="Guided Reading">
+          <!--<class name="Guided Reading">
             <schedules>
               <schedule session="10am">
                 <weekdays>
