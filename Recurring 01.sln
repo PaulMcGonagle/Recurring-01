@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduler", "Scheduler\Scheduler.csproj", "{3189F8E6-B2AB-4B6E-8F28-756372C7644E}"
 EndProject
@@ -27,6 +27,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleGeneration.Test", "ScheduleGeneration.Test\ScheduleGeneration.Test.csproj", "{AF54FCF9-5E5C-4FDD-9112-691785E13A61}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2E68CB87-23A8-4CFF-BB6A-076D45AE4F43}"
+	ProjectSection(SolutionItems) = preProject
+		Calendar.Test\EventTests.cs = Calendar.Test\EventTests.cs
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleOutput", "ConsoleOutput\ConsoleOutput.csproj", "{D53AC907-3125-4727-84F3-C5B60117CE42}"
 EndProject

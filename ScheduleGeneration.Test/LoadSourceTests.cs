@@ -58,7 +58,7 @@ namespace ScheduleGeneration.Test
                 )
                 {
                     {
-                        "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\ScheduleGeneration.Test\\TestData\\BasicSchoolSchedule.xml",
+                        AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\BasicSchoolSchedule.xml",
                         fakeClock,
                         mockDb.Object,
                         "Hampden Gurney Primary School.Autumn 2016/17.Literacy",

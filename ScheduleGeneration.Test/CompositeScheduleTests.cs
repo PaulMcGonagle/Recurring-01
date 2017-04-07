@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using ArangoDB.Client;
@@ -131,7 +132,7 @@ namespace ScheduleGeneration.Test
                 )
                 {
                     {
-                        "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\HG.xml",
+                        AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\AdvancedSchoolSchedule.xml",
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
                         new List<LocalDateTime>

@@ -46,7 +46,7 @@ namespace ScheduleGeneration.Test
                     "serialPath")
                     {
                         {
-                            "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\ScheduleGeneration.Test\\TestData\\BasicSchoolSchedule.xml",
+                            AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\BasicSchoolSchedule.xml",
                             new Organisation
                             {
                                 Title = "a test organisation",
