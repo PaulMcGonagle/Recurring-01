@@ -104,7 +104,7 @@ namespace Generators.Instances
                             var termName = xTerm.Attribute("name")?.Value;
                             var termTag = classTag.Connect("term", termName);
 
-                            var termRange = Utilities.RetrieveDateRange(xTerm);
+                            var termRange = Utilities.RetrieveRangeDate(xTerm);
 
                             var xTermBreaks = xTerm
                                 .Elements("breaks")
@@ -126,7 +126,7 @@ namespace Generators.Instances
                                     .Select(w => (IsoDayOfWeek)Enum.Parse(typeof(IsoDayOfWeek), w.Value))
                                     .ToList();
 
-                                var timeRange = Utilities.RetrieveTimeRange(xSchedule);
+                                var timeRange = Utilities.RetrieveRangeTime(xSchedule);
 
                                 var scheduleTags = Utilities.RetrieveTags(xSchedule);
 
@@ -148,7 +148,7 @@ namespace Generators.Instances
 
                                     foreach (var xTermBreak in xTermBreaks)
                                     {
-                                        var xTermBreakRange = Utilities.RetrieveDateRange(xTermBreak);
+                                        var xTermBreakRange = Utilities.RetrieveRangeDate(xTermBreak);
 
                                         compositeSchedule.Breaks.Add(new EdgeVertex<IDateRange>(xTermBreakRange));
                                     }

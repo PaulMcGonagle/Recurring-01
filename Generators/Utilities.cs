@@ -6,6 +6,7 @@ using System.Xml.XPath;
 using NodaTime;
 using NodaTime.Text;
 using Scheduler;
+using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
@@ -37,7 +38,7 @@ namespace Generators
             }
         }
 
-        public static DateRange RetrieveDateRange(XElement input, string elementName = "rangeDate")
+        public static DateRange RetrieveRangeDate(XElement input, string elementName = "rangeDate")
         {
             var rangeDate = input.Element(elementName);
 
@@ -52,7 +53,19 @@ namespace Generators
                 to: new EdgeDate(end));
         }
 
-        public static ITimeRange RetrieveTimeRange(XElement input, string elementName = "rangeTime")
+        public static IEnumerable<DateRange> RetrieveRangeDates(XElement xInput, string elementsName = "rangeDates", string elementName = "rangeDate")
+        {
+            var xElements = xInput
+                .Elements(elementsName)
+                .ToList();
+
+            foreach (var xElement in xElements)
+            {
+                yield return RetrieveRangeDate(xElement, elementName);
+            }
+        }
+
+        public static ITimeRange RetrieveRangeTime(XElement input, string elementName = "rangeTime")
         {
             var rangeTime = input.Element(elementName);
 
@@ -115,6 +128,36 @@ namespace Generators
                 var date = new Date(ParseAttributeAsLocalDate(xDate, "value"));
 
                 date.Connect(RetrieveTags(xDate));
+
+                dates.Add(date);
+            }
+
+            var xScheduleInstances = xInput
+                .Elements("dates")
+                .Elements("scheduleInstance");
+
+            foreach (var xScheduleInstance in xScheduleInstances)
+            {
+                dates.AddRange(RetrieveSchedule(xScheduleInstance).Generate());
+            }
+
+            return dates;
+        }
+
+        public static IEnumerable<IDate> RetrieveWeekdays(XElement xInput)
+        {
+            var dates = new List<IDate>();
+
+            var xWeekdays = xInput
+                .Elements("weekdays")
+                .Elements("weekday")
+                .ToList();
+
+            foreach (var xWeekday in xWeekdays)
+            {
+                var date = new Date(ParseAttributeAsLocalDate(xWeekday, "value"));
+
+                date.Connect(RetrieveTags(xWeekday));
 
                 dates.Add(date);
             }
@@ -224,6 +267,57 @@ namespace Generators
 
                 xElementReferences.Remove();
             }
+        }
+
+        public static IDictionary<string, IVertex> ExpandLinks(XDocument xInput)
+        {
+            var xElements = xInput
+                .Root
+                ?.DescendantsAndSelf()
+                .ToList();
+
+            var links = new Dictionary<string, IVertex>();
+
+            if (xElements == null)
+            {
+                return links;
+            }
+
+            foreach (var xElement in xElements)
+            {
+                var xElementReferences = xElement
+                    .Elements("link")
+                    .ToList();
+
+                foreach (var xElementReference in xElementReferences)
+                {
+                    var type = xElementReference.Attribute("type")?.Value;
+
+                    var xReferencedTags = RetrieveXReferences(xInput, xElementReferences, type)
+                        .ToList();
+
+                    xElement.Add(xReferencedTags);
+                }
+
+                xElementReferences.Remove();
+            }
+
+            return links;
+        }
+
+        public static bool TryParseAttributeAsWeekday(XElement input, string name, out IsoDayOfWeek value)
+        {
+            var attribute = input.Attribute(name);
+
+            if (attribute != null
+            && Enum.TryParse(attribute.Value, out value))
+            {
+                return true;
+            }
+
+            value = IsoDayOfWeek.None;
+
+            return false;
         }
 
         public static LocalDate ParseAttributeAsLocalDate(XElement input, string name)

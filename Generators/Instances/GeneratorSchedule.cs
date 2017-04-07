@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
+using Scheduler.ScheduleInstances;
 
 namespace Generators.Instances
 {
@@ -19,7 +22,7 @@ namespace Generators.Instances
             var generatorSource = new GeneratorSource
             {
                 Xml = xSource.ToString(),
-                GeneratorType = "holidays"
+                GeneratorType = "schedule"
             };
 
             yield return generatorSource;
@@ -28,19 +31,48 @@ namespace Generators.Instances
 
             var xGenerators = xSource
                 .Elements("generators")
-                .Elements("generator");
+                .Elements("generator")
+                .ToList();
 
             foreach (var xGenerator in xGenerators)
             {
-                var xGeneratorTerms = xGenerator
-                    .Elements("terms")
-                    .Elements("term")
+                var xSchedules = xGenerator
+                    .Elements("schedules")
+                    .Elements("schedule")
                     .ToList();
 
-                foreach (var xTerm in xGeneratorTerms)
+                foreach (var xSchedule in xSchedules)
                 {
-                    var date = Utilities.RetrieveDates(xTerm)
+                    var xWeekdays = xSchedule
+                        .Elements("weekdays")
+                        .Elements("weekday")
                         .ToList();
+
+                    var xRangeDates = xSchedule
+                        .Elements("rangeDates")
+                        .Elements("rangeDate")
+                        .ToList();
+
+                    foreach (var xWeekday in xWeekdays)
+                    {
+                        IsoDayOfWeek isoDayOfWeek;
+
+                        if (!Enum.TryParse(xWeekday.Value, out isoDayOfWeek))
+                            throw new Exception($"Invalid weekday '{xWeekday.Value}'");
+
+                        var rangeDates = Utilities.RetrieveRangeDates(xSchedule);
+
+                        foreach (var rangeDate in rangeDates)
+                        {
+                            var byWeekday = ByWeekday
+                                .Create(
+                                    isoDayOfWeek: isoDayOfWeek,
+                                    dateRange: rangeDate);
+
+                            generatorSource
+                                .Schedules = new EdgeVertexs<ISchedule>(byWeekday);
+                        }
+                    }
                 }
             }
         }

@@ -4,7 +4,6 @@ using NodaTime;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
-using Scheduler.Generation;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 
@@ -35,15 +34,15 @@ namespace Scheduler.ScheduleInstances
         }
 
         public static ByWeekday Create(
-            IsoDayOfWeek weekday,
-            DateRange range,
+            IsoDayOfWeek isoDayOfWeek,
+            DateRange dateRange,
             IClock clock = null)
         {
             var byWeekday = new ByWeekday(
-                weekday: weekday,
+                weekday: isoDayOfWeek,
                 clock: clock)
             {
-                EdgeRange = new EdgeRangeDate(range),
+                EdgeRange = new EdgeRangeDate(dateRange),
             };
 
             return byWeekday;

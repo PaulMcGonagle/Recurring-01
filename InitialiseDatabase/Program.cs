@@ -22,10 +22,10 @@ namespace InitialiseDatabase
         // ReSharper disable once UnusedParameter.Local
         static void Main(string[] args)
         {
-            var generator = GeneratorFactory.Get("classes");
+            var generator = GeneratorFactory.Get("schedule");
 
             var vertexs = generator.Generate(
-                sourceFile: "c:\\users\\paul\\documents\\sandbox\\recurring\\recurring 01\\generators\\sources\\HG.xml")
+                sourceFile: "c:\\users\\paul\\documents\\sandbox\\recurring\\recurring 01\\generators\\sources\\Caterlink2.xml")
                 .ToList();
 
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
@@ -193,8 +193,8 @@ namespace InitialiseDatabase
                     schedule: ByWeekday.Create
                         (
                             clock: fakeClock,
-                            weekday: IsoDayOfWeek.Wednesday,
-                            range: new DateRange(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05)
+                            isoDayOfWeek: IsoDayOfWeek.Wednesday,
+                            dateRange: new DateRange(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05)
                         ),
                     rangeTime: new TimeRange(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                     timeZoneProvider: "Europe/London",
