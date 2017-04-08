@@ -172,6 +172,8 @@ namespace Scheduler.Persistance
             {
                 throw new SaveException(saveException.SaveResult, typeof(Backup), $"Unable to save backup of {Id}");
             }
+
+            RelatedTags.Save(db, clock, this);
         }
 
         protected static Exception NewSaveException(SaveResult saveResult, Type sourceType, string message)

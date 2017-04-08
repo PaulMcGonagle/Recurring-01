@@ -38,6 +38,22 @@ namespace Generators
             }
         }
 
+        public static XElement RetrieveXReference(XDocument xInput, XElement xReference, string type)
+        {
+            var path = xReference
+                .Attribute("path")?.Value;
+
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new ArgumentException("Path could not be found");
+            }
+
+            var xElement = xInput
+                .XPathSelectElement(path);
+
+            return xElement;
+        }
+
         public static DateRange RetrieveRangeDate(XElement input, string elementName = "rangeDate")
         {
             var rangeDate = input.Element(elementName);
@@ -53,15 +69,38 @@ namespace Generators
                 to: new EdgeDate(end));
         }
 
-        public static IEnumerable<DateRange> RetrieveRangeDates(XElement xInput, string elementsName = "rangeDates", string elementName = "rangeDate")
+        public static IEnumerable<IDateRange> RetrieveRangeDates(XElement xInput, IDictionary<string, IVertex> commons, string elementsName = "rangeDates", string elementName = "rangeDate")
         {
             var xElements = xInput
                 .Elements(elementsName)
+                .Elements(elementName)
                 .ToList();
 
             foreach (var xElement in xElements)
             {
                 yield return RetrieveRangeDate(xElement, elementName);
+            }
+
+            var xLinks = xInput
+                .Elements(elementsName)
+                .Elements("link")
+                .ToList();
+
+            foreach (var xLink in xLinks)
+            {
+                var commonName = xLink.RetrieveAttribute("common");
+
+                IVertex commonVertex;
+
+                if (!commons.TryGetValue(commonName, out commonVertex))
+                    throw new ArgumentException($"No common found with name {commonName}");
+
+                IDateRange dateRange = commonVertex as IDateRange;
+
+                if (dateRange == null)
+                    throw new Exception("Common link does not return a date range");
+
+                yield return dateRange;
             }
         }
 
@@ -269,6 +308,19 @@ namespace Generators
             }
         }
 
+        public static string RetrieveAttribute(this XElement xInput, string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentException("Unable to search for empty attribute name");
+
+            var value = xInput.Attribute(name)?.Value;
+
+            if (value == null)
+                throw new ArgumentException($"No attribute with name '{name}' could be found");
+
+            return value;
+        }
+
         public static IDictionary<string, IVertex> ExpandLinks(XDocument xInput)
         {
             var xElements = xInput
@@ -286,20 +338,22 @@ namespace Generators
             foreach (var xElement in xElements)
             {
                 var xElementReferences = xElement
-                    .Elements("link")
+                    .Elements("common")
                     .ToList();
 
                 foreach (var xElementReference in xElementReferences)
                 {
-                    var type = xElementReference.Attribute("type")?.Value;
+                    var type = xElementReference.RetrieveAttribute("type");
+                    var name = xElementReference.RetrieveAttribute("name");
 
-                    var xReferencedTags = RetrieveXReferences(xInput, xElementReferences, type)
-                        .ToList();
+                    var generatorX = GeneratorFactory.GetX(type);
 
-                    xElement.Add(xReferencedTags);
+                    var xReferencedTags = RetrieveXReference(xInput, xElementReference, type);
+
+                    var link = generatorX.Generate(xReferencedTags);
+
+                    links.Add(name, link);
                 }
-
-                xElementReferences.Remove();
             }
 
             return links;

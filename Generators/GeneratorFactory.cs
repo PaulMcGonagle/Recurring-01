@@ -1,5 +1,6 @@
 ﻿using System;
 using Generators.Instances;
+using Generators.XInstances;
 
 namespace Generators
 {
@@ -17,6 +18,18 @@ namespace Generators
 
                 case "schedule":
                     return new GeneratorSchedule();
+
+                default:
+                    throw new NotImplementedException($"Unexpected generatorType '{generatorType}'");
+            }
+        }
+
+        public static IGeneratorX GetX(string generatorType)
+        {
+            switch (generatorType)
+            {
+                case "DateRange":
+                    return new GeneratorXDateRange();
 
                 default:
                     throw new NotImplementedException($"Unexpected generatorType '{generatorType}'");

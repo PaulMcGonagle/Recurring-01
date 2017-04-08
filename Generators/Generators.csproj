@@ -50,6 +50,7 @@
     <Compile Include="Enrichers\EnricherNumbering.cs" />
     <Compile Include="GenerateFromCalendar.cs" />
     <Compile Include="GenerateFromFile.cs" />
+    <Compile Include="IGeneratorX.cs" />
     <Compile Include="Instances\GeneratorClasses.cs" />
     <Compile Include="GeneratorFactory.cs" />
     <Compile Include="Instances\GeneratorHolidays.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Types\Term.cs" />
     <Compile Include="Types\Terms.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="XInstances\GeneratorXDateRange.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Sources\Caterlink2.xml" />
@@ -68,6 +70,7 @@
     </Content>
     <Content Include="Sources\Holidays.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sources\QIce.xml" />
     <Content Include="Sources\Caterlink.xml">

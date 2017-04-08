@@ -35,7 +35,7 @@ namespace Scheduler.ScheduleInstances
 
         public static ByWeekday Create(
             IsoDayOfWeek isoDayOfWeek,
-            DateRange dateRange,
+            IDateRange dateRange,
             IClock clock = null)
         {
             var byWeekday = new ByWeekday(

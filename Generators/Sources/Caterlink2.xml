@@ -2,7 +2,7 @@
 <generators>
   <generator>
     <commons>
-      <common name="Winter 2017" type="rangeDate" path="./generators/generator/rangeDates/rangeDate"/>
+      <common name="Winter 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
     </commons>
     <schedules>
       <schedule>
@@ -17,25 +17,33 @@
         <weekdays>
           <weekday>Tuesday</weekday>
         </weekdays>
-        <link path="./generators/generator/rangeDates"/>
+        <rangeDates>
+          <link common="Winter 2017"/>
+        </rangeDates>
       </schedule>
       <schedule>
         <weekdays>
           <weekday>Wednesday</weekday>
         </weekdays>
-        <link path="./generators/generator/rangeDates"/>
+        <rangeDates>
+          <link common="Winter 2017"/>
+        </rangeDates>
       </schedule>
       <schedule>
         <weekdays>
           <weekday>Thursday</weekday>
         </weekdays>
-        <link path="./generators/generator/rangeDates"/>
+        <rangeDates>
+          <link common="Winter 2017"/>
+        </rangeDates>
       </schedule>
       <schedule>
         <weekdays>
           <weekday>Friday</weekday>
         </weekdays>
-        <link path="./generators/generator/rangeDates"/>
+        <rangeDates>
+          <link common="Winter 2017"/>
+        </rangeDates>f
       </schedule>
     </schedules>
     <rangeDates>

@@ -27,6 +27,7 @@ namespace Generators.Instances
 
             yield return generatorSource;
 
+            var commons = Utilities.ExpandLinks(xSource);
             Utilities.ExpandReferences(xSource);
 
             var xGenerators = xSource
@@ -60,7 +61,9 @@ namespace Generators.Instances
                         if (!Enum.TryParse(xWeekday.Value, out isoDayOfWeek))
                             throw new Exception($"Invalid weekday '{xWeekday.Value}'");
 
-                        var rangeDates = Utilities.RetrieveRangeDates(xSchedule);
+                        var rangeDates = Utilities.RetrieveRangeDates(
+                            xInput: xSchedule,
+                            commons: commons);
 
                         foreach (var rangeDate in rangeDates)
                         {
@@ -70,7 +73,8 @@ namespace Generators.Instances
                                     dateRange: rangeDate);
 
                             generatorSource
-                                .Schedules = new EdgeVertexs<ISchedule>(byWeekday);
+                                .Schedules
+                                .Add(new EdgeSchedule(byWeekday));
                         }
                     }
                 }

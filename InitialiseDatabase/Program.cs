@@ -25,7 +25,7 @@ namespace InitialiseDatabase
             var generator = GeneratorFactory.Get("schedule");
 
             var vertexs = generator.Generate(
-                sourceFile: "c:\\users\\paul\\documents\\sandbox\\recurring\\recurring 01\\generators\\sources\\Caterlink2.xml")
+                sourceFile: "..\\..\\..\\generators\\sources\\Caterlink2.xml")
                 .ToList();
 
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));

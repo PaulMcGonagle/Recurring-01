@@ -5,7 +5,7 @@ namespace Scheduler.ScheduleEdges
 {
     public class EdgeRangeDate : EdgeVertex<IDateRange>, IEdgeRangeDate
     {
-        public EdgeRangeDate(DateRange toVertex)
+        public EdgeRangeDate(IDateRange toVertex)
             : base(toVertex)
         {
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -205,7 +206,7 @@ namespace ScheduleGeneration.Test
                 )
                 {
                     {
-                        "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\ScheduleGeneration.Test\\TestData\\Option01.xml",
+                        "..\\..\\TestData\\Option01.xml",
                         fakeClock,
                         mockDb.Object,
                         "Hampden Gurney Primary School.Autumn.2016/17.Year2.Literacy",

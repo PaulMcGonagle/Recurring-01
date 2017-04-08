@@ -42,7 +42,7 @@ namespace ScheduleGeneration.Test
                 )
                 {
                     {
-                        "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\Holidays.xml",
+                        "..\\..\\TestData\\Holidays.xml",
                         mockDb.Object,
                         fakeClock,
                         new List<LocalDate>

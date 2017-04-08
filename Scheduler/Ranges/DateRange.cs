@@ -32,6 +32,13 @@ namespace Scheduler.Ranges
             To = to;
         }
 
+        public DateRange(LocalDate from, LocalDate to)
+            :this(
+                from: new EdgeDate(from),
+                to: new EdgeDate(to))
+        {
+        }
+
         public void Validate()
         {
             if (From?.Date?.Value != null && To?.Date?.Value == null && From.Date?.Value <= To.Date?.Value)

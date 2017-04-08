@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<generators>
+  <generator>
+    <tags>
+      <tag id="organisation" value="Hampden Gurney Primary School">
+        <payload>
+          {
+            "detail":{
+              "url": "http://www.hampdengurneyschool.org.uk",
+              "location":{
+                "address": "9/26 Bryanston Square, London, W1H 2DS"
+              }
+            }
+          }
+        </payload>
+      </tag>
+      <tag id="generator_id_A" value="generator_value_A">
+        <tags>
+          <tag id="generator_id_B" value="generator_value_B"/>
+        </tags>
+      </tag>
+      <tag id="TimeZoneProvider" value="Europe/London"/>
+    </tags>
+    <terms>
+      <term name="Autumn 2016/17">
+        <rangeDate start="2016-09-02" end="2016-12-21"/>
+        <breaks>
+          <break name="half-term">
+            <rangeDate start="2016-10-26" end="2016-11-02"/>
+          </break>
+        </breaks>
+      </term>
+    </terms>
+    <events>
+      <event term="Autumn 2016/17" class="Literacy">
+        <tags>
+          <tag id="event_id_A" value="event_value_A">
+            <payload>
+              { 
+                "detail" :
+                  {
+                    "url": "http://www.hampdengurneyschool.org.uk"
+                  }
+              }
+            </payload>
+            <tags>
+              <tag id="event_id_AB" value="event_value_AB"/>
+            </tags>
+          </tag>
+          <tag id="event_id_B" value="event_value_B"/>
+        </tags>
+      </event>
+    </events>
+    <sessions>
+      <session name="9am">
+        <rangeTime start="09:00" end="10:00"/>
+      </session>
+    </sessions>
+    <times>
+      <time name="Start of day">09:00</time>
+      <time name="End of day">15:30</time>
+    </times>
+    <classes>
+      <class name="Literacy">
+        <schedules>
+          <schedule session="9am">
+            <weekdays>
+              <weekday>Monday</weekday>
+              <weekday>Tuesday</weekday>
+              <weekday>Wednesday</weekday>
+              <weekday>Friday</weekday>
+            </weekdays>
+            <tags>
+              <tag id="schedule_id_A" value="schedule_value_A">
+                <tags>
+                  <tag id="schedule_id_B" value="schedule_value_B"/>
+                </tags>
+              </tag>
+            </tags>
+          </schedule>
+        </schedules>
+      </class>
+    </classes>
+  </generator>
+</generators>
