@@ -34,7 +34,19 @@ namespace Scheduler.Persistance
 
         void SetToDelete();
 
+        #region Tags
+
+        void Connect(IEnumerable<ITag> connectTags);
+
+        ITag Connect(string ident, string value);
+
         IEnumerable<IVertex> GetLinks(int depth);
+
+        ITag Connect(ITag connectTag);
+
+        #endregion Tags
+
+        EdgeVertexs<ITag> RelatedTags { get; set; }
 
         #region Save
 

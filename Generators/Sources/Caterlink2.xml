@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<generators>
+  <generator>
+    <commons>
+      <common name="Winter 2017" type="rangeDate" path="./generators/generator/rangeDates/rangeDate"/>
+    </commons>
+    <schedules>
+      <schedule>
+        <weekdays>
+          <weekday>Monday</weekday>
+        </weekdays>
+        <rangeDates>
+          <link common="Winter 2017"/>
+        </rangeDates>
+      </schedule>
+      <schedule>
+        <weekdays>
+          <weekday>Tuesday</weekday>
+        </weekdays>
+        <link path="./generators/generator/rangeDates"/>
+      </schedule>
+      <schedule>
+        <weekdays>
+          <weekday>Wednesday</weekday>
+        </weekdays>
+        <link path="./generators/generator/rangeDates"/>
+      </schedule>
+      <schedule>
+        <weekdays>
+          <weekday>Thursday</weekday>
+        </weekdays>
+        <link path="./generators/generator/rangeDates"/>
+      </schedule>
+      <schedule>
+        <weekdays>
+          <weekday>Friday</weekday>
+        </weekdays>
+        <link path="./generators/generator/rangeDates"/>
+      </schedule>
+    </schedules>
+    <rangeDates>
+      <rangeDate start="2017-01-02" end="2017-03-31">
+        <tags>
+          <tag id="name" value="Winter 2017"/>
+        </tags>
+      </rangeDate>
+      <rangeDate start="2017-04-17" end="2017-05-26">
+        <tags>
+          <tag id="name" value="Spring 2017"/>
+        </tags>
+      </rangeDate>
+      <rangeDate start="2017-06-02" end="2017-07-21">
+        <tags>
+          <tag id="name" value="Summer 2017"/>
+        </tags>
+      </rangeDate>
+    </rangeDates>
+  </generator>
+</generators>

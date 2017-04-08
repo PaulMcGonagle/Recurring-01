@@ -13,7 +13,7 @@ namespace Scheduler.Test.ScheduleInstances
         public class VerifyDay
         {
             private DateList _sut;
-            private IEnumerable<IGeneratedDate> _dates;
+            private IEnumerable<IDate> _dates;
 
             [Fact]
             public void Execute()
@@ -23,9 +23,9 @@ namespace Scheduler.Test.ScheduleInstances
                         {
                             new DateList
                             {
-                                Items = new List<Date> {new Date(2015, YearMonth.MonthValue.March, 17), new Date(2016, YearMonth.MonthValue.April, 25)}
+                                Items = new List<IDate> {new Date(2015, YearMonth.MonthValue.March, 17), new Date(2016, YearMonth.MonthValue.April, 25)}
                             },
-                            new List<Date> {new Date(2015, YearMonth.MonthValue.March, 17), new Date(2016, YearMonth.MonthValue.April, 25)}
+                            new List<IDate> {new Date(2015, YearMonth.MonthValue.March, 17), new Date(2016, YearMonth.MonthValue.April, 25)}
                         },
                         {
                             new DateList {Items = DateTimeHelper.Range(new Date(2014, YearMonth.MonthValue.April, 28), 20)},
@@ -45,9 +45,9 @@ namespace Scheduler.Test.ScheduleInstances
                 _dates = _sut.Generate();
             }
 
-            public void ThenOnlyTheseDateAreReturned(IEnumerable<Date> expectedDates)
+            public void ThenOnlyTheseDateAreReturned(IEnumerable<IDate> expectedDates)
             {
-                _dates.Select(d => d.Date.Value).ShouldBe(expectedDates.Select(e => e.Value));
+                _dates.Select(d => d.Value).ShouldBe(expectedDates.Select(e => e.Value));
             }
         }
     }

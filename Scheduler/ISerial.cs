@@ -4,7 +4,7 @@ namespace Scheduler
 {
     public interface ISerial : IVertex
     {
-        IEpisodes Episodes { get; }
+        IEdgeVertexs<IEpisode> Episodes { get; }
 
         IEdgeVertexs<ITag> Tags { get; set; }
     }

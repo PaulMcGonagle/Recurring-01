@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using ArangoDB.Client;
 using Generators;
 using NodaTime;
 using NodaTime.Testing;
-using NodaTime.Testing.TimeZones;
 using Scheduler;
 using Scheduler.Generation;
 using Scheduler.Persistance;
@@ -28,12 +23,10 @@ namespace ScheduleGeneration.Test
             private XElement _source;
             private IClock _clock;
             private IArangoDatabase _db;
+            private IGenerator _generator;
             private IEnumerable<IEvent> _events;
             private IEvent _event;
             private IInstance _instance;
-            private IList<LocalDate> _expectedLocalDates;
-            private LocalTime _expectedLocalTime;
-            private Period _expectedPeriod;
             private IEnumerable<IEpisode> _episodes;
             private string _timeZoneProviderPath;
             private string _timeZoneProvider;
@@ -50,7 +43,6 @@ namespace ScheduleGeneration.Test
                     "clock",
                     "db",
                     "expectedTitle",
-                    "tagPath",
                     "timeZoneProviderPath",
                     "expectedLocalDates",
                     "expectedLocalTime",
@@ -61,15 +53,14 @@ namespace ScheduleGeneration.Test
                         AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\BasicSchoolSchedule.xml",
                         fakeClock,
                         mockDb.Object,
-                        "Hampden Gurney Primary School.Autumn 2016/17.Literacy",
-                        "./generator/events/event",
-                        "./generator/tags/tag[@id='TimeZoneProvider']",
+                        "Hampden Gurney Primary School.Autumn.2016/17.Year2.Literacy",
+                        "./generator/tags/tag[@id='timeZoneProvider']",
                         new List<LocalDate>
                         {
                             new LocalDate(year: 2016, month: 02, day: 03),
                         },
-                        new LocalTime(hour: 09, minute: 00),
-                        new PeriodBuilder(Period.FromMinutes(60)).Build()
+                        new LocalTime(hour: 09, minute: 15),
+                        new PeriodBuilder(Period.FromMinutes(65)).Build()
                     },
                 }).BDDfy();
             }
@@ -95,8 +86,6 @@ namespace ScheduleGeneration.Test
                 IList<LocalDate> expectedLocalDates,
                 Period expectedPeriod)
             {
-                _expectedLocalDates = expectedLocalDates;
-                _expectedPeriod = expectedPeriod;
             }
 
             public void AndGivenATimeZoneProviderPath(string timeZoneProviderPath)
@@ -104,34 +93,41 @@ namespace ScheduleGeneration.Test
                 _timeZoneProviderPath = timeZoneProviderPath;
             }
 
-            public void WhenEventsAreGenerated()
+            public void WhenGeneratorIsRetrieved()
             {
-                _events = Generator.GenerateEvents(_sourceFile);
+                _generator = GeneratorFactory.Get("classes");
             }
 
-            private void AndWhenASingleEventIsRetrieved()
+            public void AndWhenEventsAreGenerated()
+            {
+                var vertexs = _generator.Generate(_sourceFile);
+
+                _events = vertexs.OfType<Event>();
+            }
+
+            public void AndWhenASingleEventIsRetrieved()
             {
                 _events.ShouldHaveSingleItem();
 
                 _event = _events.Single();
             }
 
-            private void AndWhenEventIsSaved()
+            public void AndWhenEventIsSaved()
             {
                 _event.Save(_db, _clock);
             }
 
-            private void AndWhenInstanceIsGenerated()
+            public void AndWhenInstanceIsGenerated()
             {
                 Instance.Generate(_clock, _event);
             }
 
-            private void AndWhenInstanceIsRetrieved()
+            public void AndWhenInstanceIsRetrieved()
             {
                 _instance = _event.Instance.ToVertex;
             }
 
-            private void AndWhenEpisodesAreRetrieved()
+            public void AndWhenEpisodesAreRetrieved()
             {
                 _episodes = _instance
                     .Episodes
@@ -139,31 +135,177 @@ namespace ScheduleGeneration.Test
                     .ToList();
             }
 
-            private void AndWhenTimeZoneProviderIsFound()
+            public void AndWhenTimeZoneProviderIsFound()
             {
                 var sourceTimeZone = _source.XPathSelectElement(_timeZoneProviderPath)?.Attribute("value");
 
                 sourceTimeZone.ShouldNotBeNull();
 
-                _timeZoneProvider = sourceTimeZone.Value;
+                _timeZoneProvider = sourceTimeZone?.Value;
 
             }
 
-            private void ThenTitleIsExpected(string expectedTitle)
+            public void ThenTitleIsExpected(string expectedTitle)
             {
                 _event.Title.ShouldBe(expectedTitle);
             }
 
-            private void AndTagsAreExpected(string tagPath)
+            public void AndInstancesAreExpected()
             {
-                var tags = _event.Tags.Select(t => t.ToVertex);
-
-                var expectedTags = _source.XPathSelectElement(tagPath);
-
-                TagGenerationTests.CompareTagsToSource(tags, expectedTags);
+                _instance.Episodes.ShouldNotBeEmpty();
             }
 
-            private void AndInstancesAreExpected()
+            public void AndTimeZoneProviderIsExpected(string timeZoneProviderPath)
+            {
+
+                _episodes.Select(e => e.From.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
+                _episodes.Select(e => e.To.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
+            }
+
+            public void AndTimesAreExpected(LocalTime expectedLocalTime, Period expectedPeriod)
+            {
+                _episodes.Select(e => e.From.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime);
+                _episodes.Select(e => e.To.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime.Plus(expectedPeriod));
+            }
+        }
+    }
+
+    public class LoadOption01
+    {
+        public class LoadHg
+        {
+            private string _sourceFile;
+            private XElement _source;
+            private IClock _clock;
+            private IArangoDatabase _db;
+            private IGenerator _generator;
+            private IEnumerable<IEvent> _events;
+            private IEvent _event;
+            private IInstance _instance;
+            private IEnumerable<IEpisode> _episodes;
+            private string _timeZoneProviderPath;
+            private string _timeZoneProvider;
+
+            [Fact]
+            public void Execute()
+            {
+                var fakeClock = new FakeClock(Instant.FromUtc(2016, 05, 01, 0, 0));
+
+                var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
+
+                this.WithExamples(new ExampleTable(
+                    "sourceFile",
+                    "clock",
+                    "db",
+                    "expectedTitle",
+                    "timeZoneProviderPath",
+                    "expectedLocalDates",
+                    "expectedLocalTime",
+                    "expectedPeriod"
+                )
+                {
+                    {
+                        "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\ScheduleGeneration.Test\\TestData\\Option01.xml",
+                        fakeClock,
+                        mockDb.Object,
+                        "Hampden Gurney Primary School.Autumn.2016/17.Year2.Literacy",
+                        "./generator/tags/tag[@id='timeZoneProvider']",
+                        new List<LocalDate>
+                        {
+                            new LocalDate(year: 2016, month: 02, day: 03),
+                        },
+                        new LocalTime(hour: 09, minute: 15),
+                        new PeriodBuilder(Period.FromMinutes(65)).Build()
+                    },
+                }).BDDfy();
+            }
+
+            public void GivenASourceFile(string sourceFile)
+            {
+                _sourceFile = sourceFile;
+
+                _source = XElement.Load(sourceFile);
+            }
+
+            public void AndGivenAClock(IClock clock)
+            {
+                _clock = clock;
+            }
+
+            public void AndGivenADatabase(IArangoDatabase db)
+            {
+                _db = db;
+            }
+
+            public void AndGivenExpectedTimings(
+                IList<LocalDate> expectedLocalDates,
+                Period expectedPeriod)
+            {
+            }
+
+            public void AndGivenATimeZoneProviderPath(string timeZoneProviderPath)
+            {
+                _timeZoneProviderPath = timeZoneProviderPath;
+            }
+
+            public void WhenGeneratorIsRetrieved()
+            {
+                _generator = GeneratorFactory.Get("classes");
+            }
+
+            public void AndWhenEventsAreGenerated()
+            {
+                var vertexs = _generator.Generate(_sourceFile);
+
+                _events = vertexs.OfType<Event>();
+            }
+
+            public void AndWhenASingleEventIsRetrieved()
+            {
+                _events.ShouldHaveSingleItem();
+
+                _event = _events.Single();
+            }
+
+            public void AndWhenEventIsSaved()
+            {
+                _event.Save(_db, _clock);
+            }
+
+            public void AndWhenInstanceIsGenerated()
+            {
+                Instance.Generate(_clock, _event);
+            }
+
+            public void AndWhenInstanceIsRetrieved()
+            {
+                _instance = _event.Instance.ToVertex;
+            }
+
+            public void AndWhenEpisodesAreRetrieved()
+            {
+                _episodes = _instance
+                    .Episodes
+                    .Select(e => e.ToVertex)
+                    .ToList();
+            }
+
+            public void AndWhenTimeZoneProviderIsFound()
+            {
+                var sourceTimeZone = _source.XPathSelectElement(_timeZoneProviderPath)?.Attribute("value");
+
+                sourceTimeZone.ShouldNotBeNull();
+
+                _timeZoneProvider = sourceTimeZone?.Value;
+
+            }
+
+            public void ThenTitleIsExpected(string expectedTitle)
+            {
+                _event.Title.ShouldBe(expectedTitle);
+            }
+
+            public void AndInstancesAreExpected()
             {
                 _instance.Episodes.ShouldNotBeEmpty();
             }

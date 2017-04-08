@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleOutput", "ConsoleOut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerDatabase", "SchedulerDatabase\SchedulerDatabase.csproj", "{30538699-571B-4B17-9F6D-BA7564512521}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generators.Test", "Generators.Test\Generators.Test.csproj", "{6143D06E-220A-4E48-B6E9-AF844AD1301F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,14 @@ Global
 		{30538699-571B-4B17-9F6D-BA7564512521}.Release|Any CPU.Build.0 = Release|Any CPU
 		{30538699-571B-4B17-9F6D-BA7564512521}.Release|x86.ActiveCfg = Release|Any CPU
 		{30538699-571B-4B17-9F6D-BA7564512521}.Release|x86.Build.0 = Release|Any CPU
+		{6143D06E-220A-4E48-B6E9-AF844AD1301F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6143D06E-220A-4E48-B6E9-AF844AD1301F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6143D06E-220A-4E48-B6E9-AF844AD1301F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6143D06E-220A-4E48-B6E9-AF844AD1301F}.Debug|x86.Build.0 = Debug|Any CPU
+		{6143D06E-220A-4E48-B6E9-AF844AD1301F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6143D06E-220A-4E48-B6E9-AF844AD1301F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6143D06E-220A-4E48-B6E9-AF844AD1301F}.Release|x86.ActiveCfg = Release|Any CPU
+		{6143D06E-220A-4E48-B6E9-AF844AD1301F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

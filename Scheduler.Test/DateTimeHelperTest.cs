@@ -3,6 +3,7 @@ using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Scheduler.Generation;
 using TestStack.BDDfy;
 using Xunit;
 
@@ -17,7 +18,7 @@ namespace Scheduler.Test
             int _count;
             int _interval;
 
-            IEnumerable<Date> _dates;
+            IEnumerable<IDate> _dates;
 
             [Fact]
             public void Execute()
@@ -84,7 +85,7 @@ namespace Scheduler.Test
                 _dates = DateTimeHelper.Range(_dateFrom, _count, _interval);
             }
 
-            public void ThenTheDatesAreAsExpected(IEnumerable<Date> expectedDates)
+            public void ThenTheDatesAreAsExpected(IEnumerable<IDate> expectedDates)
             {
                 _dates
                     .Select(d => d.Value)

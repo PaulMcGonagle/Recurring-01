@@ -10,7 +10,7 @@ namespace Scheduler
     public class Episode : Vertex, IEpisode
     {
         [IgnoreDataMember]
-        public EdgeVertex<IGeneratedDate> SourceGeneratedDate { get; set; }
+        public EdgeVertex<IDate> SourceGeneratedDate { get; set; }
 
         [IgnoreDataMember]
         public EdgeVertex<ISerial> SourceSerial { get; set; }

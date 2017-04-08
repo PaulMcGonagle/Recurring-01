@@ -13,8 +13,9 @@ namespace Scheduler
             {
                 var episodes = new Episodes();
 
-                episodes.AddRange(
-                    this.SelectMany(ce => ce.Episodes));
+                episodes.AddRange(this
+                    .SelectMany(ce => ce.Episodes)
+                    .Select(e => e.ToVertex));
 
                 return episodes;
             }

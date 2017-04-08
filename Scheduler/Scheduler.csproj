@@ -81,18 +81,18 @@
   <ItemGroup>
     <Compile Include="Backup.cs" />
     <Compile Include="Date.cs" />
+    <Compile Include="DateAdjuster.cs" />
     <Compile Include="Episodes.cs" />
-    <Compile Include="Generation\GeneratedDate.cs" />
-    <Compile Include="Generation\GeneratedDates.cs" />
     <Compile Include="Generation\Instance.cs" />
     <Compile Include="Generation\Instances.cs" />
-    <Compile Include="Generation\IGeneratedDate.cs" />
-    <Compile Include="Generation\IGeneratedDates.cs" />
     <Compile Include="Generation\IInstance.cs" />
     <Compile Include="Generation\IInstances.cs" />
+    <Compile Include="GeneratorSource.cs" />
+    <Compile Include="IDate.cs" />
     <Compile Include="IEpisode.cs" />
     <Compile Include="IEpisodes.cs" />
     <Compile Include="IEvent.cs" />
+    <Compile Include="IGeneratorSource.cs" />
     <Compile Include="ITag.cs" />
     <Compile Include="Persistance\ILink.cs" />
     <Compile Include="Persistance\IRelation.cs" />
@@ -126,6 +126,7 @@
     <Compile Include="ScheduleEdges\IEdgeRangeTime.cs" />
     <Compile Include="ScheduleEdges\IEdgeSchedule.cs" />
     <Compile Include="ScheduleEdges\IEdgeTag.cs" />
+    <Compile Include="ScheduleInstances\ByOffset.cs" />
     <Compile Include="Serials.cs" />
     <Compile Include="CompositeSchedule.cs" />
     <Compile Include="Serial.cs" />

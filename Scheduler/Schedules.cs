@@ -16,9 +16,9 @@ namespace Scheduler
             Add(schedule);
         }
 
-        public GeneratedDates GenerateDates()
+        public IEnumerable<IDate> GenerateDates()
         {
-            var results = new GeneratedDates();
+            var results = new List<IDate>();
 
             results.AddRange(this.SelectMany(d => d.Generate()));
 

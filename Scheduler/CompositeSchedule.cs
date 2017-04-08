@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
@@ -22,19 +23,19 @@ namespace Scheduler
         [IgnoreDataMember]
         public IEdgeVertexs<IDateRange> Breaks = new EdgeVertexs<IDateRange>();
 
-        public override GeneratedDates Generate()
+        public override IEnumerable<IDate> Generate()
         {
             var inclusions = InclusionsEdges.SelectMany(i => i.ToVertex.Generate());
             var exclusions = ExclusionsEdges.SelectMany(i => i.ToVertex.Generate());
 
-            var list = new GeneratedDates();
+            var list = new List<IDate>();
 
             list.AddRange(inclusions);
-            list.RemoveAll(l => exclusions.Select(e => e.Date.Value).Contains(l.Date.Value));
+            list.RemoveAll(l => exclusions.Select(e => e.Value).Contains(l.Value));
 
             foreach (var @break in Breaks)
             {
-                list.RemoveAll(d => @break.ToVertex.Contains(d.Date.Value));
+                list.RemoveAll(d => @break.ToVertex.Contains(d.Value));
             }
 
             return list;
@@ -51,8 +52,8 @@ namespace Scheduler
                 InclusionsEdges = new EdgeVertexs<ISchedule>()
                 {
                     new EdgeVertex<ISchedule>(new ByWeekday(
-                        clock: clock,
-                        weekday: IsoDayOfWeek.Wednesday)
+                        weekday: IsoDayOfWeek.Wednesday,
+                        clock: clock)
                         {
                             EdgeRange = new EdgeRangeDate(dateRange),
                         }

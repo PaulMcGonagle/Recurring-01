@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
+using Scheduler.ScheduleEdges;
 
 namespace Scheduler.Persistance
 {
@@ -28,6 +29,7 @@ namespace Scheduler.Persistance
         [IgnoreDataMember]
         public virtual bool IsDirty { get; private set; } = true;
 
+        [IgnoreDataMember]
         public virtual bool IsLinksDirty
         {
             get
@@ -63,6 +65,33 @@ namespace Scheduler.Persistance
             if (!IsDirty)
                 IsDirty = true;
         }
+
+        #region Tags
+
+        public ITag Connect(ITag connectTag)
+        {
+            if (connectTag == null)
+                return null;
+
+            RelatedTags.Add(new EdgeTag(connectTag));
+
+            return connectTag;
+        }
+
+        public ITag Connect(string ident, string value)
+        {
+            return Connect(new Tag(ident: ident, value: value));
+        }
+
+        public void Connect(IEnumerable<ITag> connectTags)
+        {
+            RelatedTags.AddRange(connectTags.Select(ct => new EdgeTag(ct)));
+        }
+
+        [IgnoreDataMember]
+        public EdgeVertexs<ITag> RelatedTags { get; set; } = new EdgeVertexs<ITag>();
+
+        #endregion
 
         public IEnumerable<IVertex> GetLinks(int depth)
         {

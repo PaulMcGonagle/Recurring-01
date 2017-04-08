@@ -1,27 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Scheduler.Generation;
 using Scheduler.Ranges;
 
 namespace Scheduler
 {
     public static class Extensions
     {
-        public static IEnumerable<Date> Exclude(this IEnumerable<Date> inputDates, IEnumerable<Date> exclusions)
+        public static IEnumerable<IDate> Exclude(this IEnumerable<IDate> inputDates, IEnumerable<IDate> exclusions)
         {
             foreach (var inputDate in inputDates)
             {
-                var enumerable = exclusions as Date[] ?? exclusions.ToArray();
+                var enumerable = exclusions as IDate[] ?? exclusions.ToArray();
                 if (!enumerable.Select(e => e.Value).Contains(inputDate.Value))
                     yield return inputDate;
             }
         }
 
-        public static IEnumerable<Date> Include(this IEnumerable<Date> inputDates, IEnumerable<Date> exclusions)
+        public static IEnumerable<IDate> Include(this IEnumerable<IDate> inputDates, IEnumerable<IDate> exclusions)
         {
             return inputDates.Union(exclusions);
         }
 
-        public static IEnumerable<Date> Exclude(this IEnumerable<Date> inputDates, IEnumerable<DateRange> exclusions)
+        public static IEnumerable<IDate> Exclude(this IEnumerable<IDate> inputDates, IEnumerable<DateRange> exclusions)
         {
             foreach (var exclusion in exclusions)
             {
@@ -34,7 +35,7 @@ namespace Scheduler
             return inputDates;
         }
 
-        public static IEnumerable<Date> Include(this IEnumerable<Date> inputDates, IEnumerable<DateRange> inclusions)
+        public static IEnumerable<IDate> Include(this IEnumerable<IDate> inputDates, IEnumerable<DateRange> inclusions)
         {
             foreach (var exclusion in inclusions)
             {

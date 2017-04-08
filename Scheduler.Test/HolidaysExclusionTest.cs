@@ -12,7 +12,7 @@ namespace Scheduler.Test
     public class HolidaysExclusionTest
     {
         private CompositeSchedule _term;
-        private IEnumerable<Date> _holidays;
+        private IEnumerable<IDate> _holidays;
 
         [Fact]
         public void RunExamplesWithFluentApi()
@@ -32,7 +32,7 @@ namespace Scheduler.Test
             _term = term;
         }
 
-        public void WhenThereAreSomeHolidays(IEnumerable<Date> holidays)
+        public void WhenThereAreSomeHolidays(IEnumerable<IDate> holidays)
         {
             _holidays = holidays;
 
@@ -45,14 +45,14 @@ namespace Scheduler.Test
         public void ThenThereShouldBeNoWeekendDays()
         {
             _term.Generate()
-                .Where(o => ScheduleTestHelper.WeekendDays.Contains(o.Date.Value.IsoDayOfWeek))
+                .Where(date => ScheduleTestHelper.WeekendDays.Contains(date.Value.IsoDayOfWeek))
                 .ShouldBeEmpty();
         }
 
         public void AndThenThereShouldBeNoHolidaysMatching()
         {
             _term.Generate()
-                .Where(o => ScheduleTestHelper.BankHolidays.Contains(o.Date))
+                .Where(date => ScheduleTestHelper.BankHolidays.Contains(date))
                 .ShouldBeEmpty();
         }
 

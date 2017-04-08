@@ -15,7 +15,7 @@ namespace Scheduler.Test.Repeating
         public class VerifyDates
         {
             private ByWeekdays _sut;
-            private IEnumerable<IGeneratedDate> _dates;
+            private IEnumerable<IDate> _dates;
 
             [Fact]
             public void Execute()
@@ -49,14 +49,14 @@ namespace Scheduler.Test.Repeating
             public void ThenAllDatesShouldBeThisDay(List<IsoDayOfWeek> daysOfWeek)
             {
                 _dates
-                    .Select(d => d.Date.Value.DayOfWeek)
+                    .Select(date => date.Value.DayOfWeek)
                     .ShouldBeSubsetOf(daysOfWeek.Select(d => (int) d));
             }
 
             public void AndThenTheFirstDateShouldBeThis(Date firstDate)
             {
                 _dates
-                    .Select(d => d.Date)
+                    .Select(date => date)
                     .Min()
                     .ShouldBe(firstDate);
             }
@@ -64,7 +64,7 @@ namespace Scheduler.Test.Repeating
             public void AndThenTheLastDateShouldBeThis(Date lastDate)
             {
                 _dates
-                    .Select(d => d.Date)
+                    .Select(date => date)
                     .Max()
                     .ShouldBe(lastDate);
             }

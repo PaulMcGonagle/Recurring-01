@@ -47,15 +47,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generator.cs" />
+    <Compile Include="Enrichers\EnricherNumbering.cs" />
+    <Compile Include="GenerateFromCalendar.cs" />
+    <Compile Include="GenerateFromFile.cs" />
+    <Compile Include="Instances\GeneratorClasses.cs" />
+    <Compile Include="GeneratorFactory.cs" />
+    <Compile Include="Instances\GeneratorHolidays.cs" />
+    <Compile Include="IGenerator.cs" />
+    <Compile Include="Instances\GeneratorSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\Term.cs" />
     <Compile Include="Types\Terms.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Sources\Caterlink2.xml" />
     <Content Include="Sources\HG.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Holidays.xml">
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Sources\QIce.xml" />
     <Content Include="Sources\Caterlink.xml">

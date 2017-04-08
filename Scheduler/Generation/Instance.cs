@@ -26,9 +26,11 @@ namespace Scheduler.Generation
             {
                 Time = clock.Now,
                 Source = new Link<IEvent>(source),
-                Episodes = new EdgeVertexs<IEpisode>(
-                    source.Serials.SelectMany(s => s.ToVertex.Episodes)
-                    ),
+                Episodes = new EdgeVertexs<IEpisode>(source
+                    .Serials
+                    .SelectMany(s => s
+                        .ToVertex
+                        .Episodes))
             });
         }
 

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
-using Scheduler.Generation;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
 
@@ -32,7 +31,7 @@ namespace Scheduler
         public string TimeZoneProvider;
 
         [IgnoreDataMember]
-        public IEpisodes Episodes
+        public IEdgeVertexs<IEpisode> Episodes
         {
             get
             {
@@ -48,16 +47,16 @@ namespace Scheduler
                 if (TimeZoneProvider == null)
                     throw new ArgumentException("TimeZoneProvider");
 
-                var episodes = new Episodes();
+                var episodes = new EdgeVertexs<IEpisode>();
 
                 episodes.AddRange(
                     EdgeSchedule.Schedule
                         .Generate()
-                        .Select(o => new Episode
+                        .Select(date => new Episode
                         {
                             SourceSerial = new EdgeVertex<ISerial>(this),
-                            SourceGeneratedDate = new EdgeVertex<IGeneratedDate>(o),
-                            From = DateTimeHelper.GetZonedDateTime(o.Date, TimeRange.Range.From, TimeZoneProvider),
+                            SourceGeneratedDate = new EdgeVertex<IDate>(date),
+                            From = DateTimeHelper.GetZonedDateTime(date, TimeRange.Range.From, TimeZoneProvider),
                             Period = TimeRange.Range?.Period,
                         }));
 
@@ -71,7 +70,7 @@ namespace Scheduler
             {
                 var list = new List<IVertex>();
 
-                list.AddRange(Episodes);
+                list.AddRange(Episodes.Select(e => e.ToVertex));
 
                 if (EdgeSchedule != null)
                 {
@@ -87,7 +86,7 @@ namespace Scheduler
         {
             Save<Serial>(db);
             EdgeSchedule?.Save(db, clock, this);
-            Episodes?.Save(db, clock);
+            Episodes?.Save(db, clock, this);
             Tags?.Save(db, clock, this);
             TimeRange?.Save(db, clock, this);
             base.Save(db, clock);

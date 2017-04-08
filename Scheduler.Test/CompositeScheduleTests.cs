@@ -15,7 +15,7 @@ namespace Scheduler.Test
         public class VerifyExclusionsAreExcluded
         {
             CompositeSchedule _sut;
-            private IEnumerable<IGeneratedDate> _dates;
+            private IEnumerable<IDate> _dates;
 
             [Fact]
             public void Execute()
@@ -73,7 +73,7 @@ namespace Scheduler.Test
             public void ThenTheFirstDateIs(Date expectedFirstDate)
             {
                 _dates
-                    .Select(d => d.Date.Value)
+                    .Select(date => date.Value)
                     .Min()
                     .ShouldBe(expectedFirstDate.Value);
             }
@@ -81,17 +81,19 @@ namespace Scheduler.Test
             public void AndThenTheLastDateIs(Date expectedLastDate)
             {
                 var localDates = _dates
-                    .Select(d => d.Date.Value);
-                var max =
-                    localDates
-                        .Max();
+                    .Select(date => date.Value);
+
+                var max = localDates
+                    .Max();
 
                 max.ShouldBe(expectedLastDate.Value);
             }
 
             public void AndTheseDaysShouldNotAppear(IEnumerable<IsoDayOfWeek> excludedIsoDayOfWeeks)
             {
-                _dates.Select(d => d.Date.IsoDayOfWeek).ShouldNotBeOneOf(excludedIsoDayOfWeeks);
+                _dates
+                    .Select(date => date.IsoDayOfWeek)
+                    .ShouldNotBeOneOf(excludedIsoDayOfWeeks);
             }
         }
 

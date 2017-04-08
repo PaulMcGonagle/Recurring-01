@@ -1,6 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using NodaTime;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using Scheduler.Generation;
@@ -26,11 +25,7 @@ namespace Scheduler.ScheduleInstances
         public IClock Clock
         {
             get { return _clock ?? (_clock = SystemClock.Instance); }
-
-            set
-            {
-                _clock = value;
-            }
+            set { _clock = value; }
         }
 
         [IgnoreDataMember]
@@ -61,9 +56,9 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public override GeneratedDates Generate()
+        public override IEnumerable<IDate> Generate()
         {
-            var dates = new GeneratedDates();
+            var dates = new List<IDate>();
 
             var yearMonths = YearMonth.Range(YearMonthFrom, YearMonthTo, Increment);
 
@@ -73,13 +68,9 @@ namespace Scheduler.ScheduleInstances
 
                 if (yearMonth.TryToLocalDate(DayOfMonth, out localDate, RollStrategy))
                 {
-                    dates.Add(new GeneratedDate(
-                        source: this,
-                        date: localDate));
+                    yield return localDate;
                 }
             }
-
-            return dates;
         }
 
         public override void Save(IArangoDatabase db, IClock clock)

@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using NodaTime;
 using System.Linq;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
-using Scheduler.Generation;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 
@@ -16,10 +15,12 @@ namespace Scheduler.ScheduleInstances
         public IsoDayOfWeek Weekday;
         private IClock _clock;
 
-        public ByWeekday(IClock clock, IsoDayOfWeek weekday)
+        public ByWeekday(
+            IsoDayOfWeek weekday, 
+            IClock clock = null)
         {
-            _clock = clock;
             Weekday = weekday;
+            Clock = clock;
 
             CountFromDefault = 0;
             CountToDefault = 52;
@@ -28,35 +29,27 @@ namespace Scheduler.ScheduleInstances
         [IgnoreDataMember]
         public IClock Clock
         {
-            // ToDo instantiate _clock using IOC
             get { return _clock ?? (_clock = SystemClock.Instance); }
-
-            set
-            {
-                _clock = value;
-            }
+            set { _clock = value; }
         }
 
         public static ByWeekday Create(
-            IClock clock,
-            IsoDayOfWeek weekday,
-            DateRange range)
+            IsoDayOfWeek isoDayOfWeek,
+            DateRange dateRange,
+            IClock clock = null)
         {
             var byWeekday = new ByWeekday(
-                clock: clock,
-                weekday: weekday)
+                weekday: isoDayOfWeek,
+                clock: clock)
             {
-                EdgeRange = new EdgeRangeDate(range),
+                EdgeRange = new EdgeRangeDate(dateRange),
             };
 
             return byWeekday;
         }
 
-        public override GeneratedDates Generate()
+        public override IEnumerable<IDate> Generate()
         {
-            if (Clock == null)
-                throw new ArgumentNullException($"Clock");
-
             EdgeRange?.Range.Validate();
 
             LocalDate startDate;
@@ -88,18 +81,15 @@ namespace Scheduler.ScheduleInstances
                 weeks = CountTo ?? CountToDefault;
             }
 
-            var results = new GeneratedDates
+            var results = new List<IDate>
             {
-                new GeneratedDate(
-                    source: this, 
-                    date: new Date(startDate)),
+                new Date(startDate),
             };
 
             var s = Enumerable.Range(1, weeks);
+
             results.AddRange(
-                s.Select(o => new GeneratedDate(
-                    source: this, 
-                    date: new Scheduler.Date(startDate.PlusWeeks(o)))));
+                s.Select(o => new Date(startDate.PlusWeeks(o))));
 
             results.Sort();
 

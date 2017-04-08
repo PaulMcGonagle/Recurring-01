@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<generators>
+  <generator>
+    <tags>
+      <tag id="organisation" value="Hampden Gurney Primary School"/>
+      <tag id="timeZoneProvider" value="Europe/London"/>
+    </tags>
+    <groups>
+      <group name="Year2">
+        <classes>
+          <class name="Literacy">
+            <terms>
+              <term name="Autumn.2016/17">
+                <rangeDate start="2016-09-02" end="2016-12-21"/>
+              </term>
+            </terms>
+            <schedules>
+              <schedule>
+                <rangeTime start="09:15" end="10:20"/>
+                <weekdays>
+                  <weekday>Monday</weekday>
+                  <weekday>Tuesday</weekday>
+                  <weekday>Wednesday</weekday>
+                  <weekday>Friday</weekday>
+                </weekdays>
+              </schedule>
+            </schedules>
+          </class>
+        </classes>
+      </group>
+    </groups>
+  </generator>
+</generators>

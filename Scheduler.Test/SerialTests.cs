@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NodaTime;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
@@ -15,7 +16,7 @@ namespace Scheduler.Test
         public class VerifyDateOutOfBoundsExceptionIsThrown
         {
             private Serial _sut;
-            private IEpisodes _episodes;
+            private IEdgeVertexs<IEpisode> _episodes;
 
             [Fact]
             public void Execute()
@@ -28,7 +29,7 @@ namespace Scheduler.Test
                             new Serial(
                                 schedule: new DateList
                                     {
-                                        Items = new List<Date>()
+                                        Items = new List<IDate>()
                                         {
                                             new Date(2016, YearMonth.MonthValue.January, 05),
                                             new Date(2016, YearMonth.MonthValue.January, 06),
@@ -73,14 +74,16 @@ namespace Scheduler.Test
 
             public void ThenEpisodesAreExpected(IEpisodes expectedEpisodes)
             {
-                _episodes.ShouldBe(expectedEpisodes);
+                _episodes
+                    .Select(e => e.ToVertex)
+                    .ShouldBe(expectedEpisodes);
             }
         }
 
         public class VerifyMissingPropertyThrowsArgumentException
         {
             private Serial _sut;
-            private IEpisodes _episodes;
+            private IEdgeVertexs<IEpisode> _episodes;
             private System.Exception _exception;
 
             [Fact]
@@ -92,21 +95,21 @@ namespace Scheduler.Test
                     {
                         {
                             new Serial(
-                                schedule: new DateList { Items = new List<Date>(), },
+                                schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: null,
                                 timeZoneProvider: timeZoneProvider),
                             "TimeRange"
                         },
                         {
                             new Serial(
-                                schedule: new DateList { Items = new List<Date>(), },
+                                schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: new EdgeRangeTime(new LocalTime(15, 30), null),
                                 timeZoneProvider: timeZoneProvider),
                             "Period"
                         },
                         {
                             new Serial(
-                                schedule: new DateList { Items = new List<Date>(), },
+                                schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Minutes = 30,}.Build()),
                                 timeZoneProvider: null),
                             "TimeZoneProvider"

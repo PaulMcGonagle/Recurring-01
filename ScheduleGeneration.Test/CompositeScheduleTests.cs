@@ -43,7 +43,7 @@ namespace ScheduleGeneration.Test
                 {
                     {
                         Event.Create(
-                            schedule: new ByWeekday(fakeClock, IsoDayOfWeek.Wednesday)
+                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday, fakeClock)
                             {
                                 EdgeRange = new EdgeRangeDate(new DateRange(2016, YearMonth.MonthValue.February, 20, 2016, YearMonth.MonthValue.May, 15)),
                             },
@@ -115,13 +115,13 @@ namespace ScheduleGeneration.Test
 
             private IClock _clock;
             private IArangoDatabase _db;
+            private IGenerator _generator;
+            private IEnumerable<IVertex> _vertexs;
             private IEnumerable<IEvent> _events;
 
             [Fact]
             public void Execute()
             {
-                var fakeClock = new FakeClock(Instant.FromUtc(2016, 05, 01, 0, 0));
-
                 var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
 
                 this.WithExamples(new ExampleTable(
@@ -171,20 +171,32 @@ namespace ScheduleGeneration.Test
                 _clock = clock;
             }
 
-            public void WhenEventIsGenerated()
+            public void WhenGeneratorIsRetrieved()
             {
-                _events = Generator.GenerateEvents(_sourceFile);
+                _generator = GeneratorFactory.Get("classes");
             }
 
-            public void AndWhenEventsAreSaved()
+            public void AndWhenVertexsGenerated()
             {
-                foreach (var @event in _events)
+                _vertexs = _generator.Generate(_sourceFile)
+                    .ToList();
+            }
+
+            public void AndWhenVertexsAreSaved()
+            {
+                foreach (var vertex in _vertexs)
                 {
-                    @event.Save(_db, _clock);
+                    //vertex.Id = "abc";
+                    vertex.Save(_db, _clock);
                 }
             }
 
-            public void AndWhenGenerated()
+            public void AndWhenEventsAreRetrieved()
+            {
+                _events = _vertexs.OfType<Event>();
+            }
+
+            public void AndWhenIntancesAreGenerated()
             {
                 foreach (var @event in _events)
                 {
@@ -228,7 +240,7 @@ namespace ScheduleGeneration.Test
                 {
                     {
                         Event.Create(
-                            schedule: new ByWeekday(fakeClock, IsoDayOfWeek.Wednesday)
+                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday, fakeClock)
                             {
                                 EdgeRange = new EdgeRangeDate(new DateRange(2016, YearMonth.MonthValue.February, 20, 2016, YearMonth.MonthValue.May, 15)),
                             },

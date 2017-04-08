@@ -18,7 +18,10 @@ namespace Scheduler
 
         public void Save(IArangoDatabase db, IClock clock)
         {
-            ForEach(e => e.Save(db, clock));
+            foreach (var episode in this)
+            {
+                episode.Save(db, clock);
+            }
         }
     }
 }

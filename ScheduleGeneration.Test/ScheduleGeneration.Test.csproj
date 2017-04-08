@@ -92,6 +92,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CompositeScheduleTests.cs" />
+    <Compile Include="LoadHolidaysTests.cs" />
     <Compile Include="LoadSourceTests.cs" />
     <Compile Include="MockVertexFactory.cs" />
     <Compile Include="Persistance\EventPersistanceTests.cs" />
@@ -135,6 +136,9 @@
     <Content Include="TestData\BasicSchoolSchedule.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Option01.xml">
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <Choose>

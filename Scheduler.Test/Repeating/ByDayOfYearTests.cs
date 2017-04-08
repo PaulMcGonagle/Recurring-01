@@ -159,7 +159,7 @@ namespace Scheduler.Test.Repeating
         public class ValidateDates
         {
             private ByDayOfYear _sut;
-            private IEnumerable<IGeneratedDate> _dates;
+            private IEnumerable<IDate> _dates;
 
             [Fact]
             public void Execute()
@@ -235,18 +235,17 @@ namespace Scheduler.Test.Repeating
                 _dates = _sut.Generate();
             }
 
-            public void ThenAllDatesShouldBeThese(IEnumerable<Date> expectedDates)
+            public void ThenAllDatesShouldBeThese(IEnumerable<IDate> expectedDates)
             {
                 _dates
-                    .Select(d => d.Date.Value)
-                    .ShouldBe(expectedDates.Select(e => e.Value));
+                    .ShouldBe(expectedDates);
             }
         }
 
         public class ValidateRollStrategy
         {
             private ByDayOfYear _sut;
-            private IEnumerable<IGeneratedDate> _dates;
+            private IEnumerable<IDate> _dates;
 
             [Fact]
             public void Execute()
@@ -297,7 +296,7 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = RepeatingDay.RollStrategyType.Forward
                             },
-                            new List<Date>
+                            new List<IDate>
                             {
                                 new Date(yearLeap - 02, YearMonth.MonthValue.February, 29),
                                 new Date(yearLeap - 01, YearMonth.MonthValue.March, 01),
@@ -331,7 +330,7 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = RepeatingDay.RollStrategyType.Back
                             },
-                            new List<Date>
+                            new List<IDate>
                             {
                                 new Date(yearLeap - 02, YearMonth.MonthValue.February, 29),
                                 new Date(yearLeap - 01, YearMonth.MonthValue.February, 28),
@@ -351,7 +350,7 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = RepeatingDay.RollStrategyType.Back
                             },
-                            new List<Date>
+                            new List<IDate>
                             {
                                 new Date(yearLeap - 02, YearMonth.MonthValue.February, 29),
                                 new Date(yearLeap - 01, YearMonth.MonthValue.February, 28),
@@ -371,7 +370,7 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = RepeatingDay.RollStrategyType.Back
                             },
-                            new List<Date>
+                            new List<IDate>
                             {
                                 new Date(yearLeap - 02, YearMonth.MonthValue.April, 30),
                                 new Date(yearLeap - 01, YearMonth.MonthValue.April, 30),
@@ -394,10 +393,9 @@ namespace Scheduler.Test.Repeating
                 _dates = _sut.Generate();
             }
 
-            public void ThenAllDatesShouldBeThese(IEnumerable<Date> expectedDates)
+            public void ThenAllDatesShouldBeThese(IEnumerable<IDate> expectedDates)
             {
                 _dates
-                    .Select(d => d.Date)
                     .ShouldBe(expectedDates);
             }
         }
