@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<generators>
+  <generator>
+    <commons>
+      <common name="Year.2016/17" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2016/17']"/>
+      <common name="Year.2017/18" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2017/18']"/>
+    </commons>
+    <tags>
+      <tag id="organisation" value="OrganisationName"/>
+      <tag id="timeZoneProvider" value="Europe/London"/>
+      <tag id="cache" value="years">
+        <tag id="year" value="2016/17"/>
+        <tag id="year" value="2017/18"/>
+      </tag>
+    </tags>
+    <groups>
+      <group>
+        <tags>
+          <tag id="name" value="GroupName"/>
+        </tags>
+        <classes>
+          <class>
+            <tags>
+              <tag id="name" value="ClassName"/>
+            </tags>
+            <terms>
+              <term>
+                <tags>
+                  <tag id="name" value="Term1Name"/>
+                  <link common="Year.2016/17"/>
+                </tags>
+                <rangeDate start="2016-09-02" end="2016-12-21"/>
+              </term>
+              <term>
+                <tags>
+                  <tag id="name" value="Term2Name"/>
+                  <link common="Year.2017/18"/>
+                </tags>
+                <rangeDate start="2017-09-01" end="2017-12-30"/>
+              </term>
+            </terms>
+            <schedules>
+              <schedule>
+                <rangeTime start="09:15" end="10:20"/>
+                <weekdays>
+                  <weekday value="Monday"/>
+                </weekdays>
+              </schedule>
+            </schedules>
+          </class>
+        </classes>
+      </group>
+    </groups>
+  </generator>
+</generators>

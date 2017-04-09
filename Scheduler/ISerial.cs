@@ -1,4 +1,6 @@
-﻿using Scheduler.Persistance;
+﻿using System.Runtime.Serialization;
+using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
 
 namespace Scheduler
 {
@@ -7,5 +9,7 @@ namespace Scheduler
         IEdgeVertexs<IEpisode> Episodes { get; }
 
         IEdgeVertexs<ITag> Tags { get; set; }
+
+        IEdgeSchedule EdgeSchedule { get; set; }
     }
 }

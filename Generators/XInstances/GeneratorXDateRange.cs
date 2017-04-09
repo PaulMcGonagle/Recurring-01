@@ -1,23 +1,20 @@
 ﻿using Scheduler.Persistance;
 using Scheduler.Ranges;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Generators.XInstances
 {
     public class GeneratorXDateRange : IGeneratorX
     {
-        public IVertex Generate(XElement xRangeDate)
+        public IVertex Generate(XElement xRangeDate, IDictionary<string, IVertex> commons, string elementsName = null)
         {
-            var from = Utilities.RetrieveAttributeAsLocalDate(xRangeDate, "start");
-            var to = Utilities.RetrieveAttributeAsLocalDate(xRangeDate, "end");
+            var from = xRangeDate.RetrieveAttributeAsLocalDate("start");
+            var to = xRangeDate.RetrieveAttributeAsLocalDate("end");
+
             var dateRange = new DateRange(from, to);
 
-            dateRange.Connect(xRangeDate.RetrieveTags());
+            dateRange.Connect(xRangeDate.RetrieveTags(commons, elementsName));
 
             return dateRange;
         }

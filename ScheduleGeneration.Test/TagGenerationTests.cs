@@ -101,7 +101,7 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenEventsAreGenerated()
             {
-                var vertexs = _generator.Generate(_sourceFile);
+                var vertexs = _generator.Generate(_sourceFile, null);
 
                 _events = vertexs.OfType<Event>();
             }

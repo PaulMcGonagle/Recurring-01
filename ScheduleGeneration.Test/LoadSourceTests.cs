@@ -10,6 +10,7 @@ using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Generation;
 using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
 using Shouldly;
 using TestStack.BDDfy;
 using Xunit;
@@ -101,7 +102,7 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenEventsAreGenerated()
             {
-                var vertexs = _generator.Generate(_sourceFile);
+                var vertexs = _generator.Generate(_sourceFile, _clock);
 
                 _events = vertexs.OfType<Event>();
             }
@@ -171,9 +172,9 @@ namespace ScheduleGeneration.Test
         }
     }
 
-    public class LoadOption01
+    public class LoadOptions
     {
-        public class LoadHg
+        public class LoadOption01
         {
             private string _sourceFile;
             private XElement _source;
@@ -256,7 +257,7 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenEventsAreGenerated()
             {
-                var vertexs = _generator.Generate(_sourceFile);
+                var vertexs = _generator.Generate(_sourceFile, _clock);
 
                 _events = vertexs.OfType<Event>();
             }
@@ -322,6 +323,86 @@ namespace ScheduleGeneration.Test
             {
                 _episodes.Select(e => e.From.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime);
                 _episodes.Select(e => e.To.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime.Plus(expectedPeriod));
+            }
+        }
+
+        public class LoadOption02
+        {
+            private string _sourceFile;
+            private XElement _source;
+            private IClock _clock;
+            private IArangoDatabase _db;
+            private IGenerator _generator;
+            private IEnumerable<IEvent> _events;
+            private IEvent _event;
+            private IInstance _instance;
+            private IEnumerable<IEpisode> _episodes;
+            private string _timeZoneProviderPath;
+            private string _timeZoneProvider;
+
+            [Fact]
+            public void Execute()
+            {
+                var fakeClock = new FakeClock(Instant.FromUtc(2016, 05, 01, 0, 0));
+
+                var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
+
+                this.WithExamples(new ExampleTable(
+                    "sourceFile",
+                    "clock",
+                    "db",
+                    "timeZoneProviderPath",
+                    "generatorName"
+                )
+                {
+                    {
+                        "..\\..\\TestData\\Option02.xml",
+                        fakeClock,
+                        mockDb.Object,
+                        "./generator/tags/tag[@id='timeZoneProvider']",
+                        "classes"
+                    },
+                }).BDDfy();
+            }
+
+            public void AndGivenExpectedTimings(
+                IList<LocalDate> expectedLocalDates,
+                Period expectedPeriod)
+            {
+            }
+
+            public void AndGivenATimeZoneProviderPath(string timeZoneProviderPath)
+            {
+                _timeZoneProviderPath = timeZoneProviderPath;
+            }
+
+            public void WhenSourceFileIsLoaded(string sourceFile)
+            {
+                _source = XElement.Load(_sourceFile);
+            }
+
+            public void AndWhenGeneratorIsRetrieved(string generatorName)
+            {
+                _generator = GeneratorFactory.Get(generatorName);
+            }
+
+            public void AndWhenEventsAreGenerated()
+            {
+                var vertexs = _generator
+                    .Generate(_sourceFile, _clock)
+                    .ToList();
+
+                _events = vertexs.OfType<Event>();
+            }
+
+            public void ThenTags()
+            {
+                var serials = _events
+                    .SelectMany(e => e.Serials.Select(s => s.ToVertex))
+                    .ToList();
+
+                var schedules = serials
+                    .Select(s => s.EdgeSchedule.Schedule);
             }
         }
     }

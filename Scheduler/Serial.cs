@@ -22,7 +22,7 @@ namespace Scheduler
         }
 
         [IgnoreDataMember]
-        public IEdgeSchedule EdgeSchedule;
+        public IEdgeSchedule EdgeSchedule { get; set; }
         [IgnoreDataMember]
         public IEdgeRangeTime TimeRange;
         [IgnoreDataMember]

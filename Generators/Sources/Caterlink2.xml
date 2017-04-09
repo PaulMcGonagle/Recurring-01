@@ -3,8 +3,8 @@
   <generator>
     <commons>
       <common name="Winter 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
-      <common id="name"Spring 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
-      <common id="name"Summer 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
+      <common name="Spring 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
+      <common name="Summer 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
     </commons>
     <schedules>
       <schedule>

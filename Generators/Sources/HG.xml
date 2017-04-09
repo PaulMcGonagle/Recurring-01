@@ -2,7 +2,8 @@
 <generators>
   <generator>
     <commons>
-      <common name="Year.2016/17" type="Tag" path="./generators/generator/tags/tag[@id='cache' and @value='years']/tag"/>
+      <common name="Year.2016/17" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2016/17']"/>
+      <common name="Year.2017/18" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2017/18']"/>
     </commons>
     <tags>
       <tag id="organisation" value="Hampden Gurney Primary School">
@@ -34,7 +35,7 @@
       <term>
         <tags>
           <tag id="name" value="Autumn.2016/17"/>
-          <tag id="year" value="2016/17"/>
+          <link common="Year.2016/17"/>
         </tags>
         <rangeDate start="2016-09-02" end="2016-12-21"/>
         <breaks>
@@ -49,7 +50,7 @@
       <term>
         <tags>
           <tag id="name" value="Winter.2016/17"/>
-          <tag id="year" value="2016/17"/>
+          <link common="Year.2016/17"/>
         </tags>
         <rangeDate start="2017-01-05" end="2017-03-28"/>
         <breaks>
@@ -64,7 +65,7 @@
       <term>
         <tags>
           <tag id="name" value="Summer.2016/17"/>
-          <tag id="year" value="2016/17"/>
+          <link common="Year.2016/17"/>
         </tags>
         <rangeDate start="2017-04-05" end="2017-07-24"/>
         <breaks>
@@ -519,7 +520,7 @@
                   <weekday value="Wednesday"/>
                   <weekday value="Friday"/>
                 </weekdays>
-                <reference type="rangeTime" path="./generators/generator/groups/group[@name='Year2.2016/17']/sessions/session[@attributeName='9am']/rangeTime"/>
+                <reference type="rangeTime" path="./generators/generator/groups/group[@name='Year2.2016/17']/sessions/session[@name='9am']/rangeTime"/>
               </schedule>
             </schedules>
           </class>

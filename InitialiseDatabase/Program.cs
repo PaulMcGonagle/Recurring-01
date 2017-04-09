@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.NetworkInformation;
 using ArangoDB.Client;
 using Generators;
 using NodaTime;
@@ -22,13 +21,14 @@ namespace InitialiseDatabase
         // ReSharper disable once UnusedParameter.Local
         static void Main(string[] args)
         {
+            var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
+
             var generator = GeneratorFactory.Get("schedule");
 
             var vertexs = generator.Generate(
-                sourceFile: "..\\..\\..\\generators\\sources\\Caterlink2.xml")
+                sourceFile: "..\\..\\..\\generators\\sources\\Caterlink2.xml",
+                clock: fakeClock)
                 .ToList();
-
-            var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
 
             using (var db = SchedulerDatabase.Database.Retrieve())
             {
@@ -41,9 +41,6 @@ namespace InitialiseDatabase
             foreach (var organisation in vertexs.OfType<Tag>()
                 .Where(t => t.Ident == "organisation"))
             {
-                var timeZoneProvider =
-                    organisation.RelatedTags.Single(rt => rt.ToVertex.Ident == "timeZoneProvider").ToVertex.Value;
-                
                 var oLinks = organisation.GetLinks(8)
                     .ToList();
 

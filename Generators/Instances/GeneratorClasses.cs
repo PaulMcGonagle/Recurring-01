@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Xml.Linq;
 using NodaTime;
-using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
@@ -13,7 +12,7 @@ namespace Generators.Instances
 {
     public class GeneratorClasses : IGenerator
     {
-        public IEnumerable<IVertex> Generate(string sourceFile)
+        public IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
         {
             var xSource = XDocument
                 .Load(sourceFile);
@@ -25,14 +24,12 @@ namespace Generators.Instances
 
             yield return generatorSource;
 
-            Utilities.ExpandReferences(xSource);
-            var commons = Utilities.ExpandLinks(xSource);
+            xSource.ExpandReferences();
+            var commons = xSource.ExpandLinks();
 
             var xGenerators = xSource
                 .Elements("generators")
                 .Elements("generator");
-
-            var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
 
             foreach (var xGenerator in xGenerators)
             {
@@ -42,7 +39,7 @@ namespace Generators.Instances
                     .ToList();
 
                 var generatorTags = xGenerator
-                    .RetrieveTags()
+                    .RetrieveTags(commons)
                     .ToList();
 
                 var organisation = generatorTags
@@ -64,18 +61,8 @@ namespace Generators.Instances
                         .Elements("class")
                         .ToList();
 
-                    var xGroupSessions = xGroup
-                        .Elements("sessions")
-                        .Elements("session")
-                        .ToList();
-
-                    var xGroupTerms = xGroup
-                        .Elements("terms")
-                        .Elements("term")
-                        .ToList();
-
                     var groupTags = xGroup
-                        .RetrieveTags()
+                        .RetrieveTags(commons)
                         .ToList();
 
                     var groupName = groupTags
@@ -86,10 +73,10 @@ namespace Generators.Instances
 
                     group.Connect(groupTags);
 
-                    foreach (var xClass in xClasses.Where(c => c != null))
+                    foreach (var xClass in xClasses)
                     {
                         var classTags = xClass
-                            .RetrieveTags()
+                            .RetrieveTags(commons)
                             .ToList();
 
                         var className = classTags
@@ -102,13 +89,12 @@ namespace Generators.Instances
 
                         var classTag = new Tag("class", className);
 
-                        var xTerms = xClassTerms
-                            .Union(xGroupTerms);
+                        var xTerms = xClassTerms;
 
                         foreach (var xTerm in xTerms)
                         {
                             var termTags = xTerm
-                                .RetrieveTags()
+                                .RetrieveTags(commons)
                                 .ToList();
 
                             var termName = termTags
@@ -116,7 +102,7 @@ namespace Generators.Instances
 
                             var termTag = classTag.Connect("term", termName);
 
-                            var termRange = Utilities.RetrieveRangeDate(xTerm);
+                            var termRange = xTerm.RetrieveDateRange(commons);
 
                             var xTermBreaks = xTerm
                                 .Elements("breaks")
@@ -139,11 +125,11 @@ namespace Generators.Instances
                                     .RetrieveRangeTime();
 
                                 var scheduleTags = xSchedule
-                                    .RetrieveTags();
+                                    .RetrieveTags(commons);
 
                                 var byWeekdays = ByWeekdays
                                     .Create(
-                                        clock: fakeClock,
+                                        clock: clock,
                                         weekdays: weekdays,
                                         dateRange: termRange);
 
@@ -153,13 +139,13 @@ namespace Generators.Instances
                                 {
                                     var compositeSchedule = CompositeSchedule
                                         .Create(
-                                            clock: fakeClock,
+                                            clock: clock,
                                             schedule: byWeekdays,
                                             dateRange: termRange);
 
                                     foreach (var xTermBreak in xTermBreaks)
                                     {
-                                        var xTermBreakRange = Utilities.RetrieveRangeDate(xTermBreak);
+                                        var xTermBreakRange = xTermBreak.RetrieveDateRange(commons);
 
                                         compositeSchedule.Breaks.Add(new EdgeVertex<IDateRange>(xTermBreakRange));
                                     }

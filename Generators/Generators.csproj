@@ -57,10 +57,13 @@
     <Compile Include="IGenerator.cs" />
     <Compile Include="Instances\GeneratorSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Retriever.cs" />
     <Compile Include="Types\Term.cs" />
     <Compile Include="Types\Terms.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="UtilitiesLinks.cs" />
     <Compile Include="XInstances\GeneratorXDateRange.cs" />
+    <Compile Include="XInstances\GeneratorXTag.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Sources\Caterlink2.xml" />

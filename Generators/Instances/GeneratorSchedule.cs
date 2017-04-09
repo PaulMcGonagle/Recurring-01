@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using NodaTime;
 using Scheduler;
@@ -14,7 +11,7 @@ namespace Generators.Instances
 {
     public class GeneratorSchedule : IGenerator
     {
-        public IEnumerable<IVertex> Generate(string sourceFile)
+        public IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
         {
             var xSource = XDocument
                 .Load(sourceFile);
@@ -27,8 +24,8 @@ namespace Generators.Instances
 
             yield return generatorSource;
 
-            var commons = Utilities.ExpandLinks(xSource);
-            Utilities.ExpandReferences(xSource);
+            var commons = xSource.ExpandLinks();
+            xSource.ExpandReferences();
 
             var xGenerators = xSource
                 .Elements("generators")
@@ -44,12 +41,12 @@ namespace Generators.Instances
 
                 foreach (var xSchedule in xSchedules)
                 {
-                    var weekdays = xSchedule.RetrieveWeekdays();
+                    var weekdays = xSchedule
+                        .RetrieveWeekdays();
 
                     foreach (var weekday in weekdays)
                     {
-                        var dateRanges = Utilities.RetrieveDateRanges(
-                            xInput: xSchedule,
+                        var dateRanges = xSchedule.RetrieveDateRanges(
                             commons: commons);
 
                         foreach (var dateRange in dateRanges)

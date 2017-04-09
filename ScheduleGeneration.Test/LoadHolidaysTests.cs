@@ -3,11 +3,9 @@ using System.Linq;
 using ArangoDB.Client;
 using Generators;
 using Generators.Instances;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
-using Scheduler.Generation;
 using Scheduler.Persistance;
 using Shouldly;
 using TestStack.BDDfy;
@@ -21,6 +19,7 @@ namespace ScheduleGeneration.Test
         {
             private string _sourceFile;
             private IArangoDatabase _db;
+            private IClock _clock;
             private IGenerator _generator;
             private GeneratorHolidays _generatorHolidays;
             private IEnumerable<IVertex> _vertexs;
@@ -55,20 +54,6 @@ namespace ScheduleGeneration.Test
                 }).BDDfy();
             }
 
-            public void GivenASourceFile(string sourceFile)
-            {
-                _sourceFile = sourceFile;
-            }
-
-            public void AndGivenAClock(IClock clock)
-            {
-            }
-
-            public void AndGivenADatabase(IArangoDatabase db)
-            {
-                _db = db;
-            }
-
             public void WhenGeneratorIsRetrieved()
             {
                 _generator = GeneratorFactory.Get("holidays");
@@ -83,7 +68,7 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenGenerated()
             {
-                _vertexs = _generatorHolidays.Generate(_sourceFile);
+                _vertexs = _generatorHolidays.Generate(_sourceFile, _clock);
             }
 
             public void AndWhenSchedulesAreRetrived()

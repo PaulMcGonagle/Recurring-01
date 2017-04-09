@@ -13,7 +13,8 @@ namespace Generators
             var generator = GeneratorFactory.Get(generatorType);
 
             var vertexs = generator.Generate(
-                sourceFile: "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\HG.xml")
+                    sourceFile: "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\HG.xml",
+                    clock: null)
                 .ToList();
 
             return vertexs;

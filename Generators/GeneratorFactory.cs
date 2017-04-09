@@ -31,6 +31,9 @@ namespace Generators
                 case "DateRange":
                     return new GeneratorXDateRange();
 
+                case "Tag":
+                    return new GeneratorXTag();
+
                 default:
                     throw new NotImplementedException($"Unexpected generatorType '{generatorType}'");
             }

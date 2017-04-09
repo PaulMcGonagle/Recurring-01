@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
@@ -9,7 +10,7 @@ namespace Generators.Instances
 {
     public class GeneratorHolidays : IGenerator
     {
-        public IEnumerable<IVertex> Generate(string sourceFile)
+        public IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
         {
             var xSource = XDocument
                 .Load(sourceFile);
@@ -22,7 +23,8 @@ namespace Generators.Instances
 
             yield return generatorSource;
 
-            Utilities.ExpandReferences(xSource);
+            xSource.ExpandReferences();
+            var commons = xSource.ExpandLinks();
 
             var xGenerators = xSource
                 .Elements("generators")
@@ -42,7 +44,7 @@ namespace Generators.Instances
                     var compositeSchedule = new CompositeSchedule();
 
                     var calendarTags = xCalendar
-                        .RetrieveTags()
+                        .RetrieveTags(commons)
                         .ToList();
 
                     tagHolidayCalendar
@@ -52,8 +54,8 @@ namespace Generators.Instances
 
                     generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(compositeSchedule));
 
-                    var dates = Utilities
-                        .RetrieveDates(xCalendar)
+                    var dates = xCalendar
+                        .RetrieveDates(commons)
                         .ToList();
 
                     var dateList = new DateList {Items = dates};

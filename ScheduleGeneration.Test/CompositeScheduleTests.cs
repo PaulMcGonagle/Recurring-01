@@ -111,7 +111,6 @@ namespace ScheduleGeneration.Test
         public class LoadBasicSchoolScheduleAndVerifyEpisodes
         {
             private string _sourceFile;
-            private XElement _source;
 
             private IClock _clock;
             private IArangoDatabase _db;
@@ -158,7 +157,7 @@ namespace ScheduleGeneration.Test
             {
                 _sourceFile = sourceFile;
 
-                _source = XElement.Load(sourceFile);
+                XElement.Load(sourceFile);
             }
 
             public void AndGivenDatabase(IArangoDatabase db)
@@ -178,7 +177,7 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenVertexsGenerated()
             {
-                _vertexs = _generator.Generate(_sourceFile)
+                _vertexs = _generator.Generate(_sourceFile, _clock)
                     .ToList();
             }
 
