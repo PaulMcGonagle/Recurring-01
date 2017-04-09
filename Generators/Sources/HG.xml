@@ -409,42 +409,78 @@
             </tags>
             <rangeTime start="09:00" end="10:00"/>
           </session>
-          <!--<session name="9am double">
+          <session>
+            <tags>
+              <tag id="name" value="9am double"/>
+            </tags>
             <rangeTime start="09:00" end="10:00"/>
           </session>
-          <session name="10am">
+          <session>
+            <tags>
+              <tag id="name" value="10am"/>
+            </tags>
             <rangeTime start="10:00" end="10:30"/>
           </session>
-          <session name="10:30am">
+          <session>
+            <tags>
+              <tag id="name" value="10:30am"/>
+            </tags>
             <rangeTime start="10:00" end="10:30"/>
           </session>
-          <session name="Morning playtime">
+          <session>
+            <tags>
+              <tag id="name" value="Morning playtime"/>
+            </tags>
             <rangeTime start="10:50" end="11:05"/>
           </session>
-          <session name="11:05am">
+          <session>
+            <tags>
+              <tag id="name" value="11:05am"/>
+            </tags>
             <rangeTime start="11:05" end="12:00"/>
           </session>
-          <session name="Lunch">
+          <session>
+            <tags>
+              <tag id="name" value="Lunch"/>
+            </tags>
             <rangeTime start="12:00" end="13:00"/>
           </session>
-          <session name="1pm">
+          <session>
+            <tags>
+              <tag id="name" value="1pm"/>
+            </tags>
             <rangeTime start="13:00" end="14:00"/>
           </session>
-          <session name="1pm double">
+          <session>
+            <tags>
+              <tag id="name" value="1pm double"/>
+            </tags>
             <rangeTime start="13:00" end="14:30"/>
           </session>
-          <session name="2pm">
+          <session>
+            <tags>
+              <tag id="name" value="2pm"/>
+            </tags>
             <rangeTime start="14:00" end="14:30"/>
           </session>
-          <session name="Afternoon playtime">
+          <session>
+            <tags>
+              <tag id="name" value="Afternoon playtime"/>
+            </tags>
             <rangeTime start="14:30" end="14:45"/>
           </session>
-          <session name="2:45pm">
+          <session>
+            <tags>
+              <tag id="name" value="2:45pm"/>
+            </tags>
             <rangeTime start="14:45" end="15:30"/>
-          </session>-->
+          </session>
         </sessions>
         <classes>
-          <!--<class name="Playtime">
+          <class>
+            <tags>
+              <tag id="name" value="Playtime"/>
+            </tags>
             <schedules>
               <schedule session="Morning playtime">
                 <weekdays>
@@ -457,7 +493,10 @@
               </schedule>
             </schedules>
           </class>
-          <class name="Lunchtime">
+          <class>
+            <tags>
+              <tag id="name" value="Lunchtime"/>
+            </tags>
             <schedules>
               <schedule session="Lunch">
                 <weekdays>
@@ -469,7 +508,7 @@
                 </weekdays>
               </schedule>
             </schedules>
-          </class>-->
+          </class>
           <class>
             <tags><tag id="name" value="Literacy"/></tags>
             <schedules>
@@ -484,7 +523,10 @@
               </schedule>
             </schedules>
           </class>
-          <!--<class name="Guided Reading">
+          <class>
+            <tags>
+              <tag id="name" value="Guided Reading"/>
+            </tags>
             <schedules>
               <schedule session="10am">
                 <weekdays>
@@ -501,7 +543,10 @@
               </schedule>
             </schedules>
           </class>
-          <class name="Assembly">
+          <class>
+            <tags>
+              <tag id="name" value="Assembly"/>
+            </tags>
             <schedules>
               <schedule session="10:30am">
                 <weekdays>
@@ -515,12 +560,18 @@
               </schedule>
             </schedules>
           </class>
-          <class name="Mass">
+          <class>
+            <tags>
+              <tag id="name" value="Mass"/>
+            </tags>
             <schedules>
               <schedule session="10:30am" weekday="Thursday"/>
             </schedules>
           </class>
-          <class name="Numeracy">
+          <class>
+            <tags>
+              <tag id="name" value="Numeracy"/>
+            </tags>
             <schedules>
               <schedule session="11:05am">
                 <weekdays>
@@ -537,7 +588,10 @@
               </schedule>
             </schedules>
           </class>
-          <class name="Music">
+          <class>
+            <tags>
+              <tag id="name" value="Music"/>
+            </tags>
             <schedules>
               <schedule session="11:05am">
                 <weekdays>
@@ -546,7 +600,10 @@
               </schedule>
             </schedules>
           </class>
-          <class name="Science">
+          <class>
+            <tags>
+              <tag id="name" value="Science"/>
+            </tags>
             <schedules>
               <schedule session="1pm">
                 <weekdays>
@@ -555,7 +612,10 @@
               </schedule>
             </schedules>
           </class>
-          <class name="PE">
+          <class>
+            <tags>
+              <tag id="name" value="PE"/>
+            </tags>
             <schedules>
               <schedule session="1pm">
                 <weekdays>
@@ -564,7 +624,10 @@
               </schedule>
             </schedules>
           </class>
-          <class name="History">
+          <class>
+            <tags>
+              <tag id="name" value="History"/>
+            </tags>
             <schedules>
               <schedule session="1pm">
                 <weekdays>
@@ -573,7 +636,10 @@
               </schedule>
             </schedules>
           </class>
-          <class name="RE">
+          <class>
+            <tags>
+              <tag id="name" value="RE"/>
+            </tags>
             <schedules>
               <schedule session="2pm">
                 <weekdays>
@@ -582,7 +648,10 @@
               </schedule>
             </schedules>
           </class>
-          <class name="Spanish">
+          <class>
+            <tags>
+              <tag id="name" value="Spanish"/>
+            </tags>
             <schedules>
               <schedule session="2:45pm">
                 <weekdays>
@@ -591,7 +660,10 @@
               </schedule>
             </schedules>
           </class>
-          <class name="ICT">
+          <class>
+            <tags>
+              <tag id="name" value="ICT"/>
+            </tags>
             <schedules>
               <schedule session="2:45pm">
                 <weekdays>
@@ -600,7 +672,10 @@
               </schedule>
             </schedules>
           </class>
-          <class name="Library">
+          <class>
+            <tags>
+              <tag id="name" value="Library"/>
+            </tags>
             <schedules>
               <schedule session="2:45pm">
                 <weekdays>
@@ -609,7 +684,10 @@
               </schedule>
             </schedules>
           </class>
-          <class name="PSHCE">
+          <class>
+            <tags>
+              <tag id="name" value="PSHCE"/>
+            </tags>
             <schedules>
               <schedule session="2:45pm">
                 <weekdays>
@@ -618,7 +696,10 @@
               </schedule>
             </schedules>
           </class>
-          <class name="Other">
+          <class>
+            <tags>
+              <tag id="name" value="Other"/>
+            </tags>
             <schedules>
               <schedule session="2:45pm">
                 <weekdays>
@@ -626,7 +707,7 @@
                 </weekdays>
               </schedule>
             </schedules>
-          </class>-->
+          </class>
         </classes>
         <terms>
           <reference type="term" path="./generators/generator/terms/term[@name='Autumn.2016/17']"/>

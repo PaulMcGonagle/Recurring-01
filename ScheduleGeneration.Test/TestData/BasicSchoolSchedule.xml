@@ -14,11 +14,6 @@
           }
         </payload>
       </tag>
-      <!--<tag id="generator_id_A" value="generator_value_A">
-        <tags>
-          <tag id="generator_id_B" value="generator_value_B"/>
-        </tags>
-      </tag>-->
       <tag id="timeZoneProvider" value="Europe/London"/>
     </tags>
     <terms>
@@ -42,9 +37,6 @@
           <tag id="name" value="9am"/>
         </tags>
         <rangeTime start="09:00" end="10:00"/>
-        <!--<tags>
-          <tag id="session_id_A" value="session_value_A"/>
-        </tags>-->
       </session>
     </sessions>
     <times>
