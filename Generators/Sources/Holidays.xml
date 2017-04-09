@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <generators>
-  <generator name="Holiday Calendars">
+  <generator id="name"Holiday Calendars">
     <calendars>
-      <calendar name="UK Public Holidays">
+      <calendar id="name"UK Public Holidays">
         <dates>
           <date value="2017-12-25">
             <tag id="name" value="Christmas Day"/>

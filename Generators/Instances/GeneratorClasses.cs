@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using NodaTime;
@@ -27,6 +26,7 @@ namespace Generators.Instances
             yield return generatorSource;
 
             Utilities.ExpandReferences(xSource);
+            var commons = Utilities.ExpandLinks(xSource);
 
             var xGenerators = xSource
                 .Elements("generators")
@@ -41,7 +41,8 @@ namespace Generators.Instances
                     .Elements("group")
                     .ToList();
 
-                var generatorTags = Utilities.RetrieveTags(xGenerator)
+                var generatorTags = xGenerator
+                    .RetrieveTags()
                     .ToList();
 
                 var organisation = generatorTags
@@ -73,35 +74,46 @@ namespace Generators.Instances
                         .Elements("term")
                         .ToList();
 
-                    var groupName = xGroup
-                        .Attribute("name")?.Value;
+                    var groupTags = xGroup
+                        .RetrieveTags()
+                        .ToList();
+
+                    var groupName = groupTags
+                        .RetrieveValue("name");
 
                     var group = organisation
                         .Connect("group", groupName);
-
-                    var groupTags = Utilities.RetrieveTags(xGroup)
-                        .ToList();
 
                     group.Connect(groupTags);
 
                     foreach (var xClass in xClasses.Where(c => c != null))
                     {
-                        var className = xClass
-                            .Attribute("name")?.Value;
-                        var classTag = group
-                            .Connect("class", className);
+                        var classTags = xClass
+                            .RetrieveTags()
+                            .ToList();
+
+                        var className = classTags
+                            .RetrieveValue("name");
 
                         var xClassTerms = xClass
                             .Elements("terms")
                             .Elements("term")
                             .ToList();
 
+                        var classTag = new Tag("class", className);
+
                         var xTerms = xClassTerms
                             .Union(xGroupTerms);
 
                         foreach (var xTerm in xTerms)
                         {
-                            var termName = xTerm.Attribute("name")?.Value;
+                            var termTags = xTerm
+                                .RetrieveTags()
+                                .ToList();
+
+                            var termName = termTags
+                                .RetrieveValue("name");
+
                             var termTag = classTag.Connect("term", termName);
 
                             var termRange = Utilities.RetrieveRangeDate(xTerm);
@@ -120,31 +132,30 @@ namespace Generators.Instances
 
                             foreach (var xSchedule in xSchedules)
                             {
-                                var xWeekdays = xSchedule
-                                    ?.Elements("weekdays")
-                                    .Elements("weekday")
-                                    .Select(w => (IsoDayOfWeek)Enum.Parse(typeof(IsoDayOfWeek), w.Value))
-                                    .ToList();
+                                var weekdays = xSchedule
+                                    .RetrieveWeekdays();
 
-                                var timeRange = Utilities.RetrieveRangeTime(xSchedule);
+                                var timeRange = xSchedule
+                                    .RetrieveRangeTime();
 
-                                var scheduleTags = Utilities.RetrieveTags(xSchedule);
+                                var scheduleTags = xSchedule
+                                    .RetrieveTags();
 
-                                var byWeekdays = ByWeekdays.Create(
-                                    clock: fakeClock,
-                                    weekdays: xWeekdays,
-                                    dateRange: termRange);
-
-                                var termTags = Utilities.RetrieveTags(xTerm);
+                                var byWeekdays = ByWeekdays
+                                    .Create(
+                                        clock: fakeClock,
+                                        weekdays: weekdays,
+                                        dateRange: termRange);
 
                                 ISchedule schedule;
 
                                 if (xTermBreaks.Count > 0)
                                 {
-                                    var compositeSchedule = CompositeSchedule.Create(
-                                        clock: fakeClock,
-                                        schedule: byWeekdays,
-                                        dateRange: termRange);
+                                    var compositeSchedule = CompositeSchedule
+                                        .Create(
+                                            clock: fakeClock,
+                                            schedule: byWeekdays,
+                                            dateRange: termRange);
 
                                     foreach (var xTermBreak in xTermBreaks)
                                     {

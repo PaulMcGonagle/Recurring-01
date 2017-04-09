@@ -13,11 +13,11 @@ namespace Generators.XInstances
     {
         public IVertex Generate(XElement xRangeDate)
         {
-            var from = Utilities.ParseAttributeAsLocalDate(xRangeDate, "start");
-            var to = Utilities.ParseAttributeAsLocalDate(xRangeDate, "end");
+            var from = Utilities.RetrieveAttributeAsLocalDate(xRangeDate, "start");
+            var to = Utilities.RetrieveAttributeAsLocalDate(xRangeDate, "end");
             var dateRange = new DateRange(from, to);
 
-            dateRange.Connect(Utilities.RetrieveTags(xRangeDate));
+            dateRange.Connect(xRangeDate.RetrieveTags());
 
             return dateRange;
         }

@@ -5,8 +5,9 @@
       <tag id="organisation" value="Caterlink"/>
     </tags>
     <terms>
-      <term name="Summer 2016 Week 1.Mon">
+      <term>
         <tags>
+          <tag id="name" value="Summer 2016 Week 1.Mon"/>
           <tag id="organisation" value="Caterlink"/>
           <tag id="Menu">
             <payload>
@@ -33,8 +34,9 @@
           </scheduleInstance>
         </dates>
       </term>
-      <term name="Summer 2017 Week 1.Tue">
+      <term>
         <tags>
+          <tag id="name" value="Summer 2017 Week 1.Tue"/>
           <tag id="organisation" value="Caterlink"/>
           <tag id="Menu">
             <payload>

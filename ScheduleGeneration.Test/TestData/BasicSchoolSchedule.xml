@@ -14,71 +14,80 @@
           }
         </payload>
       </tag>
-      <tag id="generator_id_A" value="generator_value_A">
+      <!--<tag id="generator_id_A" value="generator_value_A">
         <tags>
           <tag id="generator_id_B" value="generator_value_B"/>
         </tags>
-      </tag>
+      </tag>-->
       <tag id="timeZoneProvider" value="Europe/London"/>
     </tags>
     <terms>
-      <term name="Autumn.2016/17">
+      <term>
+        <tags>
+          <tag id="name" value="Autumn.2016/17"/>
+        </tags>
         <rangeDate start="2016-09-02" end="2016-12-21"/>
         <breaks>
-          <break name="half-term">
+          <break><tags>
+            <tag id="name" value="half-term"/>
+          </tags>
             <rangeDate start="2016-10-26" end="2016-11-02"/>
           </break>
         </breaks>
-        <tags>
-          <tag id="term_id_A" value="term_value_A"/>
-        </tags>
       </term>
     </terms>
     <sessions>
-      <session name="9am">
-        <rangeTime start="09:00" end="10:00"/>
+      <session>
         <tags>
-          <tag id="session_id_A" value="session_value_A"/>
+          <tag id="name" value="9am"/>
         </tags>
+        <rangeTime start="09:00" end="10:00"/>
+        <!--<tags>
+          <tag id="session_id_A" value="session_value_A"/>
+        </tags>-->
       </session>
     </sessions>
     <times>
-      <time name="Start of day" value="09:00"/>
-      <time name="End of day" value="15:30"/>
+      <time value="09:00">
+        <tags>
+          <tag id="name" value="Start of day"/>
+        </tags>
+      </time>
+      <time value="15:30">
+        <tags>
+          <tag id="name" value="End of day"/>
+        </tags>
+      </time>
     </times>
     <groups>
-      <group name="Year2">
+      <group>
+        <tags>
+          <tag id="name" value="Year2"/>
+        </tags>
         <classes>
-          <class name="Literacy">
+          <class>
+            <tags>
+              <tag id="name" value="Literacy"/>
+            </tags>
             <schedules>
-              <schedule name="09:15">
+              <schedule>
+                <tags>
+                  <tag id="name" value="09:15"/>
+                </tags>
                 <rangeTime start="09:15" end="10:20"/>
                 <weekdays>
-                  <weekday>Monday</weekday>
-                  <weekday>Tuesday</weekday>
-                  <weekday>Wednesday</weekday>
-                  <weekday>Friday</weekday>
+                  <weekday value="Monday"/>
+                  <weekday value="Tuesday"/>
+                  <weekday value="Wednesday"/>
+                  <weekday value="Friday"/>
                 </weekdays>
-                <tags>
-                  <tag id="schedule_id_A" value="schedule_value_A">
-                    <tags>
-                      <tag id="schedule_id_B" value="schedule_value_B"/>
-                    </tags>
-                  </tag>
-                </tags>
               </schedule>
             </schedules>
-            <tags>
-              <tag id="class_id_A" value="class_value_A"/>
-            </tags>
           </class>
         </classes>
         <terms>
-          <reference type="term" path="./generators/generator/terms/term[@name='Autumn.2016/17']"/>
+          <reference type="term" path="./generators/generator/terms/term[./tags/tag[@id='name'][@value='Autumn.2016/17']]"/>
         </terms>
-        <tags>
-          <tag id="year_id_A" value="year_value_A"/>
-        </tags>
       </group>
     </groups>
   </generator>

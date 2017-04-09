@@ -41,8 +41,8 @@ namespace Generators.Instances
                 {
                     var compositeSchedule = new CompositeSchedule();
 
-                    var calendarTags = Utilities
-                        .RetrieveTags(xCalendar)
+                    var calendarTags = xCalendar
+                        .RetrieveTags()
                         .ToList();
 
                     tagHolidayCalendar

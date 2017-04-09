@@ -54,22 +54,26 @@ namespace Generators
             return xElement;
         }
 
-        public static DateRange RetrieveRangeDate(XElement input, string elementName = "rangeDate")
+        public static DateRange RetrieveRangeDate(this XElement xInput, string elementName = "rangeDate")
         {
-            var rangeDate = input.Element(elementName);
+            var rangeDate = xInput
+                .Element(elementName);
 
             if (rangeDate == null)
                 throw new ArgumentException("Could not find Element {elementName}");
 
-            var start = ParseAttributeAsLocalDate(rangeDate, "start");
-            var end = ParseAttributeAsLocalDate(rangeDate, "end");
+            var start = rangeDate
+                .RetrieveAttributeAsLocalDate("start");
+
+            var end = rangeDate
+                .RetrieveAttributeAsLocalDate("end");
 
             return new DateRange(
                 from: new EdgeDate(start),
                 to: new EdgeDate(end));
         }
 
-        public static IEnumerable<IDateRange> RetrieveRangeDates(XElement xInput, IDictionary<string, IVertex> commons, string elementsName = "rangeDates", string elementName = "rangeDate")
+        public static IEnumerable<IDateRange> RetrieveDateRanges(XElement xInput, IDictionary<string, IVertex> commons, string elementsName = "rangeDates", string elementName = "rangeDate")
         {
             var xElements = xInput
                 .Elements(elementsName)
@@ -88,12 +92,12 @@ namespace Generators
 
             foreach (var xLink in xLinks)
             {
-                var commonName = xLink.RetrieveAttribute("common");
+                var commonName = xLink.RetrieveValue("common");
 
                 IVertex commonVertex;
 
                 if (!commons.TryGetValue(commonName, out commonVertex))
-                    throw new ArgumentException($"No common found with name {commonName}");
+                    throw new ArgumentException($"No common found with attributeName {commonName}");
 
                 IDateRange dateRange = commonVertex as IDateRange;
 
@@ -104,7 +108,7 @@ namespace Generators
             }
         }
 
-        public static ITimeRange RetrieveRangeTime(XElement input, string elementName = "rangeTime")
+        public static ITimeRange RetrieveRangeTime(this XElement input, string elementName = "rangeTime")
         {
             var rangeTime = input.Element(elementName);
 
@@ -129,21 +133,21 @@ namespace Generators
                 .ToList();
         }
 
-        public static ITag RetrieveTag(XElement inputXTag)
+        public static ITag RetrieveTag(this XElement xInput)
         {
-            var inputIdent = ParseAttribute(inputXTag, "id");
-            var inputValue = ParseAttribute(inputXTag, "value");
-            var inputPayload = inputXTag.Elements("payload").FirstOrDefault();
+            var inputIdent = ParseAttribute(xInput, "id");
+            var inputValue = ParseAttribute(xInput, "value");
+            var inputPayload = xInput.Elements("payload").FirstOrDefault();
 
             var tag = new Tag(inputIdent.Value, inputValue.Value, inputPayload?.Value);
 
-            tag.RelatedTags.AddRange(RetrieveXTags(inputXTag)
+            tag.RelatedTags.AddRange(RetrieveXTags(xInput)
                 .Select(relatedTag => new EdgeTag(RetrieveTag(relatedTag))));
 
             return tag;
         }
 
-        public static IEnumerable<ITag> RetrieveTags(XElement xInput)
+        public static IEnumerable<ITag> RetrieveTags(this XElement xInput)
         {
             var xTags = RetrieveXTags(xInput);
 
@@ -164,9 +168,9 @@ namespace Generators
 
             foreach (var xDate in xDates)
             {
-                var date = new Date(ParseAttributeAsLocalDate(xDate, "value"));
+                var date = new Date(xDate.RetrieveAttributeAsLocalDate("value"));
 
-                date.Connect(RetrieveTags(xDate));
+                date.Connect(xDate.RetrieveTags());
 
                 dates.Add(date);
             }
@@ -183,7 +187,7 @@ namespace Generators
             return dates;
         }
 
-        public static IEnumerable<IDate> RetrieveWeekdays(XElement xInput)
+        public static IEnumerable<IsoDayOfWeek> RetrieveWeekdays(this XElement xInput)
         {
             var dates = new List<IDate>();
 
@@ -194,28 +198,20 @@ namespace Generators
 
             foreach (var xWeekday in xWeekdays)
             {
-                var date = new Date(ParseAttributeAsLocalDate(xWeekday, "value"));
+                var weekday = xWeekday.RetrieveValue("value");
 
-                date.Connect(RetrieveTags(xWeekday));
+                IsoDayOfWeek isoDayOfWeek;
 
-                dates.Add(date);
+                if (!Enum.TryParse(weekday, out isoDayOfWeek))
+                    throw new Exception($"Unable to parse weekday {weekday}");
+
+                yield return isoDayOfWeek;
             }
-
-            var xScheduleInstances = xInput
-                .Elements("dates")
-                .Elements("scheduleInstance");
-
-            foreach (var xScheduleInstance in xScheduleInstances)
-            {
-                dates.AddRange(RetrieveSchedule(xScheduleInstance).Generate());
-            }
-
-            return dates;
         }
 
         public static ISchedule RetrieveSchedule(XElement xInput)
         {
-            var tags = RetrieveTags(xInput);
+            var tags = xInput.RetrieveTags();
 
             var scheduleTag = tags
                 .SingleOrDefault(st => st.Ident == "type");
@@ -308,17 +304,31 @@ namespace Generators
             }
         }
 
-        public static string RetrieveAttribute(this XElement xInput, string name)
+        public static string RetrieveValue(this XElement xInput, string name)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentException("Unable to search for empty attribute name");
+                throw new ArgumentException("Unable to search for empty attribute attributeName");
 
             var value = xInput.Attribute(name)?.Value;
 
             if (value == null)
-                throw new ArgumentException($"No attribute with name '{name}' could be found");
+                throw new ArgumentException($"No attribute with attributeName '{name}' could be found");
 
             return value;
+        }
+
+        public static string RetrieveValue(this IEnumerable<ITag> tags, string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentException("Unable to search for tag with empty name");
+
+            var tag = tags
+                .SingleOrDefault(t => t.Ident == name);
+
+            if (tag == null)
+                throw new ArgumentException($"No tag with attributeName '{name}' could be found");
+
+            return tag.Value;
         }
 
         public static IDictionary<string, IVertex> ExpandLinks(XDocument xInput)
@@ -343,8 +353,8 @@ namespace Generators
 
                 foreach (var xElementReference in xElementReferences)
                 {
-                    var type = xElementReference.RetrieveAttribute("type");
-                    var name = xElementReference.RetrieveAttribute("name");
+                    var type = xElementReference.RetrieveValue("type");
+                    var name = xElementReference.RetrieveValue("attributeName");
 
                     var generatorX = GeneratorFactory.GetX(type);
 
@@ -374,9 +384,9 @@ namespace Generators
             return false;
         }
 
-        public static LocalDate ParseAttributeAsLocalDate(XElement input, string name)
+        public static LocalDate RetrieveAttributeAsLocalDate(this XElement xInput, string attributeName)
         {
-            var attribute = input.Attribute(name);
+            var attribute = xInput.Attribute(attributeName);
 
             var localDatePattern = LocalDatePattern.CreateWithInvariantCulture("yyyy-MM-dd");
             var parseResult = localDatePattern.Parse(attribute?.Value);

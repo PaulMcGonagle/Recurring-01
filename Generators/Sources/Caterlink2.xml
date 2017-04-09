@@ -3,11 +3,13 @@
   <generator>
     <commons>
       <common name="Winter 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
+      <common id="name"Spring 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
+      <common id="name"Summer 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
     </commons>
     <schedules>
       <schedule>
         <weekdays>
-          <weekday>Monday</weekday>
+          <weekday value="Monday"/>
         </weekdays>
         <rangeDates>
           <link common="Winter 2017"/>
@@ -15,7 +17,7 @@
       </schedule>
       <schedule>
         <weekdays>
-          <weekday>Tuesday</weekday>
+          <weekday value="Tuesday"/>
         </weekdays>
         <rangeDates>
           <link common="Winter 2017"/>
@@ -23,7 +25,7 @@
       </schedule>
       <schedule>
         <weekdays>
-          <weekday>Wednesday</weekday>
+          <weekday value="Wednesday"/>
         </weekdays>
         <rangeDates>
           <link common="Winter 2017"/>
@@ -31,7 +33,7 @@
       </schedule>
       <schedule>
         <weekdays>
-          <weekday>Thursday</weekday>
+          <weekday value="Thursday"/>
         </weekdays>
         <rangeDates>
           <link common="Winter 2017"/>
@@ -39,11 +41,11 @@
       </schedule>
       <schedule>
         <weekdays>
-          <weekday>Friday</weekday>
+          <weekday value="Friday"/>
         </weekdays>
         <rangeDates>
           <link common="Winter 2017"/>
-        </rangeDates>f
+        </rangeDates>
       </schedule>
     </schedules>
     <rangeDates>

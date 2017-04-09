@@ -6,11 +6,20 @@
       <tag id="timeZoneProvider" value="Europe/London"/>
     </tags>
     <groups>
-      <group name="Year2">
+      <group>
+        <tags>
+          <tag id="name" value="Year2"/>
+        </tags>
         <classes>
-          <class name="Literacy">
+          <class>
+            <tags>
+              <tag id="name" value="Literacy"/>
+            </tags>
             <terms>
-              <term name="Autumn.2016/17">
+              <term>
+                <tags>
+                  <tag id="name" value="Autumn.2016/17"/>
+                </tags>
                 <rangeDate start="2016-09-02" end="2016-12-21"/>
               </term>
             </terms>
@@ -18,10 +27,10 @@
               <schedule>
                 <rangeTime start="09:15" end="10:20"/>
                 <weekdays>
-                  <weekday>Monday</weekday>
-                  <weekday>Tuesday</weekday>
-                  <weekday>Wednesday</weekday>
-                  <weekday>Friday</weekday>
+                  <weekday value="Monday"/>
+                  <weekday value="Tuesday"/>
+                  <weekday value="Wednesday"/>
+                  <weekday value="Friday"/>
                 </weekdays>
               </schedule>
             </schedules>

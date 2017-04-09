@@ -44,33 +44,20 @@ namespace Generators.Instances
 
                 foreach (var xSchedule in xSchedules)
                 {
-                    var xWeekdays = xSchedule
-                        .Elements("weekdays")
-                        .Elements("weekday")
-                        .ToList();
+                    var weekdays = xSchedule.RetrieveWeekdays();
 
-                    var xRangeDates = xSchedule
-                        .Elements("rangeDates")
-                        .Elements("rangeDate")
-                        .ToList();
-
-                    foreach (var xWeekday in xWeekdays)
+                    foreach (var weekday in weekdays)
                     {
-                        IsoDayOfWeek isoDayOfWeek;
-
-                        if (!Enum.TryParse(xWeekday.Value, out isoDayOfWeek))
-                            throw new Exception($"Invalid weekday '{xWeekday.Value}'");
-
-                        var rangeDates = Utilities.RetrieveRangeDates(
+                        var dateRanges = Utilities.RetrieveDateRanges(
                             xInput: xSchedule,
                             commons: commons);
 
-                        foreach (var rangeDate in rangeDates)
+                        foreach (var dateRange in dateRanges)
                         {
                             var byWeekday = ByWeekday
                                 .Create(
-                                    isoDayOfWeek: isoDayOfWeek,
-                                    dateRange: rangeDate);
+                                    isoDayOfWeek: weekday,
+                                    dateRange: dateRange);
 
                             generatorSource
                                 .Schedules
