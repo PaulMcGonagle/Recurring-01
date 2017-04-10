@@ -6,6 +6,6 @@ namespace Generators
 {
     public interface IGeneratorX
     {
-        IVertex Generate(XElement xInput, IDictionary<string, IVertex> commons, string elementsName = null);
+        IVertex Generate(XElement xInput, IDictionary<string, IVertex> caches, string elementsName = null);
     }
 }

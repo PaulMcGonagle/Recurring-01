@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <generators>
   <generator>
-    <commons>
-      <common name="Winter 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
-      <common name="Spring 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
-      <common name="Summer 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
-    </commons>
+    <caches>
+      <cache name="Winter 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
+      <cache name="Spring 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
+      <cache name="Summer 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
+    </caches>
     <schedules>
       <schedule>
         <weekdays>
           <weekday value="Monday"/>
         </weekdays>
         <rangeDates>
-          <link common="Winter 2017"/>
+          <link cache="Winter 2017"/>
         </rangeDates>
       </schedule>
       <schedule>
@@ -20,7 +20,7 @@
           <weekday value="Tuesday"/>
         </weekdays>
         <rangeDates>
-          <link common="Winter 2017"/>
+          <link cache="Winter 2017"/>
         </rangeDates>
       </schedule>
       <schedule>
@@ -28,7 +28,7 @@
           <weekday value="Wednesday"/>
         </weekdays>
         <rangeDates>
-          <link common="Winter 2017"/>
+          <link cache="Winter 2017"/>
         </rangeDates>
       </schedule>
       <schedule>
@@ -36,7 +36,7 @@
           <weekday value="Thursday"/>
         </weekdays>
         <rangeDates>
-          <link common="Winter 2017"/>
+          <link cache="Winter 2017"/>
         </rangeDates>
       </schedule>
       <schedule>
@@ -44,7 +44,7 @@
           <weekday value="Friday"/>
         </weekdays>
         <rangeDates>
-          <link common="Winter 2017"/>
+          <link cache="Winter 2017"/>
         </rangeDates>
       </schedule>
     </schedules>

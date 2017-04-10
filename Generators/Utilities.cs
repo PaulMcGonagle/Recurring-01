@@ -58,7 +58,7 @@ namespace Generators
             foreach (var xElement in xElements)
             {
                 var xElementReferences = xElement
-                    .Elements("common")
+                    .Elements("cache")
                     .ToList();
 
                 foreach (var xElementReference in xElementReferences)

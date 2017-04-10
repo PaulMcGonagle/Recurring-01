@@ -54,7 +54,7 @@ namespace Generators
             return xElement;
         }
 
-        public static DateRange RetrieveDateRange(this XElement xInput, IDictionary<string, IVertex> commons, string elementName = "rangeDate")
+        public static DateRange RetrieveDateRange(this XElement xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
         {
             var rangeDate = xInput
                 .Element(elementName);
@@ -72,12 +72,12 @@ namespace Generators
                 @from: new EdgeDate(start),
                 to: new EdgeDate(end));
 
-            dateRange.Connect(xInput.RetrieveTags(commons));
+            dateRange.Connect(xInput.RetrieveTags(caches));
 
             return dateRange;
         }
 
-        public static IEnumerable<IDateRange> RetrieveDateRanges(this XElement xInput, IDictionary<string, IVertex> commons, string elementsName = "rangeDates", string elementName = "rangeDate")
+        public static IEnumerable<IDateRange> RetrieveDateRanges(this XElement xInput, IDictionary<string, IVertex> caches, string elementsName = "rangeDates", string elementName = "rangeDate")
         {
             var xElements = xInput
                 .Elements(elementsName)
@@ -86,10 +86,10 @@ namespace Generators
 
             foreach (var xElement in xElements)
             {
-                yield return RetrieveDateRange(xElement, commons, elementName);
+                yield return RetrieveDateRange(xElement, caches, elementName);
             }
 
-            var links = UtilitiesLinks<DateRange>.Retrieve(xInput, commons, elementsName);
+            var links = UtilitiesLinks<DateRange>.Retrieve(xInput, caches, elementsName);
 
             foreach (var link in links)
             {
@@ -138,7 +138,7 @@ namespace Generators
             return tag;
         }
 
-        public static IEnumerable<ITag> RetrieveTags(this XElement xInput, IDictionary<string, IVertex> commons, string elementsName = null)
+        public static IEnumerable<ITag> RetrieveTags(this XElement xInput, IDictionary<string, IVertex> caches, string elementsName = null)
         {
             var xTags = RetrieveXTags(xInput);
 
@@ -147,10 +147,10 @@ namespace Generators
                 yield return RetrieveTag(xTag);
             }
 
-            if (commons == null)
+            if (caches == null)
                 yield break;
 
-            var links = UtilitiesLinks<Tag>.Retrieve(xInput, commons, elementsName);
+            var links = UtilitiesLinks<Tag>.Retrieve(xInput, caches, elementsName);
 
             foreach (var link in links)
             {
@@ -158,7 +158,7 @@ namespace Generators
             }
         }
 
-        public static IEnumerable<IDate> RetrieveDates(this XElement xInput, IDictionary<string, IVertex> commons, string elementsName = "dates")
+        public static IEnumerable<IDate> RetrieveDates(this XElement xInput, IDictionary<string, IVertex> caches, string elementsName = "dates")
         {
             var dates = new List<IDate>();
 
@@ -171,7 +171,7 @@ namespace Generators
             {
                 var date = new Date(xDate.RetrieveAttributeAsLocalDate("value"));
 
-                date.Connect(xDate.RetrieveTags(commons));
+                date.Connect(xDate.RetrieveTags(caches));
 
                 dates.Add(date);
             }
@@ -182,7 +182,7 @@ namespace Generators
 
             foreach (var xScheduleInstance in xScheduleInstances)
             {
-                var schedule = RetrieveSchedule(xScheduleInstance, commons);
+                var schedule = RetrieveSchedule(xScheduleInstance, caches);
 
                 dates.AddRange(schedule.Generate());
             }
@@ -210,9 +210,9 @@ namespace Generators
             }
         }
 
-        public static ISchedule RetrieveSchedule(XElement xInput, IDictionary<string, IVertex> commons)
+        public static ISchedule RetrieveSchedule(XElement xInput, IDictionary<string, IVertex> caches)
         {
-            var tags = xInput.RetrieveTags(commons);
+            var tags = xInput.RetrieveTags(caches);
 
             var scheduleTag = tags
                 .SingleOrDefault(st => st.Ident == "type");

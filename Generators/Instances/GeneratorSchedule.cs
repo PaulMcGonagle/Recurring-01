@@ -24,7 +24,7 @@ namespace Generators.Instances
 
             yield return generatorSource;
 
-            var commons = xSource.ExpandLinks();
+            var caches = xSource.ExpandLinks();
             xSource.ExpandReferences();
 
             var xGenerators = xSource
@@ -47,7 +47,7 @@ namespace Generators.Instances
                     foreach (var weekday in weekdays)
                     {
                         var dateRanges = xSchedule.RetrieveDateRanges(
-                            commons: commons);
+                            caches: caches);
 
                         foreach (var dateRange in dateRanges)
                         {

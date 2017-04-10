@@ -8,7 +8,7 @@ namespace Generators
 {
     public static class UtilitiesLinks<T> where T : class, IVertex
     {
-        public static IEnumerable<T> Retrieve(XElement xInput, IDictionary<string, IVertex> commons, string elementsName)
+        public static IEnumerable<T> Retrieve(XElement xInput, IDictionary<string, IVertex> caches, string elementsName)
         {
             var xLinks = xInput
                 .Elements(elementsName)
@@ -17,12 +17,12 @@ namespace Generators
 
             foreach (var xLink in xLinks)
             {
-                var commonName = xLink.RetrieveValue("common");
+                var commonName = xLink.RetrieveValue("cache");
 
                 IVertex commonVertex;
 
-                if (!commons.TryGetValue(commonName, out commonVertex))
-                    throw new ArgumentException($"No common found with name {commonName}");
+                if (!caches.TryGetValue(commonName, out commonVertex))
+                    throw new ArgumentException($"No cache found with name {commonName}");
 
                 var dateRange = commonVertex as T;
 

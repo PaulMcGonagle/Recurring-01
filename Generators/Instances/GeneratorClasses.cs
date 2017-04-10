@@ -25,7 +25,7 @@ namespace Generators.Instances
             yield return generatorSource;
 
             xSource.ExpandReferences();
-            var commons = xSource.ExpandLinks();
+            var caches = xSource.ExpandLinks();
 
             var xGenerators = xSource
                 .Elements("generators")
@@ -39,7 +39,7 @@ namespace Generators.Instances
                     .ToList();
 
                 var generatorTags = xGenerator
-                    .RetrieveTags(commons)
+                    .RetrieveTags(caches)
                     .ToList();
 
                 var organisation = generatorTags
@@ -62,7 +62,7 @@ namespace Generators.Instances
                         .ToList();
 
                     var groupTags = xGroup
-                        .RetrieveTags(commons)
+                        .RetrieveTags(caches)
                         .ToList();
 
                     var groupName = groupTags
@@ -76,7 +76,7 @@ namespace Generators.Instances
                     foreach (var xClass in xClasses)
                     {
                         var classTags = xClass
-                            .RetrieveTags(commons)
+                            .RetrieveTags(caches)
                             .ToList();
 
                         var className = classTags
@@ -94,7 +94,7 @@ namespace Generators.Instances
                         foreach (var xTerm in xTerms)
                         {
                             var termTags = xTerm
-                                .RetrieveTags(commons)
+                                .RetrieveTags(caches)
                                 .ToList();
 
                             var termName = termTags
@@ -102,7 +102,7 @@ namespace Generators.Instances
 
                             var termTag = classTag.Connect("term", termName);
 
-                            var termRange = xTerm.RetrieveDateRange(commons);
+                            var termRange = xTerm.RetrieveDateRange(caches);
 
                             var xTermBreaks = xTerm
                                 .Elements("breaks")
@@ -125,7 +125,7 @@ namespace Generators.Instances
                                     .RetrieveRangeTime();
 
                                 var scheduleTags = xSchedule
-                                    .RetrieveTags(commons);
+                                    .RetrieveTags(caches);
 
                                 var byWeekdays = ByWeekdays
                                     .Create(
@@ -145,7 +145,7 @@ namespace Generators.Instances
 
                                     foreach (var xTermBreak in xTermBreaks)
                                     {
-                                        var xTermBreakRange = xTermBreak.RetrieveDateRange(commons);
+                                        var xTermBreakRange = xTermBreak.RetrieveDateRange(caches);
 
                                         compositeSchedule.Breaks.Add(new EdgeVertex<IDateRange>(xTermBreakRange));
                                     }

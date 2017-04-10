@@ -24,7 +24,7 @@ namespace Generators.Instances
             yield return generatorSource;
 
             xSource.ExpandReferences();
-            var commons = xSource.ExpandLinks();
+            var caches = xSource.ExpandLinks();
 
             var xGenerators = xSource
                 .Elements("generators")
@@ -44,7 +44,7 @@ namespace Generators.Instances
                     var compositeSchedule = new CompositeSchedule();
 
                     var calendarTags = xCalendar
-                        .RetrieveTags(commons)
+                        .RetrieveTags(caches)
                         .ToList();
 
                     tagHolidayCalendar
@@ -55,7 +55,7 @@ namespace Generators.Instances
                     generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(compositeSchedule));
 
                     var dates = xCalendar
-                        .RetrieveDates(commons)
+                        .RetrieveDates(caches)
                         .ToList();
 
                     var dateList = new DateList {Items = dates};
