@@ -395,14 +395,31 @@ namespace ScheduleGeneration.Test
                 _events = vertexs.OfType<Event>();
             }
 
-            public void ThenTags()
+            public void ThenSchedulesShouldHaveSameYearTagReference()
             {
                 var serials = _events
                     .SelectMany(e => e.Serials.Select(s => s.ToVertex))
                     .ToList();
 
                 var schedules = serials
-                    .Select(s => s.EdgeSchedule.Schedule);
+                    .Select(s => s.EdgeSchedule.Schedule)
+                    .ToList();
+
+                schedules.Count().ShouldBe(2);
+
+                var yearTag0 = schedules[0]
+                    .RelatedTags
+                    .SingleOrDefault(t => t.ToVertex.Ident == "year")
+                    ?.ToVertex;
+                var yearTag1 = schedules[1]
+                    .RelatedTags
+                    .SingleOrDefault(t => t.ToVertex.Ident == "year")
+                    ?.ToVertex;
+
+                yearTag0.ShouldNotBeNull();
+                yearTag1.ShouldNotBeNull();
+
+                object.ReferenceEquals(yearTag0, yearTag1).ShouldBeTrue();
             }
         }
     }

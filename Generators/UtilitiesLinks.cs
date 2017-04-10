@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using Scheduler.Persistance;
 
 namespace Generators
@@ -12,24 +13,21 @@ namespace Generators
         {
             var xLinks = xInput
                 .Elements(elementsName)
-                .Elements("link")
                 .ToList();
 
             foreach (var xLink in xLinks)
             {
-                var commonName = xLink.RetrieveValue("cache");
+                var cacheName = xLink.RetrieveValue("cache");
 
-                IVertex commonVertex;
+                if (!caches.TryGetValue(cacheName, out IVertex commonVertex))
+                    throw new ArgumentException($"No cache found with name {cacheName}");
 
-                if (!caches.TryGetValue(commonName, out commonVertex))
-                    throw new ArgumentException($"No cache found with name {commonName}");
+                var output = commonVertex as T;
 
-                var dateRange = commonVertex as T;
+                if (output == null)
+                    throw new Exception($"Common link does not return a valid {typeof(T)}");
 
-                if (dateRange == null)
-                    throw new Exception("Common link does not return a date range");
-
-                yield return dateRange;
+                yield return output;
             }
         }
     }

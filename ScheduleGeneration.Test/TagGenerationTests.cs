@@ -130,10 +130,7 @@ namespace ScheduleGeneration.Test
 
             public void AndThenSerialTagsAreValid()
             {
-                var expectedTags = _providedScheduleTags
-                    .Union(_providedGeneratorTags)
-                    .Union(_providedGroupTags)
-                    .Union(_providedTermTags)
+                var expectedTags = _providedTermTags
                     .ToList();
 
                 CompareTagsToSource(_serial.Tags

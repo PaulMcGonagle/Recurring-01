@@ -150,11 +150,18 @@ namespace Generators
             if (caches == null)
                 yield break;
 
-            var links = UtilitiesLinks<Tag>.Retrieve(xInput, caches, elementsName);
+            var xLinkTags = xInput
+                .Elements("tags");
 
-            foreach (var link in links)
+            foreach (var xLink in xLinkTags)
             {
-                yield return link;
+                var links = UtilitiesLinks<Tag>.Retrieve(xLink, caches, "link")
+                    .ToList();
+
+                foreach (var link in links)
+                {
+                    yield return link;
+                }
             }
         }
 

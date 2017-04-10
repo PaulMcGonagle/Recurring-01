@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using Scheduler.Persistance;
 
 namespace Generators
@@ -44,37 +45,24 @@ namespace Generators
         public static IDictionary<string, IVertex> ExpandLinks(this XDocument xInput)
         {
             var xElements = xInput
-                .Root
-                ?.DescendantsAndSelf()
-                .ToList();
+                .XPathSelectElements(".//cache");
 
             var links = new Dictionary<string, IVertex>();
 
-            if (xElements == null)
-            {
-                return links;
-            }
-
             foreach (var xElement in xElements)
             {
-                var xElementReferences = xElement
-                    .Elements("cache")
-                    .ToList();
+                var name = xElement.RetrieveAttributeValue("name");
+                var type = xElement.RetrieveAttributeValue("type");
+                var path = xElement.RetrieveAttributeValue("path");
 
-                foreach (var xElementReference in xElementReferences)
-                {
-                    var type = xElementReference.RetrieveValue("type");
-                    var name = xElementReference.RetrieveValue("name");
+                var generatorX = GeneratorFactory.GetX(type);
 
-                    var generatorX = GeneratorFactory.GetX(type);
+                var xLink = xInput
+                    .XPathSelectElement(path);
 
-                    var xReferencedTags = xInput
-                        .RetrieveXReference(xElementReference, type);
+                var link = generatorX.Generate(xLink, null);
 
-                    var link = generatorX.Generate(xReferencedTags, null);
-
-                    links.Add(name, link);
-                }
+                links.Add(name, link);
             }
 
             return links;

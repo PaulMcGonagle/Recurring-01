@@ -157,17 +157,16 @@ namespace Generators.Instances
                                     schedule = byWeekdays;
                                 }
 
+                                schedule.Connect(termTags);
+
                                 var serial = new Serial(
                                     schedule: schedule,
                                     timeRange: new EdgeRangeTime(timeRange),
                                     timeZoneProvider: timeZoneProvider);
 
-                                var serialTags = scheduleTags
-                                    .Union(generatorTags)
-                                    .Union(groupTags)
-                                    .Union(termTags);
+                                var serialTags = termTags;
 
-                                serial.Tags = new EdgeVertexs<ITag>(serialTags) {new EdgeTag(termTag)};
+                                serial.Tags = new EdgeVertexs<ITag>(serialTags) {new EdgeVertex<ITag>(termTag)};
 
                                 serials.Add(serial);
                             }
