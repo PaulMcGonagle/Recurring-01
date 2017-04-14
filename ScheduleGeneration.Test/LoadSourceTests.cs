@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-using System.Xml.XPath;
-using ArangoDB.Client;
+﻿using ArangoDB.Client;
 using Generators;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Generation;
 using Scheduler.Persistance;
-using Scheduler.ScheduleEdges;
 using Shouldly;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
+using System.Xml.XPath;
 using TestStack.BDDfy;
 using Xunit;
 
@@ -392,7 +391,18 @@ namespace ScheduleGeneration.Test
                     .Generate(_sourceFile, _clock)
                     .ToList();
 
-                _events = vertexs.OfType<Event>();
+                _events = vertexs
+                    .OfType<Event>();
+            }
+
+            public void ThenEventsShouldHaveDifferentNames()
+            {
+                var eventList = new List<IEvent>(_events);
+
+                var event1 = eventList[0];
+                var event2 = eventList[1];
+
+                event1.Title.ShouldNotBe(event2.Title);
             }
 
             public void ThenSchedulesShouldHaveSameYearTagReference()
@@ -419,7 +429,113 @@ namespace ScheduleGeneration.Test
                 tagName1.ShouldNotBeNull();
                 tagName2.ShouldNotBeNull();
 
-                object.ReferenceEquals(tagName1, tagName2).ShouldBeTrue();
+                tagName1.Key.ShouldBe(tagName2.Key);
+            }
+        }
+
+        public class LoadOption03
+        {
+            private string _sourceFile;
+            private XElement _source;
+            private IClock _clock;
+            private IArangoDatabase _db;
+            private IGenerator _generator;
+            private IEnumerable<IEvent> _events;
+            private IInstance _instance;
+            private IEnumerable<IEpisode> _episodes;
+            private string _timeZoneProviderPath;
+            private string _timeZoneProvider;
+
+            [Fact]
+            public void Execute()
+            {
+                var fakeClock = new FakeClock(Instant.FromUtc(2016, 05, 01, 0, 0));
+
+                var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
+
+                this.WithExamples(new ExampleTable(
+                    "sourceFile",
+                    "clock",
+                    "db",
+                    "timeZoneProviderPath",
+                    "generatorName"
+                )
+                {
+                    {
+                        "..\\..\\TestData\\Option03.xml",
+                        fakeClock,
+                        mockDb.Object,
+                        "./generator/tags/tag[@id='timeZoneProvider']",
+                        "classes"
+                    },
+                }).BDDfy();
+            }
+
+            public void AndGivenExpectedTimings(
+                IList<LocalDate> expectedLocalDates,
+                Period expectedPeriod)
+            {
+            }
+
+            public void AndGivenATimeZoneProviderPath(string timeZoneProviderPath)
+            {
+                _timeZoneProviderPath = timeZoneProviderPath;
+            }
+
+            public void WhenSourceFileIsLoaded(string sourceFile)
+            {
+                _source = XElement.Load(_sourceFile);
+            }
+
+            public void AndWhenGeneratorIsRetrieved(string generatorName)
+            {
+                _generator = GeneratorFactory.Get(generatorName);
+            }
+
+            public void AndWhenEventsAreGenerated()
+            {
+                var vertexs = _generator
+                    .Generate(_sourceFile, _clock)
+                    .ToList();
+
+                _events = vertexs.OfType<Event>();
+            }
+
+            public void AndWhenVertexsAreSaved()
+            {
+                foreach (var _event in _events)
+                {
+                    _event.Save(_db, _clock);
+                }
+            }
+
+            public void ThenSchedulesShouldHaveSameYearTagReference()
+            {
+                var serials = _events
+                    .SelectMany(e => e.Serials.Select(s => s.ToVertex))
+                    .ToList();
+
+                var schedules = serials
+                    .Select(s => s.EdgeSchedule.Schedule)
+                    .ToList();
+
+                schedules.Count().ShouldBe(2);
+
+                var tagName1 = schedules[0]
+                    .RelatedTags
+                    .SingleOrDefault(t => t.ToVertex.Ident == "name")
+                    ?.ToVertex;
+
+                var tagName2 = schedules[1]
+                    .RelatedTags
+                    .SingleOrDefault(t => t.ToVertex.Ident == "name")
+                    ?.ToVertex;
+
+                tagName1.ShouldNotBeNull();
+                tagName2.ShouldNotBeNull();
+
+
+                tagName1.Key.ShouldBe(tagName2.Key);
             }
         }
     }
