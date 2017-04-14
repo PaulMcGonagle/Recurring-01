@@ -40,7 +40,7 @@ namespace Scheduler.ScheduleInstances
 
         public static ByWeekdays Create(
             IEnumerable<IsoDayOfWeek> weekdays,
-            DateRange dateRange,
+            IDateRange dateRange,
             IClock clock)
         {
             return new ByWeekdays(

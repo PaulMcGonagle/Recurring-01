@@ -43,8 +43,8 @@ namespace Scheduler
 
         public static CompositeSchedule Create(
             IClock clock, 
-            Schedule schedule,
-            DateRange dateRange
+            ISchedule schedule,
+            IDateRange dateRange
             )
         {
             return new CompositeSchedule

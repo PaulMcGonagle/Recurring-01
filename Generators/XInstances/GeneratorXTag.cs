@@ -6,13 +6,13 @@ namespace Generators.XInstances
 {
     public class GeneratorXTag : IGeneratorX
     {
-        public IVertex Generate(XElement xRangeDate, IDictionary<string, IVertex> caches, string elementsName = null)
+        public bool TryGenerate(XElement xRangeDate, IDictionary<string, IVertex> caches, out IVertex vertex, string elementsName = null)
         {
-            var tag = xRangeDate.RetrieveTag();
+            vertex = xRangeDate.RetrieveTag();
 
-            tag.Connect(xRangeDate.RetrieveTags(caches, elementsName));
+            vertex.Connect(xRangeDate.RetrieveTags(caches, elementsName));
 
-            return tag;
+            return true;
         }
     }
 }

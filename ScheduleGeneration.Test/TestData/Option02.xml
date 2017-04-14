@@ -2,41 +2,125 @@
 <generators>
   <generator>
     <caches>
-      <cache name="Year.2016/17" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2016/17']"/>
-      <cache name="Year.2017/18" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2017/18']"/>
+      <cache
+        name="Category.YearGroup"
+        type="Tag"
+        path="./generators/generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Year Group']"/>
+      <cache
+        name="Category.KeyStage"
+        type="Tag"
+        path="./generators/generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Key Stage']"/>
+      <cache
+        name="Term.2016/17.Autumn"
+        type="DateRange"
+        path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Autumn']]"/>
+      <cache
+        name="Term.2016/17.Spring"
+        type="DateRange"
+        path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Spring']]"/>
+      <cache
+        name="Term.2016/17.Summer"
+        type="DateRange"
+        path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Summer']]"/>
+      <cache
+        name="Term.2017/18.Autumn"
+        type="DateRange"
+        path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2017/18.Autumn']]"/>
+      <cache
+        name="KeyStage.1"
+        type="Tag"
+        path="./generators/generator/tags/tag[@id='cache'][@value='keyStages']/tag[@id='keyStage'][@value='keyStage.1']"/>
+      <cache
+        name="KeyStage.2"
+        type="Tag"
+        path="./generators/generator/tags/tag[@id='cache'][@value='keyStages']/tag[@id='keyStage'][@value='keyStage.2']"/>
+      <cache 
+        name="Year.2016/17" 
+        type="Tag" 
+        path="./generators/generator/tags/tag[@id='cache'][@value='years']/tag[@id='name'][@value='2016/17']"/>
+      <cache 
+        name="Year.2017/18" 
+        type="Tag" 
+        path="./generators/generator/tags/tag[@id='cache'][@value='years']/tag[@id='name'][@value='2017/18']"/>
     </caches>
     <tags>
+      
       <tag id="organisation" value="OrganisationName"/>
       <tag id="timeZoneProvider" value="Europe/London"/>
+      
       <tag id="cache" value="years">
-        <tag id="year" value="2016/17"/>
-        <tag id="year" value="2017/18"/>
+        <tag id="name" value="2016/17">
+          <link cache="Category.YearGroup"/>
+        </tag>
+        <tag id="name" value="2017/18">
+          <link cache="Category.YearGroup"/>
+        </tag>
       </tag>
+
+      <tag id="cache" value="keyStages">
+        <tag id="keyStage" value="keyStage.1">
+          <link cache="Category.KeyStage"/>
+        </tag>
+        <tag id="keyStage" value="keyStage.2">
+          <link cache="Category.KeyStage"/>
+        </tag>
+      </tag>
+
+      <tag id="cache" value="categories">
+        <tag id="category" value="Year Group"/>
+        <tag id="category" value="Key Stage"/>
+      </tag>
+      
     </tags>
+
+    <rangeDates>
+      <rangeDate start="2016-09-02" end="2016-12-21">
+        <tags>
+          <tag id="name" value="Term.2016/17.Autumn"/>
+        </tags>
+      </rangeDate>
+      <rangeDate start="2017-01-04" end="2017-03-29">
+        <tags>
+          <tag id="name" value="Term.2016/17.Spring"/>
+        </tags>
+      </rangeDate>
+      <rangeDate start="2017-04-15" end="2017-07-24">
+        <tags>
+          <tag id="name" value="Term.2016/17.Summer"/>
+        </tags>
+      </rangeDate>
+      <rangeDate start="2017-09-05" end="2017-12-19">
+        <tags>
+          <tag id="name" value="Term.2017/18.Autumn"/>
+        </tags>
+      </rangeDate>
+    </rangeDates>
+
     <groups>
       <group>
         <tags>
-          <tag id="name" value="GroupName"/>
+          <tag id="name" value="Year 2">
+            <link cache="Category.YearGroup"/>
+            <link cache="KeyStage.1"/>
+          </tag>
         </tags>
         <classes>
           <class>
             <tags>
-              <tag id="name" value="ClassName"/>
+              <tag id="name" value="Literacy"/>
             </tags>
             <terms>
               <term>
                 <tags>
-                  <tag id="name" value="Term1Name"/>
-                  <link cache="Year.2016/17"/>
+                  <tag id="name" value="Term.2016/17.Autumn"/>
                 </tags>
-                <rangeDate start="2016-09-02" end="2016-12-21"/>
+                <link cache="Term.2016/17.Spring"/>
               </term>
               <term>
                 <tags>
-                  <tag id="name" value="Term2Name"/>
-                  <link cache="Year.2016/17"/>
+                  <tag id="name" value="Term.2016/17.Autumn"/>
                 </tags>
-                <rangeDate start="2017-09-01" end="2017-12-30"/>
+                <link cache="Term.2016/17.Autumn"/>
               </term>
             </terms>
             <schedules>

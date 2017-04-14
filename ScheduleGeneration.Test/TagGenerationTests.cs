@@ -28,6 +28,7 @@ namespace ScheduleGeneration.Test
             private IEnumerable<XElement> _providedGeneratorTags;
             private IEnumerable<XElement> _providedScheduleTags;
             private IEnumerable<XElement> _providedTermTags;
+            private IEnumerable<XElement> _providedClassTags;
             private IEnumerable<XElement> _providedGroupTags;
 
             [Fact]
@@ -76,7 +77,7 @@ namespace ScheduleGeneration.Test
 
             public void AndGivenClassTagPath(string classTagPath)
             {
-                _source.XPathSelectElements(classTagPath);
+                _providedClassTags = _source.XPathSelectElements(classTagPath);
             }
 
             public void AndGivenTermTagPath(string termTagPath)
@@ -115,10 +116,9 @@ namespace ScheduleGeneration.Test
 
             public void AndThenEventTagsAreValid()
             {
-                var expectedTags = _providedGroupTags
-                    .ToList();
-
-                CompareTagsToSource(_event.Tags.Select(e => e.ToVertex), expectedTags);
+                CompareTagsToSource(
+                    _event.Tags.Select(e => e.ToVertex), 
+                    _providedClassTags);
             }
 
             public void AndThenEventHasOneSerial()
@@ -130,12 +130,11 @@ namespace ScheduleGeneration.Test
 
             public void AndThenSerialTagsAreValid()
             {
-                var expectedTags = _providedTermTags
-                    .ToList();
-
-                CompareTagsToSource(_serial.Tags
-                    .Select(s => s.ToVertex)
-                    .Where(s => s.Ident != "term"), expectedTags);
+                CompareTagsToSource(
+                    _serial.Tags
+                        .Select(s => s.ToVertex)
+                        .Where(s => s.Ident != "term"), 
+                    _providedTermTags);
 
                 _serial.Tags
                     .Select(s => s.ToVertex)

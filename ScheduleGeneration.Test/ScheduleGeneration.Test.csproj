@@ -145,7 +145,10 @@
     <Content Include="TestData\Option01.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="TestData\Option02.xml" />
+    <Content Include="TestData\Option02.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

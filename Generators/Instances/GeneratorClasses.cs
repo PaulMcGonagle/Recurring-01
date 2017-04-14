@@ -102,7 +102,13 @@ namespace Generators.Instances
 
                             var termTag = classTag.Connect("term", termName);
 
-                            var termRange = xTerm.RetrieveDateRange(caches);
+                            var termRanges = xTerm
+                                .Elements()
+                                .RetrieveDateRanges(caches)
+                                .ToList();
+
+                            var termRange = termRanges
+                                .Single();
 
                             var xTermBreaks = xTerm
                                 .Elements("breaks")
@@ -145,7 +151,10 @@ namespace Generators.Instances
 
                                     foreach (var xTermBreak in xTermBreaks)
                                     {
-                                        var xTermBreakRange = xTermBreak.RetrieveDateRange(caches);
+                                        var xTermBreakRange = xTermBreak
+                                            .Elements("rangeDate")
+                                            .Single()
+                                            .RetrieveDateRange(caches);
 
                                         compositeSchedule.Breaks.Add(new EdgeVertex<IDateRange>(xTermBreakRange));
                                     }
@@ -175,7 +184,7 @@ namespace Generators.Instances
                             {
                                 Title = organisation.Value + "." + termName + "." + groupName + "." + className,
                                 Serials = new EdgeVertexs<ISerial>(serials),
-                                Tags = new EdgeVertexs<ITag>(groupTags),
+                                Tags = new EdgeVertexs<ITag>(classTags),
                             };
 
                             yield return @event;

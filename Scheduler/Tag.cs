@@ -84,7 +84,7 @@ namespace Scheduler
 
         public override string ToString()
         {
-            var s = new StringBuilder($"Tag ident: {Ident}, value: \"{Value}\"");
+            var s = new StringBuilder($"Tag ident: \"{Ident}\", value: \"{Value}\"");
 
             if (RelatedTags.Count > 0)
             {

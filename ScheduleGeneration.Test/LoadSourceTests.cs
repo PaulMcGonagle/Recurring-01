@@ -407,19 +407,19 @@ namespace ScheduleGeneration.Test
 
                 schedules.Count().ShouldBe(2);
 
-                var yearTag0 = schedules[0]
+                var tagName1 = schedules[0]
                     .RelatedTags
-                    .SingleOrDefault(t => t.ToVertex.Ident == "year")
+                    .SingleOrDefault(t => t.ToVertex.Ident == "name")
                     ?.ToVertex;
-                var yearTag1 = schedules[1]
+                var tagName2 = schedules[1]
                     .RelatedTags
-                    .SingleOrDefault(t => t.ToVertex.Ident == "year")
+                    .SingleOrDefault(t => t.ToVertex.Ident == "name")
                     ?.ToVertex;
 
-                yearTag0.ShouldNotBeNull();
-                yearTag1.ShouldNotBeNull();
+                tagName1.ShouldNotBeNull();
+                tagName2.ShouldNotBeNull();
 
-                object.ReferenceEquals(yearTag0, yearTag1).ShouldBeTrue();
+                object.ReferenceEquals(tagName1, tagName2).ShouldBeTrue();
             }
         }
     }

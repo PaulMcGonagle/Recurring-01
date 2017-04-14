@@ -56,16 +56,10 @@ namespace Generators
 
         public static DateRange RetrieveDateRange(this XElement xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
         {
-            var rangeDate = xInput
-                .Element(elementName);
-
-            if (rangeDate == null)
-                throw new ArgumentException("Could not find Element {elementName}");
-
-            var start = rangeDate
+            var start = xInput
                 .RetrieveAttributeAsLocalDate("start");
 
-            var end = rangeDate
+            var end = xInput
                 .RetrieveAttributeAsLocalDate("end");
 
             var dateRange = new DateRange(
@@ -90,6 +84,27 @@ namespace Generators
             }
 
             var links = UtilitiesLinks<DateRange>.Retrieve(xInput, caches, elementsName);
+
+            foreach (var link in links)
+            {
+                yield return link;
+            }
+        }
+
+        public static IEnumerable<IDateRange> RetrieveDateRanges(this IEnumerable<XElement> xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
+        {
+            var xElements = xInput
+                .Where(i => i.Name == elementName)
+                .ToList();
+
+            foreach (var xElement in xElements)
+            {
+                yield return RetrieveDateRange(xElement, caches, elementName);
+            }
+
+            var links = UtilitiesLinks<DateRange>
+                .Retrieve(xInput, caches)
+                .ToList();
 
             foreach (var link in links)
             {

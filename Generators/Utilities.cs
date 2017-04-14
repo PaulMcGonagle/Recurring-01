@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -29,7 +30,8 @@ namespace Generators
                 foreach (var xElementReference in xElementReferences)
                 {
                     var type = xElementReference
-                        .Attribute("type")?.Value;
+                        .Attribute("type")
+                        ?.Value;
 
                     var xReferencedTags = xInput
                         .RetrieveXReferences(xElementReferences, type)
@@ -44,28 +46,59 @@ namespace Generators
 
         public static IDictionary<string, IVertex> ExpandLinks(this XDocument xInput)
         {
-            var xElements = xInput
-                .XPathSelectElements(".//cache");
+            var caches = xInput
+                .XPathSelectElements(".//cache")
+                .ToList();
 
             var links = new Dictionary<string, IVertex>();
 
-            foreach (var xElement in xElements)
+            var remaining = new Queue<XElement>(caches);
+
+            var itersSinceSucess = 0;
+
+            while (remaining.Count > 0 && remaining.Count > itersSinceSucess)
             {
-                var name = xElement.RetrieveAttributeValue("name");
-                var type = xElement.RetrieveAttributeValue("type");
-                var path = xElement.RetrieveAttributeValue("path");
+                var cache = remaining.Dequeue();
 
-                var generatorX = GeneratorFactory.GetX(type);
-
-                var xLink = xInput
-                    .XPathSelectElement(path);
-
-                var link = generatorX.Generate(xLink, null);
-
-                links.Add(name, link);
+                if (!cache.TryExpandLinks(xInput, links))
+                {
+                    remaining.Enqueue(cache);
+                    itersSinceSucess++;
+                }
+                else
+                {
+                    itersSinceSucess = 0;
+                }
             }
 
             return links;
+        }
+
+        public static bool TryExpandLinks(
+            this XElement xElement, 
+            XDocument xInput,
+            IDictionary<string, IVertex> cache)
+        {
+            var name = xElement.RetrieveAttributeValue("name");
+            var type = xElement.RetrieveAttributeValue("type");
+            var path = xElement.RetrieveAttributeValue("path");
+
+            var generatorX = GeneratorFactory.GetX(type);
+
+            var xLink = xInput
+                .XPathSelectElement(path);
+
+            if (xLink == null)
+                throw new Exception($"Unable to expand cache name {name} with path {path}");
+
+            if (!generatorX.TryGenerate(xLink, cache, out IVertex link))
+            {
+                return false;
+            }
+
+            cache.Add(name, link);
+
+            return true;
         }
     }
 }
