@@ -150,6 +150,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="TestData\Option03.xml" />
+    <Content Include="TestData\Option04.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -83,7 +83,9 @@ namespace Generators
                 yield return RetrieveDateRange(xElement, caches, elementName);
             }
 
-            var links = UtilitiesLinks<DateRange>.Retrieve(xInput, caches, elementsName);
+            var links = UtilitiesLinks<DateRange>
+                .Retrieve(xInput, caches)
+                .ToList();
 
             foreach (var link in links)
             {

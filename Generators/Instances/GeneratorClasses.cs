@@ -14,7 +14,7 @@ namespace Generators.Instances
     {
         public IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
         {
-            var xSource = XDocument
+           var xSource = XDocument
                 .Load(sourceFile);
 
             var generatorSource = new GeneratorSource
@@ -112,7 +112,7 @@ namespace Generators.Instances
 
                             var xTermBreaks = xTerm
                                 .Elements("breaks")
-                                .Elements("break")
+                                .Elements()
                                 .ToList();
 
                             var xSchedules = xClass
@@ -129,9 +129,6 @@ namespace Generators.Instances
 
                                 var timeRange = xSchedule
                                     .RetrieveRangeTime();
-
-                                var scheduleTags = xSchedule
-                                    .RetrieveTags(caches);
 
                                 var byWeekdays = ByWeekdays
                                     .Create(
@@ -151,12 +148,11 @@ namespace Generators.Instances
 
                                     foreach (var xTermBreak in xTermBreaks)
                                     {
-                                        var xTermBreakRange = xTermBreak
-                                            .Elements("rangeDate")
-                                            .Single()
-                                            .RetrieveDateRange(caches);
+                                        var xTermBreakRanges = xTermBreak
+                                            .RetrieveDateRanges(caches)
+                                            .ToList();
 
-                                        compositeSchedule.Breaks.Add(new EdgeVertex<IDateRange>(xTermBreakRange));
+                                        compositeSchedule.Breaks.AddRange(xTermBreakRanges.Select(br => new EdgeVertex<IDateRange>(br)));
                                     }
 
                                     schedule = compositeSchedule;

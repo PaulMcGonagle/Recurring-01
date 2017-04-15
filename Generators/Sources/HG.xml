@@ -4,6 +4,13 @@
     <caches>
       <cache name="Year.2016/17" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2016/17']"/>
       <cache name="Year.2017/18" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2017/18']"/>
+      <cache name="Term.2016/17.Autumn" type="DateRange" path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Autumn']]"/>
+      <cache name="Term.2016/17.Autumn.MidTerm" type="DateRange" path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Autumn.MidTerm']]"/>
+      <cache name="Term.2016/17.Spring" type="DateRange" path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Spring']]"/>
+      <cache name="Term.2016/17.Summer" type="DateRange" path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Summer']]"/>
+      <cache name="Term.2017/18.Autumn" type="DateRange" path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2017/18.Autumn']]"/>
+      <cache name="Term.2017/18.Spring" type="DateRange" path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2017/18.Spring']]"/>
+      <cache name="Term.2017/18.Summer" type="DateRange" path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2017/18.Summer']]"/>
     </caches>
     <tags>
       <tag id="organisation" value="Hampden Gurney Primary School">
@@ -37,7 +44,7 @@
           <tag id="name" value="Autumn.2016/17"/>
           <link cache="Year.2016/17"/>
         </tags>
-        <rangeDate start="2016-09-02" end="2016-12-21"/>
+        <link cache="Term.2016/17.Autumn"/>
         <breaks>
           <break>
             <tags>

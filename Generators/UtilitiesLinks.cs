@@ -9,7 +9,10 @@ namespace Generators
 {
     public static class UtilitiesLinks<T> where T : class, IVertex
     {
-        public static IEnumerable<T> Retrieve(XElement xInput, IDictionary<string, IVertex> caches, string elementsName)
+        public static IEnumerable<T> Retrieve(
+            XElement xInput,
+            IDictionary<string, IVertex> caches,
+            string elementsName = "link")
         {
             var xLinks = xInput
                 .Elements(elementsName)

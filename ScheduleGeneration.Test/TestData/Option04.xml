@@ -5,6 +5,7 @@
       <cache name="Category.YearGroup" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Year Group']"/>
       <cache name="Category.KeyStage" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Key Stage']"/>
       <cache name="Term.2016/17.Autumn" type="DateRange" path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Autumn']]"/>
+      <cache name="Term.2016/17.Autumn.MidTerm" type="DateRange" path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Autumn.MidTerm']]"/>
       <cache name="KeyStage.1" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='keyStages']/tag[@id='keyStage'][@value='keyStage.1']"/>
       <cache name="Year.2016/17" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='years']/tag[@id='name'][@value='2016/17']"/>
     </caches>
@@ -38,6 +39,11 @@
           <tag id="name" value="Term.2016/17.Autumn"/>
         </tags>
       </rangeDate>
+      <rangeDate start="2016-10-26" end="2016-11-01">
+        <tags>
+          <tag id="name" value="Term.2016/17.Autumn.MidTerm"/>
+        </tags>
+      </rangeDate>
     </rangeDates>
 
     <groups>
@@ -59,6 +65,14 @@
                 <tags>
                   <tag id="name" value="Autumn 2016"/>
                 </tags>
+                <breaks>
+                  <break>
+                    <tags>
+                      <tag id="name" value="half-term"/>
+                    </tags>
+                    <link cache="Term.2016/17.Autumn.MidTerm"/>
+                  </break>
+                </breaks>
               </term>
             </terms>
             <schedules>
@@ -66,27 +80,6 @@
                 <rangeTime start="09:15" end="10:20"/>
                 <weekdays>
                   <weekday value="Monday"/>
-                </weekdays>
-              </schedule>
-            </schedules>
-          </class>
-          <class>
-            <tags>
-              <tag id="name" value="Art"/>
-            </tags>
-            <terms>
-              <term>
-                <link cache="Term.2016/17.Autumn"/>
-                <tags>
-                  <tag id="name" value="Autumn 2016"/>
-                </tags>
-              </term>
-            </terms>
-            <schedules>
-              <schedule>
-                <rangeTime start="10:15" end="10:55"/>
-                <weekdays>
-                  <weekday value="Tuesday"/>
                 </weekdays>
               </schedule>
             </schedules>

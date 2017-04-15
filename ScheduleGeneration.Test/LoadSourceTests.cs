@@ -538,5 +538,111 @@ namespace ScheduleGeneration.Test
                 tagName1.Key.ShouldBe(tagName2.Key);
             }
         }
+
+        public class LoadOption04
+        {
+            private string _sourceFile;
+            private XElement _source;
+            private IClock _clock;
+            private IArangoDatabase _db;
+            private IGenerator _generator;
+            private IEnumerable<IEvent> _events;
+            private IInstance _instance;
+            private IEnumerable<IEpisode> _episodes;
+            private string _timeZoneProviderPath;
+            private string _timeZoneProvider;
+
+            [Fact]
+            public void Execute()
+            {
+                var fakeClock = new FakeClock(Instant.FromUtc(2016, 05, 01, 0, 0));
+
+                var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
+
+                this.WithExamples(new ExampleTable(
+                    "sourceFile",
+                    "clock",
+                    "db",
+                    "timeZoneProviderPath",
+                    "generatorName",
+                    "scheduleNameTagPath"
+                )
+                {
+                    {
+                        "..\\..\\TestData\\Option04.xml",
+                        fakeClock,
+                        mockDb.Object,
+                        "./generator/tags/tag[@id='timeZoneProvider']",
+                        "classes",
+                        "./generator/groups/group[tags/tag[@id='name'][@value='Year 2']]/classes/class[tags/tag[@id='name'][@value='Literacy']]/terms/term/tags/tag[@id='name']"
+                    },
+                }).BDDfy();
+            }
+
+            public void AndGivenExpectedTimings(
+                IList<LocalDate> expectedLocalDates,
+                Period expectedPeriod)
+            {
+            }
+
+            public void AndGivenATimeZoneProviderPath(string timeZoneProviderPath)
+            {
+                _timeZoneProviderPath = timeZoneProviderPath;
+            }
+
+            public void WhenSourceFileIsLoaded(string sourceFile)
+            {
+                _source = XElement.Load(_sourceFile);
+            }
+
+            public void AndWhenGeneratorIsRetrieved(string generatorName)
+            {
+                _generator = GeneratorFactory.Get(generatorName);
+            }
+
+            public void AndWhenEventsAreGenerated()
+            {
+                var vertexs = _generator
+                    .Generate(_sourceFile, _clock)
+                    .ToList();
+
+                _events = vertexs.OfType<Event>();
+            }
+
+            public void AndWhenVertexsAreSaved()
+            {
+                foreach (var _event in _events)
+                {
+                    _event.Save(_db, _clock);
+                }
+            }
+
+            public void ThenSchedulesShouldHaveCorrectName(string scheduleNameTagPath)
+            {
+                var serials = _events
+                    .SelectMany(e => e.Serials.Select(s => s.ToVertex))
+                    .ToList();
+
+                var schedules = serials
+                    .Select(s => s.EdgeSchedule.Schedule)
+                    .ToList();
+
+                schedules.Count().ShouldBe(1);
+
+                var scheduleNameTag = _source
+                    .XPathSelectElement(scheduleNameTagPath);
+
+                var scheduleName = scheduleNameTag
+                    ?.Attribute("value")
+                    .Value;
+
+                schedules[0]
+                    .RelatedTags
+                    .SingleOrDefault(t => t.ToVertex.Ident == "name")
+                    ?.ToVertex
+                    .Value
+                    .ShouldBe(scheduleName);
+            }
+        }
     }
 }
