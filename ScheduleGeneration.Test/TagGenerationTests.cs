@@ -192,7 +192,7 @@ namespace ScheduleGeneration.Test
 
                 sourceTag.ShouldHaveSingleItem();
 
-                //CompareTagsToSource(tag.RelatedTags.Select(rl => rl.ToVertex), sourceTag.Single());
+                //CompareTagsToSource(tag.Tags.Select(rl => rl.ToVertex), sourceTag.Single());
             }
         }
     }

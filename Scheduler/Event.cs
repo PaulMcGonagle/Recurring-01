@@ -42,9 +42,6 @@ namespace Scheduler
         public IEdgeVertexs<ISerial> Serials { get; set; }
 
         [IgnoreDataMember]
-        public IEdgeVertexs<ITag> Tags { get; set; }
-
-        [IgnoreDataMember]
         public IEdgeVertex<IInstance> Instance { get; set; }
 
         protected override IEnumerable<IVertex> Links

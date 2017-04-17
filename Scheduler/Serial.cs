@@ -25,8 +25,6 @@ namespace Scheduler
         public IEdgeSchedule EdgeSchedule { get; set; }
         [IgnoreDataMember]
         public IEdgeRangeTime TimeRange;
-        [IgnoreDataMember]
-        public IEdgeVertexs<ITag> Tags { get; set; }
 
         public string TimeZoneProvider;
 

@@ -8,8 +8,6 @@ namespace Scheduler
     {
         IEdgeVertexs<IEpisode> Episodes { get; }
 
-        IEdgeVertexs<ITag> Tags { get; set; }
-
         IEdgeSchedule EdgeSchedule { get; set; }
     }
 }

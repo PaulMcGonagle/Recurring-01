@@ -45,7 +45,7 @@ namespace Scheduler
             if (compare != 0)
                 return compare;
 
-            compare = Compare(RelatedTags.Select(r => r.ToVertex), RelatedTags.Select(r => r.ToVertex));
+            compare = Compare(Tags.Select(r => r.ToVertex), Tags.Select(r => r.ToVertex));
 
             if (compare != 0)
                 return compare;
@@ -86,10 +86,10 @@ namespace Scheduler
         {
             var s = new StringBuilder($"Tag ident: \"{Ident}\", value: \"{Value}\"");
 
-            if (RelatedTags.Count > 0)
+            if (Tags.Count > 0)
             {
                 s.Append(" { ");
-                s.Append(string.Join(", ", RelatedTags.Select(rt => " { " + rt.ToVertex.ToString() + " } ")));
+                s.Append(string.Join(", ", Tags.Select(rt => " { " + rt.ToVertex.ToString() + " } ")));
                 s.Append(" } ");
             }
             return s.ToString();
@@ -98,7 +98,7 @@ namespace Scheduler
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<Tag>(db);
-            RelatedTags?.Save(db, clock, this);
+            Tags?.Save(db, clock, this);
             base.Save(db, clock);
         }
     }

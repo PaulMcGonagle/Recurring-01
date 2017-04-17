@@ -92,6 +92,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CompositeScheduleTests.cs" />
+    <Compile Include="LoadAndEnrich.cs" />
     <Compile Include="LoadHolidaysTests.cs" />
     <Compile Include="LoadOption02.cs" />
     <Compile Include="LoadSourceTests.cs" />

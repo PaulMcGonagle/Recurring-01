@@ -149,7 +149,7 @@ namespace Generators
 
             var tag = new Tag(inputIdent.Value, inputValue.Value, inputPayload?.Value);
 
-            tag.RelatedTags.AddRange(RetrieveXTags(xInput)
+            tag.Tags.AddRange(RetrieveXTags(xInput)
                 .Select(relatedTag => new EdgeTag(RetrieveTag(relatedTag))));
 
             return tag;
@@ -249,7 +249,7 @@ namespace Generators
                 case "ByOffset":
                 {
                     var initialDateTag = scheduleTag
-                        .RelatedTags
+                        .Tags
                         .SingleOrDefault(rt => rt.ToVertex.Ident == "InitialDate");
 
                     if (initialDateTag == null)
@@ -258,7 +258,7 @@ namespace Generators
                     }
 
                     var intervalTag = scheduleTag
-                        .RelatedTags
+                        .Tags
                         .SingleOrDefault(rt => rt.ToVertex.Ident == "Interval");
 
                     if (intervalTag == null)
@@ -269,7 +269,7 @@ namespace Generators
                         interval: intervalTag.ToVertex.Value);
 
                     var countTag = scheduleTag
-                        .RelatedTags
+                        .Tags
                         .SingleOrDefault(rt => rt.ToVertex.Ident == "Count");
 
                     if (countTag != null)

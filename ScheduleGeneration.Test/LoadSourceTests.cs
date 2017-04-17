@@ -558,11 +558,11 @@ namespace ScheduleGeneration.Test
                 schedules.Count.ShouldBe(2);
 
                 var tagName1 = schedules[0]
-                    .RelatedTags
+                    .Tags
                     .SingleOrDefault(t => t.ToVertex.Ident == "name")
                     ?.ToVertex;
                 var tagName2 = schedules[1]
-                    .RelatedTags
+                    .Tags
                     .SingleOrDefault(t => t.ToVertex.Ident == "name")
                     ?.ToVertex;
 
@@ -660,12 +660,12 @@ namespace ScheduleGeneration.Test
                 schedules.Count.ShouldBe(2);
 
                 var tagName1 = schedules[0]
-                    .RelatedTags
+                    .Tags
                     .SingleOrDefault(t => t.ToVertex.Ident == "name")
                     ?.ToVertex;
 
                 var tagName2 = schedules[1]
-                    .RelatedTags
+                    .Tags
                     .SingleOrDefault(t => t.ToVertex.Ident == "name")
                     ?.ToVertex;
 
@@ -777,7 +777,7 @@ namespace ScheduleGeneration.Test
                     ?.Value;
 
                 schedules[0]
-                    .RelatedTags
+                    .Tags
                     .SingleOrDefault(t => t.ToVertex.Ident == "name")
                     ?.ToVertex
                     .Value

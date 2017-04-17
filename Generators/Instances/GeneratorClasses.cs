@@ -162,7 +162,7 @@ namespace Generators.Instances
 
                             var serialTags = termTags;
 
-                            serial.Tags = new EdgeVertexs<ITag>(serialTags) {new EdgeVertex<ITag>(termTag)};
+                            serial.Tags  = new EdgeVertexs<ITag>(serialTags) {new EdgeVertex<ITag>(termTag)};
 
                             serials.Add(serial);
                         }

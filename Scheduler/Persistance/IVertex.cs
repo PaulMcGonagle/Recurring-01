@@ -46,7 +46,7 @@ namespace Scheduler.Persistance
 
         #endregion Tags
 
-        EdgeVertexs<ITag> RelatedTags { get; set; }
+        EdgeVertexs<ITag> Tags { get; set; }
 
         #region Save
 

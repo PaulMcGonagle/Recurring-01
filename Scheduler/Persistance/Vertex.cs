@@ -73,7 +73,7 @@ namespace Scheduler.Persistance
             if (connectTag == null)
                 return null;
 
-            RelatedTags.Add(new EdgeTag(connectTag));
+            Tags.Add(new EdgeTag(connectTag));
 
             return connectTag;
         }
@@ -85,11 +85,11 @@ namespace Scheduler.Persistance
 
         public void Connect(IEnumerable<ITag> connectTags)
         {
-            RelatedTags.AddRange(connectTags.Select(ct => new EdgeTag(ct)));
+            Tags.AddRange(connectTags.Select(ct => new EdgeTag(ct)));
         }
 
         [IgnoreDataMember]
-        public EdgeVertexs<ITag> RelatedTags { get; set; } = new EdgeVertexs<ITag>();
+        public EdgeVertexs<ITag> Tags { get; set; } = new EdgeVertexs<ITag>();
 
         #endregion
 
@@ -173,7 +173,7 @@ namespace Scheduler.Persistance
                 throw new SaveException(saveException.SaveResult, typeof(Backup), $"Unable to save backup of {Id}");
             }
 
-            RelatedTags.Save(db, clock, this);
+            Tags.Save(db, clock, this);
         }
 
         protected static Exception NewSaveException(SaveResult saveResult, Type sourceType, string message)

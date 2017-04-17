@@ -10,6 +10,5 @@ namespace Scheduler
         IEdgeVertexs<ISerial> Serials { get; set; }
         string Title { get; set; }
         IEdgeVertex<IInstance> Instance { get; set; }
-        IEdgeVertexs<ITag> Tags { get; set; }
     }
 }
