@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<generators>
   <generator name="Holiday Calendars">
     <calendars>
       <calendar name="UK Public Holidays">
@@ -11,7 +10,7 @@
             <tag id="name" value="New Year's Day"/>
           </date>
           <date value="2018-01-01">
-            <reference path="./generators/generator/calendars/tags/tag[@id='category']"/>
+            <reference path="./generator/calendars/tags/tag[@id='category']"/>
           </date>
         </dates>
         <tags>
@@ -31,4 +30,3 @@
       </tags>
     </calendars>
   </generator>
-</generators>

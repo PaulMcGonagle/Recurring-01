@@ -8,63 +8,46 @@ using Scheduler.ScheduleInstances;
 
 namespace Generators.Instances
 {
-    public class GeneratorHolidays : IGenerator
+    public class GeneratorHolidays : GenerateFromFile, IGenerator
     {
         public IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
         {
-            var xSource = XDocument
-                .Load(sourceFile);
-
-            var generatorSource = new GeneratorSource
-            {
-                Xml = xSource.ToString(),
-                GeneratorType = "holidays"
-            };
+            base.GenerateSetup(sourceFile, clock, "holidays", out XElement xGenerator, out IGeneratorSource generatorSource, out XDocument xSource, out IDictionary<string, IVertex> caches);
 
             yield return generatorSource;
 
-            xSource.ExpandReferences();
-            var caches = xSource.ExpandLinks();
+            var tagHolidayCalendar = new Tag(ident: "baseType", value: "Calendar");
 
-            var xGenerators = xSource
-                .Elements("generators")
-                .Elements("generator");
+            var xCalendars = xGenerator
+                .Elements("calendars")
+                .Elements("calendar")
+                .ToList();
 
-            foreach (var xGenerator in xGenerators)
+            foreach (var xCalendar in xCalendars)
             {
-                var tagHolidayCalendar = new Tag(ident: "baseType", value: "Calendar");
+                var compositeSchedule = new CompositeSchedule();
 
-                var xCalendars = xGenerator
-                    .Elements("calendars")
-                    .Elements("calendar")
+                var calendarTags = xCalendar
+                    .RetrieveTags(caches)
                     .ToList();
 
-                foreach (var xCalendar in xCalendars)
-                {
-                    var compositeSchedule = new CompositeSchedule();
+                tagHolidayCalendar
+                    .Connect(calendarTags.SingleOrDefault(ct => ct.Ident == "name"));
 
-                    var calendarTags = xCalendar
-                        .RetrieveTags(caches)
-                        .ToList();
+                compositeSchedule.Connect(tagHolidayCalendar);
 
-                    tagHolidayCalendar
-                        .Connect(calendarTags.SingleOrDefault(ct => ct.Ident == "name"));
+                generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(compositeSchedule));
 
-                    compositeSchedule.Connect(tagHolidayCalendar);
+                var dates = xCalendar
+                    .RetrieveDates(caches)
+                    .ToList();
 
-                    generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(compositeSchedule));
+                var dateList = new DateList {Items = dates};
 
-                    var dates = xCalendar
-                        .RetrieveDates(caches)
-                        .ToList();
-
-                    var dateList = new DateList {Items = dates};
-
-                    yield return dateList;
-                }
-
-                yield return tagHolidayCalendar;
+                yield return dateList;
             }
+
+            yield return tagHolidayCalendar;
         }
     }
 }

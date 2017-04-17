@@ -1,23 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
+using NodaTime;
+using Scheduler;
 using Scheduler.Persistance;
 
 namespace Generators
 {
-    public static class GenerateFromFile
+    public abstract class GenerateFromFile
     {
-        public static IEnumerable<IVertex> Go(
+        protected void GenerateSetup(
             string sourceFile, 
-            string generatorType)
+            IClock clock, 
+            string generatorType, 
+            out XElement xGenerator, 
+            out IGeneratorSource generatorSource, 
+            out XDocument xSource, 
+            out IDictionary<string, IVertex> caches)
         {
-            var generator = GeneratorFactory.Get(generatorType);
+            xSource = XDocument
+                .Load(sourceFile);
 
-            var vertexs = generator.Generate(
-                    sourceFile: "C:\\Users\\Paul\\Documents\\Sandbox\\Recurring\\Recurring 01\\Generators\\Sources\\HG.xml",
-                    clock: null)
-                .ToList();
+            xSource.ExpandReferences();
+            caches = xSource.ExpandLinks();
 
-            return vertexs;
+            generatorSource = new GeneratorSource
+            {
+                Xml = xSource.ToString(),
+                GeneratorType = generatorType
+            };
+
+            xGenerator = xSource
+                .Element("generator");
+
+            if (xGenerator == null)
+                throw new Exception($"SourceFile does not contain a generator '{sourceFile}'");
         }
     }
 }

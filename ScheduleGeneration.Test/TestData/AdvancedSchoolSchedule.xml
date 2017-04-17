@@ -1,401 +1,399 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<generators>
-  <generator>
-    <tags>
-      <tag id="organisation" value="Hampden Gurney Primary School">
-        <payload>
+<generator>
+  <tags>
+    <tag id="organisation" value="Hampden Gurney Primary School">
+      <payload>
+        {
+          "detail" :
           {
-            "detail" :
+            "url": "http://www.hampdengurneyschool.org.uk",
+            "location": 
             {
-              "url": "http://www.hampdengurneyschool.org.uk",
-              "location": 
-              {
-                "address": "9/26 Bryanston Square, London, W1H 2DS"
-              }
+              "address": "9/26 Bryanston Square, London, W1H 2DS"
             }
           }
-        </payload>
-      </tag>
-      <tag id="type" value="School">
-        <tags>
-          <tag id="type" value="Primary"/>
-        </tags>
-      </tag>
-      <tag id="type" value="Term"/>
-    </tags>
-    <terms>
-      <term>
-        <tags>
-          <tag id="name" value="Autumn"/>
-          <tag id="year" value="2016/17"/>
-        </tags>
-        <rangeDate start="2016-09-02" end="2016-12-21"/>
-        <breaks>
-          <break>
-            <tags>
-              <tag id="name" value="half-term"/>
-            </tags>
-            <rangeDate start="2016-10-26" end="2016-11-02"/>
-          </break>
-        </breaks>
-      </term>
-      <term>
-        <tags>
-          <tag id="name" value="Winter.2016/17"/>
-          <tag id="year" value="2016/17"/>
-        </tags>
-        <rangeDate start="2017-01-05" end="2017-03-28"/>
-        <breaks>
-          <break>
-            <tags>
-              <tag id="name" value="half-term"/>
-            </tags>
-            <rangeDate start="2017-02-25" end="2017-03-02"/>
-          </break>
-        </breaks>
-      </term>
-    </terms>
-    <events>
-      <event term="Autumn" class="Playtime"/>
-      <event term="Autumn" class="Lunchtime"/>
-      <event term="Autumn" class="Literacy"/>
-      <event term="Autumn" class="Guided Reading"/>
-      <event term="Autumn" class="Assembly"/>
-      <event term="Autumn" class="Mass"/>
-      <event term="Autumn" class="Numeracy"/>
-      <event term="Autumn" class="Music"/>
-      <event term="Autumn" class="Science"/>
-      <event term="Autumn" class="PE"/>
-      <event term="Autumn" class="History"/>
-      <event term="Autumn" class="RE"/>
-      <event term="Autumn" class="Spanish"/>
-      <event term="Autumn" class="ICT"/>
-      <event term="Autumn" class="Library"/>
-      <event term="Autumn" class="PSHCE"/>
-      <event term="Autumn" class="Other"/>
-    </events>
-    <sessions>
-      <session name="9am">
-        <tags>
-          <tag id="name" value=""/>
-        </tags>
-        <rangeTime start="09:00" end="10:00"/>
-      </session>
-      <session name="9am double">
-        <tags>
-          <tag id="name" value=""/>
-        </tags>
-        <rangeTime start="09:00" end="10:00"/>
-      </session>
-      <session name="10am">
-        <tags>
-          <tag id="name" value=""/>
-        </tags>
-        <rangeTime start="10:00" end="10:30"/>
-      </session>
-      <session name="10:30am">
-        <tags>
-          <tag id="name" value=""/>
-        </tags>
-        <rangeTime start="10:00" end="10:30"/>
-      </session>
-      <session name="Morning playtime">
-        <tags>
-          <tag id="name" value=""/>
-        </tags>
-        <rangeTime start="10:50" end="11:05"/>
-      </session>
-      <session name="11:05am">
-        <tags>
-          <tag id="name" value=""/>
-        </tags>
-        <rangeTime start="11:05" end="12:00"/>
-      </session>
-      <session name="Lunch">
-        <tags>
-          <tag id="name" value=""/>
-        </tags>
-        <rangeTime start="12:00" end="13:00"/>
-      </session>
-      <session name="1pm">
-        <tags>
-          <tag id="name" value=""/>
-        </tags>
-        <rangeTime start="13:00" end="14:00"/>
-      </session>
-      <session name="1pm double">
-        <tags>
-          <tag id="name" value=""/>
-        </tags>
-        <rangeTime start="13:00" end="14:30"/>
-      </session>
-      <session name="2pm">
-        <tags>
-          <tag id="name" value=""/>
-        </tags>
-        <rangeTime start="14:00" end="14:30"/>
-      </session>
-      <session name="Afternoon playtime">
-        <tags>
-          <tag id="name" value=""/>
-        </tags>
-        <rangeTime start="14:30" end="14:45"/>
-      </session>
-      <session name="2:45pm">
-        <tags>
-          <tag id="name" value=""/>
-        </tags>
-        <rangeTime start="14:45" end="15:30"/>
-      </session>
-    </sessions>
-    <times>
-      <time value="09:00">
+        }
+      </payload>
+    </tag>
+    <tag id="type" value="School">
       <tags>
-        <tag id="name" value="Start of day"/>
+        <tag id="type" value="Primary"/>
       </tags>
-      </time>
-      <time value="15:30">
-        <tags>
-          <tag id="name" value="End of day"/>
-        </tags>
-      </time>
-    </times>
-    <classes>
-      <class>
-        <tags>
-          <tag id="name" value="Playtime"/>
-        </tags>
-        <schedules>
-          <schedule session="Morning playtime">
-            <weekdays>
-              <weekday value="Monday"/>
-              <weekday value="Tuesday"/>
-              <weekday value="Wednesday"/>
-              <weekday value="Thursday"/>
-              <weekday value="Friday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="Lunchtime"/>
-        </tags>
-        <schedules>
-          <schedule session="Lunch">
-            <weekdays>
-              <weekday value="Monday"/>
-              <weekday value="Tuesday"/>
-              <weekday value="Wednesday"/>
-              <weekday value="Thursday"/>
-              <weekday value="Friday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="Literacy"/>
+    </tag>
+    <tag id="type" value="Term"/>
+  </tags>
+  <terms>
+    <term>
+      <tags>
+        <tag id="name" value="Autumn"/>
+        <tag id="year" value="2016/17"/>
+      </tags>
+      <rangeDate start="2016-09-02" end="2016-12-21"/>
+      <breaks>
+        <break>
           <tags>
-            <tag id="name" value=""/>
+            <tag id="name" value="half-term"/>
           </tags>
-        </tags>
-        <schedules>
-          <schedule session="9am">
-            <weekdays>
-              <weekday value="Monday"/>
-              <weekday value="Tuesday"/>
-              <weekday value="Wednesday"/>
-              <weekday value="Friday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
+          <rangeDate start="2016-10-26" end="2016-11-02"/>
+        </break>
+      </breaks>
+    </term>
+    <term>
+      <tags>
+        <tag id="name" value="Winter.2016/17"/>
+        <tag id="year" value="2016/17"/>
+      </tags>
+      <rangeDate start="2017-01-05" end="2017-03-28"/>
+      <breaks>
+        <break>
+          <tags>
+            <tag id="name" value="half-term"/>
+          </tags>
+          <rangeDate start="2017-02-25" end="2017-03-02"/>
+        </break>
+      </breaks>
+    </term>
+  </terms>
+  <events>
+    <event term="Autumn" class="Playtime"/>
+    <event term="Autumn" class="Lunchtime"/>
+    <event term="Autumn" class="Literacy"/>
+    <event term="Autumn" class="Guided Reading"/>
+    <event term="Autumn" class="Assembly"/>
+    <event term="Autumn" class="Mass"/>
+    <event term="Autumn" class="Numeracy"/>
+    <event term="Autumn" class="Music"/>
+    <event term="Autumn" class="Science"/>
+    <event term="Autumn" class="PE"/>
+    <event term="Autumn" class="History"/>
+    <event term="Autumn" class="RE"/>
+    <event term="Autumn" class="Spanish"/>
+    <event term="Autumn" class="ICT"/>
+    <event term="Autumn" class="Library"/>
+    <event term="Autumn" class="PSHCE"/>
+    <event term="Autumn" class="Other"/>
+  </events>
+  <sessions>
+    <session name="9am">
+      <tags>
+        <tag id="name" value=""/>
+      </tags>
+      <rangeTime start="09:00" end="10:00"/>
+    </session>
+    <session name="9am double">
+      <tags>
+        <tag id="name" value=""/>
+      </tags>
+      <rangeTime start="09:00" end="10:00"/>
+    </session>
+    <session name="10am">
+      <tags>
+        <tag id="name" value=""/>
+      </tags>
+      <rangeTime start="10:00" end="10:30"/>
+    </session>
+    <session name="10:30am">
+      <tags>
+        <tag id="name" value=""/>
+      </tags>
+      <rangeTime start="10:00" end="10:30"/>
+    </session>
+    <session name="Morning playtime">
+      <tags>
+        <tag id="name" value=""/>
+      </tags>
+      <rangeTime start="10:50" end="11:05"/>
+    </session>
+    <session name="11:05am">
+      <tags>
+        <tag id="name" value=""/>
+      </tags>
+      <rangeTime start="11:05" end="12:00"/>
+    </session>
+    <session name="Lunch">
+      <tags>
+        <tag id="name" value=""/>
+      </tags>
+      <rangeTime start="12:00" end="13:00"/>
+    </session>
+    <session name="1pm">
+      <tags>
+        <tag id="name" value=""/>
+      </tags>
+      <rangeTime start="13:00" end="14:00"/>
+    </session>
+    <session name="1pm double">
+      <tags>
+        <tag id="name" value=""/>
+      </tags>
+      <rangeTime start="13:00" end="14:30"/>
+    </session>
+    <session name="2pm">
+      <tags>
+        <tag id="name" value=""/>
+      </tags>
+      <rangeTime start="14:00" end="14:30"/>
+    </session>
+    <session name="Afternoon playtime">
+      <tags>
+        <tag id="name" value=""/>
+      </tags>
+      <rangeTime start="14:30" end="14:45"/>
+    </session>
+    <session name="2:45pm">
+      <tags>
+        <tag id="name" value=""/>
+      </tags>
+      <rangeTime start="14:45" end="15:30"/>
+    </session>
+  </sessions>
+  <times>
+    <time value="09:00">
+    <tags>
+      <tag id="name" value="Start of day"/>
+    </tags>
+    </time>
+    <time value="15:30">
+      <tags>
+        <tag id="name" value="End of day"/>
+      </tags>
+    </time>
+  </times>
+  <classes>
+    <class>
+      <tags>
+        <tag id="name" value="Playtime"/>
+      </tags>
+      <schedules>
+        <schedule session="Morning playtime">
+          <weekdays>
+            <weekday value="Monday"/>
+            <weekday value="Tuesday"/>
+            <weekday value="Wednesday"/>
+            <weekday value="Thursday"/>
+            <weekday value="Friday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="Lunchtime"/>
+      </tags>
+      <schedules>
+        <schedule session="Lunch">
+          <weekdays>
+            <weekday value="Monday"/>
+            <weekday value="Tuesday"/>
+            <weekday value="Wednesday"/>
+            <weekday value="Thursday"/>
+            <weekday value="Friday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="Literacy"/>
         <tags>
-          <tag id="name" value="Guided Reading"/>
+          <tag id="name" value=""/>
         </tags>
-        <schedules>
-          <schedule session="10am">
-            <weekdays>
-              <weekday value="Monday"/>
-              <weekday value="Tuesday"/>
-              <weekday value="Wednesday"/>
-            </weekdays>
-          </schedule>
-          <schedule>
-            <weekdays>
-              <weekday value="Friday"/>
-            </weekdays>
-            <rangeTime start="10:00" end="10:25"/>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="Assembly"/>
-        </tags>
-        <schedules>
-          <schedule session="10:30am">
-            <weekdays>
-              <weekday value="Monday"/>
-              <weekday value="Tuesday"/>
-              <weekday value="Wednesday"/>
-            </weekdays>
-          </schedule>
-          <schedule weekday="Friday">
-            <rangeTime start="10:25" end="10:50"/>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="Mass"/>
-        </tags>
-        <schedules>
-          <schedule session="10:30am" weekday="Thursday"/>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="Numeracy"/>
-        </tags>
-        <schedules>
-          <schedule session="11:05am">
-            <weekdays>
-              <weekday value="Monday"/>
-              <weekday value="Wednesday"/>
-              <weekday value="Thursday"/>
-              <weekday value="Friday"/>
-            </weekdays>
-          </schedule>
-          <schedule session="1pm">
-            <weekdays>
-              <weekday value="Tuesday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="Music"/>
-        </tags>
-        <schedules>
-          <schedule session="11:05am">
-            <weekdays>
-              <weekday value="Tuesday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="Science"/>
-        </tags>
-        <schedules>
-          <schedule session="1pm">
-            <weekdays>
-              <weekday value="Monday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="PE"/>
-        </tags>
-        <schedules>
-          <schedule session="1pm">
-            <weekdays>
-              <weekday value="Wednesday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="History"/>
-        </tags>
-        <schedules>
-          <schedule session="1pm">
-            <weekdays>
-              <weekday value="Friday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="RE"/>
-        </tags>
-        <schedules>
-          <schedule session="2pm">
-            <weekdays>
-              <weekday value="Tuesday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="Spanish"/>
-        </tags>
-        <schedules>
-          <schedule session="2:45pm">
-            <weekdays>
-              <weekday value="Monday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="ICT"/>
-        </tags>
-        <schedules>
-          <schedule session="2:45pm">
-            <weekdays>
-              <weekday value="Tuesday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="Library"/>
-        </tags>
-        <schedules>
-          <schedule session="2:45pm">
-            <weekdays>
-              <weekday value="Wednesday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="PSHCE"/>
-        </tags>
-        <schedules>
-          <schedule session="2:45pm">
-            <weekdays>
-              <weekday value="Thursday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-      <class>
-        <tags>
-          <tag id="name" value="Other"/>
-        </tags>
-        <schedules>
-          <schedule session="2:45pm">
-            <weekdays>
-              <weekday value="Friday"/>
-            </weekdays>
-          </schedule>
-        </schedules>
-      </class>
-    </classes>
-  </generator>
-</generators>
+      </tags>
+      <schedules>
+        <schedule session="9am">
+          <weekdays>
+            <weekday value="Monday"/>
+            <weekday value="Tuesday"/>
+            <weekday value="Wednesday"/>
+            <weekday value="Friday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="Guided Reading"/>
+      </tags>
+      <schedules>
+        <schedule session="10am">
+          <weekdays>
+            <weekday value="Monday"/>
+            <weekday value="Tuesday"/>
+            <weekday value="Wednesday"/>
+          </weekdays>
+        </schedule>
+        <schedule>
+          <weekdays>
+            <weekday value="Friday"/>
+          </weekdays>
+          <rangeTime start="10:00" end="10:25"/>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="Assembly"/>
+      </tags>
+      <schedules>
+        <schedule session="10:30am">
+          <weekdays>
+            <weekday value="Monday"/>
+            <weekday value="Tuesday"/>
+            <weekday value="Wednesday"/>
+          </weekdays>
+        </schedule>
+        <schedule weekday="Friday">
+          <rangeTime start="10:25" end="10:50"/>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="Mass"/>
+      </tags>
+      <schedules>
+        <schedule session="10:30am" weekday="Thursday"/>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="Numeracy"/>
+      </tags>
+      <schedules>
+        <schedule session="11:05am">
+          <weekdays>
+            <weekday value="Monday"/>
+            <weekday value="Wednesday"/>
+            <weekday value="Thursday"/>
+            <weekday value="Friday"/>
+          </weekdays>
+        </schedule>
+        <schedule session="1pm">
+          <weekdays>
+            <weekday value="Tuesday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="Music"/>
+      </tags>
+      <schedules>
+        <schedule session="11:05am">
+          <weekdays>
+            <weekday value="Tuesday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="Science"/>
+      </tags>
+      <schedules>
+        <schedule session="1pm">
+          <weekdays>
+            <weekday value="Monday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="PE"/>
+      </tags>
+      <schedules>
+        <schedule session="1pm">
+          <weekdays>
+            <weekday value="Wednesday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="History"/>
+      </tags>
+      <schedules>
+        <schedule session="1pm">
+          <weekdays>
+            <weekday value="Friday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="RE"/>
+      </tags>
+      <schedules>
+        <schedule session="2pm">
+          <weekdays>
+            <weekday value="Tuesday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="Spanish"/>
+      </tags>
+      <schedules>
+        <schedule session="2:45pm">
+          <weekdays>
+            <weekday value="Monday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="ICT"/>
+      </tags>
+      <schedules>
+        <schedule session="2:45pm">
+          <weekdays>
+            <weekday value="Tuesday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="Library"/>
+      </tags>
+      <schedules>
+        <schedule session="2:45pm">
+          <weekdays>
+            <weekday value="Wednesday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="PSHCE"/>
+      </tags>
+      <schedules>
+        <schedule session="2:45pm">
+          <weekdays>
+            <weekday value="Thursday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+    <class>
+      <tags>
+        <tag id="name" value="Other"/>
+      </tags>
+      <schedules>
+        <schedule session="2:45pm">
+          <weekdays>
+            <weekday value="Friday"/>
+          </weekdays>
+        </schedule>
+      </schedules>
+    </class>
+  </classes>
+</generator>

@@ -1,42 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<generators>
-  <generator>
-    <tags>
-      <tag id="organisation" value="Hampden Gurney Primary School"/>
-      <tag id="timeZoneProvider" value="Europe/London"/>
-    </tags>
-    <groups>
-      <group>
-        <tags>
-          <tag id="name" value="Year2"/>
-        </tags>
-        <classes>
-          <class>
-            <tags>
-              <tag id="name" value="Literacy"/>
-            </tags>
-            <terms>
-              <term>
-                <tags>
-                  <tag id="name" value="Autumn.2016/17"/>
-                </tags>
-                <rangeDate start="2016-09-02" end="2016-12-21"/>
-              </term>
-            </terms>
-            <schedules>
-              <schedule>
-                <rangeTime start="09:15" end="10:20"/>
-                <weekdays>
-                  <weekday value="Monday"/>
-                  <weekday value="Tuesday"/>
-                  <weekday value="Wednesday"/>
-                  <weekday value="Friday"/>
-                </weekdays>
-              </schedule>
-            </schedules>
-          </class>
-        </classes>
-      </group>
-    </groups>
-  </generator>
-</generators>
+<generator>
+  <tags>
+    <tag id="organisation" value="Hampden Gurney Primary School"/>
+    <tag id="timeZoneProvider" value="Europe/London"/>
+  </tags>
+  <groups>
+    <group>
+      <tags>
+        <tag id="name" value="Year2"/>
+      </tags>
+      <classes>
+        <class>
+          <tags>
+            <tag id="name" value="Literacy"/>
+          </tags>
+          <terms>
+            <term>
+              <tags>
+                <tag id="name" value="Autumn.2016/17"/>
+              </tags>
+              <rangeDate start="2016-09-02" end="2016-12-21"/>
+            </term>
+          </terms>
+          <schedules>
+            <schedule>
+              <rangeTime start="09:15" end="10:20"/>
+              <weekdays>
+                <weekday value="Monday"/>
+                <weekday value="Tuesday"/>
+                <weekday value="Wednesday"/>
+                <weekday value="Friday"/>
+              </weekdays>
+            </schedule>
+          </schedules>
+        </class>
+      </classes>
+    </group>
+  </groups>
+</generator>

@@ -49,11 +49,11 @@ namespace ScheduleGeneration.Test
                             {
                                 Title = "a test organisation",
                             },
-                            "./generator/tags/tag",
-                            "./generator/groups/group/classes/class/schedules/schedule/tags/tag",
-                            "./generator/groups/group/classes/class/tags/tag",
-                            "./generator/terms/term/tags/tag",
-                            "./generator/groups/group/tags/tag"
+                            "./tags/tag",
+                            "./groups/group/classes/class/schedules/schedule/tags/tag",
+                            "./groups/group/classes/class/tags/tag",
+                            "./terms/term/tags/tag",
+                            "./groups/group/tags/tag"
                         },
                     })
                     .BDDfy();

@@ -1,98 +1,96 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<generators>
-  <generator>
-    <caches>
-      <cache name="Category.YearGroup" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Year Group']"/>
-      <cache name="Category.KeyStage" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Key Stage']"/>
-      <cache name="Term.2016/17.Autumn" type="DateRange" path="./generators/generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Autumn']]"/>
-      <cache name="KeyStage.1" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='keyStages']/tag[@id='keyStage'][@value='keyStage.1']"/>
-      <cache name="Year.2016/17" type="Tag" path="./generators/generator/tags/tag[@id='cache'][@value='years']/tag[@id='name'][@value='2016/17']"/>
-    </caches>
-    <tags>
+<generator>
+  <caches>
+    <cache name="Category.YearGroup" type="Tag" path="./generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Year Group']"/>
+    <cache name="Category.KeyStage" type="Tag" path="./generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Key Stage']"/>
+    <cache name="Term.2016/17.Autumn" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Autumn']]"/>
+    <cache name="KeyStage.1" type="Tag" path="./generator/tags/tag[@id='cache'][@value='keyStages']/tag[@id='keyStage'][@value='keyStage.1']"/>
+    <cache name="Year.2016/17" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='name'][@value='2016/17']"/>
+  </caches>
+  <tags>
       
-      <tag id="organisation" value="OrganisationName"/>
-      <tag id="timeZoneProvider" value="Europe/London"/>
+    <tag id="organisation" value="OrganisationName"/>
+    <tag id="timeZoneProvider" value="Europe/London"/>
       
-      <tag id="cache" value="years">
-        <tag id="name" value="2016/17">
+    <tag id="cache" value="years">
+      <tag id="name" value="2016/17">
+        <link cache="Category.YearGroup"/>
+      </tag>
+    </tag>
+
+    <tag id="cache" value="keyStages">
+      <tag id="keyStage" value="keyStage.1">
+        <link cache="Category.KeyStage"/>
+      </tag>
+    </tag>
+
+    <tag id="cache" value="categories">
+      <tag id="category" value="Year Group"/>
+      <tag id="category" value="Key Stage"/>
+    </tag>
+      
+  </tags>
+
+  <rangeDates>
+    <rangeDate start="2016-09-02" end="2016-12-21">
+      <tags>
+        <tag id="name" value="Term.2016/17.Autumn"/>
+      </tags>
+    </rangeDate>
+  </rangeDates>
+
+  <groups>
+    <group>
+      <tags>
+        <tag id="name" value="Year 2">
           <link cache="Category.YearGroup"/>
+          <link cache="KeyStage.1"/>
         </tag>
-      </tag>
-
-      <tag id="cache" value="keyStages">
-        <tag id="keyStage" value="keyStage.1">
-          <link cache="Category.KeyStage"/>
-        </tag>
-      </tag>
-
-      <tag id="cache" value="categories">
-        <tag id="category" value="Year Group"/>
-        <tag id="category" value="Key Stage"/>
-      </tag>
-      
-    </tags>
-
-    <rangeDates>
-      <rangeDate start="2016-09-02" end="2016-12-21">
-        <tags>
-          <tag id="name" value="Term.2016/17.Autumn"/>
-        </tags>
-      </rangeDate>
-    </rangeDates>
-
-    <groups>
-      <group>
-        <tags>
-          <tag id="name" value="Year 2">
-            <link cache="Category.YearGroup"/>
-            <link cache="KeyStage.1"/>
-          </tag>
-        </tags>
-        <classes>
-          <class>
-            <tags>
-              <tag id="name" value="Literacy"/>
-            </tags>
-            <terms>
-              <term>
-                <link cache="Term.2016/17.Autumn"/>
-                <tags>
-                  <tag id="name" value="Autumn 2016"/>
-                </tags>
-              </term>
-            </terms>
-            <schedules>
-              <schedule>
-                <rangeTime start="09:15" end="10:20"/>
-                <weekdays>
-                  <weekday value="Monday"/>
-                </weekdays>
-              </schedule>
-            </schedules>
-          </class>
-          <class>
-            <tags>
-              <tag id="name" value="Art"/>
-            </tags>
-            <terms>
-              <term>
-                <link cache="Term.2016/17.Autumn"/>
-                <tags>
-                  <tag id="name" value="Autumn 2016"/>
-                </tags>
-              </term>
-            </terms>
-            <schedules>
-              <schedule>
-                <rangeTime start="10:15" end="10:55"/>
-                <weekdays>
-                  <weekday value="Tuesday"/>
-                </weekdays>
-              </schedule>
-            </schedules>
-          </class>
-        </classes>
-      </group>
-    </groups>
-  </generator>
-</generators>
+      </tags>
+      <classes>
+        <class>
+          <tags>
+            <tag id="name" value="Literacy"/>
+          </tags>
+          <terms>
+            <term>
+              <link cache="Term.2016/17.Autumn"/>
+              <tags>
+                <tag id="name" value="Autumn 2016"/>
+              </tags>
+            </term>
+          </terms>
+          <schedules>
+            <schedule>
+              <rangeTime start="09:15" end="10:20"/>
+              <weekdays>
+                <weekday value="Monday"/>
+              </weekdays>
+            </schedule>
+          </schedules>
+        </class>
+        <class>
+          <tags>
+            <tag id="name" value="Art"/>
+          </tags>
+          <terms>
+            <term>
+              <link cache="Term.2016/17.Autumn"/>
+              <tags>
+                <tag id="name" value="Autumn 2016"/>
+              </tags>
+            </term>
+          </terms>
+          <schedules>
+            <schedule>
+              <rangeTime start="10:15" end="10:55"/>
+              <weekdays>
+                <weekday value="Tuesday"/>
+              </weekdays>
+            </schedule>
+          </schedules>
+        </class>
+      </classes>
+    </group>
+  </groups>
+</generator>

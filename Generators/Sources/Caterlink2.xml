@@ -1,69 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<generators>
-  <generator>
-    <caches>
-      <cache name="Winter 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
-      <cache name="Spring 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
-      <cache name="Summer 2017" type="DateRange" path="./generators/generator/rangeDates/rangeDate"/>
-    </caches>
-    <schedules>
-      <schedule>
-        <weekdays>
-          <weekday value="Monday"/>
-        </weekdays>
-        <rangeDates>
-          <link cache="Winter 2017"/>
-        </rangeDates>
-      </schedule>
-      <schedule>
-        <weekdays>
-          <weekday value="Tuesday"/>
-        </weekdays>
-        <rangeDates>
-          <link cache="Winter 2017"/>
-        </rangeDates>
-      </schedule>
-      <schedule>
-        <weekdays>
-          <weekday value="Wednesday"/>
-        </weekdays>
-        <rangeDates>
-          <link cache="Winter 2017"/>
-        </rangeDates>
-      </schedule>
-      <schedule>
-        <weekdays>
-          <weekday value="Thursday"/>
-        </weekdays>
-        <rangeDates>
-          <link cache="Winter 2017"/>
-        </rangeDates>
-      </schedule>
-      <schedule>
-        <weekdays>
-          <weekday value="Friday"/>
-        </weekdays>
-        <rangeDates>
-          <link cache="Winter 2017"/>
-        </rangeDates>
-      </schedule>
-    </schedules>
-    <rangeDates>
-      <rangeDate start="2017-01-02" end="2017-03-31">
-        <tags>
-          <tag id="name" value="Winter 2017"/>
-        </tags>
-      </rangeDate>
-      <rangeDate start="2017-04-17" end="2017-05-26">
-        <tags>
-          <tag id="name" value="Spring 2017"/>
-        </tags>
-      </rangeDate>
-      <rangeDate start="2017-06-02" end="2017-07-21">
-        <tags>
-          <tag id="name" value="Summer 2017"/>
-        </tags>
-      </rangeDate>
-    </rangeDates>
-  </generator>
-</generators>
+<generator>
+  <caches>
+    <cache name="Winter 2017" type="DateRange" path="./generator/rangeDates/rangeDate"/>
+    <cache name="Spring 2017" type="DateRange" path="./generator/rangeDates/rangeDate"/>
+    <cache name="Summer 2017" type="DateRange" path="./generator/rangeDates/rangeDate"/>
+  </caches>
+  <schedules>
+    <schedule>
+      <weekdays>
+        <weekday value="Monday"/>
+      </weekdays>
+      <rangeDates>
+        <link cache="Winter 2017"/>
+      </rangeDates>
+    </schedule>
+    <schedule>
+      <weekdays>
+        <weekday value="Tuesday"/>
+      </weekdays>
+      <rangeDates>
+        <link cache="Winter 2017"/>
+      </rangeDates>
+    </schedule>
+    <schedule>
+      <weekdays>
+        <weekday value="Wednesday"/>
+      </weekdays>
+      <rangeDates>
+        <link cache="Winter 2017"/>
+      </rangeDates>
+    </schedule>
+    <schedule>
+      <weekdays>
+        <weekday value="Thursday"/>
+      </weekdays>
+      <rangeDates>
+        <link cache="Winter 2017"/>
+      </rangeDates>
+    </schedule>
+    <schedule>
+      <weekdays>
+        <weekday value="Friday"/>
+      </weekdays>
+      <rangeDates>
+        <link cache="Winter 2017"/>
+      </rangeDates>
+    </schedule>
+  </schedules>
+  <rangeDates>
+    <rangeDate start="2017-01-02" end="2017-03-31">
+      <tags>
+        <tag id="name" value="Winter 2017"/>
+      </tags>
+    </rangeDate>
+    <rangeDate start="2017-04-17" end="2017-05-26">
+      <tags>
+        <tag id="name" value="Spring 2017"/>
+      </tags>
+    </rangeDate>
+    <rangeDate start="2017-06-02" end="2017-07-21">
+      <tags>
+        <tag id="name" value="Summer 2017"/>
+      </tags>
+    </rangeDate>
+  </rangeDates>
+</generator>

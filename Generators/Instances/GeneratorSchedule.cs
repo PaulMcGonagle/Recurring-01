@@ -9,57 +9,39 @@ using Scheduler.ScheduleInstances;
 
 namespace Generators.Instances
 {
-    public class GeneratorSchedule : IGenerator
+    public class GeneratorSchedule : GenerateFromFile, IGenerator
     {
         public IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
         {
-            var xSource = XDocument
-                .Load(sourceFile);
-
-            var generatorSource = new GeneratorSource
-            {
-                Xml = xSource.ToString(),
-                GeneratorType = "schedule"
-            };
+            base.GenerateSetup(sourceFile, clock, "schedule", out XElement xGenerator, out IGeneratorSource generatorSource, out XDocument xSource, out IDictionary<string, IVertex> caches);
 
             yield return generatorSource;
 
-            var caches = xSource.ExpandLinks();
-            xSource.ExpandReferences();
-
-            var xGenerators = xSource
-                .Elements("generators")
-                .Elements("generator")
+            var xSchedules = xGenerator
+                .Elements("schedules")
+                .Elements("schedule")
                 .ToList();
 
-            foreach (var xGenerator in xGenerators)
+            foreach (var xSchedule in xSchedules)
             {
-                var xSchedules = xGenerator
-                    .Elements("schedules")
-                    .Elements("schedule")
-                    .ToList();
+                var weekdays = xSchedule
+                    .RetrieveWeekdays();
 
-                foreach (var xSchedule in xSchedules)
+                foreach (var weekday in weekdays)
                 {
-                    var weekdays = xSchedule
-                        .RetrieveWeekdays();
+                    var dateRanges = xSchedule.RetrieveDateRanges(
+                        caches: caches);
 
-                    foreach (var weekday in weekdays)
+                    foreach (var dateRange in dateRanges)
                     {
-                        var dateRanges = xSchedule.RetrieveDateRanges(
-                            caches: caches);
+                        var byWeekday = ByWeekday
+                            .Create(
+                                isoDayOfWeek: weekday,
+                                dateRange: dateRange);
 
-                        foreach (var dateRange in dateRanges)
-                        {
-                            var byWeekday = ByWeekday
-                                .Create(
-                                    isoDayOfWeek: weekday,
-                                    dateRange: dateRange);
-
-                            generatorSource
-                                .Schedules
-                                .Add(new EdgeSchedule(byWeekday));
-                        }
+                        generatorSource
+                            .Schedules
+                            .Add(new EdgeSchedule(byWeekday));
                     }
                 }
             }

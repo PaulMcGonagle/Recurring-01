@@ -12,9 +12,7 @@ namespace Generators
             List<LocalDateTime> instances,
             string timeZoneProvider)
         {
-            var xGenerators = new XElement("generators");
             var xGenerator = new XElement("generator");
-            xGenerators.Add(xGenerator);
             var xGeneratorTags = new XElement("tags");
             xGenerator.Add(xGeneratorTags);
             xGeneratorTags.Add(new XElement("tag", new XAttribute("id", "timeZoneProvider"), new XAttribute("value", timeZoneProvider)));
@@ -29,7 +27,7 @@ namespace Generators
             yield return new GeneratorSource
             {
                 GeneratorType = "google.calendar",
-                Xml = xGenerators.ToString(),
+                Xml = xGenerator.ToString(),
             };
         }
     }

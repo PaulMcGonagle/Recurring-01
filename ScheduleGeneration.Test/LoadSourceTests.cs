@@ -55,7 +55,7 @@ namespace ScheduleGeneration.Test
                         fakeClock,
                         mockDb.Object,
                         "Hampden Gurney Primary School.Autumn.2016/17.Year2.Literacy",
-                        "./generator/tags/tag[@id='timeZoneProvider']",
+                        "./tags/tag[@id='timeZoneProvider']",
                         new List<LocalDate>
                         {
                             new LocalDate(year: 2016, month: 02, day: 03),
@@ -170,7 +170,7 @@ namespace ScheduleGeneration.Test
             }
         }
 
-        public class LoadHG
+        public class LoadHg
         {
             private string _sourceFile;
             private XElement _source;
@@ -201,7 +201,7 @@ namespace ScheduleGeneration.Test
                         AppDomain.CurrentDomain.BaseDirectory + "..\\TestData\\HG.xml",
                         fakeClock,
                         mockDb.Object,
-                        "./generator/tags/tag[@id='timeZoneProvider']"
+                        "./tags/tag[@id='timeZoneProvider']"
                     },
                 }).BDDfy();
             }
@@ -344,7 +344,7 @@ namespace ScheduleGeneration.Test
                         fakeClock,
                         mockDb.Object,
                         "Hampden Gurney Primary School.Autumn.2016/17.Year2.Literacy",
-                        "./generator/tags/tag[@id='timeZoneProvider']",
+                        "./tags/tag[@id='timeZoneProvider']",
                         new List<LocalDate>
                         {
                             new LocalDate(year: 2016, month: 02, day: 03),
@@ -462,16 +462,10 @@ namespace ScheduleGeneration.Test
         public class LoadOption02
         {
             private string _sourceFile;
-            private XElement _source;
             private IClock _clock;
             private IArangoDatabase _db;
             private IGenerator _generator;
             private IEnumerable<IEvent> _events;
-            private IEvent _event;
-            private IInstance _instance;
-            private IEnumerable<IEpisode> _episodes;
-            private string _timeZoneProviderPath;
-            private string _timeZoneProvider;
 
             [Fact]
             public void Execute()
@@ -484,7 +478,6 @@ namespace ScheduleGeneration.Test
                     "sourceFile",
                     "clock",
                     "db",
-                    "timeZoneProviderPath",
                     "generatorName"
                 )
                 {
@@ -492,26 +485,30 @@ namespace ScheduleGeneration.Test
                         "..\\..\\TestData\\Option02.xml",
                         fakeClock,
                         mockDb.Object,
-                        "./generator/tags/tag[@id='timeZoneProvider']",
                         "classes"
                     },
                 }).BDDfy();
+            }
+
+            public void GivenASourceFile(string sourceFile)
+            {
+                _sourceFile = sourceFile;
+            }
+
+            public void AndGivenAClock(IClock clock)
+            {
+                _clock = clock;
+            }
+
+            public void AndGivenADatabase(IArangoDatabase db)
+            {
+                _db = db;
             }
 
             public void AndGivenExpectedTimings(
                 IList<LocalDate> expectedLocalDates,
                 Period expectedPeriod)
             {
-            }
-
-            public void AndGivenATimeZoneProviderPath(string timeZoneProviderPath)
-            {
-                _timeZoneProviderPath = timeZoneProviderPath;
-            }
-
-            public void WhenSourceFileIsLoaded(string sourceFile)
-            {
-                _source = XElement.Load(_sourceFile);
             }
 
             public void AndWhenGeneratorIsRetrieved(string generatorName)
@@ -526,7 +523,8 @@ namespace ScheduleGeneration.Test
                     .ToList();
 
                 _events = vertexs
-                    .OfType<Event>();
+                    .OfType<Event>()
+                    .ToList();
             }
 
             public void ThenEventsShouldHaveDifferentNames()
@@ -549,7 +547,7 @@ namespace ScheduleGeneration.Test
                     .Select(s => s.EdgeSchedule.Schedule)
                     .ToList();
 
-                schedules.Count().ShouldBe(2);
+                schedules.Count.ShouldBe(2);
 
                 var tagName1 = schedules[0]
                     .RelatedTags
@@ -563,22 +561,17 @@ namespace ScheduleGeneration.Test
                 tagName1.ShouldNotBeNull();
                 tagName2.ShouldNotBeNull();
 
-                tagName1.Key.ShouldBe(tagName2.Key);
+                tagName1?.Key.ShouldBe(tagName2?.Key);
             }
         }
 
         public class LoadOption03
         {
             private string _sourceFile;
-            private XElement _source;
             private IClock _clock;
             private IArangoDatabase _db;
             private IGenerator _generator;
             private IEnumerable<IEvent> _events;
-            private IInstance _instance;
-            private IEnumerable<IEpisode> _episodes;
-            private string _timeZoneProviderPath;
-            private string _timeZoneProvider;
 
             [Fact]
             public void Execute()
@@ -591,7 +584,6 @@ namespace ScheduleGeneration.Test
                     "sourceFile",
                     "clock",
                     "db",
-                    "timeZoneProviderPath",
                     "generatorName"
                 )
                 {
@@ -599,26 +591,30 @@ namespace ScheduleGeneration.Test
                         "..\\..\\TestData\\Option03.xml",
                         fakeClock,
                         mockDb.Object,
-                        "./generator/tags/tag[@id='timeZoneProvider']",
                         "classes"
                     },
                 }).BDDfy();
+            }
+
+            public void GivenASourceFile(string sourceFile)
+            {
+                _sourceFile = sourceFile;
+            }
+
+            public void AndGivenAClock(IClock clock)
+            {
+                _clock = clock;
+            }
+
+            public void AndGivenADatabase(IArangoDatabase db)
+            {
+                _db = db;
             }
 
             public void AndGivenExpectedTimings(
                 IList<LocalDate> expectedLocalDates,
                 Period expectedPeriod)
             {
-            }
-
-            public void AndGivenATimeZoneProviderPath(string timeZoneProviderPath)
-            {
-                _timeZoneProviderPath = timeZoneProviderPath;
-            }
-
-            public void WhenSourceFileIsLoaded(string sourceFile)
-            {
-                _source = XElement.Load(_sourceFile);
             }
 
             public void AndWhenGeneratorIsRetrieved(string generatorName)
@@ -653,7 +649,7 @@ namespace ScheduleGeneration.Test
                     .Select(s => s.EdgeSchedule.Schedule)
                     .ToList();
 
-                schedules.Count().ShouldBe(2);
+                schedules.Count.ShouldBe(2);
 
                 var tagName1 = schedules[0]
                     .RelatedTags
@@ -665,11 +661,11 @@ namespace ScheduleGeneration.Test
                     .SingleOrDefault(t => t.ToVertex.Ident == "name")
                     ?.ToVertex;
 
-                tagName1.ShouldNotBeNull();
-                tagName2.ShouldNotBeNull();
+                tagName1?.Key.ShouldNotBeNull();
+                tagName2?.Key.ShouldNotBeNull();
 
 
-                tagName1.Key.ShouldBe(tagName2.Key);
+                tagName1?.Key.ShouldBe(tagName2?.Key);
             }
         }
 
@@ -681,10 +677,6 @@ namespace ScheduleGeneration.Test
             private IArangoDatabase _db;
             private IGenerator _generator;
             private IEnumerable<IEvent> _events;
-            private IInstance _instance;
-            private IEnumerable<IEpisode> _episodes;
-            private string _timeZoneProviderPath;
-            private string _timeZoneProvider;
 
             [Fact]
             public void Execute()
@@ -697,7 +689,6 @@ namespace ScheduleGeneration.Test
                     "sourceFile",
                     "clock",
                     "db",
-                    "timeZoneProviderPath",
                     "generatorName",
                     "scheduleNameTagPath"
                 )
@@ -706,22 +697,31 @@ namespace ScheduleGeneration.Test
                         "..\\..\\TestData\\Option04.xml",
                         fakeClock,
                         mockDb.Object,
-                        "./generator/tags/tag[@id='timeZoneProvider']",
                         "classes",
-                        "./generator/groups/group[tags/tag[@id='name'][@value='Year 2']]/classes/class[tags/tag[@id='name'][@value='Literacy']]/terms/term/tags/tag[@id='name']"
+                        "./groups/group[tags/tag[@id='name'][@value='Year 2']]/classes/class[tags/tag[@id='name'][@value='Literacy']]/terms/term/tags/tag[@id='name']"
                     },
                 }).BDDfy();
+            }
+
+            public void GivenASourceFile(string sourceFile)
+            {
+                _sourceFile = sourceFile;
+            }
+
+            public void AndGivenAClock(IClock clock)
+            {
+                _clock = clock;
+            }
+
+            public void AndGivenADatabase(IArangoDatabase db)
+            {
+                _db = db;
             }
 
             public void AndGivenExpectedTimings(
                 IList<LocalDate> expectedLocalDates,
                 Period expectedPeriod)
             {
-            }
-
-            public void AndGivenATimeZoneProviderPath(string timeZoneProviderPath)
-            {
-                _timeZoneProviderPath = timeZoneProviderPath;
             }
 
             public void WhenSourceFileIsLoaded(string sourceFile)
@@ -761,14 +761,12 @@ namespace ScheduleGeneration.Test
                     .Select(s => s.EdgeSchedule.Schedule)
                     .ToList();
 
-                schedules.Count().ShouldBe(1);
+                schedules.Count.ShouldBe(1);
 
-                var scheduleNameTag = _source
-                    .XPathSelectElement(scheduleNameTagPath);
-
-                var scheduleName = scheduleNameTag
+                var scheduleName = _source
+                    .XPathSelectElement(scheduleNameTagPath)
                     ?.Attribute("value")
-                    .Value;
+                    ?.Value;
 
                 schedules[0]
                     .RelatedTags

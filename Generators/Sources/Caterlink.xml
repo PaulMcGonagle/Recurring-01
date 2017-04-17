@@ -1,68 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<generators>
-  <generator title="Caterlink Menu">
-    <tags>
-      <tag id="organisation" value="Caterlink"/>
-    </tags>
-    <terms>
-      <term>
-        <tags>
-          <tag id="name" value="Summer 2016 Week 1.Mon"/>
-          <tag id="organisation" value="Caterlink"/>
-          <tag id="Menu">
-            <payload>
-              <![CDATA[
-                <menu>
-                  <main>Chicken & Broccoli Wholemeal Pasta Bake (made with free range chicken)</main>
-                  <vegetarian>Vegetable Goulash with Rice</vegetarian>
-                  <dessert>Rice Pudding with Mixed Berries</dessert>
-                  <dessert>Yoghurt / Fresh Fruit Platter</dessert>
-                </menu>
-              ]]>
-            </payload>
-          </tag>
-        </tags>
-        <dates>
-          <scheduleInstance>
-            <tags>
-              <tag id="type" value="ByOffset">
-                <tag id="InitialDate" value="2017-01-02"/>
-                <tag id="Interval" value="+1w"/>
-                <tag id="Count" value="4"/>
-              </tag>
-            </tags>
-          </scheduleInstance>
-        </dates>
-      </term>
-      <term>
-        <tags>
-          <tag id="name" value="Summer 2017 Week 1.Tue"/>
-          <tag id="organisation" value="Caterlink"/>
-          <tag id="Menu">
-            <payload>
-              <![CDATA[
-                <menu>
-                  <main>Chicken & Broccoli Wholemeal Pasta Bake (made with free range chicken)</main>
-                  <vegetarian>Vegetable Goulash with Rice</vegetarian>
-                  <dessert>Rice Pudding with Mixed Berries</dessert>
-                  <dessert>Yoghurt / Fresh Fruit Platter</dessert>
-                </menu>
-              ]]>
-            </payload>
-          </tag>
-        </tags>
-        <dates>
-          <scheduleInstance>
-            <tags>
-              <tag id="type" value="ByOffset">
-                <tag id="InitialDate" value="2017-01-23"/>
-                <tag id="Interval" value="+1w"/>
-                <tag id="Count" value="4"/>
-              </tag>
-            </tags>
-          </scheduleInstance>
-        </dates>
-      </term>
-    </terms>
-  </generator>
-</generators>
+<generator title="Caterlink Menu">
+  <tags>
+    <tag id="organisation" value="Caterlink"/>
+  </tags>
+  <terms>
+    <term>
+      <tags>
+        <tag id="name" value="Summer 2016 Week 1.Mon"/>
+        <tag id="organisation" value="Caterlink"/>
+        <tag id="Menu">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Chicken & Broccoli Wholemeal Pasta Bake (made with free range chicken)</main>
+                <vegetarian>Vegetable Goulash with Rice</vegetarian>
+                <dessert>Rice Pudding with Mixed Berries</dessert>
+                <dessert>Yoghurt / Fresh Fruit Platter</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+      <dates>
+        <scheduleInstance>
+          <tags>
+            <tag id="type" value="ByOffset">
+              <tag id="InitialDate" value="2017-01-02"/>
+              <tag id="Interval" value="+1w"/>
+              <tag id="Count" value="4"/>
+            </tag>
+          </tags>
+        </scheduleInstance>
+      </dates>
+    </term>
+    <term>
+      <tags>
+        <tag id="name" value="Summer 2017 Week 1.Tue"/>
+        <tag id="organisation" value="Caterlink"/>
+        <tag id="Menu">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Chicken & Broccoli Wholemeal Pasta Bake (made with free range chicken)</main>
+                <vegetarian>Vegetable Goulash with Rice</vegetarian>
+                <dessert>Rice Pudding with Mixed Berries</dessert>
+                <dessert>Yoghurt / Fresh Fruit Platter</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+      <dates>
+        <scheduleInstance>
+          <tags>
+            <tag id="type" value="ByOffset">
+              <tag id="InitialDate" value="2017-01-23"/>
+              <tag id="Interval" value="+1w"/>
+              <tag id="Count" value="4"/>
+            </tag>
+          </tags>
+        </scheduleInstance>
+      </dates>
+    </term>
+  </terms>
+</generator>
