@@ -64,13 +64,10 @@
     <Compile Include="UtilitiesLinks.cs" />
     <Compile Include="XInstances\GeneratorXDateRange.cs" />
     <Compile Include="XInstances\GeneratorXTag.cs" />
+    <Compile Include="XInstances\GeneratorXTimeRange.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Sources\Caterlink2.xml" />
-    <Content Include="Sources\HG.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Sources\Holidays.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

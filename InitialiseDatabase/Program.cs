@@ -26,7 +26,7 @@ namespace InitialiseDatabase
             var generator = GeneratorFactory.Get("classes");
 
             var vertexs = generator.Generate(
-                sourceFile: "..\\..\\..\\ScheduleGeneration.Test\\TestData\\HG.xml",
+                sourceFile: "..\\..\\..\\Generators\\Sources\\HG.xml",
                 clock: fakeClock)
                 .ToList();
 

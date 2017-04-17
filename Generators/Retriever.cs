@@ -345,7 +345,7 @@ namespace Generators
         {
             var attribute = RetrieveAttribute(xInput, name);
 
-            var localTimePattern = LocalTimePattern.CreateWithInvariantCulture("hh:mm");
+            var localTimePattern = LocalTimePattern.CreateWithInvariantCulture("HH:mm");
             var parseResult = localTimePattern.Parse(attribute.Value);
 
             return parseResult.Value;

@@ -31,6 +31,9 @@ namespace Generators
                 case "DateRange":
                     return new GeneratorXDateRange();
 
+                case "TimeRange":
+                    return new GeneratorXTimeRange();
+
                 case "Tag":
                     return new GeneratorXTag();
 
