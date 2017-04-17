@@ -54,6 +54,21 @@ namespace ScheduleGeneration.Test
                 }).BDDfy();
             }
 
+            public void GivenASourceFile(string sourceFile)
+            {
+                _sourceFile = sourceFile;
+            }
+
+            public void AndGivenAClock(IClock clock)
+            {
+                _clock = clock;
+            }
+
+            public void AndGivenADatabase(IArangoDatabase db)
+            {
+                _db = db;
+            }
+            
             public void WhenGeneratorIsRetrieved()
             {
                 _generator = GeneratorFactory.Get("holidays");

@@ -511,7 +511,7 @@ namespace ScheduleGeneration.Test
             {
             }
 
-            public void AndWhenGeneratorIsRetrieved(string generatorName)
+            public void WhenGeneratorIsRetrieved(string generatorName)
             {
                 _generator = GeneratorFactory.Get(generatorName);
             }
@@ -525,6 +525,14 @@ namespace ScheduleGeneration.Test
                 _events = vertexs
                     .OfType<Event>()
                     .ToList();
+            }
+
+            public void AndWhenEventsAreSaved()
+            {
+                foreach (var @event in _events)
+                {
+                    @event.Save(_db, _clock);
+                }
             }
 
             public void ThenEventsShouldHaveDifferentNames()

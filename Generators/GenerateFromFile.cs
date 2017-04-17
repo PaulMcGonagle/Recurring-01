@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
 using NodaTime;
 using Scheduler;
@@ -11,15 +10,14 @@ namespace Generators
     public abstract class GenerateFromFile
     {
         protected void GenerateSetup(
+            string generatorType, 
             string sourceFile, 
             IClock clock, 
-            string generatorType, 
             out XElement xGenerator, 
             out IGeneratorSource generatorSource, 
-            out XDocument xSource, 
             out IDictionary<string, IVertex> caches)
         {
-            xSource = XDocument
+            var xSource = XDocument
                 .Load(sourceFile);
 
             xSource.ExpandReferences();

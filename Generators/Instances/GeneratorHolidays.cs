@@ -10,9 +10,17 @@ namespace Generators.Instances
 {
     public class GeneratorHolidays : GenerateFromFile, IGenerator
     {
-        public IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
+        public IEnumerable<IVertex> Generate(
+            string sourceFile, 
+            IClock clock)
         {
-            base.GenerateSetup(sourceFile, clock, "holidays", out XElement xGenerator, out IGeneratorSource generatorSource, out XDocument xSource, out IDictionary<string, IVertex> caches);
+            GenerateSetup(
+                generatorType: "holidays",
+                sourceFile: sourceFile,
+                clock: clock,
+                xGenerator: out XElement xGenerator,
+                generatorSource: out IGeneratorSource generatorSource,
+                caches: out IDictionary<string, IVertex> caches);
 
             yield return generatorSource;
 

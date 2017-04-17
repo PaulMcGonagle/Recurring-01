@@ -13,7 +13,13 @@ namespace Generators.Instances
     {
         public IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
         {
-            base.GenerateSetup(sourceFile, clock, "schedule", out XElement xGenerator, out IGeneratorSource generatorSource, out XDocument xSource, out IDictionary<string, IVertex> caches);
+            GenerateSetup(
+                generatorType: "schedule",
+                sourceFile: sourceFile,
+                clock: clock,
+                xGenerator: out XElement xGenerator,
+                generatorSource: out IGeneratorSource generatorSource,
+                caches: out IDictionary <string, IVertex> caches);
 
             yield return generatorSource;
 
