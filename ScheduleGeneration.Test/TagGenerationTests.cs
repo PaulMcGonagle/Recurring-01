@@ -123,7 +123,7 @@ namespace ScheduleGeneration.Test
 
             public void AndThenEventHasOneSerial()
             {
-                _event.Serials.Count().ShouldBe(1);
+                _event.Serials.Count.ShouldBe(1);
 
                 _serial = _event.Serials.Single().ToVertex;
             }
@@ -157,7 +157,7 @@ namespace ScheduleGeneration.Test
 
             var enumeratedTags = tags as ITag[] ?? tags.ToArray();
 
-            enumeratedTags.Count().ShouldBe(sourceTags.Count());
+            enumeratedTags.Length.ShouldBe(sourceTags.Count());
 
             foreach (var tag in enumeratedTags)
             {
@@ -182,7 +182,7 @@ namespace ScheduleGeneration.Test
 
             var enumeratedTags = tags as ITag[] ?? tags.ToArray();
 
-            enumeratedTags.Count().ShouldBe(sourceTags.Count());
+            enumeratedTags.Length.ShouldBe(sourceTags.Count());
 
             foreach (var tag in enumeratedTags)
             {

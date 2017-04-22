@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using ArangoDB.Client;
 using Generators;
@@ -23,9 +20,7 @@ namespace ScheduleGeneration.Test
         public class EnrichEventNumbering
         {
             private string _sourceFile;
-            private XElement _source;
             private IClock _clock;
-            private IArangoDatabase _db;
             private IGenerator _generator;
             private IEnumerable<IEvent> _events;
             private IEnumerable<IEpisode> _episodes;
@@ -55,7 +50,7 @@ namespace ScheduleGeneration.Test
             {
                 _sourceFile = sourceFile;
 
-                _source = XElement.Load(sourceFile);
+                XElement.Load(sourceFile);
             }
 
             public void AndGivenAClock(IClock clock)
@@ -65,7 +60,6 @@ namespace ScheduleGeneration.Test
 
             public void AndGivenADatabase(IArangoDatabase db)
             {
-                _db = db;
             }
 
             public void WhenGeneratorIsRetrieved()
@@ -100,7 +94,7 @@ namespace ScheduleGeneration.Test
                 var enricher = new EnricherNumbering();
 
                 enricher.Go(
-                    _episodes,
+                    vertexs: _episodes,
                     ident: "EventNumber"
                     );
             }
@@ -119,7 +113,8 @@ namespace ScheduleGeneration.Test
                         ?.ToVertex
                         .Value;
 
-                    int.TryParse(value, out int result).ShouldBeTrue();
+                    // ReSharper disable once UnusedVariable
+                    int.TryParse(value, out int unusedResult).ShouldBeTrue();
                 }
             }
         }
