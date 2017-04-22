@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Persistance;
+using Shouldly;
 using TestStack.BDDfy;
 using Xunit;
 
@@ -26,6 +28,7 @@ namespace ScheduleGeneration.Test
             private IArangoDatabase _db;
             private IGenerator _generator;
             private IEnumerable<IEvent> _events;
+            private IEnumerable<IEpisode> _episodes;
 
             [Fact]
             public void Execute()
@@ -77,23 +80,46 @@ namespace ScheduleGeneration.Test
                 _events = vertexs.OfType<Event>();
             }
 
-            public void AndWhenEventsAreEnriched()
+            public void AndWhenSerialIsRetrieved()
+            {
+                var @event = _events
+                    .Single();
+
+                var serial = @event
+                    .Serials
+                    .Single()
+                    .ToVertex;
+
+                _episodes = serial
+                    .Episodes
+                    .Select(e => e.ToVertex);
+            }
+
+            public void AndWhenEpisodesAreEnriched()
             {
                 var enricher = new EnricherNumbering();
 
                 enricher.Go(
-                    vertexs: _events,
+                    _episodes,
                     ident: "EventNumber"
                     );
             }
 
             public void ThenEventsMustHaveNumbers()
             {
-                foreach (var @event in _events)
+                foreach (var episode in _episodes)
                 {
-                    var tag = @event
+                    var tag = episode
                         .Tags
-                        .Where(e => e.ToVertex.Ident == "EventNumber");
+                        .SingleOrDefault(e => e.ToVertex.Ident == "EventNumber");
+
+                    tag.ShouldNotBeNull();
+
+                    var value = tag
+                        ?.ToVertex
+                        .Value;
+
+                    int.TryParse(value, out int result).ShouldBeTrue();
                 }
             }
         }

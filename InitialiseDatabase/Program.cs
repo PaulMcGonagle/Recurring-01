@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using ArangoDB.Client;
 using Generators;
+using Generators.Enrichers;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
@@ -26,7 +27,7 @@ namespace InitialiseDatabase
             var generator = GeneratorFactory.Get("classes");
 
             var vertexs = generator.Generate(
-                sourceFile: "..\\..\\..\\ScheduleGeneration.Test\\TestData\\HG.xml",
+                sourceFile: "..\\..\\..\\ScheduleGeneration.Test\\TestData\\BasicSchoolSchedule.xml",
                 clock: fakeClock)
                 .ToList();
 
@@ -38,16 +39,26 @@ namespace InitialiseDatabase
                 }
             }
 
+            var enricher = new EnricherNumbering();
+
+            foreach (var @event in vertexs.OfType<Event>())
+            {
+                Instance.Generate(fakeClock, @event);
+
+                foreach (var serial in @event.Serials.Select(s => s.ToVertex))
+                {
+                    var t = serial.Episodes.Select(e => e.ToVertex);
+
+                    enricher.Go(
+                        t,
+                        ident: "EventNumber");
+                }
+            }
             foreach (var organisation in vertexs.OfType<Tag>()
                 .Where(t => t.Ident == "organisation"))
             {
                 var oLinks = organisation.GetLinks(8)
                     .ToList();
-
-                foreach (var vertex in oLinks.OfType<Event>())
-                {
-                    Instance.Generate(fakeClock, vertex);
-                }
             }
 
             using (var db = SchedulerDatabase.Database.Retrieve())
