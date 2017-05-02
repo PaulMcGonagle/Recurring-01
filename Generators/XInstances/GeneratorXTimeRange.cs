@@ -4,7 +4,6 @@ using Scheduler.Ranges;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using NodaTime;
-using Scheduler.ScheduleEdges;
 
 namespace Generators.XInstances
 {
