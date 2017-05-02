@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<generator>
+  <caches>
+    <cache name="RangeDate.Term.2016/17.Winter" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter']]"/>
+    <cache name="RangeDate.Term.2016/17.Autumn" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Autumn']]"/>
+    <cache name="RangeDate.Term.2016/17.Summer" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer']]"/>
+  </caches>
+  <schedules>
+    <schedule>
+      <byOffset initialDate="2017-01-09" interval="21d"/>
+      <rangeDates>
+        <link cache="RangeDate.Term.2016/17.Winter"/>
+      </rangeDates>
+    </schedule>
+  </schedules>
+  <rangeDates>
+    <rangeDate start="2017-01-02" end="2017-03-31">
+      <tags>
+        <tag id="name" value="RangeDate.Term.2016/17.Winter"/>
+      </tags>
+    </rangeDate>
+    <rangeDate start="2017-04-17" end="2017-05-26">
+      <tags>
+        <tag id="name" value="RangeDate.Term.2016/17.Summer"/>
+      </tags>
+    </rangeDate>
+    <rangeDate start="2017-06-02" end="2017-07-21">
+      <tags>
+        <tag id="name" value="RangeDate.Term.2016/17.Autumn"/>
+      </tags>
+    </rangeDate>
+  </rangeDates>
+</generator>
+

@@ -39,7 +39,16 @@ namespace InitialiseDatabase
                 }
             }
 
-            var enricher = new EnricherNumbering();
+            var enricher = new EnricherLookup();
+
+            var generatorSchedule = GeneratorFactory.Get("classes");
+
+            var menu = generatorSchedule.Generate(
+                    sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Caterlink2.xml",
+                    clock: fakeClock)
+                .ToList();
+
+
 
             foreach (var @event in vertexs.OfType<Event>())
             {
@@ -49,9 +58,9 @@ namespace InitialiseDatabase
                 {
                     var t = serial.Episodes.Select(e => e.ToVertex);
 
-                    enricher.Go(
-                        t,
-                        ident: "EventNumber");
+                    //enricher.Go(
+                    //    t,
+                    //    ident: "EventNumber");
                 }
             }
             foreach (var organisation in vertexs.OfType<Tag>()

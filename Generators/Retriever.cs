@@ -341,6 +341,13 @@ namespace Generators
             return false;
         }
 
+        public static int RetrieveAttributeAsInt(this XElement xInput, string name)
+        {
+            var attribute = RetrieveAttribute(xInput, name);
+
+            return int.Parse(attribute.Value);
+        }
+
         public static LocalTime RetrieveAttributeAsLocalTime(this XElement xInput, string name)
         {
             var attribute = RetrieveAttribute(xInput, name);

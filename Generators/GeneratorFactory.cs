@@ -19,6 +19,9 @@ namespace Generators
                 case "schedule":
                     return new GeneratorSchedule();
 
+                case "byOffset":
+                    return new GeneratorOffset();
+
                 default:
                     throw new NotImplementedException($"Unexpected generatorType '{generatorType}'");
             }

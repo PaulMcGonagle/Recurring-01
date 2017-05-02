@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <generator>
   <caches>
-    <cache name="Winter 2017" type="DateRange" path="./generator/rangeDates/rangeDate"/>
-    <cache name="Spring 2017" type="DateRange" path="./generator/rangeDates/rangeDate"/>
-    <cache name="Summer 2017" type="DateRange" path="./generator/rangeDates/rangeDate"/>
+    <cache name="Winter 2016/17" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter']]"/>
+    <cache name="Autumn 2016/17" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Autumn']]"/>
+    <cache name="Summer 2016/17" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer']]"/>
   </caches>
   <schedules>
     <schedule>
@@ -50,17 +50,17 @@
   <rangeDates>
     <rangeDate start="2017-01-02" end="2017-03-31">
       <tags>
-        <tag id="name" value="Winter 2017"/>
+        <tag id="name" value="RangeDate.Term.2016/17.Winter"/>
       </tags>
     </rangeDate>
     <rangeDate start="2017-04-17" end="2017-05-26">
       <tags>
-        <tag id="name" value="Spring 2017"/>
+        <tag id="name" value="RangeDate.Term.2016/17.Summer"/>
       </tags>
     </rangeDate>
     <rangeDate start="2017-06-02" end="2017-07-21">
       <tags>
-        <tag id="name" value="Summer 2017"/>
+        <tag id="name" value="RangeDate.Term.2016/17.Autumn"/>
       </tags>
     </rangeDate>
   </rangeDates>

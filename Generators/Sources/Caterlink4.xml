@@ -1,0 +1,49 @@
+﻿<generator>
+  <schedules>
+    <schedule>
+      <weekdays>
+        <weekday value="Monday"/>
+      </weekdays>
+      <rangeDates>
+        <link cache="RangeDate.Term.2016/17.Summer.1"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Chicken & Broccoli Wholemeal Pasta Bake (made with free range chicken)</main>
+                <vegetarian>Vegetable Goulash with Rice</vegetarian>
+                <dessert>Rice Pudding with Mixed Berries</dessert>
+                <dessert>Yoghurt / Fresh Fruit Platter</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </schedule>
+  </schedules>
+  <caches>
+    <cache name="RangeDate.Term.2016/17.Summer.1" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2016/17.Summer.1')]]"/>
+    <cache name="RangeDate.Term.2016/17.Summer.2" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2016/17.Summer.2')]]"/>
+    <cache name="RangeDate.Term.2016/17.Summer.3" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2016/17.Summer.3')]]"/>
+  </caches>
+  <rangeDates>
+    <rangeDate start="2017-04-24" duration="5d"><tags><tag id="name" value="RangeDate.Menu.2016/17.Summer.1.1"/></tags></rangeDate>
+    <rangeDate start="2017-05-15" duration="5d"><tags><tag id="name" value="RangeDate.Menu.2016/17.Summer.1.2"/></tags></rangeDate>
+    <rangeDate start="2017-06-12" duration="5d"><tags><tag id="name" value="RangeDate.Menu.2016/17.Summer.1.3"/></tags></rangeDate>
+    <rangeDate start="2017-07-03" duration="5d"><tags><tag id="name" value="RangeDate.Menu.2016/17.Summer.1.4"/></tags></rangeDate>
+    <rangeDate start="2017-07-24" duration="5d"><tags><tag id="name" value="RangeDate.Menu.2016/17.Summer.1.5"/></tags></rangeDate>
+
+    <rangeDate start="2017-05-01" duration="5d"><tags><tag id="name" value="RangeDate.Menu.2016/17.Summer.2.1"/></tags></rangeDate>
+    <rangeDate start="2017-05-22" duration="5d"><tags><tag id="name" value="RangeDate.Menu.2016/17.Summer.2.2"/></tags></rangeDate>
+    <rangeDate start="2017-06-19" duration="5d"><tags><tag id="name" value="RangeDate.Menu.2016/17.Summer.2.3"/></tags></rangeDate>
+    <rangeDate start="2017-07-10" duration="5d"><tags><tag id="name" value="RangeDate.Menu.2016/17.Summer.2.4"/></tags></rangeDate>
+
+    <rangeDate start="2017-05-08" duration="5d"><tags><tag id="name" value="RangeDate.Menu.2016/17.Summer.3.1"/></tags></rangeDate>
+    <rangeDate start="2017-06-05" duration="5d"><tags><tag id="name" value="RangeDate.Menu.2016/17.Summer.3.2"/></tags></rangeDate>
+    <rangeDate start="2017-06-26" duration="5d"><tags><tag id="name" value="RangeDate.Menu.2016/17.Summer.3.3"/></tags></rangeDate>
+    <rangeDate start="2017-07-17" duration="5d"><tags><tag id="name" value="RangeDate.Menu.2016/17.Summer.3.4"/></tags></rangeDate>
+    
+  </rangeDates>
+</generator>

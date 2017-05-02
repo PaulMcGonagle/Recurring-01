@@ -47,14 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enrichers\EnricherLookup.cs" />
     <Compile Include="Enrichers\EnricherNumbering.cs" />
     <Compile Include="GenerateFromCalendar.cs" />
     <Compile Include="GenerateFromFile.cs" />
+    <Compile Include="IEnricher.cs" />
     <Compile Include="IGeneratorX.cs" />
     <Compile Include="Instances\GeneratorClasses.cs" />
     <Compile Include="GeneratorFactory.cs" />
     <Compile Include="Instances\GeneratorHolidays.cs" />
     <Compile Include="IGenerator.cs" />
+    <Compile Include="Instances\GeneratorOffset.cs" />
     <Compile Include="Instances\GeneratorSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retriever.cs" />
@@ -62,17 +65,22 @@
     <Compile Include="Types\Terms.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="UtilitiesLinks.cs" />
+    <Compile Include="XInstances\GeneratorXByOffset.cs" />
     <Compile Include="XInstances\GeneratorXDateRange.cs" />
+    <Compile Include="XInstances\GeneratorXSchedule.cs" />
     <Compile Include="XInstances\GeneratorXTag.cs" />
     <Compile Include="XInstances\GeneratorXTimeRange.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Sources\Caterlink2.xml" />
+    <Content Include="Sources\Caterlink2.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Sources\Caterlink3.xml" />
+    <Content Include="Sources\Caterlink4.xml" />
     <Content Include="Sources\Holidays.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sources\QIce.xml" />
     <Content Include="Sources\Caterlink.xml">
       <SubType>Designer</SubType>
     </Content>

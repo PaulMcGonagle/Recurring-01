@@ -4,7 +4,7 @@ using Scheduler.Persistance;
 
 namespace Generators.Enrichers
 {
-    public class EnricherNumbering
+    public class EnricherNumbering : IEnricher
     {
         public void Go(
             IEnumerable<IVertex> vertexs,

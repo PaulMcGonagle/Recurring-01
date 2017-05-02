@@ -35,8 +35,9 @@ namespace Generators.Instances
 
                 foreach (var weekday in weekdays)
                 {
-                    var dateRanges = xSchedule.RetrieveDateRanges(
-                        caches: caches);
+                    var dateRanges = xSchedule
+                        .RetrieveDateRanges(
+                            caches: caches);
 
                     foreach (var dateRange in dateRanges)
                     {
