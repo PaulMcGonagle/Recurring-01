@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
@@ -9,26 +11,28 @@ using Scheduler.ScheduleInstances;
 
 namespace Generators.XInstances
 {
-    public class GeneratorXByOffset
+    public class GeneratorXByOffset : IGeneratorX
     {
         public bool TryGenerate(XElement xSchedule, IDictionary<string, IVertex> caches, out IVertex vertex, string elementsName = null)
         {
             try
             {
-                var xByOffset = xSchedule
-                    .Element("byOffset");
+                var tag = xSchedule
+                    .RetrieveTags(caches)
+                    .Where(t => t.Ident == "type")
+                    .Where(t => t.Value == "ByOffset")
+                    .SingleOrDefault();
 
-                if (xByOffset == null)
-                    throw new Exception("No byOffset could be found");
+                if (tag == null)
+                    throw new Exception("Could not identify tags");
 
-                var initialDate = xByOffset
-                    .RetrieveAttributeAsLocalDate("initialDate");
+                var tags = tag.Tags.Select(t => t.ToVertex);
 
-                var increment = xByOffset
-                    .RetrieveAttributeValue("interval");
+                var initialDateValue = tags.RetrieveValue("InitialDate");
+                var initialDate = Retriever.RetrieveLocalDate(initialDateValue);
+                var interval = tag.Tags.Select(t => t.ToVertex).RetrieveValue("Interval");
 
                 var dateRanges = xSchedule
-                    .Element("rangeDates")
                     .RetrieveDateRanges(
                         caches: caches)
                     .ToList();
@@ -40,7 +44,7 @@ namespace Generators.XInstances
                     var byOffset = ByOffset
                         .Create(
                             initialDate: initialDate,
-                            interval: increment,
+                            interval: interval,
                             range: dateRange);
 
                     composite

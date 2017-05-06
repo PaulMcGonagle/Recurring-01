@@ -149,8 +149,12 @@ namespace Generators
 
             var tag = new Tag(inputIdent.Value, inputValue.Value, inputPayload?.Value);
 
-            tag.Tags.AddRange(RetrieveXTags(xInput)
-                .Select(relatedTag => new EdgeTag(RetrieveTag(relatedTag))));
+            var xTags = RetrieveXTags(xInput);
+            var relatedTags = xTags
+                .Select(RetrieveTag);
+
+            tag.Tags.AddRange(relatedTags
+                .Select(relatedTag => new EdgeTag(relatedTag)));
 
             return tag;
         }

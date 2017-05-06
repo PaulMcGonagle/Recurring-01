@@ -92,6 +92,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CompositeScheduleTests.cs" />
+    <Compile Include="XInstances\GeneratorXTests.cs" />
     <Compile Include="LoadAndEnrich.cs" />
     <Compile Include="LoadFiles.cs" />
     <Compile Include="LoadHolidaysTests.cs" />
@@ -138,6 +139,9 @@
     </Content>
     <Content Include="TestData\BasicSchoolSchedule.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\GeneratorXByOffset.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\HG.xml">

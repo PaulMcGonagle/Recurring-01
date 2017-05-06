@@ -40,6 +40,9 @@ namespace Generators
                 case "Tag":
                     return new GeneratorXTag();
 
+                case "ByOffset":
+                    return new GeneratorXByOffset();
+
                 default:
                     throw new NotImplementedException($"Unexpected generatorType '{generatorType}'");
             }
