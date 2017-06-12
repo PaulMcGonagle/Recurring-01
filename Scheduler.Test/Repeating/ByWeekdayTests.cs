@@ -12,7 +12,8 @@ namespace Scheduler.Test.Repeating
     {
         public class VerifyDates
         {
-            private ByWeekday _repeatingDay;
+            private ByWeekday _sut;
+            private IClock _clock;
             private IEnumerable<IDate> _generatedDates;
 
             [Fact]
@@ -20,27 +21,32 @@ namespace Scheduler.Test.Repeating
             {
                 var fakeClock = ScheduleTestHelper.GetFakeClock(2016, 05, 01);
 
-                this.WithExamples(table: new ExampleTable("repeatingDay", "dayOfWeek", "firstDate", "lastDate")
+                this.WithExamples(table: new ExampleTable("repeatingDay", "dayOfWeek", "firstDate", "clock", "lastDate")
                     {
-                        {   new ByWeekday(clock: fakeClock, weekday: IsoDayOfWeek.Monday), IsoDayOfWeek.Monday, new Date(2016, YearMonth.MonthValue.May, 02), new Date(2017, YearMonth.MonthValue.May, 01) },
-                        //{   new ByWeekday(clock: fakeClock, weekday: IsoDayOfWeek.Tuesday), IsoDayOfWeek.Tuesday, new Date(2016, YearMonth.MonthValue.April, 26), new Date(2017, YearMonth.MonthValue.April, 25) },
-                        //{   new ByWeekday(clock: fakeClock, weekday: IsoDayOfWeek.Wednesday), IsoDayOfWeek.Wednesday, new Date(2016, YearMonth.MonthValue.April, 27), new Date(2017, YearMonth.MonthValue.April, 26) },
-                        //{   new ByWeekday(clock: fakeClock, weekday: IsoDayOfWeek.Thursday), IsoDayOfWeek.Thursday, new Date(2016, YearMonth.MonthValue.April, 28), new Date(2017, YearMonth.MonthValue.April, 27) },
-                        //{   new ByWeekday(clock: fakeClock, weekday: IsoDayOfWeek.Friday), IsoDayOfWeek.Friday, new Date(2016, YearMonth.MonthValue.April, 29), new Date(2017, YearMonth.MonthValue.April, 28) },
-                        //{   new ByWeekday(clock: fakeClock, weekday: IsoDayOfWeek.Saturday), IsoDayOfWeek.Saturday, new Date(2016, YearMonth.MonthValue.April, 30), new Date(2017, YearMonth.MonthValue.April, 29) },
-                        //{   new ByWeekday(clock: fakeClock, weekday: IsoDayOfWeek.Sunday), IsoDayOfWeek.Sunday, new Date(2016, YearMonth.MonthValue.May, 01), new Date(2017, YearMonth.MonthValue.April, 30) },
+                        {   new ByWeekday(weekday: IsoDayOfWeek.Monday), IsoDayOfWeek.Monday, new Date(2016, YearMonth.MonthValue.May, 02), fakeClock, new Date(2017, YearMonth.MonthValue.May, 01) },
+                        //{   new ByWeekday(weekday: IsoDayOfWeek.Tuesday), IsoDayOfWeek.Tuesday, new Date(2016, YearMonth.MonthValue.April, 26), fakeClock, new Date(2017, YearMonth.MonthValue.April, 25) },
+                        //{   new ByWeekday(weekday: IsoDayOfWeek.Wednesday), IsoDayOfWeek.Wednesday, new Date(2016, YearMonth.MonthValue.April, 27), fakeClock, new Date(2017, YearMonth.MonthValue.April, 26) },
+                        //{   new ByWeekday(weekday: IsoDayOfWeek.Thursday), IsoDayOfWeek.Thursday, new Date(2016, YearMonth.MonthValue.April, 28), fakeClock, new Date(2017, YearMonth.MonthValue.April, 27) },
+                        //{   new ByWeekday(weekday: IsoDayOfWeek.Friday), IsoDayOfWeek.Friday, new Date(2016, YearMonth.MonthValue.April, 29), fakeClock, new Date(2017, YearMonth.MonthValue.April, 28) },
+                        //{   new ByWeekday(weekday: IsoDayOfWeek.Saturday), IsoDayOfWeek.Saturday, new Date(2016, YearMonth.MonthValue.April, 30), fakeClock, new Date(2017, YearMonth.MonthValue.April, 29) },
+                        //{   new ByWeekday(weekday: IsoDayOfWeek.Sunday), IsoDayOfWeek.Sunday, new Date(2016, YearMonth.MonthValue.May, 01), fakeClock, new Date(2017, YearMonth.MonthValue.April, 30) },
                     })
                     .BDDfy();
             }
 
             public void GivenARepeatingDay(ByWeekday repeatingDay)
             {
-                _repeatingDay = repeatingDay;
+                _sut = repeatingDay;
+            }
+
+            public void AndGivenAClock(IClock clock)
+            {
+                _clock = clock;
             }
 
             public void WhenDatesAreGenerated()
             {
-                _generatedDates = _repeatingDay.Generate();
+                _generatedDates = _sut.Generate(_clock);
             }
 
             public void ThenAllDatesShouldBeThisDay(IsoDayOfWeek dayOfWeek)

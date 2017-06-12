@@ -43,7 +43,7 @@ namespace ScheduleGeneration.Test
                 {
                     {
                         Event.Create(
-                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday, fakeClock)
+                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday)
                             {
                                 EdgeRange = new EdgeRangeDate(new DateRange(2016, YearMonth.MonthValue.February, 20, 2016, YearMonth.MonthValue.May, 15)),
                             },
@@ -51,7 +51,7 @@ namespace ScheduleGeneration.Test
                             timeZoneProvider: "Europe/London",
                             location: TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                         mockDb.Object,
-                        new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
+                        fakeClock,
                         new List<LocalDateTime>
                         {
                             new LocalDateTime(2016, 02, 24, 16, 30),
@@ -239,7 +239,7 @@ namespace ScheduleGeneration.Test
                 {
                     {
                         Event.Create(
-                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday, fakeClock)
+                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday)
                             {
                                 EdgeRange = new EdgeRangeDate(new DateRange(2016, YearMonth.MonthValue.February, 20, 2016, YearMonth.MonthValue.May, 15)),
                             },
@@ -247,8 +247,7 @@ namespace ScheduleGeneration.Test
                             timeZoneProvider: "Europe/London",
                             location: TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                         mockDb.Object,
-                        new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
-
+                        fakeClock,
                         new List<LocalDateTime>
                         {
                             new LocalDateTime(2016, 02, 24, 16, 30),

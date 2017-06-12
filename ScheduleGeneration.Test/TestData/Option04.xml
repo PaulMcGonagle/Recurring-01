@@ -75,12 +75,12 @@
             </term>
           </terms>
           <schedules>
-            <schedule>
+            <byWeekdays>
               <rangeTime start="09:15" end="10:20"/>
               <weekdays>
                 <weekday value="Monday"/>
               </weekdays>
-            </schedule>
+            </byWeekdays>
           </schedules>
         </class>
       </classes>

@@ -45,7 +45,7 @@ namespace Scheduler.ScheduleInstances
                 count: count);
         }
 
-        public override IEnumerable<IDate> Generate()
+        public override IEnumerable<IDate> Generate(IClock clock)
         {
             var results = new List<IDate>();
 

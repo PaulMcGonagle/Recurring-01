@@ -41,7 +41,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 {
                     {
                        Event.Create(
-                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday, fakeClock)
+                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday)
                             {
                                 EdgeRange =
                                     new EdgeRangeDate(new DateRange(2016, YearMonth.MonthValue.February, 20, 2016,
@@ -131,7 +131,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 {
                     {
                        Event.Create(
-                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday, fakeClock)
+                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday)
                             {
                                 EdgeRange =
                                     new EdgeRangeDate(

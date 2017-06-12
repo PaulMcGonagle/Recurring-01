@@ -1,6 +1,6 @@
 ﻿<generator>
   <schedules>
-    <schedule>
+    <byWeekdays>
       <weekdays>
         <weekday value="Monday"/>
       </weekdays>
@@ -21,7 +21,7 @@
           </payload>
         </tag>
       </tags>
-    </schedule>
+    </byWeekdays>
   </schedules>
   <caches>
     <cache name="RangeDate.Term.2016/17.Summer.1" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2016/17.Summer.1')]]"/>

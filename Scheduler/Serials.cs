@@ -7,18 +7,15 @@ namespace Scheduler
 {
     public class Serials : List<Serial>, ISerials
     {
-        public IEpisodes Episodes
+        public IEpisodes GenerateEpisodes(IClock clock)
         {
-            get
-            {
-                var episodes = new Episodes();
+            var episodes = new Episodes();
 
-                episodes.AddRange(this
-                    .SelectMany(ce => ce.Episodes)
-                    .Select(e => e.ToVertex));
+            episodes.AddRange(this
+                .SelectMany(ce => ce.GenerateEpisodes(clock))
+                .Select(e => e.ToVertex));
 
-                return episodes;
-            }
+            return episodes;
         }
 
         public void Save(IArangoDatabase db, IClock clock)

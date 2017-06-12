@@ -3,6 +3,7 @@ using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NodaTime;
 using TestStack.BDDfy;
 using Xunit;
 
@@ -14,6 +15,7 @@ namespace Scheduler.Test.Repeating
         public class ValidateRollStrategy
         {
             private ByDayOfMonth _sut;
+            private IClock _clock;
             private IEnumerable<IDate> _dates;
 
             [Fact]
@@ -25,7 +27,7 @@ namespace Scheduler.Test.Repeating
 
                 var fakeClock = ScheduleTestHelper.GetFakeClock(yearLeap, baseMonth, baseDay);
 
-                this.WithExamples(new ExampleTable("SUT", "Expected Dates")
+                this.WithExamples(new ExampleTable("sut", "clock", "Expected Dates")
                     {
                         {
                             new ByDayOfMonth
@@ -36,10 +38,10 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 00,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Forward
                             },
+                            fakeClock,
                             Enumerable.Range(0, 03)
                                 .Select(i => new Date(yearLeap, baseMonth, 28).PlusMonths(-2 + i))
                         },
-
                         {
                             new ByDayOfMonth
                             {
@@ -49,6 +51,7 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Back
                             },
+                            fakeClock,
                             new List<IDate>
                             {
                                 new Date(yearLeap, YearMonth.MonthValue.January, 30),
@@ -58,7 +61,6 @@ namespace Scheduler.Test.Repeating
                                 new Date(yearLeap, YearMonth.MonthValue.May, 30),
                             }
                         },
-
                         {
                             new ByDayOfMonth
                             {
@@ -68,6 +70,7 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Skip
                             },
+                            fakeClock,
                             new List<IDate>
                             {
                                 new Date(yearLeap, YearMonth.MonthValue.January, 29),
@@ -76,7 +79,6 @@ namespace Scheduler.Test.Repeating
                                 new Date(yearLeap, YearMonth.MonthValue.May, 29),
                             }
                         },
-
                         {
                             new ByDayOfMonth
                             {
@@ -86,6 +88,7 @@ namespace Scheduler.Test.Repeating
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Forward
                             },
+                            fakeClock,
                             new List<IDate>
                             {
                                 new Date(yearLeap, YearMonth.MonthValue.January, 29),
@@ -104,9 +107,15 @@ namespace Scheduler.Test.Repeating
                 _sut = sut;
             }
 
+            public void AndGivenAClock(IClock clock)
+            {
+                _clock = clock;
+            }
+
             public void WhenDatesAreRetrieved()
             {
-                _dates = _sut.Generate();
+                _dates = _sut
+                    .Generate(_clock);
             }
 
             public void ThenAllDatesShouldBeExpected(

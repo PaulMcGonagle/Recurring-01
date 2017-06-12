@@ -30,7 +30,7 @@ namespace Scheduler.Generation
                     .Serials
                     .SelectMany(s => s
                         .ToVertex
-                        .Episodes))
+                        .GenerateEpisodes(clock)))
             });
         }
 

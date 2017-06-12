@@ -6,46 +6,46 @@
     <cache name="Summer 2016/17" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer']]"/>
   </caches>
   <schedules>
-    <schedule>
+    <byWeekday>
       <weekdays>
         <weekday value="Monday"/>
       </weekdays>
       <rangeDates>
         <link cache="Winter 2017"/>
       </rangeDates>
-    </schedule>
-    <schedule>
+    </byWeekday>
+    <byWeekday>
       <weekdays>
         <weekday value="Tuesday"/>
       </weekdays>
       <rangeDates>
         <link cache="Winter 2017"/>
       </rangeDates>
-    </schedule>
-    <schedule>
+    </byWeekday>
+    <byWeekday>
       <weekdays>
         <weekday value="Wednesday"/>
       </weekdays>
       <rangeDates>
         <link cache="Winter 2017"/>
       </rangeDates>
-    </schedule>
-    <schedule>
+    </byWeekday>
+    <byWeekday>
       <weekdays>
         <weekday value="Thursday"/>
       </weekdays>
       <rangeDates>
         <link cache="Winter 2017"/>
       </rangeDates>
-    </schedule>
-    <schedule>
+    </byWeekday>
+    <byWeekday>
       <weekdays>
         <weekday value="Friday"/>
       </weekdays>
       <rangeDates>
         <link cache="Winter 2017"/>
       </rangeDates>
-    </schedule>
+    </byWeekday>
   </schedules>
   <rangeDates>
     <rangeDate start="2017-01-02" end="2017-03-31">

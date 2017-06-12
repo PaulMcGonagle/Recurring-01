@@ -15,12 +15,15 @@ namespace Scheduler.Test.Repeating
         public class VerifyDates
         {
             private ByWeekdays _sut;
+            private IClock _clock;
             private IEnumerable<IDate> _dates;
 
             [Fact]
             public void Execute()
             {
-                this.WithExamples(new ExampleTable("sut", "daysOfWeek", "firstDate", "lastDate")
+                var fakeClock = ScheduleTestHelper.GetFakeClock(2016, YearMonth.MonthValue.March, 15);
+
+                this.WithExamples(new ExampleTable("sut", "clock", "daysOfWeek", "firstDate", "lastDate")
                     {
                         {
                             new ByWeekdays
@@ -28,6 +31,7 @@ namespace Scheduler.Test.Repeating
                                 Days = new List<IsoDayOfWeek> {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
                                 EdgeRange = new EdgeRangeDate(2000, YearMonth.MonthValue.April, 15, 2010, YearMonth.MonthValue.November, 28),
                             },
+                            fakeClock,
                             new List<IsoDayOfWeek> {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
                             new Date(2000, YearMonth.MonthValue.April, 15),
                             new Date(2010, YearMonth.MonthValue.November, 28)
@@ -43,7 +47,7 @@ namespace Scheduler.Test.Repeating
 
             public void WhenDatesAreRetrieved()
             {
-                _dates = _sut.Generate();
+                _dates = _sut.Generate(_clock);
             }
 
             public void ThenAllDatesShouldBeThisDay(List<IsoDayOfWeek> daysOfWeek)

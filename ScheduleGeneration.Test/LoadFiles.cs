@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using ArangoDB.Client;
 using Generators;
@@ -21,6 +19,7 @@ namespace ScheduleGeneration.Test
         private string _type;
         private string _sourceFile;
         private IList<Tuple<string, XElement>> _sources;
+        private ICompositeSchedule _compositeSchedule;
         private XElement _source;
         private IClock _clock;
         private IArangoDatabase _db;
@@ -91,11 +90,18 @@ namespace ScheduleGeneration.Test
         {
             _sources = new List<Tuple<string, XElement>>();
 
-            var generatorName = _type;
-            var generator = GeneratorFactory.Get(generatorName);
+            var generator = GeneratorFactory.Get(_type);
+
             _vertexs = generator
                 .Generate(_sourceFile, _clock)
                 .ToList();
+        }
+
+        public void AndWhenASingleCompositeScheduleIsRetrieved()
+        {
+            _compositeSchedule = _vertexs
+                .OfType<ICompositeSchedule>()
+                .Single();
         }
 
         public void ThenVertexsHaveBeenGenerated()

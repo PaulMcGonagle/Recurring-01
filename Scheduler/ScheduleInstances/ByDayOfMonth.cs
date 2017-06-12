@@ -28,39 +28,34 @@ namespace Scheduler.ScheduleInstances
             set { _clock = value; }
         }
 
-        [IgnoreDataMember]
-        protected YearMonth YearMonthFrom
+        protected YearMonth GetYearMonthFrom(IClock clock)
         {
-            get
-            {
-                if (EdgeRange?.ToVertex?.From != null)
-                    return new Date(EdgeRange.ToVertex.From.Date.Value).ToYearMonth();
+            if (EdgeRange?.ToVertex?.From != null)
+                return new Date(EdgeRange.ToVertex.From.Date.Value).ToYearMonth();
 
-                var yearMonth = Clock.GetLocalYearMonth();
+            var yearMonth = Clock.GetLocalYearMonth();
 
-                return yearMonth.AddMonths(CountFrom ?? CountFromDefault);
-            }
+            return yearMonth.AddMonths(CountFrom ?? CountFromDefault);
         }
 
-        [IgnoreDataMember]
-        protected YearMonth YearMonthTo
+        protected YearMonth GetYearMonthTo(IClock clock)
         {
-            get
-            {
-                if (EdgeRange?.ToVertex?.To != null)
-                    return new Date(EdgeRange.ToVertex.To.Date.Value).ToYearMonth();
+            if (EdgeRange?.ToVertex?.To != null)
+                return new Date(EdgeRange.ToVertex.To.Date.Value).ToYearMonth();
 
-                var yearMonth = Clock.GetLocalYearMonth();
+            var yearMonth = Clock.GetLocalYearMonth();
 
-                return yearMonth.AddMonths(CountTo ?? CountToDefault);
-            }
+            return yearMonth.AddMonths(CountTo ?? CountToDefault);
         }
 
-        public override IEnumerable<IDate> Generate()
+        public override IEnumerable<IDate> Generate(IClock clock)
         {
             var dates = new List<IDate>();
 
-            var yearMonths = YearMonth.Range(YearMonthFrom, YearMonthTo, Increment);
+            var yearMonthFrom = GetYearMonthFrom(clock);
+            var yearMonthTo = GetYearMonthTo(clock);
+
+            var yearMonths = YearMonth.Range(yearMonthFrom, yearMonthTo, Increment);
 
             foreach (var yearMonth in yearMonths)
             {

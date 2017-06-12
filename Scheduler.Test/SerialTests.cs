@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
+using NodaTime.Testing;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
@@ -16,14 +17,16 @@ namespace Scheduler.Test
         public class VerifyDateOutOfBoundsExceptionIsThrown
         {
             private Serial _sut;
+            private IClock _clock;
             private IEdgeVertexs<IEpisode> _episodes;
 
             [Fact]
             public void Execute()
             {
                 const string timeZoneProvider = "Europe/London";
+                var fakeClock = new FakeClock(Instant.FromUtc(2016, 05, 01, 0, 0));
 
-                this.WithExamples(new ExampleTable("sut", "expectedEpisodes")
+                this.WithExamples(new ExampleTable("sut", "clock", "expectedEpisodes")
                     {
                         {
                             new Serial(
@@ -38,6 +41,7 @@ namespace Scheduler.Test
                                     },
                                 timeRange: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
                                 timeZoneProvider: timeZoneProvider),
+                            fakeClock,
                             new Episodes
                             {
                                 new Episode
@@ -69,7 +73,7 @@ namespace Scheduler.Test
 
             public void WhenEpisodesAreRetrieved()
             {
-                _episodes = _sut.Episodes;
+                _episodes = _sut.GenerateEpisodes(_clock);
             }
 
             public void ThenEpisodesAreExpected(IEpisodes expectedEpisodes)
@@ -83,6 +87,7 @@ namespace Scheduler.Test
         public class VerifyMissingPropertyThrowsArgumentException
         {
             private Serial _sut;
+            private IClock _clock;
             private IEdgeVertexs<IEpisode> _episodes;
             private System.Exception _exception;
 
@@ -90,14 +95,16 @@ namespace Scheduler.Test
             public void Execute()
             {
                 const string timeZoneProvider = "Europe/London";
+                var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
 
-                this.WithExamples(new ExampleTable("sut", "parameterName")
+                this.WithExamples(new ExampleTable("sut", "clock", "parameterName")
                     {
                         {
                             new Serial(
                                 schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: null,
                                 timeZoneProvider: timeZoneProvider),
+                            fakeClock,
                             "TimeRange"
                         },
                         {
@@ -105,6 +112,7 @@ namespace Scheduler.Test
                                 schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: new EdgeRangeTime(new LocalTime(15, 30), null),
                                 timeZoneProvider: timeZoneProvider),
+                            fakeClock,
                             "Period"
                         },
                         {
@@ -112,6 +120,7 @@ namespace Scheduler.Test
                                 schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Minutes = 30,}.Build()),
                                 timeZoneProvider: null),
+                            fakeClock,
                             "TimeZoneProvider"
                         },
                     })
@@ -125,7 +134,7 @@ namespace Scheduler.Test
 
             public void WhenEpisodesAreRetrieved()
             {
-                _exception = Record.Exception(() => { _episodes = _sut.Episodes; });
+                _exception = Record.Exception(() => { _episodes = _sut.GenerateEpisodes(_clock); });
             }
 
             public void ThenArgumentExceptionIsThrown(string parameterName)

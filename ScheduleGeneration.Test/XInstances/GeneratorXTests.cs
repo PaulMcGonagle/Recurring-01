@@ -72,31 +72,28 @@ namespace ScheduleGeneration.Test.XInstances
             public void AndWhenGenerated()
             {
                 var schedules = _source
-                    .XPathSelectElements("./schedules/schedule");
+                    .Elements("schedules")
+                    .Single();
 
                 IDictionary<string, IVertex> caches= new Dictionary<string, IVertex>();
                 _vertexs = new List<IVertex>();
 
-                foreach (var schedule in schedules)
+                foreach (var xSchedule in schedules.Elements())
                 {
-                    var xTags = schedule
+                    var xTags = xSchedule
                         .Element("tags");
 
-                    var type = xTags
-                        ?.XPathSelectElement("./tag[@id='type']")
-                        ?.Attribute("value")
-                        ?.Value;
+                    var type = xSchedule.Name.LocalName;
+
                     type.ShouldNotBeNullOrWhiteSpace();
 
                     var generator = GeneratorFactory.GetX(type);
 
-                    IVertex vertex;
+                    var schedule = generator.Generate(
+                            xSchedule, 
+                            caches);
 
-                    generator
-                        .TryGenerate(schedule, caches, out vertex)
-                        .ShouldBeTrue();
-
-                    _vertexs.Add(vertex);
+                    _vertexs.Add(schedule);
                 }
             }
 

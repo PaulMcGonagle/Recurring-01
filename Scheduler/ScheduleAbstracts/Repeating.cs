@@ -19,10 +19,7 @@ namespace Scheduler.ScheduleAbstracts
 
         protected int Increment = 1;
 
-        public override IEnumerable<IDate> Generate()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract override IEnumerable<IDate> Generate(IClock clock);
         
         #region Save
 

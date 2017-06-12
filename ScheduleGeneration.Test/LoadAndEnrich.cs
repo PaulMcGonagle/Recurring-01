@@ -22,8 +22,9 @@ namespace ScheduleGeneration.Test
             private string _sourceFile;
             private IClock _clock;
             private IGenerator _generator;
-            private IEnumerable<IEvent> _events;
-            private IEnumerable<IEpisode> _episodes;
+            private IEnumerable<IVertex> _vertexs;
+            private ICompositeSchedule _compositeSchedule;
+            private IEnumerable<IDate> _dates;
 
             [Fact]
             public void Execute()
@@ -35,13 +36,23 @@ namespace ScheduleGeneration.Test
                 this.WithExamples(new ExampleTable(
                     "sourceFile",
                     "clock",
-                    "db"
+                    "db",
+                    "expectedDates"
                 )
                 {
                     {
                         AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\BasicSchoolSchedule.xml",
                         fakeClock,
-                        mockDb.Object
+                        mockDb.Object,
+                        new List<IDate>
+                        {
+                            new Date(2017, YearMonth.MonthValue.January, 02),
+                            new Date(2017, YearMonth.MonthValue.January, 03),
+                            new Date(2017, YearMonth.MonthValue.January, 04),
+                            new Date(2017, YearMonth.MonthValue.January, 06),
+                            new Date(2017, YearMonth.MonthValue.January, 09),
+                            new Date(2017, YearMonth.MonthValue.January, 10)
+                        }
                     },
                 }).BDDfy();
             }
@@ -67,56 +78,75 @@ namespace ScheduleGeneration.Test
                 _generator = GeneratorFactory.Get("classes");
             }
 
-            public void AndWhenEventsAreGenerated()
+            public void AndWhenVertexsAreGenerated()
             {
-                var vertexs = _generator.Generate(_sourceFile, _clock);
-
-                _events = vertexs.OfType<Event>();
+                _vertexs = _generator
+                    .Generate(_sourceFile, _clock)
+                    .ToList();
             }
 
-            public void AndWhenSerialIsRetrieved()
+            public void AndWhenASingleCompositeScheduleIsRetrieved()
             {
-                var @event = _events
+                _compositeSchedule = _vertexs
+                    .OfType<ICompositeSchedule>()
                     .Single();
-
-                var serial = @event
-                    .Serials
-                    .Single()
-                    .ToVertex;
-
-                _episodes = serial
-                    .Episodes
-                    .Select(e => e.ToVertex);
             }
 
-            public void AndWhenEpisodesAreEnriched()
+            public void AndWhenSchedulesAreGenerated()
             {
-                var enricher = new EnricherNumbering();
-
-                enricher.Go(
-                    vertexs: _episodes,
-                    ident: "EventNumber"
-                    );
+                _dates = _compositeSchedule
+                    .Generate(_clock);
             }
 
-            public void ThenEventsMustHaveNumbers()
+            public void ThenDatesAreExpected(IEnumerable<IDate> expectedDates)
             {
-                foreach (var episode in _episodes)
-                {
-                    var tag = episode
-                        .Tags
-                        .SingleOrDefault(e => e.ToVertex.Ident == "EventNumber");
-
-                    tag.ShouldNotBeNull();
-
-                    var value = tag
-                        ?.ToVertex
-                        .Value;
-
-                    // ReSharper disable once UnusedVariable
-                    int.TryParse(value, out int unusedResult).ShouldBeTrue();
-                }
+                _dates
+                    .ShouldBe(expectedDates);
             }
+
+            //public void AndWhenSerialIsRetrieved()
+            //{
+            //    var @event = _events
+            //        .Single();
+
+            //    var serial = @event
+            //        .Serials
+            //        .Single()
+            //        .ToVertex;
+
+            //    _episodes = serial
+            //        .GenerateEpisodes(_clock)
+            //        .Select(e => e.ToVertex);
+            //}
+
+            //public void AndWhenEpisodesAreEnriched()
+            //{
+            //    var enricher = new EnricherNumbering();
+
+            //    enricher.Go(
+            //        vertexs: _episodes,
+            //        ident: "EventNumber"
+            //        );
+            //}
+
+            //public void ThenEventsMustHaveNumbers()
+            //{
+            //    foreach (var episode in _episodes)
+            //    {
+            //        var tag = episode
+            //            .Tags
+            //            .SingleOrDefault(e => e.ToVertex.Ident == "EventNumber");
+
+            //        tag.ShouldNotBeNull();
+
+            //        var value = tag
+            //            ?.ToVertex
+            //            .Value;
+
+            //        // ReSharper disable once UnusedVariable
+            //        int.TryParse(value, out int unusedResult).ShouldBeTrue();
+            //    }
+            //}
         }
     }
 }

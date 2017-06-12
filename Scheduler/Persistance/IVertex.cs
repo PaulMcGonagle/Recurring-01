@@ -40,8 +40,6 @@ namespace Scheduler.Persistance
 
         ITag Connect(string ident, string value);
 
-        IEnumerable<IVertex> GetLinks(int depth);
-
         ITag Connect(ITag connectTag);
 
         #endregion Tags

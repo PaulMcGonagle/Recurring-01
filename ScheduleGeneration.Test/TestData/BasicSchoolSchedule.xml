@@ -22,9 +22,10 @@
       </tags>
       <rangeDate start="2016-09-02" end="2016-12-21"/>
       <breaks>
-        <break><tags>
-          <tag id="name" value="half-term"/>
-        </tags>
+        <break>
+          <tags>
+            <tag id="name" value="half-term"/>
+          </tags>
           <rangeDate start="2016-10-26" end="2016-11-02"/>
         </break>
       </breaks>
@@ -64,10 +65,13 @@
             <reference type="term" path="./generator/terms/term[./tags/tag[@id='name'][@value='Autumn.2016/17']]"/>
           </terms>
           <schedules>
-            <schedule>
+            <byWeekdays>
               <tags>
                 <tag id="name" value="09:15"/>
               </tags>
+              <rangeDates>
+                <rangeDate start="2017-01-02" end="2017-01-10"/>
+              </rangeDates>
               <rangeTime start="09:15" end="10:20"/>
               <weekdays>
                 <weekday value="Monday"/>
@@ -75,7 +79,7 @@
                 <weekday value="Wednesday"/>
                 <weekday value="Friday"/>
               </weekdays>
-            </schedule>
+            </byWeekdays>
           </schedules>
         </class>
       </classes>

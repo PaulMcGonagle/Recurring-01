@@ -6,12 +6,11 @@
     <cache name="RangeDate.Term.2016/17.Summer" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer']]"/>
   </caches>
   <schedules>
-    <schedule>
-      <byOffset initialDate="2017-01-09" interval="21d"/>
+    <byOffset initialDate="2017-01-09" interval="21d">
       <rangeDates>
         <link cache="RangeDate.Term.2016/17.Winter"/>
       </rangeDates>
-    </schedule>
+    </byOffset>
   </schedules>
   <rangeDates>
     <rangeDate start="2017-01-02" end="2017-03-31">

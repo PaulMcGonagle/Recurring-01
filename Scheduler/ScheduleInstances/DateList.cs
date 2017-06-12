@@ -14,13 +14,13 @@ namespace Scheduler.ScheduleInstances
             set;
         }
 
-        public override IEnumerable<IDate> Generate()
+        public override IEnumerable<IDate> Generate(IClock clock)
         {
             return Items
                 .ToList();
         }
 
-        public override void Save(IArangoDatabase db, IClock clock)
+        public void Save(IArangoDatabase db, IClock clock)
         {
             Save<DateList>(db);
             base.Save(db, clock);

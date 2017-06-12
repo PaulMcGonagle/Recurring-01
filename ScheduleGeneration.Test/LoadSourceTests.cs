@@ -25,7 +25,7 @@ namespace ScheduleGeneration.Test
             private IClock _clock;
             private IArangoDatabase _db;
             private IGenerator _generator;
-            private IEnumerable<IEvent> _events;
+            private IEnumerable<IVertex> _vertexs;
             private IEvent _event;
             private IInstance _instance;
             private IEnumerable<IEpisode> _episodes;
@@ -43,25 +43,25 @@ namespace ScheduleGeneration.Test
                     "sourceFile",
                     "clock",
                     "db",
-                    "expectedTitle",
-                    "timeZoneProviderPath",
-                    "expectedLocalDates",
-                    "expectedLocalTime",
-                    "expectedPeriod"
+                    //"expectedTitle",
+                    "timeZoneProviderPath"//,
+                    //"expectedLocalDates",
+                    //"expectedLocalTime",
+                    //"expectedPeriod"
                 )
                 {
                     {
                         AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\BasicSchoolSchedule.xml",
                         fakeClock,
                         mockDb.Object,
-                        "Hampden Gurney Primary School.Autumn.2016/17.Year2.Literacy",
-                        "./tags/tag[@id='timeZoneProvider']",
-                        new List<LocalDate>
-                        {
-                            new LocalDate(year: 2016, month: 02, day: 03),
-                        },
-                        new LocalTime(hour: 09, minute: 15),
-                        new PeriodBuilder(Period.FromMinutes(65)).Build()
+                        //"Hampden Gurney Primary School.Autumn.2016/17.Year2.Literacy",
+                        "./tags/tag[@id='timeZoneProvider']"//,
+                        //new List<LocalDate>
+                        //{
+                        //    new LocalDate(year: 2016, month: 02, day: 03),
+                        //},
+                        //new LocalTime(hour: 09, minute: 15),
+                        //new PeriodBuilder(Period.FromMinutes(65)).Build()
                     },
                 }).BDDfy();
             }
@@ -99,75 +99,73 @@ namespace ScheduleGeneration.Test
                 _generator = GeneratorFactory.Get("classes");
             }
 
-            public void AndWhenEventsAreGenerated()
+            public void AndWhenVertexsAreGenerated()
             {
-                var vertexs = _generator.Generate(_sourceFile, _clock);
-
-                _events = vertexs.OfType<Event>();
+                _vertexs = _generator.Generate(_sourceFile, _clock);
             }
 
-            public void AndWhenASingleEventIsRetrieved()
-            {
-                _events.ShouldHaveSingleItem();
+            //public void AndWhenASingleEventIsRetrieved()
+            //{
+            //    _vertexs.ShouldHaveSingleItem();
 
-                _event = _events.Single();
-            }
+            //    _event = _vertexs.Single();
+            //}
 
-            public void AndWhenEventIsSaved()
-            {
-                _event.Save(_db, _clock);
-            }
+            //public void AndWhenEventIsSaved()
+            //{
+            //    _event.Save(_db, _clock);
+            //}
 
-            public void AndWhenInstanceIsGenerated()
-            {
-                Instance.Generate(_clock, _event);
-            }
+            //public void AndWhenInstanceIsGenerated()
+            //{
+            //    Instance.Generate(_clock, _event);
+            //}
 
-            public void AndWhenInstanceIsRetrieved()
-            {
-                _instance = _event.Instance.ToVertex;
-            }
+            //public void AndWhenInstanceIsRetrieved()
+            //{
+            //    _instance = _event.Instance.ToVertex;
+            //}
 
-            public void AndWhenEpisodesAreRetrieved()
-            {
-                _episodes = _instance
-                    .Episodes
-                    .Select(e => e.ToVertex)
-                    .ToList();
-            }
+            //public void AndWhenEpisodesAreRetrieved()
+            //{
+            //    _episodes = _instance
+            //        .Episodes
+            //        .Select(e => e.ToVertex)
+            //        .ToList();
+            //}
 
-            public void AndWhenTimeZoneProviderIsFound()
-            {
-                var sourceTimeZone = _source.XPathSelectElement(_timeZoneProviderPath)?.Attribute("value");
+            //public void AndWhenTimeZoneProviderIsFound()
+            //{
+            //    var sourceTimeZone = _source.XPathSelectElement(_timeZoneProviderPath)?.Attribute("value");
 
-                sourceTimeZone.ShouldNotBeNull();
+            //    sourceTimeZone.ShouldNotBeNull();
 
-                _timeZoneProvider = sourceTimeZone?.Value;
+            //    _timeZoneProvider = sourceTimeZone?.Value;
 
-            }
+            //}
 
-            public void ThenTitleIsExpected(string expectedTitle)
-            {
-                _event.Title.ShouldBe(expectedTitle);
-            }
+            //public void ThenTitleIsExpected(string expectedTitle)
+            //{
+            //    _event.Title.ShouldBe(expectedTitle);
+            //}
 
-            public void AndInstancesAreExpected()
-            {
-                _instance.Episodes.ShouldNotBeEmpty();
-            }
+            //public void AndInstancesAreExpected()
+            //{
+            //    _instance.Episodes.ShouldNotBeEmpty();
+            //}
 
-            public void AndTimeZoneProviderIsExpected(string timeZoneProviderPath)
-            {
+            //public void AndTimeZoneProviderIsExpected(string timeZoneProviderPath)
+            //{
 
-                _episodes.Select(e => e.From.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
-                _episodes.Select(e => e.To.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
-            }
+            //    _episodes.Select(e => e.From.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
+            //    _episodes.Select(e => e.To.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
+            //}
 
-            public void AndTimesAreExpected(LocalTime expectedLocalTime, Period expectedPeriod)
-            {
-                _episodes.Select(e => e.From.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime);
-                _episodes.Select(e => e.To.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime.Plus(expectedPeriod));
-            }
+            //public void AndTimesAreExpected(LocalTime expectedLocalTime, Period expectedPeriod)
+            //{
+            //    _episodes.Select(e => e.From.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime);
+            //    _episodes.Select(e => e.To.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime.Plus(expectedPeriod));
+            //}
         }
 
         public class LoadHg
@@ -334,25 +332,25 @@ namespace ScheduleGeneration.Test
                     "sourceFile",
                     "clock",
                     "db",
-                    "expectedTitle",
-                    "timeZoneProviderPath",
-                    "expectedLocalDates",
-                    "expectedLocalTime",
-                    "expectedPeriod"
+                    //"expectedTitle",
+                    "timeZoneProviderPath"
+                    //"expectedLocalDates",
+                    //"expectedLocalTime",
+                    //"expectedPeriod"
                 )
                 {
                     {
                         "..\\..\\TestData\\Option01.xml",
                         fakeClock,
                         mockDb.Object,
-                        "Hampden Gurney Primary School.Autumn.2016/17.Year2.Literacy",
-                        "./tags/tag[@id='timeZoneProvider']",
-                        new List<LocalDate>
-                        {
-                            new LocalDate(year: 2016, month: 02, day: 03),
-                        },
-                        new LocalTime(hour: 09, minute: 15),
-                        new PeriodBuilder(Period.FromMinutes(65)).Build()
+                        //"Hampden Gurney Primary School.Autumn.2016/17.Year2.Literacy",
+                        "./tags/tag[@id='timeZoneProvider']"
+                        //new List<LocalDate>
+                        //{
+                        //    new LocalDate(year: 2016, month: 02, day: 03),
+                        //},
+                        //new LocalTime(hour: 09, minute: 15),
+                        //new PeriodBuilder(Period.FromMinutes(65)).Build()
                     },
                 }).BDDfy();
             }
@@ -397,68 +395,68 @@ namespace ScheduleGeneration.Test
                 _events = vertexs.OfType<Event>();
             }
 
-            public void AndWhenASingleEventIsRetrieved()
-            {
-                _events.ShouldHaveSingleItem();
+            //public void AndWhenASingleEventIsRetrieved()
+            //{
+            //    _events.ShouldHaveSingleItem();
 
-                _event = _events.Single();
-            }
+            //    _event = _events.Single();
+            //}
 
-            public void AndWhenEventIsSaved()
-            {
-                _event.Save(_db, _clock);
-            }
+            //public void AndWhenEventIsSaved()
+            //{
+            //    _event.Save(_db, _clock);
+            //}
 
-            public void AndWhenInstanceIsGenerated()
-            {
-                Instance.Generate(_clock, _event);
-            }
+            //public void AndWhenInstanceIsGenerated()
+            //{
+            //    Instance.Generate(_clock, _event);
+            //}
 
-            public void AndWhenInstanceIsRetrieved()
-            {
-                _instance = _event.Instance.ToVertex;
-            }
+            //public void AndWhenInstanceIsRetrieved()
+            //{
+            //    _instance = _event.Instance.ToVertex;
+            //}
 
-            public void AndWhenEpisodesAreRetrieved()
-            {
-                _episodes = _instance
-                    .Episodes
-                    .Select(e => e.ToVertex)
-                    .ToList();
-            }
+            //public void AndWhenEpisodesAreRetrieved()
+            //{
+            //    _episodes = _instance
+            //        .Episodes
+            //        .Select(e => e.ToVertex)
+            //        .ToList();
+            //}
 
-            public void AndWhenTimeZoneProviderIsFound()
-            {
-                var sourceTimeZone = _source.XPathSelectElement(_timeZoneProviderPath)?.Attribute("value");
+            //public void AndWhenTimeZoneProviderIsFound()
+            //{
+            //    var sourceTimeZone = _source.XPathSelectElement(_timeZoneProviderPath)?.Attribute("value");
 
-                sourceTimeZone.ShouldNotBeNull();
+            //    sourceTimeZone.ShouldNotBeNull();
 
-                _timeZoneProvider = sourceTimeZone?.Value;
+            //    _timeZoneProvider = sourceTimeZone?.Value;
 
-            }
+            //}
 
-            public void ThenTitleIsExpected(string expectedTitle)
-            {
-                _event.Title.ShouldBe(expectedTitle);
-            }
+            //public void ThenTitleIsExpected(string expectedTitle)
+            //{
+            //    _event.Title.ShouldBe(expectedTitle);
+            //}
 
-            public void AndInstancesAreExpected()
-            {
-                _instance.Episodes.ShouldNotBeEmpty();
-            }
+            //public void AndInstancesAreExpected()
+            //{
+            //    _instance.Episodes.ShouldNotBeEmpty();
+            //}
 
-            public void AndTimeZoneProviderIsExpected(string timeZoneProviderPath)
-            {
+            //public void AndTimeZoneProviderIsExpected(string timeZoneProviderPath)
+            //{
 
-                _episodes.Select(e => e.From.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
-                _episodes.Select(e => e.To.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
-            }
+            //    _episodes.Select(e => e.From.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
+            //    _episodes.Select(e => e.To.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
+            //}
 
-            public void AndTimesAreExpected(LocalTime expectedLocalTime, Period expectedPeriod)
-            {
-                _episodes.Select(e => e.From.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime);
-                _episodes.Select(e => e.To.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime.Plus(expectedPeriod));
-            }
+            //public void AndTimesAreExpected(LocalTime expectedLocalTime, Period expectedPeriod)
+            //{
+            //    _episodes.Select(e => e.From.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime);
+            //    _episodes.Select(e => e.To.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime.Plus(expectedPeriod));
+            //}
         }
 
         public class LoadOption02
@@ -467,7 +465,7 @@ namespace ScheduleGeneration.Test
             private IClock _clock;
             private IArangoDatabase _db;
             private IGenerator _generator;
-            private IEnumerable<IEvent> _events;
+            private IEnumerable<ICompositeSchedule> _compositeSchedules;
 
             [Fact]
             public void Execute()
@@ -524,55 +522,55 @@ namespace ScheduleGeneration.Test
                     .Generate(_sourceFile, _clock)
                     .ToList();
 
-                _events = vertexs
-                    .OfType<Event>()
+                _compositeSchedules = vertexs
+                    .OfType<ICompositeSchedule>()
                     .ToList();
             }
 
             public void AndWhenEventsAreSaved()
             {
-                foreach (var @event in _events)
+                foreach (var compositeSchedule in _compositeSchedules)
                 {
-                    @event.Save(_db, _clock);
+                    compositeSchedule.Save(_db, _clock);
                 }
             }
 
-            public void ThenEventsShouldHaveDifferentNames()
-            {
-                var eventList = new List<IEvent>(_events);
+            //public void ThenSchedulesShouldHaveDifferentNames()
+            //{
+            //    var compositeScheduleList = new List<ICompositeSchedule>(_compositeSchedules);
 
-                var event1 = eventList[0];
-                var event2 = eventList[1];
+            //    var compositeSchedule1 = compositeScheduleList[0];
+            //    var compositeSchedule2 = compositeScheduleList[1];
 
-                event1.Title.ShouldNotBe(event2.Title);
-            }
+            //    compositeSchedule1.Title.ShouldNotBe(compositeSchedule2.Title);
+            //}
 
-            public void ThenSchedulesShouldHaveSameYearTagReference()
-            {
-                var serials = _events
-                    .SelectMany(e => e.Serials.Select(s => s.ToVertex))
-                    .ToList();
+            //public void ThenSchedulesShouldHaveSameYearTagReference()
+            //{
+            //    var serials = _compositeSchedules
+            //        .SelectMany(e => e.Serials.Select(s => s.ToVertex))
+            //        .ToList();
 
-                var schedules = serials
-                    .Select(s => s.EdgeSchedule.Schedule)
-                    .ToList();
+            //    var schedules = serials
+            //        .Select(s => s.EdgeSchedule.Schedule)
+            //        .ToList();
 
-                schedules.Count.ShouldBe(2);
+            //    schedules.Count.ShouldBe(2);
 
-                var tagName1 = schedules[0]
-                    .Tags
-                    .SingleOrDefault(t => t.ToVertex.Ident == "name")
-                    ?.ToVertex;
-                var tagName2 = schedules[1]
-                    .Tags
-                    .SingleOrDefault(t => t.ToVertex.Ident == "name")
-                    ?.ToVertex;
+            //    var tagName1 = schedules[0]
+            //        .Tags
+            //        .SingleOrDefault(t => t.ToVertex.Ident == "name")
+            //        ?.ToVertex;
+            //    var tagName2 = schedules[1]
+            //        .Tags
+            //        .SingleOrDefault(t => t.ToVertex.Ident == "name")
+            //        ?.ToVertex;
 
-                tagName1.ShouldNotBeNull();
-                tagName2.ShouldNotBeNull();
+            //    tagName1.ShouldNotBeNull();
+            //    tagName2.ShouldNotBeNull();
 
-                tagName1?.Key.ShouldBe(tagName2?.Key);
-            }
+            //    tagName1?.Key.ShouldBe(tagName2?.Key);
+            //}
         }
 
         public class LoadOption03
@@ -581,7 +579,7 @@ namespace ScheduleGeneration.Test
             private IClock _clock;
             private IArangoDatabase _db;
             private IGenerator _generator;
-            private IEnumerable<IEvent> _events;
+            private IEnumerable<IVertex> _vertexs;
 
             [Fact]
             public void Execute()
@@ -632,51 +630,49 @@ namespace ScheduleGeneration.Test
                 _generator = GeneratorFactory.Get(generatorName);
             }
 
-            public void AndWhenEventsAreGenerated()
+            public void AndWhenVertexsAreGenerated()
             {
-                var vertexs = _generator
+                _vertexs = _generator
                     .Generate(_sourceFile, _clock)
                     .ToList();
-
-                _events = vertexs.OfType<Event>();
             }
 
             public void AndWhenVertexsAreSaved()
             {
-                foreach (var _event in _events)
+                foreach (var vertex in _vertexs)
                 {
-                    _event.Save(_db, _clock);
+                    vertex.Save(_db, _clock);
                 }
             }
 
-            public void ThenSchedulesShouldHaveSameYearTagReference()
-            {
-                var serials = _events
-                    .SelectMany(e => e.Serials.Select(s => s.ToVertex))
-                    .ToList();
+            //public void ThenSchedulesShouldHaveSameYearTagReference()
+            //{
+            //    var serials = _vertexs
+            //        .SelectMany(e => e.Serials.Select(s => s.ToVertex))
+            //        .ToList();
 
-                var schedules = serials
-                    .Select(s => s.EdgeSchedule.Schedule)
-                    .ToList();
+            //    var schedules = serials
+            //        .Select(s => s.EdgeSchedule.Schedule)
+            //        .ToList();
 
-                schedules.Count.ShouldBe(2);
+            //    schedules.Count.ShouldBe(2);
 
-                var tagName1 = schedules[0]
-                    .Tags
-                    .SingleOrDefault(t => t.ToVertex.Ident == "name")
-                    ?.ToVertex;
+            //    var tagName1 = schedules[0]
+            //        .Tags
+            //        .SingleOrDefault(t => t.ToVertex.Ident == "name")
+            //        ?.ToVertex;
 
-                var tagName2 = schedules[1]
-                    .Tags
-                    .SingleOrDefault(t => t.ToVertex.Ident == "name")
-                    ?.ToVertex;
+            //    var tagName2 = schedules[1]
+            //        .Tags
+            //        .SingleOrDefault(t => t.ToVertex.Ident == "name")
+            //        ?.ToVertex;
 
-                tagName1?.Key.ShouldNotBeNull();
-                tagName2?.Key.ShouldNotBeNull();
+            //    tagName1?.Key.ShouldNotBeNull();
+            //    tagName2?.Key.ShouldNotBeNull();
 
 
-                tagName1?.Key.ShouldBe(tagName2?.Key);
-            }
+            //    tagName1?.Key.ShouldBe(tagName2?.Key);
+            //}
         }
 
         public class LoadOption04
@@ -686,7 +682,7 @@ namespace ScheduleGeneration.Test
             private IClock _clock;
             private IArangoDatabase _db;
             private IGenerator _generator;
-            private IEnumerable<IEvent> _events;
+            private IEnumerable<IVertex> _vertexs;
 
             [Fact]
             public void Execute()
@@ -746,44 +742,42 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenEventsAreGenerated()
             {
-                var vertexs = _generator
+                _vertexs = _generator
                     .Generate(_sourceFile, _clock)
                     .ToList();
-
-                _events = vertexs.OfType<Event>();
             }
 
             public void AndWhenVertexsAreSaved()
             {
-                foreach (var _event in _events)
+                foreach (var _vertex in _vertexs)
                 {
-                    _event.Save(_db, _clock);
+                    _vertex.Save(_db, _clock);
                 }
             }
 
             public void ThenSchedulesShouldHaveCorrectName(string scheduleNameTagPath)
             {
-                var serials = _events
-                    .SelectMany(e => e.Serials.Select(s => s.ToVertex))
-                    .ToList();
+                //var serials = _vertexs
+                //    .SelectMany(e => e.Serials.Select(s => s.ToVertex))
+                //    .ToList();
 
-                var schedules = serials
-                    .Select(s => s.EdgeSchedule.Schedule)
-                    .ToList();
+                //var schedules = serials
+                //    .Select(s => s.EdgeSchedule.Schedule)
+                //    .ToList();
 
-                schedules.Count.ShouldBe(1);
+                //schedules.Count.ShouldBe(1);
 
-                var scheduleName = _source
-                    .XPathSelectElement(scheduleNameTagPath)
-                    ?.Attribute("value")
-                    ?.Value;
+                //var scheduleName = _source
+                //    .XPathSelectElement(scheduleNameTagPath)
+                //    ?.Attribute("value")
+                //    ?.Value;
 
-                schedules[0]
-                    .Tags
-                    .SingleOrDefault(t => t.ToVertex.Ident == "name")
-                    ?.ToVertex
-                    .Value
-                    .ShouldBe(scheduleName);
+                //schedules[0]
+                //    .Tags
+                //    .SingleOrDefault(t => t.ToVertex.Ident == "name")
+                //    ?.ToVertex
+                //    .Value
+                //    .ShouldBe(scheduleName);
             }
         }
     }

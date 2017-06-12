@@ -20,6 +20,7 @@ namespace MyCalendar.Test
         {
             private IEvent _sut;
             private IEdgeVertexs<ISerial> _serials;
+            private IClock _clock;
 
             private const string TimeZoneProvider = "Europe/London";
 
@@ -28,7 +29,7 @@ namespace MyCalendar.Test
             {
                 var fakeClock = ScheduleTestHelper.GetFakeClock(2016, 05, 01);
 
-                this.WithExamples(new ExampleTable("sut", "expectedWeekday", "expectedStartTime", "expectedEndTime")
+                this.WithExamples(new ExampleTable("sut", "clock", "expectedWeekday", "expectedStartTime", "expectedEndTime")
                     {
                         {
                             new Event
@@ -36,12 +37,12 @@ namespace MyCalendar.Test
                                 Serials = new EdgeVertexs<ISerial>(
                                     toVertex: new Serial(
                                                 schedule: new ByWeekday(
-                                                    clock: fakeClock,
                                                     weekday: IsoDayOfWeek.Thursday),
                                                 timeRange: new EdgeRangeTime(new TimeRange(new LocalTime(16, 45), new PeriodBuilder { Minutes = 45}.Build())),
                                                 timeZoneProvider: TimeZoneProvider)),
                                 Title = "Street dance",
                             },
+                            fakeClock,
                             IsoDayOfWeek.Thursday,
                             new LocalTime(16, 45),
                             new LocalTime(17, 30)
@@ -62,21 +63,21 @@ namespace MyCalendar.Test
 
             public void ThenAllSerialsHaveTheCorrectWeekday(IsoDayOfWeek expectedWeekday)
             {
-                _serials.SelectMany(s => s.ToVertex.Episodes)
+                _serials.SelectMany(s => s.ToVertex.GenerateEpisodes(_clock))
                     .Select(e => e.ToVertex.From.DayOfWeek)
                     .ShouldAllBe(d => d.Equals((int)expectedWeekday));
             }
 
             public void AndThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
             {
-                _serials.SelectMany(s => s.ToVertex.Episodes)
+                _serials.SelectMany(s => s.ToVertex.GenerateEpisodes(_clock))
                     .Select(e => e.ToVertex.From.TimeOfDay)
                     .ShouldAllBe(d => d.Equals(expectedStartTime));
             }
 
             public void AndThenAllEndTimesAreCorrect(LocalTime expectedEndTime)
             {
-                _serials.SelectMany(s => s.ToVertex.Episodes)
+                _serials.SelectMany(s => s.ToVertex.GenerateEpisodes(_clock))
                     .Select(e => e.ToVertex.To.TimeOfDay)
                     .ShouldAllBe(d => d.Equals(expectedEndTime));
             }
@@ -84,6 +85,7 @@ namespace MyCalendar.Test
         public class VerifyTimeInOtherTimeZone
         {
             private IEvent _sut;
+            private IClock _clock;
             private IEdgeVertexs<ISerial> _serials;
 
             private const string TimeZoneProvider = "Europe/London";
@@ -93,7 +95,7 @@ namespace MyCalendar.Test
             {
                 var fakeClock = ScheduleTestHelper.GetFakeClock(2016, 05, 01);
 
-                this.WithExamples(new ExampleTable("sut", "expectedStartTime", "expectedEndTime")
+                this.WithExamples(new ExampleTable("sut", "clock", "expectedStartTime", "expectedEndTime")
                     {
                         {
                             new Event
@@ -108,6 +110,7 @@ namespace MyCalendar.Test
                                             timeZoneProvider: "Europe/London")),
                                 Title = "Street dance",
                             },
+                            fakeClock,
                             new LocalTime(14, 00),
                             new LocalTime(14, 45)
                         }
@@ -127,7 +130,7 @@ namespace MyCalendar.Test
 
             public void ThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
             {
-                _serials.SelectMany(s => s.ToVertex.Episodes)
+                _serials.SelectMany(s => s.ToVertex.GenerateEpisodes(_clock))
                     .Select(e => e.ToVertex.From.TimeOfDay)
                     .ShouldAllBe(d => d.Equals(expectedStartTime));
             }

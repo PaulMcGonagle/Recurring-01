@@ -44,7 +44,7 @@ namespace Generators
             }
         }
 
-        public static IDictionary<string, IVertex> ExpandLinks(this XDocument xInput)
+        public static IDictionary<string, IVertex> ExpandLinks(this XElement xInput)
         {
             var caches = xInput
                 .XPathSelectElements(".//cache")
@@ -60,7 +60,7 @@ namespace Generators
             {
                 var cache = remaining.Dequeue();
 
-                if (!cache.TryExpandLinks(xInput, links))
+                if (cache.TryExpandLinks(xInput.Document, links))
                 {
                     remaining.Enqueue(cache);
                     itersSinceSucess++;
@@ -91,7 +91,9 @@ namespace Generators
             if (xLink == null)
                 throw new Exception($"Unable to expand cache name {name} with path {path}");
 
-            if (!generatorX.TryGenerate(xLink, cache, out IVertex link))
+            var link = generatorX.Generate(xLink, cache);
+
+            if (link is null)
             {
                 return false;
             }

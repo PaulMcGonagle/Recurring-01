@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Generators.XInstances;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
-using Scheduler.Ranges;
-using Scheduler.ScheduleEdges;
-using Scheduler.ScheduleInstances;
 
 namespace Generators.Instances
 {
@@ -73,14 +71,12 @@ namespace Generators.Instances
                     var className = classTags
                         .RetrieveValue("name");
 
-                    var xClassTerms = xClass
-                        .Elements("terms")
-                        .Elements("term")
-                        .ToList();
-
                     var classTag = new Tag("class", className);
 
-                    var xTerms = xClassTerms;
+                    var xTerms = xClass
+                        .Elements("terms")
+                        .Elements()
+                        .ToList();
 
                     foreach (var xTerm in xTerms)
                     {
@@ -93,13 +89,9 @@ namespace Generators.Instances
 
                         var termTag = classTag.Connect("term", termName);
 
-                        var termRanges = xTerm
+                        var termRange = xTerm
                             .Elements()
-                            .RetrieveDateRanges(caches)
-                            .ToList();
-
-                        var termRange = termRanges
-                            .Single();
+                            .RetrieveDateRange(caches);
 
                         var xTermBreaks = xTerm
                             .Elements("breaks")
@@ -108,74 +100,80 @@ namespace Generators.Instances
 
                         var xSchedules = xClass
                             .Elements("schedules")
-                            .Elements("schedule")
-                            .ToList();
+                            .SingleOrDefault();
 
                         var serials = new Serials();
 
-                        foreach (var xSchedule in xSchedules)
-                        {
-                            var weekdays = xSchedule
-                                .RetrieveWeekdays();
+                        var generator = new GeneratorXCompositeSchedule();
 
-                            var timeRange = xSchedule
-                                .RetrieveRangeTime();
+                        var compositeSchedule = (ICompositeSchedule)generator.Generate(xSchedules, caches);
 
-                            var byWeekdays = ByWeekdays
-                                .Create(
-                                    clock: clock,
-                                    weekdays: weekdays,
-                                    dateRange: termRange);
+                        compositeSchedule
+                            .Tags
+                            .AddRange(classTags);
 
-                            ISchedule schedule;
+                        //foreach (var xSchedule in xSchedules)
+                        //{
+                            //        var weekdays = xSchedule
+                            //            .RetrieveWeekdays();
 
-                            if (xTermBreaks.Count > 0)
-                            {
-                                var compositeSchedule = CompositeSchedule
-                                    .Create(
-                                        clock: clock,
-                                        schedule: byWeekdays,
-                                        dateRange: termRange);
+                            //        var timeRange = xSchedule
+                            //            .RetrieveRangeTime();
 
-                                foreach (var xTermBreak in xTermBreaks)
-                                {
-                                    var xTermBreakRanges = xTermBreak
-                                        .RetrieveDateRanges(caches)
-                                        .ToList();
+                            //        var byWeekdays = ByWeekdays
+                            //            .Create(
+                            //                weekdays: weekdays,
+                            //                dateRange: termRange);
 
-                                    compositeSchedule.Breaks.AddRange(xTermBreakRanges.Select(br => new EdgeVertex<IDateRange>(br)));
-                                }
+                            //        ISchedule schedule;
 
-                                schedule = compositeSchedule;
-                            }
-                            else
-                            {
-                                schedule = byWeekdays;
-                            }
+                            //        if (xTermBreaks.Count > 0)
+                            //        {
+                            //            var compositeSchedule = CompositeSchedule
+                            //                .Create(
+                            //                    schedule: byWeekdays,
+                            //                    dateRange: termRange);
 
-                            schedule.Connect(termTags);
+                            //            foreach (var xTermBreak in xTermBreaks)
+                            //            {
+                            //                var xTermBreakRanges = xTermBreak
+                            //                    .RetrieveDateRanges(caches)
+                            //                    .ToList();
 
-                            var serial = new Serial(
-                                schedule: schedule,
-                                timeRange: new EdgeRangeTime(timeRange),
-                                timeZoneProvider: timeZoneProvider);
+                            //                compositeSchedule.Breaks.AddRange(xTermBreakRanges.Select(br => new EdgeVertex<IDateRange>(br)));
+                            //            }
 
-                            var serialTags = termTags;
+                            //            schedule = compositeSchedule;
+                            //        }
+                            //        else
+                            //        {
+                            //            schedule = byWeekdays;
+                            //        }
 
-                            serial.Tags  = new EdgeVertexs<ITag>(serialTags) {new EdgeVertex<ITag>(termTag)};
+                            //        schedule.Connect(termTags);
 
-                            serials.Add(serial);
-                        }
+                            //        var serial = new Serial(
+                            //            schedule: schedule,
+                            //            timeRange: new EdgeRangeTime(timeRange),
+                            //            timeZoneProvider: timeZoneProvider);
 
-                        var @event = new Event
-                        {
-                            Title = organisation.Value + "." + termName + "." + groupName + "." + className,
-                            Serials = new EdgeVertexs<ISerial>(serials),
-                            Tags = new EdgeVertexs<ITag>(classTags),
-                        };
+                            //        var serialTags = termTags;
 
-                        yield return @event;
+                            //        serial.Tags  = new EdgeVertexs<ITag>(serialTags) {new EdgeVertex<ITag>(termTag)};
+
+                            //        serials.Add(serial);
+                            //    }
+
+                            //    var @event = new Event
+                            //    {
+                            //        Title = organisation.Value + "." + termName + "." + groupName + "." + className,
+                            //        Serials = new EdgeVertexs<ISerial>(serials),
+                            //        Tags = new EdgeVertexs<ITag>(classTags),
+                        //}
+
+                        yield return compositeSchedule;
                     }
+                    //yield return @event;
                 }
 
                 yield return organisation;

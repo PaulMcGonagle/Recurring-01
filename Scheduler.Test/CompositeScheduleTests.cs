@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
+using NodaTime.Testing;
 using Scheduler.Generation;
 using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
@@ -14,13 +15,14 @@ namespace Scheduler.Test
     {
         public class VerifyExclusionsAreExcluded
         {
-            CompositeSchedule _sut;
+            private CompositeSchedule _sut;
+            private IClock _clock;
             private IEnumerable<IDate> _dates;
 
             [Fact]
             public void Execute()
             {
-                this.WithExamples(new ExampleTable("sut", "expectedFirstDate", "expectedLastDate", "excludedIsoDayOfWeeks")
+                this.WithExamples(new ExampleTable("sut", "clock", "expectedFirstDate", "expectedLastDate", "excludedIsoDayOfWeeks")
                     {
                         {
                             new CompositeSchedule
@@ -49,6 +51,7 @@ namespace Scheduler.Test
                                         })
                                 },
                             },
+                            new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00)),
                             new Date(2016, YearMonth.MonthValue.January, 01),
                             new Date(2018, YearMonth.MonthValue.December, 30),
                             new List<IsoDayOfWeek>
@@ -67,7 +70,7 @@ namespace Scheduler.Test
 
             public void WhenDatesAreRetrieved()
             {
-                _dates = _sut.Generate();
+                _dates = _sut.Generate(_clock);
             }
 
             public void ThenTheFirstDateIs(Date expectedFirstDate)

@@ -21,7 +21,7 @@ namespace Generators
                 .Load(sourceFile);
 
             xSource.ExpandReferences();
-            caches = xSource.ExpandLinks();
+            caches = xSource.Root.ExpandLinks();
 
             generatorSource = new GeneratorSource
             {

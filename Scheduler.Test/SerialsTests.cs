@@ -16,6 +16,7 @@ namespace Scheduler.Test
         public class VerifyDateOutOfBoundsExceptionIsThrown
         {
             private ISerials _sut;
+            private IClock _clock;
             private IEpisodes _episodes;
 
             [Fact]
@@ -69,7 +70,7 @@ namespace Scheduler.Test
 
             public void WhenEpisodesAreRetrieved()
             {
-                _episodes = _sut.Episodes;
+                _episodes = _sut.GenerateEpisodes(_clock);
             }
 
             public void ThenEpisodesAreThese(Episodes expectedEpisodes)
@@ -81,6 +82,7 @@ namespace Scheduler.Test
         public class VerifyMissingPropertyThrowsArgumentException
         {
             private Serial _sut;
+            private IClock _clock;
             private IEdgeVertexs<IEpisode> _episodes;
             private System.Exception _exception;
 
@@ -88,14 +90,16 @@ namespace Scheduler.Test
             public void Execute()
             {
                 const string timeZoneProvider = "Europe/London";
+                var fakeClock = ScheduleTestHelper.GetFakeClock(2016, YearMonth.MonthValue.March, 15);
 
-                this.WithExamples(new ExampleTable("sut", "parameterName")
+                this.WithExamples(new ExampleTable("sut", "clock", "parameterName")
                     {
                         {
                             new Serial(
                                 schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: null,
                                 timeZoneProvider: timeZoneProvider),
+                            fakeClock,
                             "TimeRange"
                         },
                         {
@@ -103,6 +107,7 @@ namespace Scheduler.Test
                                 schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: new EdgeRangeTime(new LocalTime(15, 30), null),
                                 timeZoneProvider: timeZoneProvider),
+                            fakeClock,
                             "Period"
                         },
                         {
@@ -110,6 +115,7 @@ namespace Scheduler.Test
                                 schedule: new DateList { Items = new List<IDate>(), },
                                 timeRange: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
                                 timeZoneProvider: null),
+                            fakeClock,
                             "TimeZoneProvider"
                         },
                     })
@@ -123,7 +129,7 @@ namespace Scheduler.Test
 
             public void WhenEpisodesAreRetrieved()
             {
-                _exception = Record.Exception(() => { _episodes = _sut.Episodes; });
+                _exception = Record.Exception(() => { _episodes = _sut.GenerateEpisodes(_clock); });
             }
 
             public void ThenArgumentExceptionIsThrown(string parameterName)

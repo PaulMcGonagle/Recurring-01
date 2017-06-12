@@ -1,6 +1,8 @@
 ﻿using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
+using NodaTime;
+using NodaTime.Testing;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
 using TestStack.BDDfy;
@@ -12,17 +14,30 @@ namespace Scheduler.Test
     public class HolidaysExclusionTest
     {
         private CompositeSchedule _term;
+        private IClock _clock;
         private IEnumerable<IDate> _holidays;
 
         [Fact]
         public void RunExamplesWithFluentApi()
         {
-            var t = GenerateTerm();
+            var fakeClock = ScheduleTestHelper.GetFakeClock(2016, 03, 15);
+            var term = GenerateTerm();
 
-            this.WithExamples(new ExampleTable("term", "holidays")
+            this.WithExamples(
+                new ExampleTable(
+                    "term", 
+                    "clock", 
+                    "holidays")
                 {
-                    {   t, ScheduleTestHelper.BankHolidays },
-                    {   t, ScheduleTestHelper.BankHolidays.Where(b => b.Value.Year == 2016) },
+                    {
+                        term,
+                        fakeClock,
+                        ScheduleTestHelper.BankHolidays
+                    },
+                    {
+                        term,
+                        fakeClock,
+                        ScheduleTestHelper.BankHolidays.Where(b => b.Value.Year == 2016) },
                 })
                 .BDDfy();
         }
@@ -30,6 +45,11 @@ namespace Scheduler.Test
         public void GivenWeHaveATermOfWeekdays(CompositeSchedule term)
         {
             _term = term;
+        }
+
+        public void AndGivenAClock(IClock clock)
+        {
+            _clock = clock;
         }
 
         public void WhenThereAreSomeHolidays(IEnumerable<IDate> holidays)
@@ -44,14 +64,16 @@ namespace Scheduler.Test
 
         public void ThenThereShouldBeNoWeekendDays()
         {
-            _term.Generate()
+            _term
+                .Generate(_clock)
                 .Where(date => ScheduleTestHelper.WeekendDays.Contains(date.Value.IsoDayOfWeek))
                 .ShouldBeEmpty();
         }
 
         public void AndThenThereShouldBeNoHolidaysMatching()
         {
-            _term.Generate()
+            _term
+                .Generate(_clock)
                 .Where(date => ScheduleTestHelper.BankHolidays.Contains(date))
                 .ShouldBeEmpty();
         }

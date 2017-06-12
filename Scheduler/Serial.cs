@@ -28,63 +28,47 @@ namespace Scheduler
 
         public string TimeZoneProvider;
 
-        [IgnoreDataMember]
-        public IEdgeVertexs<IEpisode> Episodes
+        public IEdgeVertexs<IEpisode> GenerateEpisodes(IClock clock)
         {
-            get
-            {
-                if (EdgeSchedule?.Schedule == null)
-                    throw new ArgumentException("Schedule");
+            Validate();
 
-                if (TimeRange == null)
-                    throw new ArgumentException("TimeRange");
+            var episodes = new EdgeVertexs<IEpisode>();
 
-                if (TimeRange?.Range?.Period == null)
-                    throw new ArgumentException("Period");
+            episodes.AddRange(
+                EdgeSchedule.Schedule
+                    .Generate(clock)
+                    .Select(date => new Episode
+                    {
+                        SourceSerial = new EdgeVertex<ISerial>(this),
+                        SourceGeneratedDate = new EdgeVertex<IDate>(date),
+                        From = DateTimeHelper.GetZonedDateTime(date, TimeRange.Range.From, TimeZoneProvider),
+                        Period = TimeRange.Range?.Period,
+                    }));
 
-                if (TimeZoneProvider == null)
-                    throw new ArgumentException("TimeZoneProvider");
-
-                var episodes = new EdgeVertexs<IEpisode>();
-
-                episodes.AddRange(
-                    EdgeSchedule.Schedule
-                        .Generate()
-                        .Select(date => new Episode
-                        {
-                            SourceSerial = new EdgeVertex<ISerial>(this),
-                            SourceGeneratedDate = new EdgeVertex<IDate>(date),
-                            From = DateTimeHelper.GetZonedDateTime(date, TimeRange.Range.From, TimeZoneProvider),
-                            Period = TimeRange.Range?.Period,
-                        }));
-
-                return episodes;
-            }
+            return episodes;
         }
 
-        protected override IEnumerable<IVertex> Links
+        private void Validate()
         {
-            get
-            {
-                var list = new List<IVertex>();
+            if (EdgeSchedule?.Schedule == null)
+                throw new ArgumentException("Schedule");
 
-                list.AddRange(Episodes.Select(e => e.ToVertex));
+            if (TimeRange == null)
+                throw new ArgumentException("TimeRange");
 
-                if (EdgeSchedule != null)
-                {
-                    list.Add(EdgeSchedule.Edge);
-                    list.Add(EdgeSchedule.Schedule);
-                }
+            if (TimeRange?.Range?.Period == null)
+                throw new ArgumentException("Period");
 
-                return list;
-            }
+            if (TimeZoneProvider == null)
+                throw new ArgumentException("TimeZoneProvider");
         }
 
         public override void Save(IArangoDatabase db, IClock clock)
         {
+            Validate();
+
             Save<Serial>(db);
             EdgeSchedule?.Save(db, clock, this);
-            Episodes?.Save(db, clock, this);
             Tags?.Save(db, clock, this);
             TimeRange?.Save(db, clock, this);
             base.Save(db, clock);

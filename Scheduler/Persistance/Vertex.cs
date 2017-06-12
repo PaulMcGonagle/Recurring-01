@@ -93,20 +93,6 @@ namespace Scheduler.Persistance
 
         #endregion
 
-        public IEnumerable<IVertex> GetLinks(int depth)
-        {
-            var links = Links;
-
-            if (depth > 0)
-            {
-                var depthLinks = links.SelectMany(l => l.GetLinks(depth - 1));
-
-                links = links.Union(depthLinks);
-            }
-
-            return links;
-        }
-
         protected virtual IEnumerable<IVertex> Links => new List<IVertex>();
 
         #region Save

@@ -14,7 +14,7 @@ namespace Scheduler.ScheduleInstances
             set;
         }
 
-        public override IEnumerable<IDate> Generate()
+        public override IEnumerable<IDate> Generate(IClock clock)
         {
             yield return Date;
         }

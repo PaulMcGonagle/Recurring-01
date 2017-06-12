@@ -215,19 +215,19 @@
         <tag id="name" value="Guided Reading"/>
       </tags>
       <schedules>
-        <schedule session="10am">
+        <byWeekdays session="10am">
           <weekdays>
             <weekday value="Monday"/>
             <weekday value="Tuesday"/>
             <weekday value="Wednesday"/>
           </weekdays>
-        </schedule>
-        <schedule>
+        </byWeekdays>
+        <byWeekdays>
           <weekdays>
             <weekday value="Friday"/>
           </weekdays>
           <rangeTime start="10:00" end="10:25"/>
-        </schedule>
+        </byWeekdays>
       </schedules>
     </class>
     <class>
@@ -235,16 +235,19 @@
         <tag id="name" value="Assembly"/>
       </tags>
       <schedules>
-        <schedule session="10:30am">
+        <byWeekdays session="10:30am">
           <weekdays>
             <weekday value="Monday"/>
             <weekday value="Tuesday"/>
             <weekday value="Wednesday"/>
           </weekdays>
-        </schedule>
-        <schedule weekday="Friday">
+        </byWeekdays>
+        <byWeekdays>
           <rangeTime start="10:25" end="10:50"/>
-        </schedule>
+          <weekdays>
+            <weekday value="Friday"/>
+          </weekdays>
+        </byWeekdays>
       </schedules>
     </class>
     <class>

@@ -9,27 +9,17 @@ namespace Generators.XInstances
 {
     public class GeneratorXTimeRange : IGeneratorX
     {
-        public bool TryGenerate(XElement xRangeTime, IDictionary<string, IVertex> caches, out IVertex vertex, string elementsName = null)
+        public IVertex Generate(XElement xRangeTime, IDictionary<string, IVertex> caches, string elementsName = null)
         {
-            try
-            {
-                var from = xRangeTime.RetrieveAttributeAsLocalTime("start");
-                var to = xRangeTime.RetrieveAttributeAsLocalTime("end");
-                var period = Period.Between(from, to);
+            var from = xRangeTime.RetrieveAttributeAsLocalTime("start");
+            var to = xRangeTime.RetrieveAttributeAsLocalTime("end");
+            var period = Period.Between(from, to);
 
-                vertex = new TimeRange(from, period);
+            var timeRange = new TimeRange(from, period);
 
-                vertex.Connect(xRangeTime.RetrieveTags(caches, elementsName));
-            }
-            catch (Exception)
-            {
-                //todo Check exception type
+            timeRange.Connect(xRangeTime.RetrieveTags(caches, elementsName));
 
-                vertex = null;
-                return false;
-            }
-
-            return true;
+            return timeRange;
         }
     }
 }

@@ -23,7 +23,7 @@
             </term>
           </terms>
           <schedules>
-            <schedule>
+            <byWeekdays>
               <rangeTime start="09:15" end="10:20"/>
               <weekdays>
                 <weekday value="Monday"/>
@@ -31,7 +31,7 @@
                 <weekday value="Wednesday"/>
                 <weekday value="Friday"/>
               </weekdays>
-            </schedule>
+            </byWeekdays>
           </schedules>
         </class>
       </classes>

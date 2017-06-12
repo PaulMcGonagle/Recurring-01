@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using NodaTime;
 using Scheduler.Generation;
 
 namespace Scheduler
@@ -16,11 +17,11 @@ namespace Scheduler
             Add(schedule);
         }
 
-        public IEnumerable<IDate> GenerateDates()
+        public IEnumerable<IDate> GenerateDates(IClock clock)
         {
             var results = new List<IDate>();
 
-            results.AddRange(this.SelectMany(d => d.Generate()));
+            results.AddRange(this.SelectMany(d => d.Generate(clock)));
 
             return results;
         }

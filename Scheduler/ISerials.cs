@@ -6,7 +6,7 @@ namespace Scheduler
 {
     public interface ISerials : IList<Serial>
     {
-        IEpisodes Episodes { get; }
+        IEpisodes GenerateEpisodes(IClock clock);
 
         void Save(IArangoDatabase db, IClock clock);
     }

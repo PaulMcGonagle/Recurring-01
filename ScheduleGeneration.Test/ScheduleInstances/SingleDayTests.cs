@@ -10,6 +10,7 @@ using Scheduler.Generation;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleInstances;
+using Scheduler.Test;
 using Shouldly;
 using TestStack.BDDfy;
 using Xunit;
@@ -142,6 +143,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
             public void Execute()
             {
                 var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
+                var fakeClock = ScheduleTestHelper.GetFakeClock(2016, YearMonth.MonthValue.March, 15);
 
                 this.WithExamples(new ExampleTable(
                     "SUT",
@@ -170,7 +172,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                     timeZoneProvider: "Europe/London")),
                         },
                         mockDb.Object,
-                        new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
+                        fakeClock,
                         "TimeRange"
                     },
                     {

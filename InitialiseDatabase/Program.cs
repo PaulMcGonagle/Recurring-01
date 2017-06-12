@@ -43,7 +43,8 @@ namespace InitialiseDatabase
 
             var generatorSchedule = GeneratorFactory.Get("classes");
 
-            var menu = generatorSchedule.Generate(
+            var menu = generatorSchedule
+                .Generate(
                     sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Caterlink2.xml",
                     clock: fakeClock)
                 .ToList();
@@ -56,18 +57,10 @@ namespace InitialiseDatabase
 
                 foreach (var serial in @event.Serials.Select(s => s.ToVertex))
                 {
-                    var t = serial.Episodes.Select(e => e.ToVertex);
-
-                    //enricher.Go(
-                    //    t,
-                    //    ident: "EventNumber");
+                    var t = serial
+                        .GenerateEpisodes(fakeClock)
+                        .Select(e => e.ToVertex);
                 }
-            }
-            foreach (var organisation in vertexs.OfType<Tag>()
-                .Where(t => t.Ident == "organisation"))
-            {
-                var oLinks = organisation.GetLinks(8)
-                    .ToList();
             }
 
             using (var db = SchedulerDatabase.Database.Retrieve())
@@ -77,56 +70,6 @@ namespace InitialiseDatabase
                     @event.Save(db, fakeClock);
                 }
             }
-
-            var links = vertexs.SelectMany(e => e.GetLinks(4)).ToList();
-
-            SortedDictionary<string, IVertex> cache = new SortedDictionary<string, IVertex>();
-
-            foreach (var link in links)
-            {
-                if (!link.IsPersisted)
-                    using (var db = SchedulerDatabase.Database.Retrieve())
-                    {
-                        link.Save(db, fakeClock);
-                    }
-
-                if (!cache.ContainsKey(link.Id))
-                    cache.Add(link.Id, link);
-            }
-
-            //using (var db = SchedulerDatabase.Database.Retrieve())
-            //{
-            //    var qEvents = db.Query<Event>();
-            //    var lEvents = qEvents
-            //        .ToList();
-            //    var qEdges = db.Query<Edge>();
-            //    var lEdges = qEvents
-            //        .ToList();
-
-            //    var qResult = qEvents
-            //        .For(@event => qEdges
-            //        .Where(edge => @event.Id == edge.FromId)
-            //        .Select(edge => new { @event, edge }))
-            //        .ToList();
-
-            //    var qEvent = qEvents
-            //        .Select(@event => new { @event })
-            //        .ToList();
-
-            //    var qEvent2 = qEvents
-            //        .ToList();
-
-            //    var e1 = qEvent.First();
-            //}
-
-            //ConsoleOutput.Output.DisplayList(
-            //    vertexs
-            //        .OfType<Event>()
-            //       .First()
-            //        .Serials
-            //        .SelectMany(s => s.ToVertex.Episodes)
-            //        .Select(e => e.ToVertex)
-            //        .Select(e => e.To));
         }
 
         public static void Go(string databaseName)
@@ -209,7 +152,6 @@ namespace InitialiseDatabase
                 (
                     schedule: ByWeekday.Create
                         (
-                            clock: fakeClock,
                             isoDayOfWeek: IsoDayOfWeek.Wednesday,
                             dateRange: new DateRange(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05)
                         ),
@@ -299,7 +241,6 @@ W1H 2DS"
                                             new EdgeVertex<ISchedule>(new ByWeekdays
                                                 {
                                                     EdgeRange = new EdgeRangeDate(TestData.DataRetrieval.Ranges["Schools.Term.201617.Winter"]),
-                                                    Clock = new FakeClock(Instant.FromUtc(2016, 02, 10, 15, 40, 10)),
                                                     Days = new List<IsoDayOfWeek>
                                                     {
                                                         IsoDayOfWeek.Saturday,

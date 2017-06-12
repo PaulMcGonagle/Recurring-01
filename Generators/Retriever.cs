@@ -114,6 +114,20 @@ namespace Generators
             }
         }
 
+        public static IDateRange RetrieveDateRange(this IEnumerable<XElement> xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
+        {
+            var dateRanges = xInput.RetrieveDateRanges(caches, elementName);
+
+            try
+            {
+                return dateRanges.Single();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Could not identify a Single DateRange");
+            }
+        }
+
         public static ITimeRange RetrieveRangeTime(this XElement input, string elementName = "rangeTime")
         {
             var rangeTime = input.Element(elementName);
@@ -186,7 +200,7 @@ namespace Generators
             }
         }
 
-        public static IEnumerable<IDate> RetrieveDates(this XElement xInput, IDictionary<string, IVertex> caches, string elementsName = "dates")
+        public static IEnumerable<IDate> RetrieveDates(this XElement xInput, IClock clock, IDictionary<string, IVertex> caches, string elementsName = "dates")
         {
             var dates = new List<IDate>();
 
@@ -212,7 +226,7 @@ namespace Generators
             {
                 var schedule = RetrieveSchedule(xScheduleInstance, caches);
 
-                dates.AddRange(schedule.Generate());
+                dates.AddRange(schedule.Generate(clock));
             }
 
             return dates;

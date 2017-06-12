@@ -95,7 +95,7 @@ namespace ScheduleGeneration.Test
             public void AndWhenDatesAreRetrived()
             {
                 _dates = _schedules
-                    .SelectMany(schedule => schedule.Generate())
+                    .SelectMany(schedule => schedule.Generate(_clock))
                     .Select(date => date.Value)
                     .ToList();
             }

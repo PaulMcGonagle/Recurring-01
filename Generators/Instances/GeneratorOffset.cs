@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Generators.XInstances;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
-using Scheduler.ScheduleEdges;
-using Scheduler.ScheduleInstances;
 
 namespace Generators.Instances
 {
@@ -25,41 +24,46 @@ namespace Generators.Instances
 
             var xSchedules = xGenerator
                 .Elements("schedules")
-                .Elements("schedule")
-                .ToList();
+                .SingleOrDefault();
 
-            foreach (var xSchedule in xSchedules)
-            {
-                var xByOffset = xSchedule
-                    .Element("byOffset");
+            var generator = new GeneratorXCompositeSchedule();
 
-                var fromDate = xByOffset
-                    .RetrieveAttributeAsLocalDate("initialDate");
+            var compositeSchedule = (ICompositeSchedule)generator.Generate(xSchedules, caches);
 
-                var increment = xByOffset
-                    .RetrieveAttributeValue("interval");
+            //foreach (var xSchedule in xSchedules)
+            //{
+            //    var xByOffset = xSchedule
+            //        .Element("byOffset");
 
-                var dateRanges = xSchedule
-                    .Element("rangeDates")
-                    .RetrieveDateRanges(
-                        caches: caches)
-                    .ToList();
+            //    var fromDate = xByOffset
+            //        .RetrieveAttributeAsLocalDate("initialDate");
 
-                foreach (var dateRange in dateRanges)
-                {
-                    var byOffset = ByOffset
-                        .Create(
-                            initialDate: fromDate,
-                            interval: increment,
-                            range: dateRange);
+            //    var increment = xByOffset
+            //        .RetrieveAttributeValue("interval");
 
-                    generatorSource
-                        .Schedules
-                        .Add(new EdgeSchedule(byOffset));
+            //    var dateRanges = xSchedule
+            //        .Element("rangeDates")
+            //        .RetrieveDateRanges(
+            //            caches: caches)
+            //        .ToList();
 
-                    yield return byOffset;
-                }
-            }
+            //    foreach (var dateRange in dateRanges)
+            //    {
+            //        var byOffset = ByOffset
+            //            .Create(
+            //                initialDate: fromDate,
+            //                interval: increment,
+            //                range: dateRange);
+
+            //        generatorSource
+            //            .Schedules
+            //            .Add(new EdgeSchedule(byOffset));
+
+            //        yield return byOffset;
+            //    }
+            //}
+
+            yield return compositeSchedule;
         }
 
     }

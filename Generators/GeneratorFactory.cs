@@ -40,7 +40,7 @@ namespace Generators
                 case "Tag":
                     return new GeneratorXTag();
 
-                case "ByOffset":
+                case "byOffset":
                     return new GeneratorXByOffset();
 
                 default:

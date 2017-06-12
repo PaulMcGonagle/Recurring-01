@@ -3,7 +3,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
-using Scheduler.Generation;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
@@ -11,7 +10,7 @@ using Scheduler.ScheduleInstances;
 
 namespace Scheduler
 {
-    public class CompositeSchedule : Schedule
+    public class CompositeSchedule : Schedule, ICompositeSchedule
     {
 
         [IgnoreDataMember]
@@ -21,12 +20,12 @@ namespace Scheduler
         public IEdgeVertexs<ISchedule> ExclusionsEdges { get; set; } = new EdgeVertexs<ISchedule>();
 
         [IgnoreDataMember]
-        public IEdgeVertexs<IDateRange> Breaks = new EdgeVertexs<IDateRange>();
+        public IEdgeVertexs<IDateRange> Breaks { get; set; } = new EdgeVertexs<IDateRange>();
 
-        public override IEnumerable<IDate> Generate()
+        public override IEnumerable<IDate> Generate(IClock clock)
         {
-            var inclusions = InclusionsEdges.SelectMany(i => i.ToVertex.Generate());
-            var exclusions = ExclusionsEdges.SelectMany(i => i.ToVertex.Generate());
+            var inclusions = InclusionsEdges.SelectMany(i => i.ToVertex.Generate(clock));
+            var exclusions = ExclusionsEdges.SelectMany(i => i.ToVertex.Generate(clock));
 
             var list = new List<IDate>();
 
@@ -42,7 +41,6 @@ namespace Scheduler
         }
 
         public static CompositeSchedule Create(
-            IClock clock, 
             ISchedule schedule,
             IDateRange dateRange
             )
@@ -52,8 +50,7 @@ namespace Scheduler
                 InclusionsEdges = new EdgeVertexs<ISchedule>()
                 {
                     new EdgeVertex<ISchedule>(new ByWeekday(
-                        weekday: IsoDayOfWeek.Wednesday,
-                        clock: clock)
+                        weekday: IsoDayOfWeek.Wednesday)
                         {
                             EdgeRange = new EdgeRangeDate(dateRange),
                         }

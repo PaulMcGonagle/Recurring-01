@@ -1,25 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <generator>
   <schedules>
-    <!--<schedule>
-      <byOffset initialDate="2017-01-09" interval="21d"/>
-      <rangeDates>
-        <rangeDate start="2017-01-02" end="2017-03-31"/>
-      </rangeDates>
-    </schedule>-->
-    <schedule>
+    <byOffset initialDate="2017-01-09" interval="21d" count="4">
       <tags>
-        <tag id="type" value="ByOffset">
-          <tags>
-            <tag id="InitialDate" value="2017-01-02"/>
-            <tag id="Interval" value="1w"/>
-            <tag id="Count" value="4"/>
-          </tags>
-        </tag>
+        <tag id="type" value="blah"/>
       </tags>
       <rangeDates>
         <rangeDate start="2017-01-02" end="2017-03-31"/>
       </rangeDates>
-    </schedule>
+    </byOffset>
   </schedules>
 </generator>

@@ -47,7 +47,7 @@ namespace Generators.Instances
                 generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(compositeSchedule));
 
                 var dates = xCalendar
-                    .RetrieveDates(caches)
+                    .RetrieveDates(clock, caches)
                     .ToList();
 
                 var dateList = new DateList {Items = dates};

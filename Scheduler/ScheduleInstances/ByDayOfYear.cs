@@ -27,7 +27,6 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        [IgnoreDataMember]
         public IClock Clock
         {
             get { return _clock ?? (_clock = SystemClock.Instance); }
@@ -65,8 +64,11 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public override IEnumerable<IDate> Generate()
+        public override IEnumerable<IDate> Generate(IClock clock)
         {
+            if (_clock == null)
+                _clock = clock;
+
             var generatedDates = new List<IDate>();
 
             generatedDates

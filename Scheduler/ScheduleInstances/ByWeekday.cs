@@ -13,34 +13,22 @@ namespace Scheduler.ScheduleInstances
     {
         [DataMember]
         public IsoDayOfWeek Weekday;
-        private IClock _clock;
 
         public ByWeekday(
-            IsoDayOfWeek weekday, 
-            IClock clock = null)
+            IsoDayOfWeek weekday)
         {
             Weekday = weekday;
-            Clock = clock;
 
             CountFromDefault = 0;
             CountToDefault = 52;
         }
 
-        [IgnoreDataMember]
-        public IClock Clock
-        {
-            get { return _clock ?? (_clock = SystemClock.Instance); }
-            set { _clock = value; }
-        }
-
         public static ByWeekday Create(
             IsoDayOfWeek isoDayOfWeek,
-            IDateRange dateRange,
-            IClock clock = null)
+            IDateRange dateRange)
         {
             var byWeekday = new ByWeekday(
-                weekday: isoDayOfWeek,
-                clock: clock)
+                weekday: isoDayOfWeek)
             {
                 EdgeRange = new EdgeRangeDate(dateRange),
             };
@@ -48,7 +36,7 @@ namespace Scheduler.ScheduleInstances
             return byWeekday;
         }
 
-        public override IEnumerable<IDate> Generate()
+        public override IEnumerable<IDate> Generate(IClock clock)
         {
             EdgeRange?.Range.Validate();
 
@@ -61,7 +49,7 @@ namespace Scheduler.ScheduleInstances
             else
             {
                 startDate =
-                    DateTimeHelper.GetNextWeekday(Clock.GetLocalDateTime().Date, Weekday)
+                    DateTimeHelper.GetNextWeekday(clock.GetLocalDateTime().Date, Weekday)
                         .PlusWeeks(CountFrom ?? CountFromDefault);
             }
 

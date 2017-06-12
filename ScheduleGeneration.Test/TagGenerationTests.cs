@@ -6,6 +6,7 @@ using System.Xml.XPath;
 using Castle.Core.Internal;
 using Generators;
 using Scheduler;
+using Scheduler.Persistance;
 using Scheduler.Users;
 using Shouldly;
 using TestStack.BDDfy;
@@ -21,8 +22,8 @@ namespace ScheduleGeneration.Test
             private XElement _source;
             private IGenerator _generator;
 
-            private IEnumerable<IEvent> _events;
-            private IEvent _event;
+            private IEnumerable<IVertex> _vertexs;
+            private ICompositeSchedule _compositeSchedule;
             private ISerial _serial;
 
             private IEnumerable<XElement> _providedGeneratorTags;
@@ -50,7 +51,7 @@ namespace ScheduleGeneration.Test
                                 Title = "a test organisation",
                             },
                             "./tags/tag",
-                            "./groups/group/classes/class/schedules/schedule/tags/tag",
+                            "./groups/group/classes/class/schedules/byWeekdays/tags/tag",
                             "./groups/group/classes/class/tags/tag",
                             "./terms/term/tags/tag",
                             "./groups/group/tags/tag"
@@ -100,48 +101,44 @@ namespace ScheduleGeneration.Test
                 _generator = GeneratorFactory.Get("classes");
             }
 
-            public void AndWhenEventsAreGenerated()
+            public void AndWhenVertexsAreGenerated()
             {
-                var vertexs = _generator.Generate(_sourceFile, null);
-
-                _events = vertexs.OfType<Event>();
+                 _vertexs = _generator.Generate(_sourceFile, null);
             }
 
-            public void ThenOneEventIsGenerated()
+            public void AndWhenOneCompositeScheduleIsRetrieved()
             {
-                _events.Count().ShouldBe(1);
-
-                _event = _events.Single();
+                _compositeSchedule = _vertexs.OfType<ICompositeSchedule>().Single();
             }
 
-            public void AndThenEventTagsAreValid()
+            public void AndThenCompositeScheduleTagsAreValid()
             {
                 CompareTagsToSource(
-                    _event.Tags.Select(e => e.ToVertex), 
+                    _compositeSchedule.Tags.Select(e => e.ToVertex), 
                     _providedClassTags);
             }
 
-            public void AndThenEventHasOneSerial()
-            {
-                _event.Serials.Count.ShouldBe(1);
+            //public void AndThenEventHasOneSerial()
+            //{
+            //    _compositeSchedule.Serials.Count.ShouldBe(1);
 
-                _serial = _event.Serials.Single().ToVertex;
-            }
+            //    _serial = _compositeSchedule.Serials.Single().ToVertex;
+            //}
 
-            public void AndThenSerialTagsAreValid()
-            {
-                CompareTagsToSource(
-                    _serial.Tags
-                        .Select(s => s.ToVertex)
-                        .Where(s => s.Ident != "term"), 
-                    _providedTermTags);
+            //public void AndThenSerialTagsAreValid()
+            //{
+            //    CompareTagsToSource(
+            //        _serial.Tags
+            //            .Select(s => s.ToVertex)
+            //            .Where(s => s.Ident != "term"), 
+            //        _providedTermTags);
 
-                _serial.Tags
-                    .Select(s => s.ToVertex)
-                    .Single(s => s.Ident == "term")
-                    ?.Value.ShouldBe("Autumn.2016/17");
+            //    _serial.Tags
+            //        .Select(s => s.ToVertex)
+            //        .Single(s => s.Ident == "term")
+            //        ?.Value.ShouldBe("Autumn.2016/17");
 
-            }
+            //}
         }
 
         public static void CompareTagsToSource(IEnumerable<ITag> tags, IEnumerable<XElement> sourceTags)

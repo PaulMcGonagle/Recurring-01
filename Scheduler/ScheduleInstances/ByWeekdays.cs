@@ -15,21 +15,11 @@ namespace Scheduler.ScheduleInstances
     public class ByWeekdays : ScheduleAbstracts.Repeating
     {
         public IEnumerable<IsoDayOfWeek> Days;
-        private IClock _clock;
-
-        [IgnoreDataMember]
-        public IClock Clock
-        {
-            get { return _clock ?? (_clock = SystemClock.Instance); }
-            set { _clock = value; }
-        }
 
         public ByWeekdays(
-            IEnumerable<IsoDayOfWeek> weekdays,
-            IClock clock)
+            IEnumerable<IsoDayOfWeek> weekdays)
         {
             Days = weekdays;
-            Clock = clock;
         }
 
         public ByWeekdays()
@@ -40,21 +30,19 @@ namespace Scheduler.ScheduleInstances
 
         public static ByWeekdays Create(
             IEnumerable<IsoDayOfWeek> weekdays,
-            IDateRange dateRange,
-            IClock clock)
+            IDateRange dateRange)
         {
             return new ByWeekdays(
-                weekdays: weekdays,
-                clock: clock)
+                weekdays: weekdays)
             {
                 EdgeRange = new EdgeRangeDate(dateRange),
             };
         }
 
-        public override IEnumerable<IDate> Generate()
+        public override IEnumerable<IDate> Generate(IClock clock)
         {
-            var start = EdgeRange.ToVertex.From.Date ?? DateTimeHelper.GetToday(Clock).AddWeeks(-(CountFrom ?? CountFromDefault));
-            var end = EdgeRange.ToVertex.To.Date ?? DateTimeHelper.GetToday(Clock).AddWeeks((CountTo ?? CountToDefault));
+            var start = EdgeRange.ToVertex.From.Date ?? DateTimeHelper.GetToday(clock).AddWeeks(-(CountFrom ?? CountFromDefault));
+            var end = EdgeRange.ToVertex.To.Date ?? DateTimeHelper.GetToday(clock).AddWeeks((CountTo ?? CountToDefault));
 
             var range = DateTimeHelper.Range(start: start, end: end);
 
