@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using ArangoDB.Client;
+using ConsoleOutput;
 using Generators;
 using Generators.Enrichers;
 using NodaTime;
@@ -45,23 +46,31 @@ namespace InitialiseDatabase
 
             var menu = generatorSchedule
                 .Generate(
-                    sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Caterlink2.xml",
+                    sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Caterlink4.xml",
                     clock: fakeClock)
                 .ToList();
 
-
-
-            foreach (var @event in vertexs.OfType<Event>())
+            foreach (var schedule in vertexs.OfType<ISchedule>())
             {
-                Instance.Generate(fakeClock, @event);
+                var dates = schedule.Generate(fakeClock);
 
-                foreach (var serial in @event.Serials.Select(s => s.ToVertex))
-                {
-                    var t = serial
-                        .GenerateEpisodes(fakeClock)
-                        .Select(e => e.ToVertex);
-                }
+                Output.DisplayGrid(dates);
+
+                Output.Wait();
             }
+
+
+            //foreach (var @event in vertexs.OfType<ISchedule>())
+            //{
+            //    Instance.Generate(fakeClock, @event);
+
+            //    foreach (var serial in @event.Serials.Select(s => s.ToVertex))
+            //    {
+            //        var t = serial
+            //            .GenerateEpisodes(fakeClock)
+            //            .Select(e => e.ToVertex);
+            //    }
+            //}
 
             using (var db = SchedulerDatabase.Database.Retrieve())
             {

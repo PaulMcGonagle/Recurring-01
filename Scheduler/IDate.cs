@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NodaTime;
+﻿using NodaTime;
 using Scheduler.Persistance;
 
 namespace Scheduler
@@ -13,5 +8,7 @@ namespace Scheduler
         LocalDate Value { get; set; }
 
         IsoDayOfWeek IsoDayOfWeek { get; }
+
+        IDate PlusDays(int days);
     }
 }

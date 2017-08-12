@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NodaTime;
 using Scheduler;
 using static System.Console;
@@ -14,7 +12,7 @@ namespace ConsoleOutput
 
         #region Display
 
-        public static void DisplayGrid(IEnumerable<Scheduler.Date> dates)
+        public static void DisplayGrid(IEnumerable<IDate> dates)
         {
             if (dates == null)
             {
@@ -22,16 +20,18 @@ namespace ConsoleOutput
                 return;
             }
 
-            var sortedDates = dates.ToList();
+            var sortedDates = dates
+                .Select(d => d.Value)
+                .ToList();
             sortedDates.Sort();
 
             var firstDate = sortedDates.First();
             var lastDate = sortedDates.Last();
 
-            var firstMonday = firstDate.PlusDays(-firstDate.Value.DayOfWeek + 1);
+            var firstMonday = firstDate.PlusDays(-firstDate.DayOfWeek + 1);
             var range = DateTimeHelper.Range(firstMonday, lastDate);
 
-            WriteLine(firstDate.Value.DayOfWeek.ToString());
+            WriteLine(firstDate.DayOfWeek.ToString());
 
             WriteLine("Year Month  Mon Tue Wed Thu Fri Sat Sun");
 
@@ -44,7 +44,7 @@ namespace ConsoleOutput
                     Write($"{r.Value.Year:0000} {r.Value.Month:00}   ");
                 }
 
-                ForegroundColor = sortedDates.Contains(r) ? ConsoleColor.White : ConsoleColor.Red;
+                ForegroundColor = sortedDates.Contains(r.Value) ? ConsoleColor.White : ConsoleColor.Red;
                 Write($"  {r.Value.Day:00}");
             }
             WriteLine();
@@ -96,6 +96,11 @@ namespace ConsoleOutput
             {
                 WriteLine(a.ToString());
             }
+        }
+
+        public static void Wait()
+        {
+            ReadKey();
         }
 
         #endregion

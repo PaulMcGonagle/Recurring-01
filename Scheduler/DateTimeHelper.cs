@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Scheduler
 {
@@ -90,14 +91,24 @@ namespace Scheduler
             return new YearMonth { Date = value };
         }
 
-        public static IEnumerable<IDate> Range(Date start, int count, int interval = 1)
+        public static IEnumerable<IDate> Range(IDate start, int count, int interval = 1)
         {
-            return new List<IDate>(Enumerable.Range(0, count).Select(i => new Date(start.Value.PlusDays(i * interval))));
+            return Range(start.Value, count, interval);
         }
 
-        public static IEnumerable<IDate> Range(Date start, Date end, int interval = 1)
+        public static IEnumerable<IDate> Range(LocalDate start, int count, int interval = 1)
         {
-            var period = Period.Between(start.Value, end.Value, PeriodUnits.Days);
+            return new List<IDate>(Enumerable.Range(0, count).Select(i => new Date(start.PlusDays(i * interval))));
+        }
+
+        public static IEnumerable<IDate> Range(IDate start, IDate end, int interval = 1)
+        {
+            return Range(start.Value, end.Value, interval);
+        }
+
+        public static IEnumerable<IDate> Range(LocalDate start, LocalDate end, int interval = 1)
+        {
+            var period = Period.Between(start, end, PeriodUnits.Days);
 
             var days = Convert.ToInt32((period.Days + 1) / interval);
 

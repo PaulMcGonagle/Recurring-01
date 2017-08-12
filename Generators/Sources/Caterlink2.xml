@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <generator>
+  <tags>
+    <tag id="organisation" value="Caterlink"/>
+  </tags>
   <caches>
     <cache name="Winter 2016/17" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter']]"/>
     <cache name="Autumn 2016/17" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Autumn']]"/>

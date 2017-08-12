@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Runtime.Serialization;
-using System.Text;
 using ArangoDB.Client;
 using NodaTime;
 using Scheduler.Persistance;
@@ -33,7 +32,7 @@ namespace Scheduler.Ranges
         }
 
         public DateRange(LocalDate from, LocalDate to)
-            :this(
+            : this(
                 from: new EdgeDate(from),
                 to: new EdgeDate(to))
         {
@@ -41,7 +40,7 @@ namespace Scheduler.Ranges
 
         public void Validate()
         {
-            if (From?.Date?.Value != null && To?.Date?.Value == null && From.Date?.Value <= To.Date?.Value)
+            if (From?.Date?.Value != null && To?.Date?.Value == null && From.Date?.Value <= To?.Date?.Value)
             {
                 throw new ArgumentOutOfRangeException($"Range is invalid: From={From?.Date?.Value}, To={To?.Date?.Value}");
             }

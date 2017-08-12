@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<generator>
+  <tags>
+    <tag id="organisation" value="Any Old Primary School">
+      <payload>
+        {
+        "detail":{
+        "url": "http://www.anyoldprimaryschool.org.uk",
+        "location":{
+        "address": "Any Street, London, ST1 5RE"
+        }
+        }
+        }
+      </payload>
+    </tag>
+    <tag id="cache" value="years">
+      <tag id="year" value="2016/17"/>
+      <tag id="year" value="2017/18"/>
+    </tag>
+  </tags>
+  <terms>
+    <term>
+      <tags>
+        <tag id="name" value="Autumn.2016/17"/>
+      </tags>
+      <rangeDate start="2016-09-02" end="2016-09-13"/>
+      <breaks>
+        <break>
+          <tags>
+            <tag id="name" value="Autumn half-term"/>
+          </tags>
+          <rangeDate start="2016-09-05" end="2016-09-10"/>
+        </break>
+      </breaks>
+    </term>
+    <term>
+      <tags>
+        <tag id="name" value="Winter.2016/17"/>
+      </tags>
+      <rangeDate start="2017-01-05" end="2017-01-14"/>
+      <breaks>
+        <break>
+          <tags>
+            <tag id="name" value="Winter half-term"/>
+          </tags>
+          <rangeDate start="2017-01-08" end="2016-01-01"/>
+        </break>
+      </breaks>
+    </term>
+  </terms>
+</generator>

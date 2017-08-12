@@ -14,7 +14,7 @@ namespace TestData
     {
         private static Dictionary<string, ISchedule> _scheduleArchive;
         private static Dictionary<string, IEnumerable<IsoDayOfWeek>> _dateTypes;
-        private static Dictionary<string, Date> _dates;
+        private static Dictionary<string, IDate> _dates;
         private static Dictionary<string, DateRange> _ranges;
         private static Dictionary<string, Organisation> _organisations;
 
@@ -274,8 +274,8 @@ namespace TestData
             }
         }
 
-        public static Dictionary<string, Date> Dates
-            => _dates ?? (_dates = new Dictionary<string, Date>
+        public static Dictionary<string, IDate> Dates
+            => _dates ?? (_dates = new Dictionary<string, IDate>
                {
                     {
                         "Schools.Term.201617.Autumn.Start",

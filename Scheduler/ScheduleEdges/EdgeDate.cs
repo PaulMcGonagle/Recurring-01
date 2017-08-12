@@ -3,9 +3,9 @@ using Scheduler.Persistance;
 
 namespace Scheduler.ScheduleEdges
 {
-    public class EdgeDate : EdgeVertex<Date>, IEdgeDate
+    public class EdgeDate : EdgeVertex<IDate>, IEdgeDate
     {
-        public EdgeDate(Date toVertex)
+        public EdgeDate(IDate toVertex)
             : base(toVertex)
         {
 
@@ -21,7 +21,7 @@ namespace Scheduler.ScheduleEdges
         {
         }
 
-        public Date Date
+        public IDate Date
         {
             get { return ToVertex; }
             set { ToVertex = value; }

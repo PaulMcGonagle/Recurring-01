@@ -2,6 +2,6 @@
 {
     public interface IEdgeDate
     {
-        Date Date { get; set; }
+        IDate Date { get; set; }
     }
 }

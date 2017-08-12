@@ -190,7 +190,7 @@ namespace Generators
 
             foreach (var xLink in xLinkTags)
             {
-                var links = UtilitiesLinks<Tag>.Retrieve(xLink, caches, "link")
+                var links = UtilitiesLinks<Tag>.Retrieve(xLink, caches)
                     .ToList();
 
                 foreach (var link in links)
@@ -376,6 +376,18 @@ namespace Generators
             return parseResult.Value;
         }
 
+        public static TimeSpan RetrieveAttributeAsTimeSpan(this XElement xInput, string name)
+        {
+            var attribute = RetrieveAttribute(xInput, name);
+
+            return System.Xml.XmlConvert.ToTimeSpan(attribute.Value);
+        }
+
+        public static Period RetrieveAttributeAsPeriod(this XElement xInput, string name)
+        {
+            throw new NotImplementedException();
+        }
+
         public static LocalDate RetrieveAttributeAsLocalDate(this XElement xInput, string name)
         {
             var attribute = RetrieveAttribute(xInput, name);
@@ -408,6 +420,11 @@ namespace Generators
             }
 
             return attribute;
+        }
+
+        public static bool HasAttribute(this XElement input, string name)
+        {
+            return input?.Attribute(name) != null;
         }
 
         #endregion

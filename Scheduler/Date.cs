@@ -6,7 +6,7 @@ using Scheduler.Persistance;
 
 namespace Scheduler
 {
-    public class Date : Vertex, IDate, IComparable
+    public class Date : Vertex, IDate
     {
         public Date(int year, YearMonth.MonthValue month, int day)
         {
@@ -23,7 +23,7 @@ namespace Scheduler
         [IgnoreDataMember]
         public IsoDayOfWeek IsoDayOfWeek => Value.IsoDayOfWeek;
 
-        public Date PlusDays(int days)
+        public IDate PlusDays(int days)
         {
             return new Date(Value.PlusDays(days));
         }
