@@ -20,7 +20,7 @@ namespace Scheduler.ScheduleInstances
                 .ToList();
         }
 
-        public void Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<DateList>(db);
             base.Save(db, clock);

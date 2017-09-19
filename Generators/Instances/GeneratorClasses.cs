@@ -78,25 +78,25 @@ namespace Generators.Instances
                         .Elements()
                         .ToList();
 
-                    foreach (var xTerm in xTerms)
-                    {
-                        var termTags = xTerm
-                            .RetrieveTags(caches)
-                            .ToList();
+                    //foreach (var xTerm in xTerms)
+                    //{
+                    //    var termTags = xTerm
+                    //        .RetrieveTags(caches)
+                    //        .ToList();
 
-                        var termName = termTags
-                            .RetrieveValue("name");
+                    //    var termName = termTags
+                    //        .RetrieveValue("name");
 
-                        var termTag = classTag.Connect("term", termName);
+                    //    var termTag = classTag.Connect("term", termName);
 
-                        var termRange = xTerm
-                            .Elements()
-                            .RetrieveDateRange(caches);
+                    //    var termRange = xTerm
+                    //        .Elements()
+                    //        .RetrieveDateRange(caches);
 
-                        var xTermBreaks = xTerm
-                            .Elements("breaks")
-                            .Elements()
-                            .ToList();
+                    //    var xTermBreaks = xTerm
+                    //        .Elements("breaks")
+                    //        .Elements()
+                    //        .ToList();
 
                         var xSchedules = xClass
                             .Elements("schedules")
@@ -105,6 +105,7 @@ namespace Generators.Instances
                         var serials = new Serials();
 
                         var generator = new GeneratorXCompositeSchedule();
+
 
                         var compositeSchedule = (ICompositeSchedule)generator.Generate(xSchedules, caches);
 
@@ -172,7 +173,7 @@ namespace Generators.Instances
                         //}
 
                         yield return compositeSchedule;
-                    }
+                    //}
                     //yield return @event;
                 }
 

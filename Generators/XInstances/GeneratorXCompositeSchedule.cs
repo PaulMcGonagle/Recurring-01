@@ -44,7 +44,8 @@ namespace Generators.XInstances
                     caches,
                     elementsName);
 
-                schedule.Connect(xSchedule.RetrieveTags(caches, elementsName));
+                var t = xSchedule.RetrieveTags(caches, elementsName).ToList();
+                schedule.Connect(t);
 
                 compositeSchedule.InclusionsEdges.Add(new EdgeSchedule((ISchedule)schedule));
             }

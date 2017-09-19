@@ -73,8 +73,13 @@ namespace Generators
 
         public static IEnumerable<IDateRange> RetrieveDateRanges(this XElement xInput, IDictionary<string, IVertex> caches, string elementsName = "rangeDates", string elementName = "rangeDate")
         {
-            var xElements = xInput
-                .Elements(elementsName)
+            var xRangeDates = xInput
+                .Element(elementsName);
+
+            if (xRangeDates is null)
+                throw new Exception("No element {elementsName} could be found");
+
+            var xElements = xRangeDates
                 .Elements(elementName)
                 .ToList();
 
@@ -84,7 +89,7 @@ namespace Generators
             }
 
             var links = UtilitiesLinks<DateRange>
-                .Retrieve(xInput, caches)
+                .Retrieve(xRangeDates, caches)
                 .ToList();
 
             foreach (var link in links)
@@ -95,7 +100,9 @@ namespace Generators
 
         public static IEnumerable<IDateRange> RetrieveDateRanges(this IEnumerable<XElement> xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
         {
-            var xElements = xInput
+            var xInputList = xInput.ToList();
+
+            var xElements = xInputList
                 .Where(i => i.Name == elementName)
                 .ToList();
 
@@ -105,7 +112,7 @@ namespace Generators
             }
 
             var links = UtilitiesLinks<DateRange>
-                .Retrieve(xInput, caches)
+                .Retrieve(xInputList, caches)
                 .ToList();
 
             foreach (var link in links)
@@ -243,9 +250,7 @@ namespace Generators
             {
                 var weekday = xWeekday.RetrieveValue("value");
 
-                IsoDayOfWeek isoDayOfWeek;
-
-                if (!Enum.TryParse(weekday, out isoDayOfWeek))
+                if (!Enum.TryParse(weekday, out IsoDayOfWeek isoDayOfWeek))
                     throw new Exception($"Unable to parse weekday {weekday}");
 
                 yield return isoDayOfWeek;
@@ -290,17 +295,14 @@ namespace Generators
                         .Tags
                         .SingleOrDefault(rt => rt.ToVertex.Ident == "Count");
 
-                    if (countTag != null)
+                    if (countTag == null) return byOffset;
+
+                    if (!int.TryParse(countTag.ToVertex.Value, out int count))
                     {
-                        int count;
-
-                        if (!Int32.TryParse(countTag.ToVertex.Value, out count))
-                        {
-                            throw new Exception($"Unable to retrieve count '{countTag.ToVertex.Value}'");
-                        }
-
-                        byOffset.CountTo = count;
+                        throw new Exception($"Unable to retrieve count '{countTag.ToVertex.Value}'");
                     }
+
+                    byOffset.CountTo = count;
                     return byOffset;
                 }
                 default:

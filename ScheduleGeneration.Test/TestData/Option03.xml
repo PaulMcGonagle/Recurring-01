@@ -62,10 +62,13 @@
           </terms>
           <schedules>
             <byWeekdays>
-              <rangeTime start="09:15" end="10:20"/>
+              <rangeTime start="10:15" end="10:55"/>
               <weekdays>
                 <weekday value="Monday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
         </class>
@@ -87,6 +90,9 @@
               <weekdays>
                 <weekday value="Tuesday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
         </class>

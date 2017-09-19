@@ -154,9 +154,13 @@
                 <weekday value="Thursday"/>
                 <weekday value="Friday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2017/18.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
         </class>
+        <!--
         <class>
           <tags>
             <tag id="name" value="Phonics and Literacy"/>
@@ -169,12 +173,18 @@
                 <weekday value="Wednesday"/>
                 <weekday value="Friday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
             <byWeekdays>
               <rangeTime start="09:45" end="10:20"/>
               <weekdays>
                 <weekday value="Tuesday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -191,6 +201,9 @@
               <weekdays>
                 <weekday value="Tuesday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
         </class>
@@ -204,6 +217,9 @@
               <weekdays>
                 <weekday value="Thursday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -224,6 +240,9 @@
                 <weekday value="Thursday"/>
                 <weekday value="Friday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -240,6 +259,9 @@
               <weekdays>
                 <weekday value="Thursday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -259,6 +281,9 @@
                 <weekday value="Wednesday"/>
                 <weekday value="Friday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -280,6 +305,9 @@
                 <weekday value="Thursday"/>
                 <weekday value="Friday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -300,6 +328,9 @@
                 <weekday value="Thursday"/>
                 <weekday value="Friday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -321,6 +352,9 @@
                 <weekday value="Thursday"/>
                 <weekday value="Friday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -337,6 +371,9 @@
               <weekdays>
                 <weekday value="Monday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -356,6 +393,9 @@
                 <weekday value="Thursday"/>
                 <weekday value="Friday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -372,6 +412,9 @@
               <weekdays>
                 <weekday value="Tuesday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -388,6 +431,9 @@
               <weekdays>
                 <weekday value="Wednesday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -404,6 +450,9 @@
               <weekdays>
                 <weekday value="Thursday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -420,6 +469,9 @@
               <weekdays>
                 <weekday value="Friday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -441,6 +493,9 @@
                 <weekday value="Thursday"/>
                 <weekday value="Friday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -460,6 +515,9 @@
                 <weekday value="Wednesday"/>
                 <weekday value="Thursday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
@@ -476,12 +534,16 @@
               <weekdays>
                 <weekday value="Friday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
         </class>
+        -->
       </classes>
       <terms>
         <term>
@@ -494,6 +556,7 @@
         <tag id="name" value="Year2.2016/17"/>
       </tags>
       <sessions>
+        <!--
         <session>
           <tags>
             <tag id="name" value="9am"/>
@@ -512,12 +575,14 @@
           </tags>
           <rangeTime start="10:00" end="10:30"/>
         </session>
+        -->
         <session>
           <tags>
             <tag id="name" value="10:30am"/>
           </tags>
           <rangeTime start="10:00" end="10:30"/>
         </session>
+        <!--
         <session>
           <tags>
             <tag id="name" value="Morning playtime"/>
@@ -566,8 +631,10 @@
           </tags>
           <rangeTime start="14:45" end="15:30"/>
         </session>
+        -->
       </sessions>
       <classes>
+        <!--
         <class>
           <tags>
             <tag id="name" value="Playtime"/>
@@ -582,6 +649,9 @@
                 <weekday value="Thursday"/>
                 <weekday value="Friday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
         </class>
@@ -599,6 +669,9 @@
                 <weekday value="Thursday"/>
                 <weekday value="Friday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
         </class>
@@ -628,6 +701,9 @@
                 <weekday value="Tuesday"/>
                 <weekday value="Wednesday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
             <byWeekdays>
               <weekdays>
@@ -649,12 +725,13 @@
                 <weekday value="Tuesday"/>
                 <weekday value="Wednesday"/>
               </weekdays>
-            </byWeekdays>
-            <byWeekdays weekday="Friday">
-              <rangeTime start="10:25" end="10:50"/>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
         </class>
+        -->
         <class>
           <tags>
             <tag id="name" value="Mass"/>
@@ -665,9 +742,13 @@
               <weekdays>
                 <weekday value="Thursday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2017/18.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
         </class>
+        <!--
         <class>
           <tags>
             <tag id="name" value="Numeracy"/>
@@ -820,6 +901,7 @@
             </byWeekdays>
           </schedules>
         </class>
+        -->
       </classes>
     </group>
   </groups>

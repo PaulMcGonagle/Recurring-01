@@ -117,9 +117,7 @@ namespace Scheduler
             int day,
             RepeatingDay.RollStrategyType rollStrategyType = RepeatingDay.RollStrategyType.Skip)
         {
-            Date localDate;
-
-            if(TryToLocalDate(day, out localDate, rollStrategyType))
+            if(TryToLocalDate(day, out Date localDate, rollStrategyType))
             {
                 return localDate;
             }

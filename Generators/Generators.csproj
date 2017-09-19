@@ -75,6 +75,9 @@
     <Compile Include="XInstances\GeneratorXTimeRange.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Sources\ASchool.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Sources\Caterlink2.xml">
       <SubType>Designer</SubType>
     </Content>

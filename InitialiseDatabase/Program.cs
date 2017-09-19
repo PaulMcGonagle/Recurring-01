@@ -28,7 +28,7 @@ namespace InitialiseDatabase
             var generator = GeneratorFactory.Get("classes");
 
             var vertexs = generator.Generate(
-                sourceFile: "..\\..\\..\\ScheduleGeneration.Test\\TestData\\BasicSchoolSchedule.xml",
+                sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\ASchool.xml",
                 clock: fakeClock)
                 .ToList();
 
@@ -40,15 +40,15 @@ namespace InitialiseDatabase
                 }
             }
 
-            var enricher = new EnricherLookup();
+            //var enricher = new EnricherLookup();
 
-            var generatorSchedule = GeneratorFactory.Get("classes");
+            //var generatorSchedule = GeneratorFactory.Get("classes");
 
-            var menu = generatorSchedule
-                .Generate(
-                    sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Caterlink4.xml",
-                    clock: fakeClock)
-                .ToList();
+            //var menu = generatorSchedule
+            //    .Generate(
+            //        sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Caterlink4.xml",
+            //        clock: fakeClock)
+            //    .ToList();
 
             foreach (var schedule in vertexs.OfType<ISchedule>())
             {

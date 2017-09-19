@@ -80,6 +80,9 @@
               <weekdays>
                 <weekday value="Monday"/>
               </weekdays>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
             </byWeekdays>
           </schedules>
         </class>
