@@ -7,6 +7,6 @@ namespace Scheduler
     {
         IEdgeVertexs<ISchedule> InclusionsEdges { get; set; }
         IEdgeVertexs<ISchedule> ExclusionsEdges { get; set; }
-        IEdgeVertexs<IDateRange> Breaks { get; set; }
+        IEdgeVertexs<IRangeDate> Breaks { get; set; }
     }
 }

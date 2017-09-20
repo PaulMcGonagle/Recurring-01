@@ -54,7 +54,7 @@ namespace Generators
             return xElement;
         }
 
-        public static DateRange RetrieveDateRange(this XElement xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
+        public static RangeDate RetrieveRangeDate(this XElement xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
         {
             var start = xInput
                 .RetrieveAttributeAsLocalDate("start");
@@ -62,16 +62,16 @@ namespace Generators
             var end = xInput
                 .RetrieveAttributeAsLocalDate("end");
 
-            var dateRange = new DateRange(
+            var rangeDate = new RangeDate(
                 @from: new EdgeDate(start),
                 to: new EdgeDate(end));
 
-            dateRange.Connect(xInput.RetrieveTags(caches));
+            rangeDate.Connect(xInput.RetrieveTags(caches));
 
-            return dateRange;
+            return rangeDate;
         }
 
-        public static IEnumerable<IDateRange> RetrieveDateRanges(this XElement xInput, IDictionary<string, IVertex> caches, string elementsName = "rangeDates", string elementName = "rangeDate")
+        public static IEnumerable<IRangeDate> RetrieveRangeDates(this XElement xInput, IDictionary<string, IVertex> caches, string elementsName = "rangeDates", string elementName = "rangeDate")
         {
             var xRangeDates = xInput
                 .Element(elementsName);
@@ -85,10 +85,10 @@ namespace Generators
 
             foreach (var xElement in xElements)
             {
-                yield return RetrieveDateRange(xElement, caches, elementName);
+                yield return RetrieveRangeDate(xElement, caches, elementName);
             }
 
-            var links = UtilitiesLinks<DateRange>
+            var links = UtilitiesLinks<RangeDate>
                 .Retrieve(xRangeDates, caches)
                 .ToList();
 
@@ -98,7 +98,7 @@ namespace Generators
             }
         }
 
-        public static IEnumerable<IDateRange> RetrieveDateRanges(this IEnumerable<XElement> xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
+        public static IEnumerable<IRangeDate> RetrieveRangeDates(this IEnumerable<XElement> xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
         {
             var xInputList = xInput.ToList();
 
@@ -108,10 +108,10 @@ namespace Generators
 
             foreach (var xElement in xElements)
             {
-                yield return RetrieveDateRange(xElement, caches, elementName);
+                yield return RetrieveRangeDate(xElement, caches, elementName);
             }
 
-            var links = UtilitiesLinks<DateRange>
+            var links = UtilitiesLinks<RangeDate>
                 .Retrieve(xInputList, caches)
                 .ToList();
 
@@ -121,17 +121,17 @@ namespace Generators
             }
         }
 
-        public static IDateRange RetrieveDateRange(this IEnumerable<XElement> xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
+        public static IRangeDate RetrieveRangeDate(this IEnumerable<XElement> xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
         {
-            var dateRanges = xInput.RetrieveDateRanges(caches, elementName);
+            var rangeDates = xInput.RetrieveRangeDates(caches, elementName);
 
             try
             {
-                return dateRanges.Single();
+                return rangeDates.Single();
             }
             catch (Exception)
             {
-                throw new Exception("Could not identify a Single DateRange");
+                throw new Exception("Could not identify a Single RangeDate");
             }
         }
 

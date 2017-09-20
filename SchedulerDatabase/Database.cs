@@ -41,7 +41,7 @@ namespace SchedulerDatabase
                 db.CreateCollection("Profile");
                 db.CreateCollection("Organisation");
                 db.CreateCollection("Location");
-                db.CreateCollection("DateRange");
+                db.CreateCollection("RangeDate");
                 db.CreateCollection("TimeRange");
                 db.CreateCollection("Date");
                 db.CreateCollection("Tag");

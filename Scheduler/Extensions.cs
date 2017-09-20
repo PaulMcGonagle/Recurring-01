@@ -23,7 +23,7 @@ namespace Scheduler
             return inputDates.Union(exclusions);
         }
 
-        public static IEnumerable<IDate> Exclude(this IEnumerable<IDate> inputDates, IEnumerable<DateRange> exclusions)
+        public static IEnumerable<IDate> Exclude(this IEnumerable<IDate> inputDates, IEnumerable<RangeDate> exclusions)
         {
             foreach (var exclusion in exclusions)
             {
@@ -36,7 +36,7 @@ namespace Scheduler
             return inputDates;
         }
 
-        public static IEnumerable<IDate> Include(this IEnumerable<IDate> inputDates, IEnumerable<DateRange> inclusions)
+        public static IEnumerable<IDate> Include(this IEnumerable<IDate> inputDates, IEnumerable<RangeDate> inclusions)
         {
             foreach (var exclusion in inclusions)
             {

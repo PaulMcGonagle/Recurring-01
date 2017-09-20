@@ -20,7 +20,7 @@ namespace Scheduler
         public IEdgeVertexs<ISchedule> ExclusionsEdges { get; set; } = new EdgeVertexs<ISchedule>();
 
         [IgnoreDataMember]
-        public IEdgeVertexs<IDateRange> Breaks { get; set; } = new EdgeVertexs<IDateRange>();
+        public IEdgeVertexs<IRangeDate> Breaks { get; set; } = new EdgeVertexs<IRangeDate>();
 
         public override IEnumerable<IDate> Generate(IClock clock)
         {
@@ -42,7 +42,7 @@ namespace Scheduler
 
         public static CompositeSchedule Create(
             ISchedule schedule,
-            IDateRange dateRange
+            IRangeDate rangeDate
             )
         {
             return new CompositeSchedule
@@ -52,7 +52,7 @@ namespace Scheduler
                     new EdgeVertex<ISchedule>(new ByWeekday(
                         weekday: IsoDayOfWeek.Wednesday)
                         {
-                            EdgeRange = new EdgeRangeDate(dateRange),
+                            EdgeRange = new EdgeRangeDate(rangeDate),
                         }
                     )
                 },

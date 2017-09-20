@@ -11,19 +11,19 @@
       path="./generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Key Stage']"/>
     <cache
       name="Term.2016/17.Autumn"
-      type="DateRange"
+      type="RangeDate"
       path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Autumn']]"/>
     <cache
       name="Term.2016/17.Spring"
-      type="DateRange"
+      type="RangeDate"
       path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Spring']]"/>
     <cache
       name="Term.2016/17.Summer"
-      type="DateRange"
+      type="RangeDate"
       path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Summer']]"/>
     <cache
       name="Term.2017/18.Autumn"
-      type="DateRange"
+      type="RangeDate"
       path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2017/18.Autumn']]"/>
     <cache
       name="KeyStage.1"

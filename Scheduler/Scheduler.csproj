@@ -98,10 +98,10 @@
     <Compile Include="Persistance\ILink.cs" />
     <Compile Include="Persistance\IRelation.cs" />
     <Compile Include="Persistance\Link.cs" />
-    <Compile Include="Ranges\DateRanges.cs" />
-    <Compile Include="Ranges\IDateRange.cs" />
+    <Compile Include="Ranges\RangeDates.cs" />
+    <Compile Include="Ranges\IRangeDate.cs" />
     <Compile Include="ISerials.cs" />
-    <Compile Include="Ranges\IDateRanges.cs" />
+    <Compile Include="Ranges\IRangeDates.cs" />
     <Compile Include="Ranges\IRangeTime.cs" />
     <Compile Include="Persistance\Edge.cs" />
     <Compile Include="Persistance\Edges.cs" />
@@ -114,7 +114,7 @@
     <Compile Include="Episode.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Ranges\DateRange.cs" />
+    <Compile Include="Ranges\RangeDate.cs" />
     <Compile Include="SaveException.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="ScheduleEdges\EdgeDate.cs" />

@@ -17,19 +17,19 @@ namespace Generators.XInstances
         {
             var weekdays = xByWeekdays.RetrieveWeekdays();
 
-            var dateRanges = xByWeekdays
-                .RetrieveDateRanges(
+            var rangeDates = xByWeekdays
+                .RetrieveRangeDates(
                     caches: caches)
                 .ToList();
 
             var composite = new CompositeSchedule();
 
-            foreach (var dateRange in dateRanges)
+            foreach (var rangeDate in rangeDates)
             {
                 var byOffset = ByWeekdays
                     .Create(
                         weekdays: weekdays,
-                        dateRange: dateRange);
+                        rangeDate: rangeDate);
 
                 composite
                     .InclusionsEdges

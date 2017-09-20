@@ -35,16 +35,16 @@ namespace Generators.Instances
 
                 foreach (var weekday in weekdays)
                 {
-                    var dateRanges = xSchedule
-                        .RetrieveDateRanges(
+                    var rangeDates = xSchedule
+                        .RetrieveRangeDates(
                             caches: caches);
 
-                    foreach (var dateRange in dateRanges)
+                    foreach (var rangeDate in rangeDates)
                     {
                         var byWeekday = ByWeekday
                             .Create(
                                 isoDayOfWeek: weekday,
-                                dateRange: dateRange);
+                                rangeDate: rangeDate);
 
                         generatorSource
                             .Schedules

@@ -42,7 +42,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                             schedule: new ByWeekday(IsoDayOfWeek.Wednesday)
                             {
                                 EdgeRange =
-                                    new EdgeRangeDate(new DateRange(2016, YearMonth.MonthValue.February, 20, 2016,
+                                    new EdgeRangeDate(new RangeDate(2016, YearMonth.MonthValue.February, 20, 2016,
                                         YearMonth.MonthValue.May, 15)),
                             },
                             rangeTime: new RangeTime(new LocalTime(16, 30), new PeriodBuilder {Minutes = 45}.Build()),
@@ -131,7 +131,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                             {
                                 EdgeRange =
                                     new EdgeRangeDate(
-                                        new DateRange(
+                                        new RangeDate(
                                             2016, YearMonth.MonthValue.February, 20,
                                             2016, YearMonth.MonthValue.May, 15)),
                             },

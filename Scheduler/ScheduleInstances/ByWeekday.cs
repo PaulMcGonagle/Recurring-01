@@ -25,12 +25,12 @@ namespace Scheduler.ScheduleInstances
 
         public static ByWeekday Create(
             IsoDayOfWeek isoDayOfWeek,
-            IDateRange dateRange)
+            IRangeDate rangeDate)
         {
             var byWeekday = new ByWeekday(
                 weekday: isoDayOfWeek)
             {
-                EdgeRange = new EdgeRangeDate(dateRange),
+                EdgeRange = new EdgeRangeDate(rangeDate),
             };
 
             return byWeekday;

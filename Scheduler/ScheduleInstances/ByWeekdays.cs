@@ -25,12 +25,12 @@ namespace Scheduler.ScheduleInstances
 
         public static ByWeekdays Create(
             IEnumerable<IsoDayOfWeek> weekdays,
-            IDateRange dateRange)
+            IRangeDate rangeDate)
         {
             return new ByWeekdays(
                 weekdays: weekdays)
             {
-                EdgeRange = new EdgeRangeDate(dateRange),
+                EdgeRange = new EdgeRangeDate(rangeDate),
             };
         }
 

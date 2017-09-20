@@ -17,7 +17,7 @@ namespace Scheduler.ScheduleInstances
         public ByOffset(
             LocalDate initialDate,
             string interval,
-            IDateRange range = null,
+            IRangeDate range = null,
             int? count = null)
         {
             InitialDate = initialDate;
@@ -33,7 +33,7 @@ namespace Scheduler.ScheduleInstances
         public static ByOffset Create(
             LocalDate initialDate,
             string interval,
-            IDateRange range = null,
+            IRangeDate range = null,
             int? count = null)
         {
             return new ByOffset(

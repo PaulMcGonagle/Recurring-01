@@ -43,17 +43,17 @@ namespace Generators.Instances
 
             //    var dateRanges = xSchedule
             //        .Element("rangeDates")
-            //        .RetrieveDateRanges(
+            //        .RetrieveRangeDates(
             //            caches: caches)
             //        .ToList();
 
-            //    foreach (var dateRange in dateRanges)
+            //    foreach (var rangeDate in dateRanges)
             //    {
             //        var byOffset = ByOffset
             //            .Create(
             //                initialDate: fromDate,
             //                interval: increment,
-            //                range: dateRange);
+            //                range: rangeDate);
 
             //        generatorSource
             //            .Schedules

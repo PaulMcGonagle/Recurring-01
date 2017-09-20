@@ -69,7 +69,7 @@
     <Compile Include="UtilitiesLinks.cs" />
     <Compile Include="XInstances\GeneratorXByOffset.cs" />
     <Compile Include="XInstances\GeneratorXByWeekdays.cs" />
-    <Compile Include="XInstances\GeneratorXDateRange.cs" />
+    <Compile Include="XInstances\GeneratorXRangeDate.cs" />
     <Compile Include="XInstances\GeneratorXCompositeSchedule.cs" />
     <Compile Include="XInstances\GeneratorXTag.cs" />
     <Compile Include="XInstances\GeneratorXTimeRange.cs" />

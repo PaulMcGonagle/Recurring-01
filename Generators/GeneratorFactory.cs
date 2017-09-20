@@ -31,8 +31,8 @@ namespace Generators
         {
             switch (generatorType)
             {
-                case "DateRange":
-                    return new GeneratorXDateRange();
+                case "RangeDate":
+                    return new GeneratorXRangeDate();
 
                 case "RangeTime":
                     return new GeneratorXTimeRange();

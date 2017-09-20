@@ -4,16 +4,16 @@
     <cache name="Year.2016/17" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2016/17']"/>
     <cache name="Year.2017/18" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2017/18']"/>
 
-    <cache name="Term.2016/17.Winter" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter']]"/>
-    <cache name="Term.2016/17.Winter.MidTerm" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter.MidTerm']]"/>
-    <cache name="Term.2016/17.Summer" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer']]"/>
-    <cache name="Term.2016/17.Summer.MidTerm" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer.MidTerm']]"/>
-    <cache name="Term.2017/18.Autumn" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn']]"/>
-    <cache name="Term.2017/18.Autumn.MidTerm" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn.MidTerm']]"/>
-    <cache name="Term.2017/18.Winter" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Winter']]"/>
-    <cache name="Term.2017/18.Winter.MidTerm" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter.MidTerm']]"/>
-    <cache name="Term.2017/18.Summer" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Summer']]"/>
-    <cache name="Term.2017/18.Summer.MidTerm" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer.MidTerm']]"/>
+    <cache name="Term.2016/17.Winter" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter']]"/>
+    <cache name="Term.2016/17.Winter.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter.MidTerm']]"/>
+    <cache name="Term.2016/17.Summer" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer']]"/>
+    <cache name="Term.2016/17.Summer.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer.MidTerm']]"/>
+    <cache name="Term.2017/18.Autumn" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn']]"/>
+    <cache name="Term.2017/18.Autumn.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn.MidTerm']]"/>
+    <cache name="Term.2017/18.Winter" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Winter']]"/>
+    <cache name="Term.2017/18.Winter.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter.MidTerm']]"/>
+    <cache name="Term.2017/18.Summer" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Summer']]"/>
+    <cache name="Term.2017/18.Summer.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer.MidTerm']]"/>
 
     <cache name="Session.9am" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.9am']]"/>
     <cache name="Session.9am double" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.9am double']]"/>

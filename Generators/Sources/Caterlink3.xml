@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <generator>
   <caches>
-    <cache name="RangeDate.Term.2016/17.Winter" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter']]"/>
-    <cache name="RangeDate.Term.2016/17.Autumn" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Autumn']]"/>
-    <cache name="RangeDate.Term.2016/17.Summer" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer']]"/>
+    <cache name="RangeDate.Term.2016/17.Winter" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter']]"/>
+    <cache name="RangeDate.Term.2016/17.Autumn" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Autumn']]"/>
+    <cache name="RangeDate.Term.2016/17.Summer" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer']]"/>
   </caches>
   <schedules>
     <byOffset initialDate="2017-01-09" interval="21d">

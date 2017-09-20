@@ -16,20 +16,20 @@ namespace Generators.XInstances
             var initialDate = Retriever.RetrieveLocalDate(initialDateValue);
             var interval = xByOffset.RetrieveValue("interval");
 
-            var dateRanges = xByOffset
-                .RetrieveDateRanges(
+            var rangeDates = xByOffset
+                .RetrieveRangeDates(
                     caches: caches)
                 .ToList();
 
             var composite = new CompositeSchedule();
 
-            foreach (var dateRange in dateRanges)
+            foreach (var rangeDate in rangeDates)
             {
                 var byOffset = ByOffset
                     .Create(
                         initialDate: initialDate,
                         interval: interval,
-                        range: dateRange);
+                        range: rangeDate);
 
                 composite
                     .InclusionsEdges

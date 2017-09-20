@@ -27,9 +27,9 @@
     </byWeekdays>
   </schedules>
   <caches>
-    <cache name="RangeDate.Term.2016/17.Summer.1" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2016/17.Summer.1')]]"/>
-    <cache name="RangeDate.Term.2016/17.Summer.2" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2016/17.Summer.2')]]"/>
-    <cache name="RangeDate.Term.2016/17.Summer.3" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2016/17.Summer.3')]]"/>
+    <cache name="RangeDate.Term.2016/17.Summer.1" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2016/17.Summer.1')]]"/>
+    <cache name="RangeDate.Term.2016/17.Summer.2" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2016/17.Summer.2')]]"/>
+    <cache name="RangeDate.Term.2016/17.Summer.3" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2016/17.Summer.3')]]"/>
   </caches>
   <rangeDates>
     <rangeDate start="2017-04-24" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.1.1"/></tags></rangeDate>

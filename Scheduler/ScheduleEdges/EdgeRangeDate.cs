@@ -3,9 +3,9 @@ using Scheduler.Ranges;
 
 namespace Scheduler.ScheduleEdges
 {
-    public class EdgeRangeDate : EdgeVertex<IDateRange>, IEdgeRangeDate
+    public class EdgeRangeDate : EdgeVertex<IRangeDate>, IEdgeRangeDate
     {
-        public EdgeRangeDate(IDateRange toVertex)
+        public EdgeRangeDate(IRangeDate toVertex)
             : base(toVertex)
         {
 
@@ -18,7 +18,7 @@ namespace Scheduler.ScheduleEdges
             int toYear,
             YearMonth.MonthValue toMonth,
             int toDay)
-            : this(new DateRange(
+            : this(new RangeDate(
                 fromYear: fromYear,
                 fromMonth: fromMonth,
                 fromDay: fromDay,
@@ -29,7 +29,7 @@ namespace Scheduler.ScheduleEdges
 
         }
 
-        public IDateRange Range
+        public IRangeDate Range
         {
             get { return ToVertex; }
             set { ToVertex = value; }

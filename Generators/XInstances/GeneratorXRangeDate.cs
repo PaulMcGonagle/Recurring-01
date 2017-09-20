@@ -7,7 +7,7 @@ using NodaTime;
 
 namespace Generators.XInstances
 {
-    public class GeneratorXDateRange : IGeneratorX
+    public class GeneratorXRangeDate : IGeneratorX
     {
         public IVertex Generate(XElement xRangeDate, IDictionary<string, IVertex> caches, string elementsName = null)
         {
@@ -21,18 +21,18 @@ namespace Generators.XInstances
             else
             {
                 if (!xRangeDate.HasAttribute("duration"))
-                    throw new Exception("Unable to generate XDateRange");
+                    throw new Exception("Unable to generate XRangeDate");
 
                 var duration = xRangeDate.RetrieveAttributeAsTimeSpan("duration");
 
                 //todo change to Period
                 to = from.PlusDays((int)duration.TotalDays);
             }
-            var dateRange = new DateRange(from, to);
+            var rangeDate = new RangeDate(from, to);
 
-            dateRange.Connect(xRangeDate.RetrieveTags(caches, elementsName));
+            rangeDate.Connect(xRangeDate.RetrieveTags(caches, elementsName));
 
-            return dateRange;
+            return rangeDate;
         }
     }
 }

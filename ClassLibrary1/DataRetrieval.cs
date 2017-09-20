@@ -15,7 +15,7 @@ namespace TestData
         private static Dictionary<string, ISchedule> _scheduleArchive;
         private static Dictionary<string, IEnumerable<IsoDayOfWeek>> _dateTypes;
         private static Dictionary<string, IDate> _dates;
-        private static Dictionary<string, DateRange> _ranges;
+        private static Dictionary<string, RangeDate> _ranges;
         private static Dictionary<string, Organisation> _organisations;
 
         public static Dictionary<string, ISchedule> GetScheduleArchive(IClock clock)
@@ -28,7 +28,7 @@ namespace TestData
                     "Schools.Term.201617.Autumn",
                     new ByWeekdays
                     {
-                        EdgeRange = new EdgeRangeDate(new DateRange(
+                        EdgeRange = new EdgeRangeDate(new RangeDate(
                             new EdgeDate(Dates["Schools.Term.201617.Autumn.Start"]),
                             new EdgeDate(Dates["Schools.Term.201617.Autumn.End"]))),
                         Days = DayRanges["Weekdays"],
@@ -38,7 +38,7 @@ namespace TestData
                     "Schools.Term.201617.Autumn.1",
                     new ByWeekdays
                     {
-                        EdgeRange = new EdgeRangeDate(new DateRange(
+                        EdgeRange = new EdgeRangeDate(new RangeDate(
                             new EdgeDate(Dates["Schools.Term.201617.Autumn.Start"]),
                             new EdgeDate(Dates["Schools.Term.201617.Autumn.HalfTerm.Start"].PlusDays(-1)))),
                         Days = DayRanges["Weekdays"],
@@ -48,7 +48,7 @@ namespace TestData
                     "Schools.Term.201617.Autumn.HalfTerm",
                     new ByWeekdays
                     {
-                        EdgeRange = new EdgeRangeDate(new DateRange(
+                        EdgeRange = new EdgeRangeDate(new RangeDate(
                             new EdgeDate(Dates["Schools.Term.201617.Autumn.HalfTerm.Start"]),
                             new EdgeDate(Dates["Schools.Term.201617.Autumn.HalfTerm.End"]))),
                         Days = DayRanges["Weekdays"],
@@ -58,7 +58,7 @@ namespace TestData
                     "Schools.Term.201617.Autumn.2",
                     new ByWeekdays
                     {
-                        EdgeRange = new EdgeRangeDate(new DateRange(
+                        EdgeRange = new EdgeRangeDate(new RangeDate(
                             new EdgeDate(Dates["Schools.Term.201617.Autumn.HalfTerm.End"].PlusDays(01)),
                             new EdgeDate(Dates["Schools.Term.201617.Autumn.End"]))),
                         Days = DayRanges["Weekdays"],
@@ -68,7 +68,7 @@ namespace TestData
                     "Schools.Term.201617.Winter",
                     new ByWeekdays
                     {
-                        EdgeRange = new EdgeRangeDate(new DateRange(
+                        EdgeRange = new EdgeRangeDate(new RangeDate(
                             new EdgeDate(Dates["Schools.Term.201617.Winter.Start"]),
                             new EdgeDate(Dates["Schools.Term.201617.Winter.End"]))),
                         Days = DayRanges["Weekdays"],
@@ -78,7 +78,7 @@ namespace TestData
                     "Schools.Term.201617.Summer",
                     new ByWeekdays
                     {
-                        EdgeRange = new EdgeRangeDate(new DateRange(
+                        EdgeRange = new EdgeRangeDate(new RangeDate(
                             new EdgeDate(Dates["Schools.Term.201617.Summer.Start"]),
                             new EdgeDate(Dates["Schools.Term.201617.Summer.End"]))),
                         Days = DayRanges["Weekdays"],
@@ -142,11 +142,11 @@ namespace TestData
                         {
                             new EdgeVertex<ISchedule>(_scheduleArchive["BankHolidays"]),
                         },
-                        Breaks = new EdgeVertexs<IDateRange>()
+                        Breaks = new EdgeVertexs<IRangeDate>()
                         {
-                            new EdgeVertex<IDateRange>(Ranges["Schools.Term.201617.Autumn.HalfTerm"]),
-                            new EdgeVertex<IDateRange>(Ranges["Schools.Term.201617.Winter.HalfTerm"]),
-                            new EdgeVertex<IDateRange>(Ranges["Schools.Term.201617.Summer.HalfTerm"]),
+                            new EdgeVertex<IRangeDate>(Ranges["Schools.Term.201617.Autumn.HalfTerm"]),
+                            new EdgeVertex<IRangeDate>(Ranges["Schools.Term.201617.Winter.HalfTerm"]),
+                            new EdgeVertex<IRangeDate>(Ranges["Schools.Term.201617.Summer.HalfTerm"]),
                         },
                     });
 
@@ -186,53 +186,53 @@ namespace TestData
             }
         }
 
-        public static Dictionary<string, DateRange> Ranges
+        public static Dictionary<string, RangeDate> Ranges
         {
             get
             {
                 if (_ranges != null) return _ranges;
 
-                _ranges = new Dictionary<string, DateRange>
+                _ranges = new Dictionary<string, RangeDate>
                 {
                     {
                         "Schools.Term.201617.Autumn",
-                        new DateRange(
+                        new RangeDate(
                             new EdgeDate(Dates["Schools.Term.201617.Autumn.Start"]),
                             new EdgeDate(Dates["Schools.Term.201617.Autumn.End"]))
                     },
                     {
                         "Schools.Term.201617.Winter",
-                        new DateRange(
+                        new RangeDate(
                             new EdgeDate(Dates["Schools.Term.201617.Winter.Start"]),
                             new EdgeDate(Dates["Schools.Term.201617.Winter.End"]))
                     },
                     {
                         "Schools.Term.201617.Summer",
-                        new DateRange(
+                        new RangeDate(
                             new EdgeDate(Dates["Schools.Term.201617.Summer.Start"]),
                             new EdgeDate(Dates["Schools.Term.201617.Summer.End"]))
                     },
                     {
                         "Schools.Term.201718.Autumn",
-                        new DateRange(
+                        new RangeDate(
                             new EdgeDate(Dates["Schools.Term.201718.Autumn.Start"]),
                             new EdgeDate(Dates["Schools.Term.201718.Autumn.End"]))
                     },
                     {
                         "Schools.Term.201617.Autumn.HalfTerm",
-                        new DateRange(
+                        new RangeDate(
                             new EdgeDate(Dates["Schools.Term.201617.Autumn.HalfTerm.Start"]),
                             new EdgeDate(Dates["Schools.Term.201617.Autumn.HalfTerm.End"]))
                     },
                     {
                         "Schools.Term.201617.Winter.HalfTerm",
-                        new DateRange(
+                        new RangeDate(
                             new EdgeDate(Dates["Schools.Term.201617.Winter.HalfTerm.Start"]),
                             new EdgeDate(Dates["Schools.Term.201617.Winter.HalfTerm.End"]))
                     },
                     {
                         "Schools.Term.201617.Summer.HalfTerm",
-                        new DateRange(
+                        new RangeDate(
                             new EdgeDate(Dates["Schools.Term.201617.Summer.HalfTerm.Start"]),
                             new EdgeDate(Dates["Schools.Term.201617.Summer.HalfTerm.End"]))
                     },

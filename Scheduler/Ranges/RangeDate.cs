@@ -8,21 +8,21 @@ using Scheduler.ScheduleEdges;
 
 namespace Scheduler.Ranges
 {
-    public class DateRange : Vertex, IDateRange
+    public class RangeDate : Vertex, IRangeDate
     {
         [IgnoreDataMember]
         public EdgeDate From { get; }
         [IgnoreDataMember]
         public EdgeDate To { get; }
 
-        public DateRange(int fromYear, YearMonth.MonthValue fromMonth, int fromDay, int toYear, YearMonth.MonthValue toMonth,
+        public RangeDate(int fromYear, YearMonth.MonthValue fromMonth, int fromDay, int toYear, YearMonth.MonthValue toMonth,
             int toDay)
         {
             From = new EdgeDate(fromYear, fromMonth, fromDay);
             To = new EdgeDate(toYear, toMonth, toDay);
         }
 
-        public DateRange(EdgeDate from, EdgeDate to)
+        public RangeDate(EdgeDate from, EdgeDate to)
         {
             if (from.Date.Value > to.Date.Value)
                 throw new ArgumentOutOfRangeException(nameof(from), $"From date [{to.Date.Value.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than To date [{from.Date.Value.ToString("D", CultureInfo.CurrentCulture)}]");
@@ -31,7 +31,7 @@ namespace Scheduler.Ranges
             To = to;
         }
 
-        public DateRange(LocalDate from, LocalDate to)
+        public RangeDate(LocalDate from, LocalDate to)
             : this(
                 from: new EdgeDate(from),
                 to: new EdgeDate(to))
@@ -58,7 +58,7 @@ namespace Scheduler.Ranges
 
         public override void Save(IArangoDatabase db, IClock clock)
         {
-            Save<DateRange>(db);
+            Save<RangeDate>(db);
             From?.Save(db, clock, this);
             To?.Save(db, clock, this);
             base.Save(db, clock);

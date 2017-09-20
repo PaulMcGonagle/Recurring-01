@@ -4,7 +4,7 @@ using Scheduler.ScheduleEdges;
 
 namespace Scheduler.Ranges
 {
-    public interface IDateRange : IVertex
+    public interface IRangeDate : IVertex
     {
         EdgeDate From { get; }
         EdgeDate To { get; }

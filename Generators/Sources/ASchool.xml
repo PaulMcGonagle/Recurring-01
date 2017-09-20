@@ -3,8 +3,8 @@
   <caches>
     <cache name="Year.2017/18" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2017/18']"/>
 
-    <cache name="Term.2017/18.Autumn" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn']]"/>
-    <cache name="Term.2017/18.Winter" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Winter']]"/>
+    <cache name="Term.2017/18.Autumn" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn']]"/>
+    <cache name="Term.2017/18.Winter" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Winter']]"/>
 
     <cache name="Session.Lunch" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.Lunch']]"/>
   </caches>

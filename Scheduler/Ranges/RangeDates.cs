@@ -3,7 +3,7 @@ using NodaTime;
 
 namespace Scheduler.Ranges
 {
-    public class DateRanges : List<DateRange>, IDateRanges
+    public class RangeDates : List<RangeDate>, IRangeDates
     {
         public bool Contains(Date date)
         {

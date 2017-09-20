@@ -93,7 +93,7 @@ namespace Generators.Instances
 
                     //    var termRange = xTerm
                     //        .Elements()
-                    //        .RetrieveDateRange(caches);
+                    //        .RetrieveRangeDate(caches);
 
                     //    var xTermBreaks = xTerm
                     //        .Elements("breaks")
@@ -135,7 +135,7 @@ namespace Generators.Instances
                         //        var byWeekdays = ByWeekdays
                         //            .Create(
                         //                weekdays: weekdays,
-                        //                dateRange: termRange);
+                        //                rangeDate: termRange);
 
                         //        ISchedule schedule;
 
@@ -144,15 +144,15 @@ namespace Generators.Instances
                         //            var compositeSchedule = CompositeSchedule
                         //                .Create(
                         //                    schedule: byWeekdays,
-                        //                    dateRange: termRange);
+                        //                    rangeDate: termRange);
 
                         //            foreach (var xTermBreak in xTermBreaks)
                         //            {
                         //                var xTermBreakRanges = xTermBreak
-                        //                    .RetrieveDateRanges(caches)
+                        //                    .RetrieveRangeDates(caches)
                         //                    .ToList();
 
-                        //                compositeSchedule.Breaks.AddRange(xTermBreakRanges.Select(br => new EdgeVertex<IDateRange>(br)));
+                        //                compositeSchedule.Breaks.AddRange(xTermBreakRanges.Select(br => new EdgeVertex<IRangeDate>(br)));
                         //            }
 
                         //            schedule = compositeSchedule;
