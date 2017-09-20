@@ -45,7 +45,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                     new EdgeRangeDate(new DateRange(2016, YearMonth.MonthValue.February, 20, 2016,
                                         YearMonth.MonthValue.May, 15)),
                             },
-                            rangeTime: new TimeRange(new LocalTime(16, 30), new PeriodBuilder {Minutes = 45}.Build()),
+                            rangeTime: new RangeTime(new LocalTime(16, 30), new PeriodBuilder {Minutes = 45}.Build()),
                             timeZoneProvider: "Europe/London",
                             location: TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                         mockDb.Object,
@@ -135,7 +135,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                             2016, YearMonth.MonthValue.February, 20,
                                             2016, YearMonth.MonthValue.May, 15)),
                             },
-                            rangeTime: new TimeRange(
+                            rangeTime: new RangeTime(
                                 from: new LocalTime(16, 30),
                                 period: new PeriodBuilder
                                 {

@@ -4,13 +4,13 @@ using Scheduler.Persistance;
 
 namespace Scheduler.Ranges
 {
-    public class TimeRange : Vertex, ITimeRange
+    public class RangeTime : Vertex, IRangeTime
     {
         public LocalTime From { get; set; }
 
         public Period Period { get; set; }
 
-        public TimeRange(LocalTime from, Period period)
+        public RangeTime(LocalTime from, Period period)
         {
             From = from;
             Period = period;
@@ -18,7 +18,7 @@ namespace Scheduler.Ranges
 
         public override void Save(IArangoDatabase db, IClock clock)
         {
-            Save<TimeRange>(db);
+            Save<RangeTime>(db);
             base.Save(db, clock);
         }
     }

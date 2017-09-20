@@ -15,7 +15,7 @@ namespace Generators.XInstances
             var to = xRangeTime.RetrieveAttributeAsLocalTime("end");
             var period = Period.Between(from, to);
 
-            var timeRange = new TimeRange(from, period);
+            var timeRange = new RangeTime(from, period);
 
             timeRange.Connect(xRangeTime.RetrieveTags(caches, elementsName));
 

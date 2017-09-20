@@ -3,7 +3,7 @@ using Scheduler.Persistance;
 
 namespace Scheduler.Ranges
 {
-    public interface ITimeRange : IVertex
+    public interface IRangeTime : IVertex
     {
         LocalTime From { get; set; }
         Period Period { get; set; }

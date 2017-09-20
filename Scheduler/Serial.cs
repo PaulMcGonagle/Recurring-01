@@ -53,7 +53,7 @@ namespace Scheduler
                 throw new ArgumentException("Schedule");
 
             if (TimeRange == null)
-                throw new ArgumentException("TimeRange");
+                throw new ArgumentException("RangeTime");
 
             if (TimeRange?.Range?.Period == null)
                 throw new ArgumentException("Period");

@@ -100,7 +100,7 @@ namespace Scheduler.Test
                                 timeRange: null,
                                 timeZoneProvider: timeZoneProvider),
                             fakeClock,
-                            "TimeRange"
+                            "RangeTime"
                         },
                         {
                             new Serial(

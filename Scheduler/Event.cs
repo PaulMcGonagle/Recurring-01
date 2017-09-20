@@ -80,7 +80,7 @@ namespace Scheduler
             base.Save(db, clock);
         }
 
-        public static Event Create(Schedule schedule, ITimeRange rangeTime, string timeZoneProvider, Location location = null)
+        public static Event Create(Schedule schedule, IRangeTime rangeTime, string timeZoneProvider, Location location = null)
         {
             return new Event
             {

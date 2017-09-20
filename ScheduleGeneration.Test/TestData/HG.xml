@@ -15,18 +15,18 @@
     <cache name="Term.2017/18.Summer" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Summer']]"/>
     <cache name="Term.2017/18.Summer.MidTerm" type="DateRange" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer.MidTerm']]"/>
 
-    <cache name="Session.9am" type="TimeRange" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.9am']]"/>
-    <cache name="Session.9am double" type="TimeRange" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.9am double']]"/>
-    <cache name="Session.10am" type="TimeRange" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.10am']]"/>
-    <cache name="Session.10:30am" type="TimeRange" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.10:30am']]"/>
-    <cache name="Session.MorningPlaytime" type="TimeRange" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.MorningPlaytime']]"/>
-    <cache name="Session.11:05am" type="TimeRange" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.11:05am']]"/>
-    <cache name="Session.Lunch" type="TimeRange" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.Lunch']]"/>
-    <cache name="Session.1pm" type="TimeRange" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.1pm']]"/>
-    <cache name="Session.1pm double" type="TimeRange" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.1pm double']]"/>
-    <cache name="Session.2pm" type="TimeRange" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.2pm']]"/>
-    <cache name="Session.Afternoon playtime" type="TimeRange" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.Afternoon playtime']]"/>
-    <cache name="Session.2:45pm" type="TimeRange" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.2:45pm']]"/>
+    <cache name="Session.9am" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.9am']]"/>
+    <cache name="Session.9am double" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.9am double']]"/>
+    <cache name="Session.10am" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.10am']]"/>
+    <cache name="Session.10:30am" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.10:30am']]"/>
+    <cache name="Session.MorningPlaytime" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.MorningPlaytime']]"/>
+    <cache name="Session.11:05am" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.11:05am']]"/>
+    <cache name="Session.Lunch" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.Lunch']]"/>
+    <cache name="Session.1pm" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.1pm']]"/>
+    <cache name="Session.1pm double" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.1pm double']]"/>
+    <cache name="Session.2pm" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.2pm']]"/>
+    <cache name="Session.Afternoon playtime" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.Afternoon playtime']]"/>
+    <cache name="Session.2:45pm" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.2:45pm']]"/>
   </caches>
   <tags>
     <tag id="organisation" value="Hampden Gurney Primary School">

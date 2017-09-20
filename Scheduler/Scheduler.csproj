@@ -102,7 +102,7 @@
     <Compile Include="Ranges\IDateRange.cs" />
     <Compile Include="ISerials.cs" />
     <Compile Include="Ranges\IDateRanges.cs" />
-    <Compile Include="Ranges\ITimeRange.cs" />
+    <Compile Include="Ranges\IRangeTime.cs" />
     <Compile Include="Persistance\Edge.cs" />
     <Compile Include="Persistance\Edges.cs" />
     <Compile Include="Persistance\EdgeVertex.cs" />
@@ -132,7 +132,7 @@
     <Compile Include="CompositeSchedule.cs" />
     <Compile Include="Serial.cs" />
     <Compile Include="ISerial.cs" />
-    <Compile Include="Ranges\TimeRange.cs" />
+    <Compile Include="Ranges\RangeTime.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="Users\ILocation.cs" />
     <Compile Include="Users\IOrganisation.cs" />

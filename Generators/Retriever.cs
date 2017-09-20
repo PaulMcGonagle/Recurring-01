@@ -135,7 +135,7 @@ namespace Generators
             }
         }
 
-        public static ITimeRange RetrieveRangeTime(this XElement input, string elementName = "rangeTime")
+        public static IRangeTime RetrieveRangeTime(this XElement input, string elementName = "rangeTime")
         {
             var rangeTime = input.Element(elementName);
 
@@ -149,7 +149,7 @@ namespace Generators
 
             var period = Period.Between(start, end, PeriodUnits.AllTimeUnits);
 
-            return new TimeRange(
+            return new RangeTime(
                 @from: start,
                 period: period);
         }

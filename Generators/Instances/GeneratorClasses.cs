@@ -129,7 +129,7 @@ namespace Generators.Instances
                         //        var weekdays = xSchedule
                         //            .RetrieveWeekdays();
 
-                        //        var timeRange = xSchedule
+                        //        var rangeTime = xSchedule
                         //            .RetrieveRangeTime();
 
                         //        var byWeekdays = ByWeekdays
@@ -166,7 +166,7 @@ namespace Generators.Instances
 
                         //        var serial = new Serial(
                         //            schedule: schedule,
-                        //            timeRange: new EdgeRangeTime(timeRange),
+                        //            rangeTime: new EdgeRangeTime(rangeTime),
                         //            timeZoneProvider: timeZoneProvider);
 
                         //        var serialTags = termTags;

@@ -4,10 +4,10 @@ using Scheduler.Ranges;
 
 namespace Scheduler.ScheduleEdges
 {
-    public class EdgeRangeTime : EdgeVertex<ITimeRange>, IEdgeRangeTime
+    public class EdgeRangeTime : EdgeVertex<IRangeTime>, IEdgeRangeTime
     {
-        public EdgeRangeTime(ITimeRange timeRange)
-            : base(timeRange)
+        public EdgeRangeTime(IRangeTime rangeTime)
+            : base(rangeTime)
         {
 
         }
@@ -15,14 +15,14 @@ namespace Scheduler.ScheduleEdges
         public EdgeRangeTime(
             LocalTime from,
             Period period)
-            : this(new TimeRange(
+            : this(new RangeTime(
                 from: from,
                 period: period))
         {
 
         }
 
-        public ITimeRange Range
+        public IRangeTime Range
         {
             get { return ToVertex; }
             set { ToVertex = value; }

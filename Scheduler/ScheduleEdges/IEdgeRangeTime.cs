@@ -3,8 +3,8 @@ using Scheduler.Ranges;
 
 namespace Scheduler.ScheduleEdges
 {
-    public interface IEdgeRangeTime : IEdgeVertex<ITimeRange>
+    public interface IEdgeRangeTime : IEdgeVertex<IRangeTime>
     {
-        ITimeRange Range { get; set; }
+        IRangeTime Range { get; set; }
     }
 }
