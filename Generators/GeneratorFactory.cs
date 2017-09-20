@@ -35,7 +35,7 @@ namespace Generators
                     return new GeneratorXRangeDate();
 
                 case "RangeTime":
-                    return new GeneratorXTimeRange();
+                    return new GeneratorXRangeTime();
 
                 case "Tag":
                     return new GeneratorXTag();

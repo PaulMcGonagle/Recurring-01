@@ -34,14 +34,14 @@ namespace Scheduler.Test
                                             {
                                                 Date = new Date(2016, YearMonth.MonthValue.March, 05),
                                             },
-                                    timeRange: new EdgeRangeTime(new LocalTime(12, 35), new PeriodBuilder {Hours = 00, Minutes = 30}.Build()),
+                                    rangeTime: new EdgeRangeTime(new LocalTime(12, 35), new PeriodBuilder {Hours = 00, Minutes = 30}.Build()),
                                     timeZoneProvider: timeZoneProvider),
                                 new Serial(
                                     schedule: new SingleDay
                                         {
                                             Date = new Date(2016, YearMonth.MonthValue.August, 01),
                                         },
-                                    timeRange: new EdgeRangeTime(new LocalTime(09, 20), new PeriodBuilder {Hours = 20, Minutes = 45}.Build()),
+                                    rangeTime: new EdgeRangeTime(new LocalTime(09, 20), new PeriodBuilder {Hours = 20, Minutes = 45}.Build()),
                                     timeZoneProvider: timeZoneProvider),
                             },
                             new Episodes
@@ -97,7 +97,7 @@ namespace Scheduler.Test
                         {
                             new Serial(
                                 schedule: new DateList { Items = new List<IDate>(), },
-                                timeRange: null,
+                                rangeTime: null,
                                 timeZoneProvider: timeZoneProvider),
                             fakeClock,
                             "RangeTime"
@@ -105,7 +105,7 @@ namespace Scheduler.Test
                         {
                             new Serial(
                                 schedule: new DateList { Items = new List<IDate>(), },
-                                timeRange: new EdgeRangeTime(new LocalTime(15, 30), null),
+                                rangeTime: new EdgeRangeTime(new LocalTime(15, 30), null),
                                 timeZoneProvider: timeZoneProvider),
                             fakeClock,
                             "Period"
@@ -113,7 +113,7 @@ namespace Scheduler.Test
                         {
                             new Serial(
                                 schedule: new DateList { Items = new List<IDate>(), },
-                                timeRange: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
+                                rangeTime: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
                                 timeZoneProvider: null),
                             fakeClock,
                             "TimeZoneProvider"

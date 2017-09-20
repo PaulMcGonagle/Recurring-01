@@ -72,7 +72,7 @@
     <Compile Include="XInstances\GeneratorXRangeDate.cs" />
     <Compile Include="XInstances\GeneratorXCompositeSchedule.cs" />
     <Compile Include="XInstances\GeneratorXTag.cs" />
-    <Compile Include="XInstances\GeneratorXTimeRange.cs" />
+    <Compile Include="XInstances\GeneratorXRangeTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Sources\ASchool.xml">

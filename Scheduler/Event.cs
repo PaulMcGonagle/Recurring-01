@@ -93,7 +93,7 @@ namespace Scheduler
                                 new EdgeVertex<ISchedule>(schedule),
                             },
                         },
-                        timeRange: new EdgeRangeTime(rangeTime),
+                        rangeTime: new EdgeRangeTime(rangeTime),
                         timeZoneProvider: timeZoneProvider)),
                 Location = location != null ? new EdgeVertex<Location>(location) : null,
             };

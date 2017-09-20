@@ -12,18 +12,18 @@ namespace Scheduler
     {
         public Serial(
             ISchedule schedule, 
-            IEdgeRangeTime timeRange, 
+            IEdgeRangeTime rangeTime, 
             string timeZoneProvider)
         {
             EdgeSchedule = new EdgeSchedule(schedule);
-            TimeRange = timeRange;
+            RangeTime = rangeTime;
             TimeZoneProvider = timeZoneProvider;
         }
 
         [IgnoreDataMember]
         public IEdgeSchedule EdgeSchedule { get; set; }
         [IgnoreDataMember]
-        public IEdgeRangeTime TimeRange;
+        public IEdgeRangeTime RangeTime;
 
         public string TimeZoneProvider;
 
@@ -40,8 +40,8 @@ namespace Scheduler
                     {
                         SourceSerial = new EdgeVertex<ISerial>(this),
                         SourceGeneratedDate = new EdgeVertex<IDate>(date),
-                        From = DateTimeHelper.GetZonedDateTime(date, TimeRange.Range.From, TimeZoneProvider),
-                        Period = TimeRange.Range?.Period,
+                        From = DateTimeHelper.GetZonedDateTime(date, RangeTime.Range.From, TimeZoneProvider),
+                        Period = RangeTime.Range?.Period,
                     }));
 
             return episodes;
@@ -52,10 +52,10 @@ namespace Scheduler
             if (EdgeSchedule?.Schedule == null)
                 throw new ArgumentException("Schedule");
 
-            if (TimeRange == null)
+            if (RangeTime == null)
                 throw new ArgumentException("RangeTime");
 
-            if (TimeRange?.Range?.Period == null)
+            if (RangeTime?.Range?.Period == null)
                 throw new ArgumentException("Period");
 
             if (TimeZoneProvider == null)
@@ -69,7 +69,7 @@ namespace Scheduler
             Save<Serial>(db);
             EdgeSchedule?.Save(db, clock, this);
             Tags?.Save(db, clock, this);
-            TimeRange?.Save(db, clock, this);
+            RangeTime?.Save(db, clock, this);
             base.Save(db, clock);
         }
     }

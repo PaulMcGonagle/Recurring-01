@@ -39,7 +39,7 @@ namespace Scheduler.Test
                                             new Date(2016, YearMonth.MonthValue.January, 07),
                                         }
                                     },
-                                timeRange: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
+                                rangeTime: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
                                 timeZoneProvider: timeZoneProvider),
                             fakeClock,
                             new Episodes
@@ -102,7 +102,7 @@ namespace Scheduler.Test
                         {
                             new Serial(
                                 schedule: new DateList { Items = new List<IDate>(), },
-                                timeRange: null,
+                                rangeTime: null,
                                 timeZoneProvider: timeZoneProvider),
                             fakeClock,
                             "RangeTime"
@@ -110,7 +110,7 @@ namespace Scheduler.Test
                         {
                             new Serial(
                                 schedule: new DateList { Items = new List<IDate>(), },
-                                timeRange: new EdgeRangeTime(new LocalTime(15, 30), null),
+                                rangeTime: new EdgeRangeTime(new LocalTime(15, 30), null),
                                 timeZoneProvider: timeZoneProvider),
                             fakeClock,
                             "Period"
@@ -118,7 +118,7 @@ namespace Scheduler.Test
                         {
                             new Serial(
                                 schedule: new DateList { Items = new List<IDate>(), },
-                                timeRange: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Minutes = 30,}.Build()),
+                                rangeTime: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Minutes = 30,}.Build()),
                                 timeZoneProvider: null),
                             fakeClock,
                             "TimeZoneProvider"

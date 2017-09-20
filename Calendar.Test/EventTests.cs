@@ -38,7 +38,7 @@ namespace MyCalendar.Test
                                     toVertex: new Serial(
                                                 schedule: new ByWeekday(
                                                     weekday: IsoDayOfWeek.Thursday),
-                                                timeRange: new EdgeRangeTime(new RangeTime(new LocalTime(16, 45), new PeriodBuilder { Minutes = 45}.Build())),
+                                                rangeTime: new EdgeRangeTime(new RangeTime(new LocalTime(16, 45), new PeriodBuilder { Minutes = 45}.Build())),
                                                 timeZoneProvider: TimeZoneProvider)),
                                 Title = "Street dance",
                             },
@@ -106,7 +106,7 @@ namespace MyCalendar.Test
                                             {
                                                 Date = new Scheduler.Date(2016, YearMonth.MonthValue.July, 01),
                                             },
-                                            timeRange: new EdgeRangeTime(new LocalTime(14, 00), new PeriodBuilder { Minutes = 1 }.Build()),
+                                            rangeTime: new EdgeRangeTime(new LocalTime(14, 00), new PeriodBuilder { Minutes = 1 }.Build()),
                                             timeZoneProvider: "Europe/London")),
                                 Title = "Street dance",
                             },

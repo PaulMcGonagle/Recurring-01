@@ -7,7 +7,7 @@ using NodaTime;
 
 namespace Generators.XInstances
 {
-    public class GeneratorXTimeRange : IGeneratorX
+    public class GeneratorXRangeTime : IGeneratorX
     {
         public IVertex Generate(XElement xRangeTime, IDictionary<string, IVertex> caches, string elementsName = null)
         {
@@ -15,11 +15,11 @@ namespace Generators.XInstances
             var to = xRangeTime.RetrieveAttributeAsLocalTime("end");
             var period = Period.Between(from, to);
 
-            var timeRange = new RangeTime(from, period);
+            var rangeTime = new RangeTime(from, period);
 
-            timeRange.Connect(xRangeTime.RetrieveTags(caches, elementsName));
+            rangeTime.Connect(xRangeTime.RetrieveTags(caches, elementsName));
 
-            return timeRange;
+            return rangeTime;
         }
     }
 }

@@ -168,7 +168,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                                 ,
                                             },
                                         },
-                                    timeRange: null,
+                                    rangeTime: null,
                                     timeZoneProvider: "Europe/London")),
                         },
                         mockDb.Object,

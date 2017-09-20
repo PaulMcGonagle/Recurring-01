@@ -42,7 +42,7 @@ namespace SchedulerDatabase
                 db.CreateCollection("Organisation");
                 db.CreateCollection("Location");
                 db.CreateCollection("RangeDate");
-                db.CreateCollection("TimeRange");
+                db.CreateCollection("RangeTime");
                 db.CreateCollection("Date");
                 db.CreateCollection("Tag");
                 db.CreateCollection("Serial");

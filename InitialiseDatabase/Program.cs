@@ -213,7 +213,7 @@ W1H 2DS"
                                                     ,
                                                 },
                                     },
-                                timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                                rangeTime: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                                 timeZoneProvider: "Europe/London")),
                         Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                     }.Save(db, clock);
@@ -233,7 +233,7 @@ W1H 2DS"
                                             ,
                                         },
                                     },
-                                timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                                rangeTime: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                                 timeZoneProvider: "Europe/London")),
                         Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                     }.Save(db, clock);
@@ -258,7 +258,7 @@ W1H 2DS"
                                             ),
                                         },
                                     },
-                                timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                                rangeTime: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                                 timeZoneProvider: "Europe/London")),
                     }.Save(db, clock);
                 
@@ -283,7 +283,7 @@ W1H 2DS"
                                             ),
                                         },
                                     },
-                                timeRange: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                                rangeTime: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                                 timeZoneProvider: "Europe/London")),
                     }.Save(db, clock);
                 }
