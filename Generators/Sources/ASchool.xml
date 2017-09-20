@@ -74,10 +74,12 @@
       </tags>
     </rangeTime>
   </rangeTimes>
+  <!--
   <times>
   </times>
   <dates>
   </dates>
+  -->
   <groups>
     <group>
       <tags>
@@ -100,9 +102,17 @@
               </weekdays>
               <rangeDates>
                 <link cache="Term.2017/18.Autumn"/>
+                <link cache="Term.2017/18.Winter"/>
               </rangeDates>
             </byWeekdays>
           </schedules>
+          <rangeTimes>
+            <rangeTime start="12:00" end="13:00">
+              <tags>
+                <tag id="name" value="Session.Lunch"/>
+              </tags>
+            </rangeTime>
+          </rangeTimes>
         </class>
       </classes>
       <!--
