@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Scheduler.Generation;
 using Scheduler.Ranges;
 
 namespace Scheduler
@@ -9,9 +8,11 @@ namespace Scheduler
     {
         public static IEnumerable<IDate> Exclude(this IEnumerable<IDate> inputDates, IEnumerable<IDate> exclusions)
         {
+            var exclusionsArray = exclusions.ToArray();
+
             foreach (var inputDate in inputDates)
             {
-                var enumerable = exclusions as IDate[] ?? exclusions.ToArray();
+                var enumerable = exclusions as IDate[] ?? exclusionsArray.ToArray();
                 if (!enumerable.Select(e => e.Value).Contains(inputDate.Value))
                     yield return inputDate;
             }

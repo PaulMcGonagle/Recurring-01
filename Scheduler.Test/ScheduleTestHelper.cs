@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using NodaTime;
 using NodaTime.Testing;
-using Scheduler.Generation;
 
 namespace Scheduler.Test
 {

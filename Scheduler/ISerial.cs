@@ -1,5 +1,4 @@
-﻿using System.Runtime.Serialization;
-using NodaTime;
+﻿using NodaTime;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
 

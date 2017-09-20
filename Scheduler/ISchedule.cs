@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using NodaTime;
-using Scheduler.Generation;
 using Scheduler.Persistance;
 
 namespace Scheduler

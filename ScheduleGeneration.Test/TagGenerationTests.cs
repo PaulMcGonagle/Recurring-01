@@ -24,7 +24,6 @@ namespace ScheduleGeneration.Test
 
             private IEnumerable<IVertex> _vertexs;
             private ICompositeSchedule _compositeSchedule;
-            private ISerial _serial;
 
             private IEnumerable<XElement> _providedGeneratorTags;
             private IEnumerable<XElement> _providedScheduleTags;
@@ -117,28 +116,6 @@ namespace ScheduleGeneration.Test
                     _compositeSchedule.Tags.Select(e => e.ToVertex), 
                     _providedClassTags);
             }
-
-            //public void AndThenEventHasOneSerial()
-            //{
-            //    _compositeSchedule.Serials.Count.ShouldBe(1);
-
-            //    _serial = _compositeSchedule.Serials.Single().ToVertex;
-            //}
-
-            //public void AndThenSerialTagsAreValid()
-            //{
-            //    CompareTagsToSource(
-            //        _serial.Tags
-            //            .Select(s => s.ToVertex)
-            //            .Where(s => s.Ident != "term"), 
-            //        _providedTermTags);
-
-            //    _serial.Tags
-            //        .Select(s => s.ToVertex)
-            //        .Single(s => s.Ident == "term")
-            //        ?.Value.ShouldBe("Autumn.2016/17");
-
-            //}
         }
 
         public static void CompareTagsToSource(IEnumerable<ITag> tags, IEnumerable<XElement> sourceTags)

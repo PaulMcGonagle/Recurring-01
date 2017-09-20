@@ -1,14 +1,9 @@
-﻿using System;
-using NodaTime;
+﻿using NodaTime;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using ArangoDB.Client;
-using Scheduler.Generation;
-using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
-using Scheduler.Users;
 
 namespace Scheduler.ScheduleInstances
 {

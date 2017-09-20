@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using System.Xml.XPath;
 using ArangoDB.Client;
 using Generators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NodaTime;
 using NodaTime.Testing;
-using Scheduler;
 using Scheduler.Persistance;
 using Shouldly;
 using TestStack.BDDfy;

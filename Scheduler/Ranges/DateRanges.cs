@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using NodaTime;
 
 namespace Scheduler.Ranges
@@ -13,7 +12,7 @@ namespace Scheduler.Ranges
 
         public bool Contains(LocalDate localDate)
         {
-            return this.Exists(dr => dr.Contains(localDate));
+            return Exists(dr => dr.Contains(localDate));
         }
     }
 }

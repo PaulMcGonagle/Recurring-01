@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using Generators.Instances;
+﻿using Generators.Instances;
 using Xunit;
 using TestStack.BDDfy;
 using Shouldly;
-using Scheduler.Persistance;
 
 namespace Generators.Test
 {
@@ -11,7 +9,6 @@ namespace Generators.Test
     {
         public class ExpandReferencesTest
         {
-            private string _sourceFile;
             private IGenerator _generator;
 
             [Fact]
@@ -27,7 +24,6 @@ namespace Generators.Test
 
             public void GivenASourceFile(string sourceFile)
             {
-                _sourceFile = sourceFile;
             }
 
             public void WhenGeneratorIsRetrieved()

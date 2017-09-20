@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Scheduler.Persistance;
+﻿using Scheduler.Persistance;
 
 namespace Scheduler.Users
 {
@@ -7,7 +6,5 @@ namespace Scheduler.Users
     {
         public string Forename { get; set; }
         public string Surname { get; set; }
-
-        private EdgeVertexs<Organisation> Organisations { get; set; }
     }
 }

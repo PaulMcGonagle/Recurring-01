@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ArangoDB.Client;
+﻿using ArangoDB.Client;
 using NodaTime;
 
 namespace Scheduler.Persistance

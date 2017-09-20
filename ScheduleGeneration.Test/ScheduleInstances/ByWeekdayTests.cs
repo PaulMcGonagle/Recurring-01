@@ -28,8 +28,6 @@ namespace ScheduleGeneration.Test.ScheduleInstances
             [Fact]
             public void Execute()
             {
-                var fakeClock = ScheduleTestHelper.GetFakeClock(2016, 05, 01);
-
                 var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
 
                 this.WithExamples(new ExampleTable(
@@ -118,8 +116,6 @@ namespace ScheduleGeneration.Test.ScheduleInstances
         [Fact]
         public void Execute()
         {
-            var fakeClock = ScheduleTestHelper.GetFakeClock(2016, 05, 01);
-
             var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
 
             this.WithExamples(new ExampleTable(

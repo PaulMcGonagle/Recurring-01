@@ -2,7 +2,6 @@
 using System.Linq;
 using NodaTime;
 using NodaTime.Testing;
-using Scheduler.Generation;
 using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
 using Shouldly;

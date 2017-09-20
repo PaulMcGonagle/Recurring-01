@@ -4,7 +4,6 @@ using System.Linq;
 using System.Xml.Linq;
 using ArangoDB.Client;
 using Generators;
-using Generators.Enrichers;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;

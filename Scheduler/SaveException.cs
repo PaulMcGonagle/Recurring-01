@@ -9,7 +9,7 @@ namespace Scheduler
 
         public SaveException(
             Vertex.SaveResult saveResult,
-            System.Type type,
+            Type type,
             string message)
         {
             SaveResult = saveResult;

@@ -14,8 +14,6 @@ namespace Scheduler.Persistance
             {
                 edge.Save(db, clock, fromVertex);
             }
-
-            return;
         }
 
         #endregion

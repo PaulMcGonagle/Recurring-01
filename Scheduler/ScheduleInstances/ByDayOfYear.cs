@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
-using Scheduler.Generation;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -15,7 +14,7 @@ namespace Scheduler.ScheduleInstances
 
         public int DayOfYear
         {
-            get { return _dayOfYear; }
+            get => _dayOfYear;
             set
             {
                 if (value < 1 || value > 31)

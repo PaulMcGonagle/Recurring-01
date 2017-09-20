@@ -1,5 +1,4 @@
 ﻿using NodaTime;
-using Scheduler.Generation;
 using Scheduler.Persistance;
 
 namespace Scheduler

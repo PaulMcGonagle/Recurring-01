@@ -2,7 +2,6 @@
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
-using Scheduler.Generation;
 using Scheduler.Persistance;
 
 namespace Scheduler

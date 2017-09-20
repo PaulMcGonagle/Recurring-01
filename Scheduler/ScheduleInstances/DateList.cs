@@ -2,7 +2,6 @@
 using System.Linq;
 using ArangoDB.Client;
 using NodaTime;
-using Scheduler.Generation;
 
 namespace Scheduler.ScheduleInstances
 {

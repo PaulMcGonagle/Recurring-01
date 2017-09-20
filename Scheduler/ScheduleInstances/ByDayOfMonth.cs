@@ -2,7 +2,6 @@
 using NodaTime;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
-using Scheduler.Generation;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -50,8 +49,6 @@ namespace Scheduler.ScheduleInstances
 
         public override IEnumerable<IDate> Generate(IClock clock)
         {
-            var dates = new List<IDate>();
-
             var yearMonthFrom = GetYearMonthFrom(clock);
             var yearMonthTo = GetYearMonthTo(clock);
 

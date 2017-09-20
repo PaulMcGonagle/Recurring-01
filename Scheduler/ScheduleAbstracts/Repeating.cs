@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NodaTime;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
-using Scheduler.Generation;
 using Scheduler.ScheduleEdges;
 
 namespace Scheduler.ScheduleAbstracts
