@@ -135,23 +135,24 @@ namespace Generators
             }
         }
 
-        public static IRangeTime RetrieveRangeTime(this XElement input, string elementName = "rangeTime")
+        public static IEnumerable<IRangeTime> RetrieveRangeTimes(this IEnumerable<XElement> input, string elementName = "rangeTime")
         {
-            var rangeTime = input.Element(elementName);
+            foreach (var rangeTime in input.Elements(elementName))
+            {
+                if (rangeTime == null)
+                    throw new ArgumentException("Could not find Element {elementName}");
 
-            if (rangeTime == null)
-                throw new ArgumentException("Could not find Element {elementName}");
+                var start = rangeTime
+                    .RetrieveAttributeAsLocalTime("start");
+                var end = rangeTime
+                    .RetrieveAttributeAsLocalTime("end");
 
-            var start = rangeTime
-                .RetrieveAttributeAsLocalTime("start");
-            var end = rangeTime
-                .RetrieveAttributeAsLocalTime("end");
+                var period = Period.Between(start, end, PeriodUnits.AllTimeUnits);
 
-            var period = Period.Between(start, end, PeriodUnits.AllTimeUnits);
-
-            return new RangeTime(
-                @from: start,
-                period: period);
+                yield return new RangeTime(
+                    @from: start,
+                    period: period);
+            }
         }
 
         public static IList<XElement> RetrieveXTags(XElement input)

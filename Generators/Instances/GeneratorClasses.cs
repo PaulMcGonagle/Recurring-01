@@ -104,9 +104,16 @@ namespace Generators.Instances
                         .Elements("schedules")
                         .SingleOrDefault();
 
-                    var xRangeTimes = xClass
+
+
+                    var r = xClass
                         .Elements("rangeTimes")
-                        .Select(e => e.RetrieveRangeTime());
+                        .Elements();
+
+                    var xRangeTimes = xClass
+                        .Element("rangeTimes")
+                        .Elements()
+                        .RetrieveRangeTimes();
 
                     var serials = new Serials();
 
@@ -122,65 +129,68 @@ namespace Generators.Instances
                     serials
                         .AddRange(xRangeTimes.Select(rt => new Serial(compositeSchedule, new EdgeRangeTime(rt), timeZoneProvider)));
 
-                    var episodes = serials.GenerateEpisodes(clock);
+                    foreach (var serial in serials)
+                    {
+                        yield return serial;
+                    }
 
                     //foreach (var xSchedule in xSchedules)
                     //{
-                        //        var weekdays = xSchedule
-                        //            .RetrieveWeekdays();
+                    //        var weekdays = xSchedule
+                    //            .RetrieveWeekdays();
 
-                        //        var rangeTime = xSchedule
-                        //            .RetrieveRangeTime();
+                    //        var rangeTime = xSchedule
+                    //            .RetrieveRangeTime();
 
-                        //        var byWeekdays = ByWeekdays
-                        //            .Create(
-                        //                weekdays: weekdays,
-                        //                rangeDate: termRange);
+                    //        var byWeekdays = ByWeekdays
+                    //            .Create(
+                    //                weekdays: weekdays,
+                    //                rangeDate: termRange);
 
-                        //        ISchedule schedule;
+                    //        ISchedule schedule;
 
-                        //        if (xTermBreaks.Count > 0)
-                        //        {
-                        //            var compositeSchedule = CompositeSchedule
-                        //                .Create(
-                        //                    schedule: byWeekdays,
-                        //                    rangeDate: termRange);
+                    //        if (xTermBreaks.Count > 0)
+                    //        {
+                    //            var compositeSchedule = CompositeSchedule
+                    //                .Create(
+                    //                    schedule: byWeekdays,
+                    //                    rangeDate: termRange);
 
-                        //            foreach (var xTermBreak in xTermBreaks)
-                        //            {
-                        //                var xTermBreakRanges = xTermBreak
-                        //                    .RetrieveRangeDates(caches)
-                        //                    .ToList();
+                    //            foreach (var xTermBreak in xTermBreaks)
+                    //            {
+                    //                var xTermBreakRanges = xTermBreak
+                    //                    .RetrieveRangeDates(caches)
+                    //                    .ToList();
 
-                        //                compositeSchedule.Breaks.AddRange(xTermBreakRanges.Select(br => new EdgeVertex<IRangeDate>(br)));
-                        //            }
+                    //                compositeSchedule.Breaks.AddRange(xTermBreakRanges.Select(br => new EdgeVertex<IRangeDate>(br)));
+                    //            }
 
-                        //            schedule = compositeSchedule;
-                        //        }
-                        //        else
-                        //        {
-                        //            schedule = byWeekdays;
-                        //        }
+                    //            schedule = compositeSchedule;
+                    //        }
+                    //        else
+                    //        {
+                    //            schedule = byWeekdays;
+                    //        }
 
-                        //        schedule.Connect(termTags);
+                    //        schedule.Connect(termTags);
 
-                        //        var serial = new Serial(
-                        //            schedule: schedule,
-                        //            rangeTime: new EdgeRangeTime(rangeTime),
-                        //            timeZoneProvider: timeZoneProvider);
+                    //        var serial = new Serial(
+                    //            schedule: schedule,
+                    //            rangeTime: new EdgeRangeTime(rangeTime),
+                    //            timeZoneProvider: timeZoneProvider);
 
-                        //        var serialTags = termTags;
+                    //        var serialTags = termTags;
 
-                        //        serial.Tags  = new EdgeVertexs<ITag>(serialTags) {new EdgeVertex<ITag>(termTag)};
+                    //        serial.Tags  = new EdgeVertexs<ITag>(serialTags) {new EdgeVertex<ITag>(termTag)};
 
-                        //        serials.Add(serial);
-                        //    }
+                    //        serials.Add(serial);
+                    //    }
 
-                        //    var @event = new Event
-                        //    {
-                        //        Title = organisation.Value + "." + termName + "." + groupName + "." + className,
-                        //        Serials = new EdgeVertexs<ISerial>(serials),
-                        //        Tags = new EdgeVertexs<ITag>(classTags),
+                    //    var @event = new Event
+                    //    {
+                    //        Title = organisation.Value + "." + termName + "." + groupName + "." + className,
+                    //        Serials = new EdgeVertexs<ISerial>(serials),
+                    //        Tags = new EdgeVertexs<ITag>(classTags),
                     //}
 
                     yield return compositeSchedule;

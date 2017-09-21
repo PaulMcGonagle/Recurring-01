@@ -49,6 +49,21 @@ namespace InitialiseDatabase
             //        clock: fakeClock)
             //    .ToList();
 
+            var serials = vertexs
+                .OfType<ISerial>();
+
+            foreach (var serial in serials)
+            {
+                var episodes = serial.GenerateEpisodes(fakeClock);
+
+                Output.DisplayList(
+                    episodes
+                        .Select(episode => episode.ToVertex.From.LocalDateTime));
+
+                Output.Wait();
+            }
+
+
             foreach (var schedule in vertexs.OfType<ISchedule>())
             {
                 var dates = schedule.Generate(fakeClock);
@@ -57,6 +72,8 @@ namespace InitialiseDatabase
 
                 Output.Wait();
             }
+
+
 
 
             //foreach (var @event in vertexs.OfType<ISchedule>())
