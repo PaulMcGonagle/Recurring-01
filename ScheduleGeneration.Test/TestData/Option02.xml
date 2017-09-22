@@ -94,8 +94,14 @@
       </tags>
     </rangeDate>
   </rangeDates>
-
-  <groups>
+  <rangeTimes>
+    <rangeTime start="09:00" end="10:00">
+      <tags>
+        <tag id="name" value="Session.9am"/>
+      </tags>
+    </rangeTime>
+  </rangeTimes>
+    <groups>
     <group>
       <tags>
         <tag id="name" value="Year 2">
@@ -119,7 +125,6 @@
               <tags>
                 <tag id="name" value="Term.2016/17.Autumn"/>
               </tags>
-              <link cache="Term.2016/17.Autumn"/>
             </term>
           </terms>
           <schedules>
@@ -132,6 +137,9 @@
               </rangeDates>
             </byWeekdays>
           </schedules>
+          <rangeTimes>
+            <link cache="Session.9am"/>
+          </rangeTimes>
         </class>
       </classes>
     </group>

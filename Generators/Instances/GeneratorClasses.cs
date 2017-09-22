@@ -104,15 +104,8 @@ namespace Generators.Instances
                         .Elements("schedules")
                         .SingleOrDefault();
 
-
-
-                    var r = xClass
-                        .Elements("rangeTimes")
-                        .Elements();
-
                     var xRangeTimes = xClass
                         .Element("rangeTimes")
-                        .Elements()
                         .RetrieveRangeTimes();
 
                     var serials = new Serials();

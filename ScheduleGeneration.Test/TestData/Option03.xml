@@ -62,7 +62,6 @@
           </terms>
           <schedules>
             <byWeekdays>
-              <rangeTime start="10:15" end="10:55"/>
               <weekdays>
                 <weekday value="Monday"/>
               </weekdays>
@@ -71,6 +70,9 @@
               </rangeDates>
             </byWeekdays>
           </schedules>
+          <rangeTimes>
+            <rangeTime start="10:15" end="10:55"/>
+          </rangeTimes>
         </class>
         <class>
           <tags>
@@ -95,6 +97,9 @@
               </rangeDates>
             </byWeekdays>
           </schedules>
+          <rangeTimes>
+            <rangeTime start="10:15" end="10:55"/>
+          </rangeTimes>
         </class>
       </classes>
     </group>

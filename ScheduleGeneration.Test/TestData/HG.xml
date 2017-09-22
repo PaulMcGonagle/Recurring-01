@@ -159,6 +159,9 @@
               </rangeDates>
             </byWeekdays>
           </schedules>
+          <rangeTimes>
+            <link cache="Session.MorningPlaytime"/>
+          </rangeTimes>
         </class>
         <!--
         <class>
@@ -738,7 +741,6 @@
           </tags>
           <schedules>
             <byWeekdays>
-              <link cache="Session.10:30am"/>
               <weekdays>
                 <weekday value="Thursday"/>
               </weekdays>
@@ -747,6 +749,9 @@
               </rangeDates>
             </byWeekdays>
           </schedules>
+          <rangeTimes>
+            <link cache="Session.10am"/>
+          </rangeTimes>
         </class>
         <!--
         <class>

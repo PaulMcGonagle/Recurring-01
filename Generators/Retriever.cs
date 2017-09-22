@@ -135,7 +135,7 @@ namespace Generators
             }
         }
 
-        public static IEnumerable<IRangeTime> RetrieveRangeTimes(this IEnumerable<XElement> input, string elementName = "rangeTime")
+        public static IEnumerable<IRangeTime> RetrieveRangeTimes(this XElement input, string elementName = "rangeTime")
         {
             foreach (var rangeTime in input.Elements(elementName))
             {

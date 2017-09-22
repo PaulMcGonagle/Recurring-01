@@ -85,6 +85,9 @@
               </rangeDates>
             </byWeekdays>
           </schedules>
+          <rangeTimes>
+            <rangeTime start="10:15" end="10:55"/>
+          </rangeTimes>
         </class>
       </classes>
     </group>

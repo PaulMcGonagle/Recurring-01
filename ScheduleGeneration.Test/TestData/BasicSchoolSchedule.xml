@@ -72,7 +72,6 @@
               <rangeDates>
                 <rangeDate start="2017-01-02" end="2017-01-10"/>
               </rangeDates>
-              <rangeTime start="09:15" end="10:20"/>
               <weekdays>
                 <weekday value="Monday"/>
                 <weekday value="Tuesday"/>
@@ -81,6 +80,9 @@
               </weekdays>
             </byWeekdays>
           </schedules>
+          <rangeTimes>
+            <rangeTime start="09:15" end="10:20"/>
+          </rangeTimes>
         </class>
       </classes>
     </group>
