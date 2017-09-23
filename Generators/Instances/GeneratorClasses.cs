@@ -106,7 +106,8 @@ namespace Generators.Instances
 
                     var xRangeTimes = xClass
                         .Element("rangeTimes")
-                        .RetrieveRangeTimes();
+                        .RetrieveRangeTimes(caches)
+                        .ToList();
 
                     var serials = new Serials();
 

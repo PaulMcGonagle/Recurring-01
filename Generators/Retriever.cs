@@ -79,80 +79,45 @@ namespace Generators
             if (xRangeDates is null)
                 throw new Exception("No element {elementsName} could be found");
 
-            var xElements = xRangeDates
-                .Elements(elementName)
-                .ToList();
-
-            foreach (var xElement in xElements)
+            foreach (var xElement in xRangeDates.Elements(elementName))
             {
                 yield return RetrieveRangeDate(xElement, caches, elementName);
             }
 
-            var links = UtilitiesLinks<RangeDate>
-                .Retrieve(xRangeDates, caches)
-                .ToList();
-
-            foreach (var link in links)
+            foreach (var link in UtilitiesLinks<RangeDate>.Retrieve(xRangeDates, caches))
             {
                 yield return link;
             }
         }
 
-        public static IEnumerable<IRangeDate> RetrieveRangeDates(this IEnumerable<XElement> xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
+        public static IEnumerable<IRangeTime> RetrieveRangeTimes(this XElement xInput, IDictionary<string, IVertex> caches, string elementName = "rangeTime")
         {
-            var xInputList = xInput.ToList();
-
-            var xElements = xInputList
-                .Where(i => i.Name == elementName)
-                .ToList();
-
-            foreach (var xElement in xElements)
+            foreach (var xRangeTime in xInput.Elements(elementName))
             {
-                yield return RetrieveRangeDate(xElement, caches, elementName);
-            }
-
-            var links = UtilitiesLinks<RangeDate>
-                .Retrieve(xInputList, caches)
-                .ToList();
-
-            foreach (var link in links)
-            {
-                yield return link;
-            }
-        }
-
-        public static IRangeDate RetrieveRangeDate(this IEnumerable<XElement> xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
-        {
-            var rangeDates = xInput.RetrieveRangeDates(caches, elementName);
-
-            try
-            {
-                return rangeDates.Single();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Could not identify a Single RangeDate");
-            }
-        }
-
-        public static IEnumerable<IRangeTime> RetrieveRangeTimes(this XElement input, string elementName = "rangeTime")
-        {
-            foreach (var rangeTime in input.Elements(elementName))
-            {
-                if (rangeTime == null)
+                if (xRangeTime == null)
                     throw new ArgumentException("Could not find Element {elementName}");
 
-                var start = rangeTime
-                    .RetrieveAttributeAsLocalTime("start");
-                var end = rangeTime
-                    .RetrieveAttributeAsLocalTime("end");
-
-                var period = Period.Between(start, end, PeriodUnits.AllTimeUnits);
-
-                yield return new RangeTime(
-                    @from: start,
-                    period: period);
+                yield return RetrieveRangeTime(xRangeTime, caches, elementName);
             }
+        }
+
+        public static RangeTime RetrieveRangeTime(this XElement xInput, IDictionary<string, IVertex> caches, string elementName = "rangeTime")
+        {
+            var start = xInput
+                .RetrieveAttributeAsLocalTime("start");
+
+            var end = xInput
+                .RetrieveAttributeAsLocalTime("end");
+
+            var period = Period.Between(start, end, PeriodUnits.AllTimeUnits);
+
+            var rangeTime = new RangeTime(
+                @from: start,
+                period: period);
+
+            rangeTime.Connect(xInput.RetrieveTags(caches));
+
+            return rangeTime;
         }
 
         public static IList<XElement> RetrieveXTags(XElement input)
