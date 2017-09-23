@@ -28,6 +28,7 @@
     <cache name="Session.Afternoon playtime" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.Afternoon playtime']]"/>
     <cache name="Session.2:45pm" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.2:45pm']]"/>
   </caches>
+  
   <tags>
     <tag id="organisation" value="Hampden Gurney Primary School">
       <payload>
@@ -49,11 +50,13 @@
       </tags>
     </tag>
     <tag id="timeZoneProvider" value="Europe/London"/>
+    
     <tag id="cache" value="years">
       <tag id="year" value="2016/17"/>
       <tag id="year" value="2017/18"/>
     </tag>
   </tags>
+  
   <terms>
     <term>
       <tags>

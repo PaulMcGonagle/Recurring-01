@@ -1,46 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <generator>
   <caches>
-    <cache
-      name="Category.YearGroup"
-      type="Tag"
-      path="./generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Year Group']"/>
-    <cache
-      name="Category.KeyStage"
-      type="Tag"
-      path="./generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Key Stage']"/>
-    <cache
-      name="Term.2016/17.Autumn"
-      type="RangeDate"
-      path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Autumn']]"/>
-    <cache
-      name="Term.2016/17.Spring"
-      type="RangeDate"
-      path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Spring']]"/>
-    <cache
-      name="Term.2016/17.Summer"
-      type="RangeDate"
-      path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Summer']]"/>
-    <cache
-      name="Term.2017/18.Autumn"
-      type="RangeDate"
-      path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2017/18.Autumn']]"/>
-    <cache
-      name="KeyStage.1"
-      type="Tag"
-      path="./generator/tags/tag[@id='cache'][@value='keyStages']/tag[@id='keyStage'][@value='keyStage.1']"/>
-    <cache
-      name="KeyStage.2"
-      type="Tag"
-      path="./generator/tags/tag[@id='cache'][@value='keyStages']/tag[@id='keyStage'][@value='keyStage.2']"/>
-    <cache 
-      name="Year.2016/17" 
-      type="Tag" 
-      path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='name'][@value='2016/17']"/>
-    <cache 
-      name="Year.2017/18" 
-      type="Tag" 
-      path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='name'][@value='2017/18']"/>
+    <cache name="Category.YearGroup" type="Tag" path="./generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Year Group']"/>
+    <cache name="Category.KeyStage" type="Tag" path="./generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Key Stage']"/>
+    <cache name="Term.2016/17.Autumn" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Autumn']]"/>
+    <cache name="Term.2016/17.Spring" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Spring']]"/>
+    <cache name="Term.2016/17.Summer" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Summer']]"/>
+    <cache name="Term.2017/18.Autumn" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2017/18.Autumn']]"/>
+    <cache name="KeyStage.1" type="Tag" path="./generator/tags/tag[@id='cache'][@value='keyStages']/tag[@id='keyStage'][@value='keyStage.1']"/>
+    <cache name="KeyStage.2" type="Tag" path="./generator/tags/tag[@id='cache'][@value='keyStages']/tag[@id='keyStage'][@value='keyStage.2']"/>
+    <cache name="Year.2016/17"  type="Tag"  path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='name'][@value='2016/17']"/>
+    <cache name="Year.2017/18" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='name'][@value='2017/18']"/>
   </caches>
   <tags>
       

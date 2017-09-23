@@ -7,28 +7,27 @@
     <cache name="KeyStage.1" type="Tag" path="./generator/tags/tag[@id='cache'][@value='keyStages']/tag[@id='keyStage'][@value='keyStage.1']"/>
     <cache name="Year.2016/17" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='name'][@value='2016/17']"/>
   </caches>
+ 
   <tags>
-      
     <tag id="organisation" value="OrganisationName"/>
     <tag id="timeZoneProvider" value="Europe/London"/>
-      
+
     <tag id="cache" value="years">
       <tag id="name" value="2016/17">
         <link cache="Category.YearGroup"/>
       </tag>
     </tag>
-
+    
     <tag id="cache" value="keyStages">
       <tag id="keyStage" value="keyStage.1">
         <link cache="Category.KeyStage"/>
       </tag>
     </tag>
-
+    
     <tag id="cache" value="categories">
       <tag id="category" value="Year Group"/>
       <tag id="category" value="Key Stage"/>
     </tag>
-      
   </tags>
 
   <rangeDates>
