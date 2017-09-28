@@ -33,7 +33,7 @@ namespace Generators.Test
 
             public void ThenGeneratorIsHoliday()
             {
-                _generator.ShouldBeOfType<GeneratorHolidays>();
+                _generator.ShouldBeOfType<GeneratorCalendars>();
             }
         }
     }

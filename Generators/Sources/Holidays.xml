@@ -4,29 +4,26 @@
     <calendar name="UK Public Holidays">
       <dates>
         <date value="2017-12-25">
-          <tag id="name" value="Christmas Day"/>
+          <tags>
+            <tag id="name" value="Christmas Day"/>
+          </tags>
         </date>
         <date value="2017-01-02">
-          <tag id="name" value="New Year's Day"/>
+          <tags>
+            <tag id="name" value="New Year's Day"/>
+          </tags>
         </date>
-        <date value="2018-01-01">
-          <reference path="./generator/calendars/tags/tag[@id='category']"/>
-        </date>
+        <date value="2018-01-01"/>
       </dates>
       <tags>
-        <tag id="name" value="Public Holidays"/>
-        <tag id="locale" value="UK"/>
+        <reference path="./generator/tags/tag[@id='name']"/>
+        <reference path="./generator/tags/tag[@id='locale']"/>
         <tag id="year" value="2017"/>
       </tags>
     </calendar>
-    <tags>
-      <tag id="category" value="HolidayInstances">
-        <tag id="name" value="New Year's Day"/>
-        <tag id="name" value="Christmas Day"/>
-      </tag>
-      <tag id="category" value="HolidayYear">
-        <tag id="name" value="2017"/>
-      </tag>
-    </tags>
   </calendars>
+  <tags>
+    <tag id="name" value="Public Holidays"/>
+    <tag id="locale" value="UK"/>
+  </tags>
 </generator>

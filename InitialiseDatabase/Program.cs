@@ -24,10 +24,10 @@ namespace InitialiseDatabase
         {
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
 
-            var generator = GeneratorFactory.Get("classes");
+            var generator = GeneratorFactory.Get("holidays");
 
             var vertexs = generator.Generate(
-                sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\ASchool.xml",
+                sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Holidays.xml",
                 clock: fakeClock)
                 .ToList();
 
@@ -38,16 +38,6 @@ namespace InitialiseDatabase
                     vertex.Save(db, fakeClock);
                 }
             }
-
-            //var enricher = new EnricherLookup();
-
-            //var generatorSchedule = GeneratorFactory.Get("classes");
-
-            //var menu = generatorSchedule
-            //    .Generate(
-            //        sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Caterlink4.xml",
-            //        clock: fakeClock)
-            //    .ToList();
 
             var serials = vertexs
                 .OfType<ISerial>();

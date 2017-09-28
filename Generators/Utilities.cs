@@ -9,38 +9,29 @@ namespace Generators
 {
     public static class Utilities
     {
-        public static void ExpandReferences(this XDocument xInput)
+        public static void ExpandReferences(this XDocument xDocument)
         {
-            var xElements = xInput
+            if (xDocument.Root == null)
+                throw new Exception("Unable to load ");
+
+            var xReferences = xDocument
                 .Root
                 ?.DescendantsAndSelf()
-                .ToList();
+                .Elements("reference")
+                .ToArray();
 
-            if (xElements == null)
+            foreach (var xReference in xReferences)
             {
-                return;
-            }
+                var xParent = xReference.Parent;
 
-            foreach (var xElement in xElements)
-            {
-                var xElementReferences = xElement
-                    .Elements("reference")
-                    .ToList();
+                if (xParent == null)
+                    break;
 
-                foreach (var xElementReference in xElementReferences)
-                {
-                    var type = xElementReference
-                        .Attribute("type")
-                        ?.Value;
+                var xReferred = xDocument.RetrieveXReference(xReference, null);
 
-                    var xReferencedTags = xInput
-                        .RetrieveXReferences(xElementReferences, type)
-                        .ToList();
-
-                    xElement.Add(xReferencedTags);
-                }
-
-                xElementReferences.Remove();
+                xParent.Add(xReferred);
+                
+                xReference.Remove();
             }
         }
 

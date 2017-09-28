@@ -11,7 +11,7 @@ namespace Generators
             switch (generatorType)
             {
                 case "holidays":
-                    return new GeneratorHolidays();
+                    return new GeneratorCalendars();
 
                 case "classes":
                     return new GeneratorClasses();

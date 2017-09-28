@@ -21,7 +21,7 @@ namespace ScheduleGeneration.Test
             private IArangoDatabase _db;
             private IClock _clock;
             private IGenerator _generator;
-            private GeneratorHolidays _generatorHolidays;
+            private GeneratorCalendars _generatorCalendars;
             private IEnumerable<IVertex> _vertexs;
             private IEnumerable<ISchedule> _schedules;
             private IEnumerable<LocalDate> _dates;
@@ -76,14 +76,14 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenGeneratorIsHoliday()
             {
-                _generator.ShouldBeOfType<GeneratorHolidays>();
+                _generator.ShouldBeOfType<GeneratorCalendars>();
 
-                _generatorHolidays = (GeneratorHolidays) _generator;
+                _generatorCalendars = (GeneratorCalendars) _generator;
             }
 
             public void AndWhenGenerated()
             {
-                _vertexs = _generatorHolidays.Generate(_sourceFile, _clock);
+                _vertexs = _generatorCalendars.Generate(_sourceFile, _clock);
             }
 
             public void AndWhenSchedulesAreRetrived()

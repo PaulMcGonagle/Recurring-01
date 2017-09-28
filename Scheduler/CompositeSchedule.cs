@@ -24,8 +24,11 @@ namespace Scheduler
 
         public override IEnumerable<IDate> Generate(IClock clock)
         {
-            var inclusions = InclusionsEdges.SelectMany(i => i.ToVertex.Generate(clock));
-            var exclusions = ExclusionsEdges.SelectMany(i => i.ToVertex.Generate(clock));
+            var inclusions = InclusionsEdges
+                .SelectMany(i => i.ToVertex.Generate(clock));
+
+            var exclusions = ExclusionsEdges
+                .SelectMany(i => i.ToVertex.Generate(clock));
 
             var list = new List<IDate>();
 

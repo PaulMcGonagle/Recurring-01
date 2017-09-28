@@ -8,14 +8,14 @@ using Scheduler.ScheduleInstances;
 
 namespace Generators.Instances
 {
-    public class GeneratorHolidays : GenerateFromFile, IGenerator
+    public class GeneratorCalendars : GenerateFromFile, IGenerator
     {
         public IEnumerable<IVertex> Generate(
             string sourceFile, 
             IClock clock)
         {
             GenerateSetup(
-                generatorType: "holidays",
+                generatorType: "calendars",
                 sourceFile: sourceFile,
                 clock: clock,
                 xGenerator: out XElement xGenerator,
@@ -24,7 +24,9 @@ namespace Generators.Instances
 
             yield return generatorSource;
 
-            var tagHolidayCalendar = new Tag(ident: "baseType", value: "Calendar");
+            var tagCalendarType = new Tag(ident: "baseType", value: "Calendar");
+
+            yield return tagCalendarType;
 
             var xCalendars = xGenerator
                 .Elements("calendars")
@@ -39,10 +41,10 @@ namespace Generators.Instances
                     .RetrieveTags(caches)
                     .ToList();
 
-                tagHolidayCalendar
+                tagCalendarType
                     .Connect(calendarTags.SingleOrDefault(ct => ct.Ident == "name"));
 
-                compositeSchedule.Connect(tagHolidayCalendar);
+                compositeSchedule.Connect(tagCalendarType);
 
                 generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(compositeSchedule));
 
@@ -52,10 +54,10 @@ namespace Generators.Instances
 
                 var dateList = new DateList {Items = dates};
 
+                dateList.Connect(calendarTags);
+
                 yield return dateList;
             }
-
-            yield return tagHolidayCalendar;
         }
     }
 }
