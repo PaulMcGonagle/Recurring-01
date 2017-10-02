@@ -114,7 +114,7 @@ namespace Generators.Instances
                     var generator = new GeneratorXCompositeSchedule();
 
 
-                    var compositeSchedule = (ICompositeSchedule)generator.Generate(xSchedules, caches);
+                    var compositeSchedule = (ISchedule)generator.Generate(xSchedules, caches);
 
                     compositeSchedule
                         .Tags

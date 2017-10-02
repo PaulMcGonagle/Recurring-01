@@ -25,19 +25,23 @@ namespace Generators.Instances
 
             var xSchedules = xGenerator
                 .Elements("schedules")
-                .Elements("schedule")
+                .Elements()
                 .ToList();
 
             foreach (var xSchedule in xSchedules)
             {
                 var weekdays = xSchedule
-                    .RetrieveWeekdays();
+                    .RetrieveWeekdays()
+                    .ToArray();
+
+                var rangeDates = xSchedule
+                    .RetrieveRangeDates(
+                        caches: caches)
+                        .ToArray();
 
                 foreach (var weekday in weekdays)
                 {
-                    var rangeDates = xSchedule
-                        .RetrieveRangeDates(
-                            caches: caches);
+                    var compositeSchedule = new CompositeSchedule();
 
                     foreach (var rangeDate in rangeDates)
                     {
@@ -46,10 +50,17 @@ namespace Generators.Instances
                                 isoDayOfWeek: weekday,
                                 rangeDate: rangeDate);
 
-                        generatorSource
-                            .Schedules
+                        compositeSchedule
+                            .InclusionsEdges
                             .Add(new EdgeSchedule(byWeekday));
                     }
+
+                    compositeSchedule
+                        .Connect(xSchedule.RetrieveTags(caches));
+
+                    generatorSource
+                        .Schedules
+                        .Add(new EdgeSchedule(compositeSchedule));
                 }
             }
         }

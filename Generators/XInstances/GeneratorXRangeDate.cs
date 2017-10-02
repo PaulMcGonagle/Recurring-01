@@ -3,7 +3,6 @@ using Scheduler.Persistance;
 using Scheduler.Ranges;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using NodaTime;
 
 namespace Generators.XInstances
 {

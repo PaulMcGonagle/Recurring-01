@@ -12,7 +12,9 @@ namespace Generators
         public static void ExpandReferences(this XDocument xDocument)
         {
             if (xDocument.Root == null)
+            {
                 throw new Exception("Unable to load ");
+            }
 
             var xReferences = xDocument
                 .Root
@@ -27,10 +29,13 @@ namespace Generators
                 if (xParent == null)
                     break;
 
-                var xReferred = xDocument.RetrieveXReference(xReference, null);
+                var xReferreds = xDocument.RetrieveXReferences(xReference, null);
 
-                xParent.Add(xReferred);
-                
+                foreach (var xReferred in xReferreds)
+                {
+                    xParent.Add(xReferred);
+                }
+
                 xReference.Remove();
             }
         }
@@ -66,7 +71,7 @@ namespace Generators
         }
 
         public static bool TryExpandLinks(
-            this XElement xElement, 
+            this XElement xElement,
             XDocument xInput,
             IDictionary<string, IVertex> cache)
         {

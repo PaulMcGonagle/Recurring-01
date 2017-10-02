@@ -86,12 +86,16 @@ namespace Scheduler
         {
             var s = new StringBuilder($"Tag ident: \"{Ident}\", value: \"{Value}\"");
 
-            if (Tags.Count > 0)
-            {
-                s.Append(" { ");
-                s.Append(string.Join(", ", Tags.Select(rt => " { " + rt.ToVertex.ToString() + " } ")));
-                s.Append(" } ");
-            }
+            if (Payload != null)
+                s.Append($", payload: \"{Payload}");
+
+            if (Tags.Count <= 0)
+                return s.ToString();
+
+            s.Append(" { ");
+            s.Append(string.Join(", ", Tags.Select(rt => " { " + rt.ToVertex.ToString() + " } ")));
+            s.Append(" } ");
+
             return s.ToString();
         }
 

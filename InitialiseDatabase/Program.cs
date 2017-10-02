@@ -24,10 +24,11 @@ namespace InitialiseDatabase
         {
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
 
-            var generator = GeneratorFactory.Get("holidays");
+            var generator = GeneratorFactory.Get("schedule");
 
             var vertexs = generator.Generate(
-                sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Holidays.xml",
+                //sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Holidays.xml",
+                sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Caterlink4.xml",
                 clock: fakeClock)
                 .ToList();
 
@@ -38,6 +39,32 @@ namespace InitialiseDatabase
                     vertex.Save(db, fakeClock);
                 }
             }
+
+            Output.WriteLine("Schedules");
+
+            var generatorSources = vertexs
+                .OfType<IGeneratorSource>();
+
+            foreach (var generatorSource in generatorSources)
+            {
+                foreach (var schedule in generatorSource.Schedules)
+                {
+                    var menu = schedule.ToVertex.Tags.SingleOrDefault(t => t.ToVertex.Ident == "Menu");
+
+                    if (menu != null)
+                    {
+                        Output.WriteLine(menu.ToVertex.Payload);
+                    }
+
+                    var dates = schedule.ToVertex.Generate(fakeClock);
+
+                    Output.DisplayGrid(dates);
+                }
+            }
+
+            Output.Wait();
+
+            Output.WriteLine("Serials");
 
             var serials = vertexs
                 .OfType<ISerial>();
@@ -53,7 +80,7 @@ namespace InitialiseDatabase
                 Output.Wait();
             }
 
-
+            
             foreach (var schedule in vertexs.OfType<ISchedule>())
             {
                 var dates = schedule.Generate(fakeClock);

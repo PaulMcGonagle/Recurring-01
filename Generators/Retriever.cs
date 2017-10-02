@@ -38,7 +38,7 @@ namespace Generators
             }
         }
 
-        public static XElement RetrieveXReference(this XDocument xInput, XElement xReference, string type)
+        public static IEnumerable<XElement> RetrieveXReferences(this XDocument xInput, XElement xReference, string type)
         {
             var path = xReference
                 .Attribute("path")?.Value;
@@ -48,23 +48,20 @@ namespace Generators
                 throw new ArgumentException("Path could not be found");
             }
 
-            var xElement = xInput
-                .XPathSelectElement(path);
+            var xElements = xInput
+                .XPathSelectElements(path);
 
-            return xElement;
+            foreach (var xElement in xElements)
+            {
+                yield return xElement;
+            }
         }
 
         public static RangeDate RetrieveRangeDate(this XElement xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
         {
-            var start = xInput
-                .RetrieveAttributeAsLocalDate("start");
+            var x = GeneratorFactory.GetX("RangeDate");
 
-            var end = xInput
-                .RetrieveAttributeAsLocalDate("end");
-
-            var rangeDate = new RangeDate(
-                @from: new EdgeDate(start),
-                to: new EdgeDate(end));
+            var rangeDate = (RangeDate)x.Generate(xInput, caches, elementName);
 
             rangeDate.Connect(xInput.RetrieveTags(caches));
 
@@ -81,7 +78,9 @@ namespace Generators
 
             foreach (var xElement in xRangeDates.Elements(elementName))
             {
-                yield return RetrieveRangeDate(xElement, caches, elementName);
+                var rangeDate = RetrieveRangeDate(xElement, caches, elementsName);
+
+                yield return rangeDate;
             }
 
             foreach (var link in UtilitiesLinks<RangeDate>.Retrieve(xRangeDates, caches))

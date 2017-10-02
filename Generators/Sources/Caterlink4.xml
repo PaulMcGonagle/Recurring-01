@@ -3,21 +3,343 @@
     <tag id="organisation" value="Caterlink"/>
   </tags>
   <schedules>
+
     <byWeekdays>
       <weekdays>
         <weekday value="Monday"/>
       </weekdays>
       <rangeDates>
-        <link cache="RangeDate.Term.2016/17.Summer.1"/>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.1')]]"/>
       </rangeDates>
       <tags>
-        <tag id="Menu">
+        <tag id="Menu" value="def">
           <payload>
             <![CDATA[
               <menu>
-                <main>Chicken & Broccoli Wholemeal Pasta Bake (made with free range chicken)</main>
-                <vegetarian>Vegetable Goulash with Rice</vegetarian>
-                <dessert>Rice Pudding with Mixed Berries</dessert>
+                <main>Sausages with Mash & Gravy</main>
+                <vegetarian>Quorn Sausages & Mash with Gravy</vegetarian>
+                <side>Broccoli & Roasted Vegetables</side>
+                <dessert>Wholemeal Plum & Vanilla Crumble with Custard</dessert>
+                <dessert>Yoghurt / Fresh Fruit Platter</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Tuesday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.1')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Cottage Pie with Gravy</main>
+                <vegetarian>Broccoli Pasta Bake</vegetarian>
+                <dessert>Carrots & Green Beans</dessert>
+                <dessert>Yoghurt / Fresh Fruit Salad</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Wednesday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.1')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Roast Chicken Drumsticks with Roast Potatoes & Gravy</main>
+                <vegetarian>Quorn Roast with Roast Potatoes and Gravy</vegetarian>
+                <side>Savoy Cabbage & Swede</side>
+                <dessert>Rice Pudding with Berry Sauce</dessert>
+                <dessert>Yoghurt / Fresh Fruit Platter</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Thursday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.1')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Chicken Tikka with Rice</main>
+                <vegetarian>Cheese & Potato Whirl with Carrot & Beetroot Slaw</vegetarian>
+                <side>Sweetcorn & Peppers</side>
+                <dessert>Dutch Apple Pie & Custard</dessert>
+                <dessert>Yoghurt / Fresh Fruit Salad</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Friday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.1')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>MSC Salmon Fishcake with Chips</main>
+                <vegetarian>Vegetable Fajitas with Chips</vegetarian>
+                <side>Baked Beans & Garden Peas</side>
+                <dessert>Yoghurt / Fresh Fruit Chunks</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Monday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.2')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Chicken Neapolitan Wholemeal Pasta</main>
+                <vegetarian>Red Pepper Frittata with New Potatoes</vegetarian>
+                <side>Broccoli & Carrots</side>
+                <dessert>Pear Sponge with Custard</dessert>
+                <dessert>Yoghurt / Fresh Fruit Chunks</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Tuesday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.2')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Beef Burger with Jacket Wedges</main>
+                <vegetarian>Vegetarian Burger with Jacket Wedges</vegetarian>
+                <side>Roasted Butternut Squash & Sweetcorn</side>
+                <dessert>Orange Bread & Butter Pudding with Custard</dessert>
+                <dessert>Yoghurt / Fresh Fruit Platter</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Wednesday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.2')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Roast Turkey with Roast Potatoes & Gravy</main>
+                <vegetarian>Mixed Vegetable Loaf with Roast Potatoes & Gravy</vegetarian>
+                <side>Carrots & Courgettes</side>
+                <dessert>Vanilla Shortbread</dessert>
+                <dessert>Yoghurt / Fresh Fruit Salad</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Thursday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.2')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Spaghetti Beef Bolognese</main>
+                <vegetarian>Vegetarian Spaghetti Bolognese</vegetarian>
+                <side>Roasted Mixed Vegetables</side>
+                <dessert>Apple & Raisin Strudel with Custard</dessert>
+                <dessert>Yoghurt / Fresh Fruit Platter</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Friday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.2')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>MSC Fish Fingers with Chips</main>
+                <vegetarian>Cheese & Tomato Quiche with Chips</vegetarian>
+                <side>Baked Beans & Garden Peas</side>
+                <dessert>Yoghurt / Fresh Fruit Chunks</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Monday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.3')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Minced Beef & Onion Pie with Mash Potatoes</main>
+                <vegetarian>Macaroni Cheese</vegetarian>
+                <side>Sweetcorn & Mixed Peppers</side>
+                <dessert>Wholemeal Banana Loaf</dessert>
+                <dessert>Yoghurt / Fresh Fruit Platter</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Tuesday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.3')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>BBQ Chicken Pizza with Jacket Wedges</main>
+                <vegetarian>Cheese & Tomato Pizza with Jacket Wedges</vegetarian>
+                <side>Green Beans & Glazed Carrots</side>
+                <dessert>Lemon & Cucumber Cake</dessert>
+                <dessert>Yoghurt / Fresh Fruit Salad</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Wednesday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.3')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Roast Chicken & Stuffing with Roast Potatoes & Gravy</main>
+                <vegetarian>Vegetable Wellington with Roast Potatoes & Gravy</vegetarian>
+                <side>Savoy Cabbage & Sweetcorn</side>
+                <dessert>Cheese, Apple & Biscuits</dessert>
+                <dessert>Yoghurt / Fresh Fruit Chunks</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Thursday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.3')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Beef Lasagne</main>
+                <vegetarian>Vegetable Lasagne</vegetarian>
+                <side>Broccoli & Carrots</side>
+                <dessert>Peach Crumble with Custard</dessert>
+                <dessert>Yoghurt / Fresh Fruit Salad</dessert>
+              </menu>
+            ]]>
+          </payload>
+        </tag>
+      </tags>
+    </byWeekdays>
+    <byWeekdays>
+      <weekdays>
+        <weekday value="Friday"/>
+      </weekdays>
+      <rangeDates>
+        <reference type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.3')]]"/>
+      </rangeDates>
+      <tags>
+        <tag id="Menu" value="abc">
+          <payload>
+            <![CDATA[
+              <menu>
+                <main>Jumbo Fish Fingers with Chips</main>
+                <vegetarian>Lentil & Basil Puff Pastry Turnover with Chips</vegetarian>
+                <side>Garden Peas & Baked Beans</side>
                 <dessert>Yoghurt / Fresh Fruit Platter</dessert>
               </menu>
             ]]>
@@ -26,27 +348,29 @@
       </tags>
     </byWeekdays>
   </schedules>
+  <!--
   <caches>
-    <cache name="RangeDate.Term.2016/17.Summer.1" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2016/17.Summer.1')]]"/>
-    <cache name="RangeDate.Term.2016/17.Summer.2" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2016/17.Summer.2')]]"/>
-    <cache name="RangeDate.Term.2016/17.Summer.3" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2016/17.Summer.3')]]"/>
+    <cache name="RangeDate.Term.2017/18.Autumn.1" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.1')]]"/>
+    <cache name="RangeDate.Term.2017/18.Autumn.2" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.2')]]"/>
+    <cache name="RangeDate.Term.2017/18.Autumn.3" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][starts-with(@value,'RangeDate.Term.2017/18.Autumn.3')]]"/>
   </caches>
+  -->
   <rangeDates>
-    <rangeDate start="2017-04-24" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.1.1"/></tags></rangeDate>
-    <rangeDate start="2017-05-15" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.1.2"/></tags></rangeDate>
-    <rangeDate start="2017-06-12" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.1.3"/></tags></rangeDate>
-    <rangeDate start="2017-07-03" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.1.4"/></tags></rangeDate>
-    <rangeDate start="2017-07-24" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.1.5"/></tags></rangeDate>
+    <rangeDate start="2017-09-04" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.1.1"/></tags></rangeDate>
+    <rangeDate start="2017-09-25" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.1.2"/></tags></rangeDate>
+    <rangeDate start="2017-10-16" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.1.3"/></tags></rangeDate>
+    <rangeDate start="2017-11-13" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.1.4"/></tags></rangeDate>
+    <rangeDate start="2017-12-04" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.1.5"/></tags></rangeDate>
 
-    <rangeDate start="2017-05-01" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.2.1"/></tags></rangeDate>
-    <rangeDate start="2017-05-22" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.2.2"/></tags></rangeDate>
-    <rangeDate start="2017-06-19" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.2.3"/></tags></rangeDate>
-    <rangeDate start="2017-07-10" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.2.4"/></tags></rangeDate>
+    <rangeDate start="2017-09-11" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.2.1"/></tags></rangeDate>
+    <rangeDate start="2017-10-02" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.2.2"/></tags></rangeDate>
+    <rangeDate start="2017-10-30" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.2.3"/></tags></rangeDate>
+    <rangeDate start="2017-11-20" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.2.4"/></tags></rangeDate>
+    <rangeDate start="2017-12-11" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.2.5"/></tags></rangeDate>
 
-    <rangeDate start="2017-05-08" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.3.1"/></tags></rangeDate>
-    <rangeDate start="2017-06-05" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.3.2"/></tags></rangeDate>
-    <rangeDate start="2017-06-26" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.3.3"/></tags></rangeDate>
-    <rangeDate start="2017-07-17" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.3.4"/></tags></rangeDate>
-    
-  </rangeDates>
+    <rangeDate start="2017-09-18" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.3.1"/></tags></rangeDate>
+    <rangeDate start="2017-10-09" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.3.2"/></tags></rangeDate>
+    <rangeDate start="2017-11-06" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.3.3"/></tags></rangeDate>
+    <rangeDate start="2017-11-27" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.3.4"/></tags></rangeDate>
+    <rangeDate start="2017-12-18" duration="P5D"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.3.4"/></tags></rangeDate></rangeDates>
 </generator>

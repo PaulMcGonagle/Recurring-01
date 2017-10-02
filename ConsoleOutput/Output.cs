@@ -29,23 +29,23 @@ namespace ConsoleOutput
             var lastDate = sortedDates.Last();
 
             var firstMonday = firstDate.PlusDays(-firstDate.DayOfWeek + 1);
-            var range = DateTimeHelper.Range(firstMonday, lastDate);
+            var ranges = DateTimeHelper.Range(firstMonday, lastDate);
 
             WriteLine(firstDate.DayOfWeek.ToString());
 
             WriteLine("Year Month  Mon Tue Wed Thu Fri Sat Sun");
 
-            foreach (var r in range)
+            foreach (var range in ranges)
             {
-                if (r.Value.DayOfWeek == (int)DayOfWeek.Monday)
+                if (range.Value.DayOfWeek == (int)DayOfWeek.Monday)
                 {
                     WriteLine();
                     ForegroundColor = ConsoleColor.White;
-                    Write($"{r.Value.Year:0000} {r.Value.Month:00}   ");
+                    Write($"{range.Value.Year:0000} {range.Value.Month:00}   ");
                 }
 
-                ForegroundColor = sortedDates.Contains(r.Value) ? ConsoleColor.White : ConsoleColor.Red;
-                Write($"  {r.Value.Day:00}");
+                ForegroundColor = sortedDates.Contains(range.Value) ? ConsoleColor.White : ConsoleColor.Red;
+                Write($"  {range.Value.Day:00}");
             }
             WriteLine();
         }
@@ -61,9 +61,9 @@ namespace ConsoleOutput
             var sortedDates = dates.ToList();
             sortedDates.Sort();
 
-            foreach (var d in sortedDates)
+            foreach (var sortedDate in sortedDates)
             {
-                WriteLine(d.ToString());
+                WriteLine(sortedDate.ToString());
             }
         }
 
@@ -78,9 +78,9 @@ namespace ConsoleOutput
             var sortedDateTimes = dateTimes.ToList();
             sortedDateTimes.Sort();
 
-            foreach (var d in sortedDateTimes)
+            foreach (var sortedDateTime in sortedDateTimes)
             {
-                WriteLine(d.ToString());
+                WriteLine(sortedDateTime.ToString());
             }
         }
 
@@ -92,10 +92,20 @@ namespace ConsoleOutput
                 return;
             }
 
-            foreach (var a in episodes)
+            foreach (var episode in episodes)
             {
-                WriteLine(a.ToString());
+                WriteLine(episode.ToString());
             }
+        }
+
+        public static void WriteLine()
+        {
+            Console.WriteLine();
+        }
+
+        public static void WriteLine(string line)
+        {
+            Console.WriteLine(line);
         }
 
         public static void Wait()
