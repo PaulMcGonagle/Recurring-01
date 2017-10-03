@@ -57,6 +57,7 @@ namespace SchedulerDatabase
                 db.CreateCollection("GeneratedDate");
                 db.CreateCollection("Instance");
                 db.CreateCollection("GeneratorSource");
+                db.CreateCollection("Calendar");
                 db.CreateCollection("Edge", type: CollectionType.Edge);
                 db.CreateCollection("Relation", type: CollectionType.Edge);
             }

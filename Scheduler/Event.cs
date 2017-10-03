@@ -18,7 +18,7 @@ namespace Scheduler
         [IgnoreDataMember]
         public EdgeVertex<Location> Location
         {
-            get { return _location; }
+            get => _location;
             set
             {
                 _location = value;
@@ -30,7 +30,7 @@ namespace Scheduler
 
         public string Title
         {
-            get { return _title; }
+            get => _title;
             set
             {
                 _title = value;

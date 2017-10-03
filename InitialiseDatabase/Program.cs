@@ -14,6 +14,7 @@ using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Users;
+using Calendar = Scheduler.Generation.Calendar;
 
 namespace InitialiseDatabase
 {
@@ -45,11 +46,19 @@ namespace InitialiseDatabase
             var generatorSources = vertexs
                 .OfType<IGeneratorSource>();
 
-            foreach (var generatorSource in generatorSources)
+            foreach (var generatorSource in generatorSources.ToArray())
             {
                 foreach (var schedule in generatorSource.Schedules)
                 {
+                    var calendar = Scheduler.Generation.Calendar.Generate(fakeClock, schedule.ToVertex);
+
+                    vertexs.Add(calendar);
+
                     var menu = schedule.ToVertex.Tags.SingleOrDefault(t => t.ToVertex.Ident == "Menu");
+
+                    calendar
+                        .Tags
+                        .Add(menu);
 
                     if (menu != null)
                     {
@@ -153,6 +162,7 @@ namespace InitialiseDatabase
                 db.CreateCollection("SingleDay");
                 db.CreateCollection("Episode");
                 db.CreateCollection("Edge", type: CollectionType.Edge);
+                db.CreateCollection("Calendar");
 
                 IClock clock = SystemClock.Instance;
 

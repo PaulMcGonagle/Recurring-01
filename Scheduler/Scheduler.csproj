@@ -83,6 +83,8 @@
     <Compile Include="Date.cs" />
     <Compile Include="DateAdjuster.cs" />
     <Compile Include="Episodes.cs" />
+    <Compile Include="Generation\Calendar.cs" />
+    <Compile Include="Generation\ICalendar.cs" />
     <Compile Include="Generation\Instance.cs" />
     <Compile Include="Generation\Instances.cs" />
     <Compile Include="Generation\IInstance.cs" />
