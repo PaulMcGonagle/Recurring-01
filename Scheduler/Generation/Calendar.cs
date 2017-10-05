@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
@@ -20,7 +21,8 @@ namespace Scheduler.Generation
             {
                 Dates = new EdgeVertexs<IDate>(
                     source
-                        .Generate(clock))
+                        .Generate(clock)
+                        .ToList())
             };
 
             calendar
