@@ -100,6 +100,7 @@
     <Compile Include="Persistance\ILink.cs" />
     <Compile Include="Persistance\IRelation.cs" />
     <Compile Include="Persistance\Link.cs" />
+    <Compile Include="Persistance\Relation.cs" />
     <Compile Include="Ranges\RangeDates.cs" />
     <Compile Include="Ranges\IRangeDate.cs" />
     <Compile Include="ISerials.cs" />

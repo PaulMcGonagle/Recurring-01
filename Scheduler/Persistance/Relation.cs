@@ -4,8 +4,10 @@ using NodaTime;
 
 namespace Scheduler.Persistance
 {
-    public class Edge : Vertex
+    public class Relation : Vertex, IRelation
     {
+        public string Label { get; set; }
+
         [IgnoreDataMember]
         public IVertex FromVertex { get; set; }
 
@@ -20,27 +22,30 @@ namespace Scheduler.Persistance
 
         #region Save
 
-        public virtual void Save(IArangoDatabase db, IClock clock, IVertex fromVertex)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-            FromVertex = fromVertex;
-
-            FromId = fromVertex.Id;
-
             if (!FromVertex.IsPersisted)
-                throw new SaveException(SaveResult.Incomplete, GetType(), $"FromVertex has not been persisted ({FromVertex})");
+            {
+                FromVertex.Save(db, clock);
+            }
 
-            ToVertex.Save(db, clock);
+            if (!ToVertex.IsPersisted)
+            {
+                ToVertex.Save(db, clock);
+            }
 
+            FromId = FromVertex.Id;
             ToId = ToVertex.Id;
 
-            Save<Edge>(db);
+            Save<Relation>(db);
+            base.Save(db, clock);
         }
 
         #endregion
 
         public override string ToString()
         {
-            return $"Edge to: {ToVertex}";
+            return $"Relation from {FromVertex} to: {ToVertex}";
         }
     }
 }

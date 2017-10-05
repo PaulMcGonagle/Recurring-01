@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
@@ -11,9 +9,7 @@ namespace Scheduler.Generation
     public class Calendar : Vertex, ICalendar
     {
         [IgnoreDataMember]
-        private IRelation Source { get; set; }
-
-        public IEnumerable<IDate> Dates { get; set; }
+        public IEdgeVertexs<IDate> Dates { get; set; }
 
         public static Calendar Generate(IClock clock, ISchedule source)
         {
@@ -22,9 +18,9 @@ namespace Scheduler.Generation
 
             var calendar = new Calendar
             {
-                Dates = source
-                    .Generate(clock)
-                    .ToList()
+                Dates = new EdgeVertexs<IDate>(
+                    source
+                        .Generate(clock))
             };
 
             calendar
@@ -39,6 +35,7 @@ namespace Scheduler.Generation
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<Calendar>(db);
+            Dates.Save(db, clock, this);
             base.Save(db, clock);
         }
 
