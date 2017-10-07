@@ -97,14 +97,6 @@ namespace Scheduler.Persistance
 
         #region Save
 
-        protected static void Save(IArangoDatabase db, IClock clock, IEnumerable<IVertex> vertexs)
-        {
-            foreach (var vertex in vertexs)
-            {
-                vertex.Save(db, clock);
-            }
-        }
-
         internal void Save<T>(IArangoDatabase db) where T : IVertex
         {
             if (db == null) throw new ArgumentNullException(nameof(db));

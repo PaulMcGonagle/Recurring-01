@@ -97,10 +97,13 @@
     <Compile Include="IEvent.cs" />
     <Compile Include="IGeneratorSource.cs" />
     <Compile Include="ITag.cs" />
+    <Compile Include="Persistance\ExternalId.cs" />
+    <Compile Include="Persistance\IExternalId.cs" />
     <Compile Include="Persistance\ILink.cs" />
     <Compile Include="Persistance\IRelation.cs" />
     <Compile Include="Persistance\Link.cs" />
     <Compile Include="Persistance\Relation.cs" />
+    <Compile Include="Persistance\Vertexs.cs" />
     <Compile Include="Ranges\RangeDates.cs" />
     <Compile Include="Ranges\IRangeDate.cs" />
     <Compile Include="ISerials.cs" />
