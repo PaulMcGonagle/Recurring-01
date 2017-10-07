@@ -92,6 +92,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CompositeScheduleTests.cs" />
+    <Compile Include="Persistance\ExternalIdPersistanceTests.cs" />
     <Compile Include="XInstances\GeneratorXTests.cs" />
     <Compile Include="LoadAndEnrich.cs" />
     <Compile Include="LoadFiles.cs" />

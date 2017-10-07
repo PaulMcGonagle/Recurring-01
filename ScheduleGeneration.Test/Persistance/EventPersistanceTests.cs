@@ -10,7 +10,7 @@ using Xunit;
 namespace ScheduleGeneration.Test.Persistance
 {
     [TestClass]
-    class EventPersistanceTests
+    public class EventPersistanceTests
     {
         public class CreateThenSaveThenUpdateThenSave
         {
