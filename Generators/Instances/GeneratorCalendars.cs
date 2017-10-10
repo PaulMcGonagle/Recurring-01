@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Generators.XInstances;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
@@ -35,7 +36,14 @@ namespace Generators.Instances
 
             foreach (var xCalendar in xCalendars)
             {
-                var compositeSchedule = new CompositeSchedule();
+                var xSchedules = xCalendar
+                    .Elements("schedules")
+                    .SingleOrDefault();
+
+                var generatorSchedule = new GeneratorXCompositeSchedule();
+
+                var compositeSchedule = (ISchedule)generatorSchedule
+                    .Generate(xSchedules, caches, null, clock);
 
                 var calendarTags = xCalendar
                     .RetrieveTags(caches)
@@ -48,8 +56,8 @@ namespace Generators.Instances
 
                 generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(compositeSchedule));
 
-                var dates = xCalendar
-                    .RetrieveDates(clock, caches)
+                var dates = compositeSchedule
+                    .Generate(clock)
                     .ToList();
 
                 var dateList = new DateList {Items = dates};

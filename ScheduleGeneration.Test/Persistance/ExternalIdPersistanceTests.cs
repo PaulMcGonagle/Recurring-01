@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NodaTime;
 using NodaTime.Testing;
-using Scheduler;
 using Scheduler.Persistance;
 using TestStack.BDDfy;
 using Xunit;

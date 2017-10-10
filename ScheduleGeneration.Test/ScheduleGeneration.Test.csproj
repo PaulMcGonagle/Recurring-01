@@ -164,6 +164,9 @@
     <Content Include="TestData\Option04.xml" />
     <Content Include="TestData\SchoolDays.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CalendarInstances\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

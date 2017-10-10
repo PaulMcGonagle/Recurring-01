@@ -67,6 +67,7 @@
     <Compile Include="Types\Terms.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="UtilitiesLinks.cs" />
+    <Compile Include="XInstances\GeneratorXByDateList.cs" />
     <Compile Include="XInstances\GeneratorXByOffset.cs" />
     <Compile Include="XInstances\GeneratorXByWeekdays.cs" />
     <Compile Include="XInstances\GeneratorXRangeDate.cs" />

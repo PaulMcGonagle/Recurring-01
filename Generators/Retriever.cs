@@ -177,7 +177,6 @@ namespace Generators
             var dates = new List<IDate>();
 
             var xDates = xInput
-                .Elements(elementsName)
                 .Elements("date")
                 .ToList();
 
@@ -190,16 +189,16 @@ namespace Generators
                 dates.Add(date);
             }
 
-            var xScheduleInstances = xInput
-                .Elements("dates")
-                .Elements("scheduleInstance");
+            //var xScheduleInstances = xInput
+            //    .Elements("dates")
+            //    .Elements("scheduleInstance");
 
-            foreach (var xScheduleInstance in xScheduleInstances)
-            {
-                var schedule = RetrieveSchedule(xScheduleInstance, caches);
+            //foreach (var xScheduleInstance in xScheduleInstances)
+            //{
+            //    var schedule = RetrieveSchedule(xScheduleInstance, caches);
 
-                dates.AddRange(schedule.Generate(clock));
-            }
+            //    dates.AddRange(schedule.Generate(clock));
+            //}
 
             return dates;
         }

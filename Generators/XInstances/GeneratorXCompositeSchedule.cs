@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
+using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
@@ -12,7 +11,7 @@ namespace Generators.XInstances
 {
     public class GeneratorXCompositeSchedule : IGeneratorXSchedule
     {
-        public IVertex Generate(XElement xSchedules, IDictionary<string, IVertex> caches, string elementsName = null)
+        public IVertex Generate(XElement xSchedules, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
         {
             var compositeSchedule = new CompositeSchedule();
 
@@ -35,6 +34,11 @@ namespace Generators.XInstances
                         generatorX = new GeneratorXByWeekdays();
                         break;
 
+                    case "byDateList":
+                        generatorX = new GeneratorXDateList();
+                        elementsName = type;
+                        break;
+
                     default:
                         throw new Exception($"Unable to generate schedule from type {type}");
                 }
@@ -44,8 +48,11 @@ namespace Generators.XInstances
                     caches,
                     elementsName);
 
-                var t = xSchedule.RetrieveTags(caches, elementsName).ToList();
-                schedule.Connect(t);
+                var tags = xSchedule
+                    .RetrieveTags(caches, elementsName)
+                    .ToList();
+
+                schedule.Connect(tags);
 
                 compositeSchedule.InclusionsEdges.Add(new EdgeSchedule((ISchedule)schedule));
             }

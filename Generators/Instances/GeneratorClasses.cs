@@ -3,7 +3,6 @@ using System.Linq;
 using System.Xml.Linq;
 using Generators.XInstances;
 using NodaTime;
-using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
@@ -69,36 +68,6 @@ namespace Generators.Instances
                     var classTags = xClass
                         .RetrieveTags(caches)
                         .ToList();
-
-                    var className = classTags
-                        .RetrieveValue("name");
-
-                    var classTag = new Tag("class", className);
-
-                    var xTerms = xClass
-                        .Elements("terms")
-                        .Elements()
-                        .ToList();
-
-                    //foreach (var xTerm in xTerms)
-                    //{
-                    //    var termTags = xTerm
-                    //        .RetrieveTags(caches)
-                    //        .ToList();
-
-                    //    var termName = termTags
-                    //        .RetrieveValue("name");
-
-                    //    var termTag = classTag.Connect("term", termName);
-
-                    //    var termRange = xTerm
-                    //        .Elements()
-                    //        .RetrieveRangeDate(caches);
-
-                    //    var xTermBreaks = xTerm
-                    //        .Elements("breaks")
-                    //        .Elements()
-                    //        .ToList();
 
                     var xSchedules = xClass
                         .Elements("schedules")

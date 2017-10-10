@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ArangoDB.Client;
 using NodaTime;
 
@@ -15,6 +16,15 @@ namespace Scheduler.ScheduleInstances
         public override IEnumerable<IDate> Generate(IClock clock)
         {
             return Items;
+        }
+
+        public static DateList Create(
+            IEnumerable<IDate> dates)
+        {
+            return new DateList
+            {
+                Items = dates.ToList()
+            };
         }
 
         public override void Save(IArangoDatabase db, IClock clock)

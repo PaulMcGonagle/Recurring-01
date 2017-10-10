@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArangoDB.Client;
 using NodaTime;
 
@@ -13,6 +9,11 @@ namespace Scheduler.Persistance
         public ExternalId()
         {
             Uid = Guid.NewGuid().ToString();
+        }
+
+        public ExternalId(string uid)
+        {
+            Uid = uid;
         }
 
         public string Uid { get; private set; }

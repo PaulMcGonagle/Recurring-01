@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Linq;
-using System.Xml.XPath;
+using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
@@ -13,9 +11,11 @@ namespace Generators.XInstances
 {
     public class GeneratorXByWeekdays : IGeneratorX
     {
-        public IVertex Generate(XElement xByWeekdays, IDictionary<string, IVertex> caches, string elementsName = null)
+        public IVertex Generate(XElement xByWeekdays, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
         {
-            var weekdays = xByWeekdays.RetrieveWeekdays();
+            var weekdays = xByWeekdays
+                .RetrieveWeekdays()
+                .ToList();
 
             var rangeDates = xByWeekdays
                 .RetrieveRangeDates(

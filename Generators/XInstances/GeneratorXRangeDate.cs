@@ -3,15 +3,16 @@ using Scheduler.Persistance;
 using Scheduler.Ranges;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using NodaTime;
 
 namespace Generators.XInstances
 {
     public class GeneratorXRangeDate : IGeneratorX
     {
-        public IVertex Generate(XElement xRangeDate, IDictionary<string, IVertex> caches, string elementsName = null)
+        public IVertex Generate(XElement xRangeDate, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
         {
             var from = xRangeDate.RetrieveAttributeAsLocalDate("start");
-            NodaTime.LocalDate to;
+            LocalDate to;
 
             if (xRangeDate.HasAttribute("end"))
             {

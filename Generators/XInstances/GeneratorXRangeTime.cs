@@ -9,7 +9,7 @@ namespace Generators.XInstances
 {
     public class GeneratorXRangeTime : IGeneratorX
     {
-        public IVertex Generate(XElement xRangeTime, IDictionary<string, IVertex> caches, string elementsName = null)
+        public IVertex Generate(XElement xRangeTime, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
         {
             var from = xRangeTime.RetrieveAttributeAsLocalTime("start");
             var to = xRangeTime.RetrieveAttributeAsLocalTime("end");
