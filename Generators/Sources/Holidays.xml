@@ -16,12 +16,12 @@
           </date>
           <date value="2018-01-01"/>
         </byDateList>
-        <tags>
-          <reference path="./generator/tags/tag[@id='name']"/>
-          <reference path="./generator/tags/tag[@id='locale']"/>
-          <tag id="year" value="2017"/>
-        </tags>
       </schedules>
+      <tags>
+        <reference path="./generator/tags/tag[@id='name']"/>
+        <reference path="./generator/tags/tag[@id='locale']"/>
+        <tag id="year" value="2017"/>
+      </tags>
     </calendar>
   </calendars>
   <tags>
