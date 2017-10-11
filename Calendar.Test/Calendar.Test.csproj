@@ -92,10 +92,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Calendar\MyCalendar.csproj">
-      <Project>{26aa57ae-e333-4237-9178-bae1b1d80b25}</Project>
-      <Name>MyCalendar</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Scheduler.Test\Scheduler.Test.csproj">
       <Project>{C9002A62-8518-4668-933C-60572835793C}</Project>
       <Name>Scheduler.Test</Name>

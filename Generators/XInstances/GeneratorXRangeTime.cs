@@ -1,5 +1,4 @@
-﻿using System;
-using Scheduler.Persistance;
+﻿using Scheduler.Persistance;
 using Scheduler.Ranges;
 using System.Collections.Generic;
 using System.Xml.Linq;
