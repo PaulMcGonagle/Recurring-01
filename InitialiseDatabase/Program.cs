@@ -15,23 +15,22 @@ using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Users;
-using Calendar = Scheduler.Generation.Calendar;
 
 namespace InitialiseDatabase
 {
     internal class Program
     {
         // ReSharper disable once UnusedParameter.Local
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
 
-            var generator = GeneratorFactory.Get("schedule");
+            var generator = GeneratorFactory.Get("holidays");
 
             var vertexs = new Queue<IVertex>();
 
             foreach (var vertex in generator.Generate(
-                sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Caterlink4.xml",
+                sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Holidays.xml",
                 clock: fakeClock)
                 .ToList())
             {
@@ -47,9 +46,10 @@ namespace InitialiseDatabase
             Output.WriteLine("Schedules");
 
             var generatorSources = vertexs
-                .OfType<IGeneratorSource>();
+                .OfType<IGeneratorSource>()
+                .ToArray();
 
-            foreach (var generatorSource in generatorSources.ToArray())
+            foreach (var generatorSource in generatorSources)
             {
                 foreach (var schedule in generatorSource
                     .Schedules
