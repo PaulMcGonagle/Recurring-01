@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Shouldly;
 using NodaTime;
-using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
@@ -12,7 +11,7 @@ using TestStack.BDDfy;
 using Xunit;
 using Event = Scheduler.Event;
 
-namespace MyCalendar.Test
+namespace Calendar.Test
 {
     public class EventTests
     {
