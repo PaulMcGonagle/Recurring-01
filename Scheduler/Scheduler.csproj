@@ -158,7 +158,7 @@
     <Compile Include="ScheduleInstances\ByDayOfMonth.cs" />
     <Compile Include="ScheduleInstances\ByDayOfYear.cs" />
     <Compile Include="ScheduleInstances\ByWeekdays.cs" />
-    <Compile Include="ScheduleInstances\DateList.cs" />
+    <Compile Include="ScheduleInstances\ByDateList.cs" />
     <Compile Include="ScheduleAbstracts\Repeating.cs" />
     <Compile Include="ScheduleInstances\SingleDay.cs" />
     <Compile Include="ScheduleInstances\ByWeekday.cs" />

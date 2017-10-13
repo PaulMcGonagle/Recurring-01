@@ -210,7 +210,7 @@ namespace InitialiseDatabase
                 db.CreateCollection("ByDayOfYear");
                 db.CreateCollection("ByWeekday");
                 db.CreateCollection("ByWeekdays");
-                db.CreateCollection("DateList");
+                db.CreateCollection("ByDateList");
                 db.CreateCollection("SingleDay");
                 db.CreateCollection("Episode");
                 db.CreateCollection("Edge", type: CollectionType.Edge);
@@ -366,7 +366,7 @@ W1H 2DS"
                                     {
                                         InclusionsEdges = new EdgeVertexs<ISchedule>
                                         {
-                                            new EdgeVertex<ISchedule>(new DateList
+                                            new EdgeVertex<ISchedule>(new ByDateList
                                                 {
                                                     Items = new List<IDate>
                                                     {

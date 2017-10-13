@@ -14,7 +14,7 @@ namespace Scheduler.Test.ScheduleInstances
     {
         public class VerifyDay
         {
-            private DateList _sut;
+            private ByDateList _sut;
             private IClock _clock;
             private IEnumerable<IDate> _dates;
 
@@ -26,7 +26,7 @@ namespace Scheduler.Test.ScheduleInstances
                 this.WithExamples(new ExampleTable("sut", "clock", "expectedDates")
                     {
                         {
-                            new DateList
+                            new ByDateList
                             {
                                 Items = new List<IDate>
                                 {
@@ -48,7 +48,7 @@ namespace Scheduler.Test.ScheduleInstances
                     .BDDfy();
             }
 
-            public void GivenADateList(DateList sut)
+            public void GivenADateList(ByDateList sut)
             {
                 _sut = sut;
             }

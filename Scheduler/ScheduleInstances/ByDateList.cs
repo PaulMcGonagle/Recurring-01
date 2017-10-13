@@ -5,7 +5,7 @@ using NodaTime;
 
 namespace Scheduler.ScheduleInstances
 {
-    public class DateList : Schedule
+    public class ByDateList : Schedule
     {
         public IEnumerable<IDate> Items
         {
@@ -18,10 +18,10 @@ namespace Scheduler.ScheduleInstances
             return Items;
         }
 
-        public static DateList Create(
+        public static ByDateList Create(
             IEnumerable<IDate> dates)
         {
-            return new DateList
+            return new ByDateList
             {
                 Items = dates.ToList()
             };
@@ -29,7 +29,7 @@ namespace Scheduler.ScheduleInstances
 
         public override void Save(IArangoDatabase db, IClock clock)
         {
-            Save<DateList>(db);
+            Save<ByDateList>(db);
 
             foreach (var item in Items)
             {

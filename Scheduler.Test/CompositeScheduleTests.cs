@@ -28,7 +28,7 @@ namespace Scheduler.Test
                             {
                                 InclusionsEdges = new EdgeVertexs<ISchedule>()
                                 {
-                                    new EdgeVertex<ISchedule>(new DateList
+                                    new EdgeVertex<ISchedule>(new ByDateList
                                         {
                                             Items =
                                                 DateTimeHelper.Range(
@@ -39,7 +39,7 @@ namespace Scheduler.Test
                                 },
                                 ExclusionsEdges = new EdgeVertexs<ISchedule>()
                                 {
-                                    new EdgeVertex<ISchedule>(new DateList
+                                    new EdgeVertex<ISchedule>(new ByDateList
                                         {
                                             Items =
                                             DateTimeHelper.Range(

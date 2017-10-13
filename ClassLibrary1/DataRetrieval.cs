@@ -120,7 +120,7 @@ namespace TestData
 
             _scheduleArchive
                 .Add("BankHolidays",
-                    new DateList
+                    new ByDateList
                     {
                         Items = _scheduleArchive
                             .Where(s => s.Key.StartsWith("BankHolidays.2016"))

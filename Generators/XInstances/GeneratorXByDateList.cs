@@ -15,7 +15,7 @@ namespace Generators.XInstances
                 .RetrieveDates(clock, caches, elementsName)
                 .ToList();
 
-            var dateList = DateList
+            var dateList = ByDateList
                 .Create(dates);
 
             dateList.Connect(xDateList.RetrieveTags(caches, elementsName));

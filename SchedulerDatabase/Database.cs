@@ -51,7 +51,7 @@ namespace SchedulerDatabase
                 db.CreateCollection("ByDayOfYear");
                 db.CreateCollection("ByWeekday");
                 db.CreateCollection("ByWeekdays");
-                db.CreateCollection("DateList");
+                db.CreateCollection("ByDateList");
                 db.CreateCollection("SingleDay");
                 db.CreateCollection("Episode");
                 db.CreateCollection("GeneratedDate");
