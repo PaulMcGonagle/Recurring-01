@@ -103,6 +103,7 @@
     <Compile Include="Persistance\IRelation.cs" />
     <Compile Include="Persistance\Link.cs" />
     <Compile Include="Persistance\Relation.cs" />
+    <Compile Include="Persistance\Utilities.cs" />
     <Compile Include="Persistance\Vertexs.cs" />
     <Compile Include="Ranges\RangeDates.cs" />
     <Compile Include="Ranges\IRangeDate.cs" />

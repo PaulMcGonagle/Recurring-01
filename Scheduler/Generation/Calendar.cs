@@ -41,6 +41,14 @@ namespace Scheduler.Generation
             base.Save(db, clock);
         }
 
+        public override void Rehydrate(IArangoDatabase db)
+        {
+            Dates = new EdgeVertexs<IDate>(
+                Utilities.GetByFromId<Date>(db, this.Id));
+
+            base.Rehydrate(db);
+        }
+
         #endregion
     }
 }

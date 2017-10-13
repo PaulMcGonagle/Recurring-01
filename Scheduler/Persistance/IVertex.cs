@@ -50,6 +50,8 @@ namespace Scheduler.Persistance
 
         void Save(IArangoDatabase db, IClock clock);
 
+        void Rehydrate(IArangoDatabase db);
+
         #endregion
     }
 }

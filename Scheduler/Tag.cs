@@ -105,5 +105,18 @@ namespace Scheduler
             Tags?.Save(db, clock, this);
             base.Save(db, clock);
         }
+
+        public override void Rehydrate(IArangoDatabase db)
+        {
+            var tags = db.Query<Tag>()
+                .For(tag => db.Query<Edge>()
+                    .Where(edge => tag.Id == edge.ToId && edge.FromId == this.Id)
+                    .Select(e => tag))
+                .ToList();
+
+            Tags = new EdgeVertexs<ITag>(tags);
+
+            base.Rehydrate(db);
+        }
     }
 }

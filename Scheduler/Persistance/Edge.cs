@@ -20,11 +20,11 @@ namespace Scheduler.Persistance
 
         #region Save
 
-        public virtual void Save(IArangoDatabase db, IClock clock, IVertex fromVertex)
+        public override void Save(IArangoDatabase db, IClock clock)
         {
-            FromVertex = fromVertex;
+            base.Save(db, clock);
 
-            FromId = fromVertex.Id;
+            FromId = FromVertex.Id;
 
             if (!FromVertex.IsPersisted)
                 throw new SaveException(SaveResult.Incomplete, GetType(), $"FromVertex has not been persisted ({FromVertex})");
@@ -34,6 +34,33 @@ namespace Scheduler.Persistance
             ToId = ToVertex.Id;
 
             Save<Edge>(db);
+
+        }
+
+        public virtual void Save(IArangoDatabase db, IClock clock, IVertex fromVertex)
+        {
+            FromVertex = fromVertex;
+
+            Save(db, clock);
+        }
+
+        public override void Rehydrate(IArangoDatabase db)
+        {
+            if (string.IsNullOrWhiteSpace(FromId))
+            {
+                throw Vertex.NewRehydrateException(RehydrateResult.MissingId, nameof(FromId));
+            }
+
+            var fromInfo = db.FindDocumentInfo(FromId);
+
+            if (fromInfo == null)
+            {
+                throw Vertex.NewRehydrateException(RehydrateResult.InvalidObject, nameof(FromId));
+            }
+
+            var type = fromInfo.Document.Type;
+
+            base.Rehydrate(db);
         }
 
         #endregion

@@ -49,13 +49,15 @@ namespace InitialiseDatabase
                 .OfType<IGeneratorSource>()
                 .ToArray();
 
+            string externalIdUid = null;
+
             foreach (var generatorSource in generatorSources)
             {
                 foreach (var schedule in generatorSource
                     .Schedules
                     .Select(s => s.ToVertex))
                 {
-                    var calendar = Scheduler.Generation.Calendar.Generate(fakeClock, schedule);
+                    var calendar = Calendar.Generate(fakeClock, schedule);
 
                     var enricher = new EnricherNumbering();
 
@@ -78,27 +80,37 @@ namespace InitialiseDatabase
 
                     var externalId = new ExternalId();
 
-                    var relationExternal = new Relation
+                    externalIdUid = externalId
+                        .Uid;
+
+                    var edgeExternal = new Edge
                     {
                         FromVertex = externalId,
-                        ToVertex = calendar,
-                        Label = "Links to"
+                        ToVertex = calendar
                     };
 
+                    using (var db = SchedulerDatabase.Database.Retrieve())
+                    {
+                        externalId.Save(db, fakeClock);
+                        edgeExternal.Save(db, fakeClock);
+                    }
+
                     vertexs
-                        .Enqueue(relationExternal);
+                        .Enqueue(externalId);
+                    vertexs
+                        .Enqueue(edgeExternal);
 
                     var menu = schedule
                         .Tags
                         .SingleOrDefault(t => t.ToVertex.Ident == "Menu");
 
-                    calendar
-                        .Tags
-                        .Add(menu);
-
                     if (menu != null)
                     {
                         Output.WriteLine(menu.ToVertex.Payload);
+
+                        calendar
+                            .Tags
+                            .Add(menu);
                     }
 
                     var dates = schedule.Generate(fakeClock);
@@ -119,26 +131,16 @@ namespace InitialiseDatabase
             var serials = vertexs
                 .OfType<ISerial>();
 
-            foreach (var serial in serials)
-            {
-                var episodes = serial.GenerateEpisodes(fakeClock);
+            //foreach (var serial in serials)
+            //{
+            //    var episodes = serial.GenerateEpisodes(fakeClock);
 
-                Output.DisplayList(
-                    episodes
-                        .Select(episode => episode.ToVertex.From.LocalDateTime));
+            //    Output.DisplayList(
+            //        episodes
+            //            .Select(episode => episode.ToVertex.From.LocalDateTime));
 
-                Output.Wait();
-            }
-
-            
-            foreach (var schedule in vertexs.OfType<ISchedule>())
-            {
-                var dates = schedule.Generate(fakeClock);
-
-                Output.DisplayGrid(dates);
-
-                Output.Wait();
-            }
+            //    Output.Wait();
+            //}
 
 
 
@@ -161,6 +163,15 @@ namespace InitialiseDatabase
                 {
                     @event.Save(db, fakeClock);
                 }
+            }
+
+            ICalendar loadedCalendar;
+
+            using (var db = SchedulerDatabase.Database.Retrieve())
+            {
+                loadedCalendar = Scheduler.Persistance.Utilities.GetByExternalId<Calendar>(db, externalIdUid);
+
+                loadedCalendar.Rehydrate(db);
             }
         }
 
@@ -300,7 +311,7 @@ W1H 2DS"
                                     },
                                 rangeTime: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                                 timeZoneProvider: "Europe/London")),
-                        Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
+                        Location = new EdgeVertex<ILocation>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                     }.Save(db, clock);
 
                     new Event
@@ -320,7 +331,7 @@ W1H 2DS"
                                     },
                                 rangeTime: new EdgeRangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
                                 timeZoneProvider: "Europe/London")),
-                        Location = new EdgeVertex<Location>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
+                        Location = new EdgeVertex<ILocation>(TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                     }.Save(db, clock);
 
                     new Event

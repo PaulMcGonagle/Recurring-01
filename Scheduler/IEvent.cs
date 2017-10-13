@@ -6,7 +6,7 @@ namespace Scheduler
 {
     public interface IEvent : IVertex
     {
-        EdgeVertex<Location> Location { get; set; }
+        IEdgeVertex<ILocation> Location { get; set; }
         IEdgeVertexs<ISerial> Serials { get; set; }
         string Title { get; set; }
         IEdgeVertex<IInstance> Instance { get; set; }

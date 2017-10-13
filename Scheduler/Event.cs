@@ -13,10 +13,10 @@ namespace Scheduler
 {
     public class Event : Vertex, IEvent
     {
-        private EdgeVertex<Location> _location;
+        private IEdgeVertex<ILocation> _location;
 
         [IgnoreDataMember]
-        public EdgeVertex<Location> Location
+        public IEdgeVertex<ILocation> Location
         {
             get => _location;
             set
@@ -80,6 +80,16 @@ namespace Scheduler
             base.Save(db, clock);
         }
 
+        public override void Rehydrate(IArangoDatabase db)
+        {
+            Serials = new EdgeVertexs<ISerial>(Utilities.GetByFromId<Serial>(db, this.Id));
+            Tags = new EdgeVertexs<ITag>(Utilities.GetByFromId<Tag>(db, this.Id));
+            Instance = new EdgeVertex<IInstance>(Utilities.GetByFromId<Instance>(db, this.Id).SingleOrDefault());
+            Location = new EdgeVertex<ILocation>(Utilities.GetByFromId<Location>(db, this.Id).SingleOrDefault());
+
+            base.Rehydrate(db);
+        }
+
         public static Event Create(Schedule schedule, IRangeTime rangeTime, string timeZoneProvider, Location location = null)
         {
             return new Event
@@ -95,7 +105,7 @@ namespace Scheduler
                         },
                         rangeTime: new EdgeRangeTime(rangeTime),
                         timeZoneProvider: timeZoneProvider)),
-                Location = location != null ? new EdgeVertex<Location>(location) : null,
+                Location = location != null ? new EdgeVertex<ILocation>(location) : null,
             };
         }
     }

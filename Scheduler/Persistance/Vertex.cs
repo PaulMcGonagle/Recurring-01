@@ -17,6 +17,13 @@ namespace Scheduler.Persistance
             Incomplete,
         }
 
+        public enum RehydrateResult
+        {
+            MissingId,
+            InvalidObject,
+            VersionClash
+        }
+
         [DocumentProperty(Identifier = IdentifierType.Key)]
         public virtual string Key { get; set; }
 
@@ -157,6 +164,21 @@ namespace Scheduler.Persistance
         protected static Exception NewSaveException(SaveResult saveResult, Type sourceType, string message)
         {
             return new Exception($"Save Exception: SaveResult={saveResult} saving type={sourceType}, message={message}");
+        }
+
+        protected static Exception NewRehydrateException(RehydrateResult rehydrateResult, string message)
+        {
+            return new Exception($"Rehydrate Exception: RehydrateResult={rehydrateResult} message={message}");
+        }
+
+        public virtual void Rehydrate(IArangoDatabase db)
+        {
+            Tags = new EdgeVertexs<ITag>(Utilities.GetByFromId<Tag>(db, this.Id));
+
+            foreach (var tag in Tags)
+            {
+                tag.ToVertex.Rehydrate(db);
+            }
         }
 
         #endregion

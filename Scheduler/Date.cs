@@ -18,6 +18,8 @@ namespace Scheduler
             Value = d;
         }
 
+        public Date() { }
+
         public LocalDate Value { get; set; }
 
         [IgnoreDataMember]
