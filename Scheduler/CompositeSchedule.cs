@@ -70,5 +70,24 @@ namespace Scheduler
             Breaks.Save(db, clock, this);
             base.Save(db, clock);
         }
+
+        public override void Rehydrate(IArangoDatabase db)
+        {
+            InclusionsEdges = new EdgeVertexs<ISchedule>();
+
+            InclusionsEdges.AddRange(Utilities.GetByToId<ByDateList>(db, Id));
+            InclusionsEdges.AddRange(Utilities.GetByToId<ByDayOfMonth>(db, Id));
+            InclusionsEdges.AddRange(Utilities.GetByToId<ByDayOfYear>(db, Id));
+            InclusionsEdges.AddRange(Utilities.GetByToId<ByWeekday>(db, Id));
+            InclusionsEdges.AddRange(Utilities.GetByToId<SingleDay>(db, Id));
+            InclusionsEdges.AddRange(Utilities.GetByToId<ByOffset>(db, Id));
+            InclusionsEdges.AddRange(Utilities.GetByToId<ByWeekdays>(db, Id));
+
+            Breaks = new EdgeVertexs<IRangeDate>();
+
+            Breaks.AddRange(Utilities.GetByFromId<RangeDate>(db, Id));
+
+            base.Rehydrate(db);
+        }
     }
 }

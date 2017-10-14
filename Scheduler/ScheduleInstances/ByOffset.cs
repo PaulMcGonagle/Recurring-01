@@ -66,7 +66,7 @@ namespace Scheduler.ScheduleInstances
 
         public override void Save(IArangoDatabase db, IClock clock)
         {
-            Save<ByWeekday>(db);
+            Save<ByOffset>(db);
             base.Save(db, clock);
         }
     }

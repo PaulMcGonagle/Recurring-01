@@ -173,6 +173,17 @@ namespace InitialiseDatabase
 
                 loadedCalendar.Rehydrate(db);
             }
+
+            using (var db = SchedulerDatabase.Database.Retrieve())
+            {
+                var compositeSchedules = db.Query<CompositeSchedule>();
+
+                foreach (var compositeSchedule in compositeSchedules)
+                {
+                    compositeSchedule
+                        .Rehydrate(db);
+                }
+            }
         }
 
         public static void Go(string databaseName)
@@ -211,6 +222,7 @@ namespace InitialiseDatabase
                 db.CreateCollection("ByWeekday");
                 db.CreateCollection("ByWeekdays");
                 db.CreateCollection("ByDateList");
+                db.CreateCollection("ByOffset");
                 db.CreateCollection("SingleDay");
                 db.CreateCollection("Episode");
                 db.CreateCollection("Edge", type: CollectionType.Edge);
