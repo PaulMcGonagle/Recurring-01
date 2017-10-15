@@ -54,7 +54,7 @@ namespace Generators.XInstances
 
                 schedule.Connect(tags);
 
-                compositeSchedule.InclusionsEdges.Add(new EdgeSchedule((ISchedule)schedule));
+                compositeSchedule.Inclusions.Add(new EdgeSchedule((ISchedule)schedule));
             }
 
             return compositeSchedule;

@@ -310,7 +310,7 @@ W1H 2DS"
                             toVertex: new Serial(
                                 schedule: new CompositeSchedule()
                                     {
-                                        InclusionsEdges = new EdgeVertexs<ISchedule>
+                                        Inclusions = new EdgeVertexs<ISchedule>
                                                 {
                                                     new EdgeVertex<ISchedule>(new ByDayOfMonth
                                                         {
@@ -332,7 +332,7 @@ W1H 2DS"
                             toVertex: new Serial(
                                 schedule: new CompositeSchedule()
                                     {
-                                        InclusionsEdges = new EdgeVertexs<ISchedule>
+                                        Inclusions = new EdgeVertexs<ISchedule>
                                         {
                                             new EdgeVertex<ISchedule>(new SingleDay
                                                 {
@@ -352,7 +352,7 @@ W1H 2DS"
                             toVertex: new Serial(
                                 schedule:new CompositeSchedule()
                                     {
-                                        InclusionsEdges = new EdgeVertexs<ISchedule>
+                                        Inclusions = new EdgeVertexs<ISchedule>
                                         {
                                             new EdgeVertex<ISchedule>(new ByWeekdays
                                                 {
@@ -376,7 +376,7 @@ W1H 2DS"
                             toVertex: new Serial(
                                 schedule: new CompositeSchedule()
                                     {
-                                        InclusionsEdges = new EdgeVertexs<ISchedule>
+                                        Inclusions = new EdgeVertexs<ISchedule>
                                         {
                                             new EdgeVertex<ISchedule>(new ByDateList
                                                 {

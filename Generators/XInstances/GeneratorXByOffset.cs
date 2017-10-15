@@ -33,7 +33,7 @@ namespace Generators.XInstances
                         range: rangeDate);
 
                 composite
-                    .InclusionsEdges
+                    .Inclusions
                     .Add(new EdgeSchedule(byOffset));
             }
 

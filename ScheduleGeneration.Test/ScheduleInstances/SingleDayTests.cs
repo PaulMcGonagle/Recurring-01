@@ -159,7 +159,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                 toVertex: new Serial(
                                     schedule: new CompositeSchedule()
                                         {
-                                            InclusionsEdges = new EdgeVertexs<ISchedule>
+                                            Inclusions = new EdgeVertexs<ISchedule>
                                             {
                                                 new EdgeVertex<ISchedule>(new SingleDay
                                                 {

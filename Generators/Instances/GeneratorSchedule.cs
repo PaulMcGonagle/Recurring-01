@@ -51,7 +51,7 @@ namespace Generators.Instances
                                 rangeDate: rangeDate);
 
                         compositeSchedule
-                            .InclusionsEdges
+                            .Inclusions
                             .Add(new EdgeSchedule(byWeekday));
                     }
 

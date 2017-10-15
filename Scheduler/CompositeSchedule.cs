@@ -14,20 +14,20 @@ namespace Scheduler
     {
 
         [IgnoreDataMember]
-        public IEdgeVertexs<ISchedule> InclusionsEdges { get; set; } = new EdgeVertexs<ISchedule>();
+        public IEdgeVertexs<ISchedule> Inclusions { get; set; } = new EdgeVertexs<ISchedule>();
 
         [IgnoreDataMember]
-        public IEdgeVertexs<ISchedule> ExclusionsEdges { get; set; } = new EdgeVertexs<ISchedule>();
+        public IEdgeVertexs<ISchedule> Exclusions { get; set; } = new EdgeVertexs<ISchedule>();
 
         [IgnoreDataMember]
         public IEdgeVertexs<IRangeDate> Breaks { get; set; } = new EdgeVertexs<IRangeDate>();
 
         public override IEnumerable<IDate> Generate(IClock clock)
         {
-            var inclusions = InclusionsEdges
+            var inclusions = Inclusions
                 .SelectMany(i => i.ToVertex.Generate(clock));
 
-            var exclusions = ExclusionsEdges
+            var exclusions = Exclusions
                 .SelectMany(i => i.ToVertex.Generate(clock));
 
             var list = new List<IDate>();
@@ -50,7 +50,7 @@ namespace Scheduler
         {
             return new CompositeSchedule
             {
-                InclusionsEdges = new EdgeVertexs<ISchedule>()
+                Inclusions = new EdgeVertexs<ISchedule>()
                 {
                     new EdgeVertex<ISchedule>(new ByWeekday(
                         weekday: IsoDayOfWeek.Wednesday)
@@ -65,23 +65,23 @@ namespace Scheduler
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<CompositeSchedule>(db);
-            InclusionsEdges.Save(db, clock, this);
-            ExclusionsEdges.Save(db, clock, this);
+            Inclusions.Save(db, clock, this);
+            Exclusions.Save(db, clock, this);
             Breaks.Save(db, clock, this);
             base.Save(db, clock);
         }
 
         public override void Rehydrate(IArangoDatabase db)
         {
-            InclusionsEdges = new EdgeVertexs<ISchedule>();
+            Inclusions = new EdgeVertexs<ISchedule>();
 
-            InclusionsEdges.AddRange(Utilities.GetByToId<ByDateList>(db, Id));
-            InclusionsEdges.AddRange(Utilities.GetByToId<ByDayOfMonth>(db, Id));
-            InclusionsEdges.AddRange(Utilities.GetByToId<ByDayOfYear>(db, Id));
-            InclusionsEdges.AddRange(Utilities.GetByToId<ByWeekday>(db, Id));
-            InclusionsEdges.AddRange(Utilities.GetByToId<SingleDay>(db, Id));
-            InclusionsEdges.AddRange(Utilities.GetByToId<ByOffset>(db, Id));
-            InclusionsEdges.AddRange(Utilities.GetByToId<ByWeekdays>(db, Id));
+            Inclusions.AddRange(Utilities.GetByToId<ByDateList>(db, Id));
+            Inclusions.AddRange(Utilities.GetByToId<ByDayOfMonth>(db, Id));
+            Inclusions.AddRange(Utilities.GetByToId<ByDayOfYear>(db, Id));
+            Inclusions.AddRange(Utilities.GetByToId<ByWeekday>(db, Id));
+            Inclusions.AddRange(Utilities.GetByToId<SingleDay>(db, Id));
+            Inclusions.AddRange(Utilities.GetByToId<ByOffset>(db, Id));
+            Inclusions.AddRange(Utilities.GetByToId<ByWeekdays>(db, Id));
 
             Breaks = new EdgeVertexs<IRangeDate>();
 

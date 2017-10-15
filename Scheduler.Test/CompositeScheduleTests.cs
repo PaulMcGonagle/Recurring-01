@@ -26,7 +26,7 @@ namespace Scheduler.Test
                         {
                             new CompositeSchedule
                             {
-                                InclusionsEdges = new EdgeVertexs<ISchedule>()
+                                Inclusions = new EdgeVertexs<ISchedule>()
                                 {
                                     new EdgeVertex<ISchedule>(new ByDateList
                                         {
@@ -37,7 +37,7 @@ namespace Scheduler.Test
                                                 ).ToList(),
                                         })
                                 },
-                                ExclusionsEdges = new EdgeVertexs<ISchedule>()
+                                Exclusions = new EdgeVertexs<ISchedule>()
                                 {
                                     new EdgeVertex<ISchedule>(new ByDateList
                                         {

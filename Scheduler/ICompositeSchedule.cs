@@ -5,8 +5,8 @@ namespace Scheduler
 {
     public interface ICompositeSchedule : ISchedule
     {
-        IEdgeVertexs<ISchedule> InclusionsEdges { get; set; }
-        IEdgeVertexs<ISchedule> ExclusionsEdges { get; set; }
+        IEdgeVertexs<ISchedule> Inclusions { get; set; }
+        IEdgeVertexs<ISchedule> Exclusions { get; set; }
         IEdgeVertexs<IRangeDate> Breaks { get; set; }
     }
 }
