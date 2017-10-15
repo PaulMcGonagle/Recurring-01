@@ -10,10 +10,10 @@ namespace Scheduler.Persistance
             ToVertex = toVertex;
         }
 
-        public Edge Edge { get; set; }
+        public IEdge Edge { get; set; }
 
         public T ToVertex {
-            get { return (T) Edge.ToVertex; }
+            get => (T) Edge.ToVertex;
             set
             {
                 if (Edge == null) Edge = new Edge();

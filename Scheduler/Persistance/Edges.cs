@@ -4,7 +4,7 @@ using NodaTime;
 
 namespace Scheduler.Persistance
 {
-    public class Edges : List<Edge>
+    public class Edges : List<IEdge>
     {
         #region Save
 

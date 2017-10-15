@@ -4,8 +4,10 @@ using NodaTime;
 
 namespace Scheduler.Persistance
 {
-    public class Edge : Vertex
+    public class Edge : Vertex, IEdge
     {
+        public string Label { get; set; }
+
         [IgnoreDataMember]
         public IVertex FromVertex { get; set; }
 

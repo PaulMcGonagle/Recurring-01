@@ -69,7 +69,7 @@ namespace InitialiseDatabase
 
                     vertexs.Enqueue(calendar);
 
-                    var relation = new Relation
+                    var relation = new Edge
                     {
                         FromVertex = calendar,
                         ToVertex = schedule,

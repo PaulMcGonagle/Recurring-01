@@ -69,7 +69,7 @@ namespace ScheduleGeneration.Test.Persistance
             private IArangoDatabase _db;
             private IClock _clock;
             private IVertex _toVertex;
-            private IRelation _relation;
+            private IEdge _edge;
 
             [Fact]
             public void Execute()
@@ -108,32 +108,32 @@ namespace ScheduleGeneration.Test.Persistance
 
             public void WhenRelationIsCreated()
             {
-                _relation = ExternalId.Link(_toVertex);
+                _edge = ExternalId.Link(_toVertex);
             }
 
             public void ThenRelationIsCreated()
             {
-                _relation.ShouldNotBeNull();
+                _edge.ShouldNotBeNull();
             }
 
             public void AndThenRelationToVertexIsCorrect()
             {
-                _relation.ToVertex.ShouldBe(_toVertex);
+                _edge.ToVertex.ShouldBe(_toVertex);
             }
 
             public void AndThenRelationHasFromVertex()
             {
-                _relation.FromVertex.ShouldNotBeNull();
+                _edge.FromVertex.ShouldNotBeNull();
             }
 
             public void AndThenFromVertexIsExternalId()
             {
-                _relation.FromVertex.ShouldBeOfType(typeof(ExternalId));
+                _edge.FromVertex.ShouldBeOfType(typeof(ExternalId));
             }
 
             public void AndThenExternalIdIsValid()
             {
-                ((ExternalId)_relation.FromVertex)
+                ((ExternalId)_edge.FromVertex)
                     .Uid.ShouldNotBeNullOrEmpty();
             }
         }

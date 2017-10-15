@@ -28,9 +28,9 @@ namespace Scheduler.Persistance
 
         #endregion
         
-        public static Relation Link(IVertex linkVertex)
+        public static IEdge Link(IVertex linkVertex)
         {
-            return new Relation
+            return new Edge
             {
                 FromVertex = new ExternalId(),
                 ToVertex = linkVertex
