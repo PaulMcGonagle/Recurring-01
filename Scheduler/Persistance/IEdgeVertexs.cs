@@ -8,6 +8,8 @@ namespace Scheduler.Persistance
     {
         void Save(IArangoDatabase db, IClock clock, IVertex fromVertex);
 
+        void Save(IArangoDatabase db, IClock clock, IVertex fromVertex, string label);
+
         void AddRange(IEnumerable<IEdgeVertex<T>> items);
 
         void AddRange(IEnumerable<T> items);

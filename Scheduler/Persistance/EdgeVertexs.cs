@@ -48,9 +48,14 @@ namespace Scheduler.Persistance
 
         public void Save(IArangoDatabase db, IClock clock, IVertex fromVertex)
         {
+            Save(db, clock, fromVertex, null);
+        }
+
+        public void Save(IArangoDatabase db, IClock clock, IVertex fromVertex, string label)
+        {
             foreach (var edge in this)
             {
-                edge.Save(db, clock, fromVertex);
+                edge.Save(db, clock, fromVertex, label);
             }
 
             RemoveAll(e => e.ToVertex.IsDeleted);

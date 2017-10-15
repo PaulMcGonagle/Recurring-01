@@ -12,6 +12,13 @@ namespace Scheduler
 {
     public class CompositeSchedule : Schedule, ICompositeSchedule
     {
+        private enum RelationLabels
+        {
+            Inclusions,
+            Exclusions,
+            Breaks
+        }
+
 
         [IgnoreDataMember]
         public IEdgeVertexs<ISchedule> Inclusions { get; set; } = new EdgeVertexs<ISchedule>();
@@ -65,9 +72,9 @@ namespace Scheduler
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<CompositeSchedule>(db);
-            Inclusions.Save(db, clock, this);
-            Exclusions.Save(db, clock, this);
-            Breaks.Save(db, clock, this);
+            Inclusions.Save(db, clock, this, "Inclusions");
+            Exclusions.Save(db, clock, this, "Exclusions");
+            Breaks.Save(db, clock, this, "Breaks");
             base.Save(db, clock);
         }
 
@@ -75,17 +82,17 @@ namespace Scheduler
         {
             Inclusions = new EdgeVertexs<ISchedule>();
 
-            Inclusions.AddRange(Utilities.GetByToId<ByDateList>(db, Id));
-            Inclusions.AddRange(Utilities.GetByToId<ByDayOfMonth>(db, Id));
-            Inclusions.AddRange(Utilities.GetByToId<ByDayOfYear>(db, Id));
-            Inclusions.AddRange(Utilities.GetByToId<ByWeekday>(db, Id));
-            Inclusions.AddRange(Utilities.GetByToId<SingleDay>(db, Id));
-            Inclusions.AddRange(Utilities.GetByToId<ByOffset>(db, Id));
-            Inclusions.AddRange(Utilities.GetByToId<ByWeekdays>(db, Id));
+            Inclusions.AddRange(Utilities.GetByToId<ByDateList>(db, Id, "Inclusions"));
+            Inclusions.AddRange(Utilities.GetByToId<ByDayOfMonth>(db, Id, "Inclusions"));
+            Inclusions.AddRange(Utilities.GetByToId<ByDayOfYear>(db, Id, "Inclusions"));
+            Inclusions.AddRange(Utilities.GetByToId<ByWeekday>(db, Id, "Inclusions"));
+            Inclusions.AddRange(Utilities.GetByToId<SingleDay>(db, Id, "Inclusions"));
+            Inclusions.AddRange(Utilities.GetByToId<ByOffset>(db, Id, "Inclusions"));
+            Inclusions.AddRange(Utilities.GetByToId<ByWeekdays>(db, Id, "Inclusions"));
 
             Breaks = new EdgeVertexs<IRangeDate>();
 
-            Breaks.AddRange(Utilities.GetByFromId<RangeDate>(db, Id));
+            Breaks.AddRange(Utilities.GetByToId<RangeDate>(db, Id, "Inclusions"));
 
             base.Rehydrate(db);
         }

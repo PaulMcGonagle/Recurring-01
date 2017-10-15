@@ -18,22 +18,28 @@ namespace Scheduler.Persistance
             return result;
         }
 
-        public static IEnumerable<T> GetByFromId<T>(IArangoDatabase db, string fromId) where T : IVertex
+        public static IEnumerable<T> GetByFromId<T>(IArangoDatabase db, string fromId, string label = null) where T : IVertex
         {
             var result = db.Query<T>()
                 .For(t => db.Query<Edge>()
-                    .Where(ed => ed.FromId == fromId && ed.ToId == t.Id)
+                    .Where(
+                        ed => ed.FromId == fromId 
+                        && ed.ToId == t.Id
+                        && (ed.Label == label || label == null))
                     .Select(ex => t))
                 .ToList();
 
             return result;
         }
 
-        public static IEnumerable<T> GetByToId<T>(IArangoDatabase db, string toId) where T : IVertex
+        public static IEnumerable<T> GetByToId<T>(IArangoDatabase db, string toId, string label = null) where T : IVertex
         {
             var result = db.Query<T>()
                 .For(t => db.Query<Edge>()
-                    .Where(ed => ed.ToId == toId && ed.FromId == t.Id)
+                    .Where(
+                        ed => ed.ToId == toId
+                        && ed.FromId == t.Id 
+                        && (ed.Label == label || label == null))
                     .Select(ex => t))
                 .ToList();
 

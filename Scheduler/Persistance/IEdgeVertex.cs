@@ -8,6 +8,6 @@ namespace Scheduler.Persistance
         IEdge Edge { get; set; }
         T ToVertex { get; set; }
 
-        void Save(IArangoDatabase db, IClock clock, IVertex fromVertex);
+        void Save(IArangoDatabase db, IClock clock, IVertex fromVertex, string label = null);
     }
 }
