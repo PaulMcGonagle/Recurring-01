@@ -131,31 +131,6 @@ namespace InitialiseDatabase
             var serials = vertexs
                 .OfType<ISerial>();
 
-            //foreach (var serial in serials)
-            //{
-            //    var episodes = serial.GenerateEpisodes(fakeClock);
-
-            //    Output.DisplayList(
-            //        episodes
-            //            .Select(episode => episode.ToVertex.From.LocalDateTime));
-
-            //    Output.Wait();
-            //}
-
-
-
-
-            //foreach (var @event in vertexs.OfType<ISchedule>())
-            //{
-            //    Instance.Generate(fakeClock, @event);
-
-            //    foreach (var serial in @event.Serials.Select(s => s.ToVertex))
-            //    {
-            //        var t = serial
-            //            .GenerateEpisodes(fakeClock)
-            //            .Select(e => e.ToVertex);
-            //    }
-            //}
 
             using (var db = SchedulerDatabase.Database.Retrieve())
             {
@@ -378,16 +353,15 @@ W1H 2DS"
                                     {
                                         Inclusions = new EdgeVertexs<ISchedule>
                                         {
-                                            new EdgeVertex<ISchedule>(new ByDateList
+                                            new EdgeVertex<ISchedule>(ByDateList.Create(
+                                                new List<IDate>
                                                 {
-                                                    Items = new List<IDate>
-                                                    {
                                                         new Date(2010, YearMonth.MonthValue.August, 09),
                                                         new Date(2008, YearMonth.MonthValue.May, 30),
                                                         new Date(1974, YearMonth.MonthValue.February, 09),
                                                         new Date(1971, YearMonth.MonthValue.March, 15),
-                                                    }
-                                                }
+                                                    
+                                                })
                                             ),
                                         },
                                     },

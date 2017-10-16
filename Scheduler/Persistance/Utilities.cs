@@ -18,29 +18,16 @@ namespace Scheduler.Persistance
             return result;
         }
 
-        public static IEnumerable<T> GetByFromId<T>(IArangoDatabase db, string fromId, string label = null) where T : IVertex
+        public static IEnumerable<T> GetEdges<T>(IArangoDatabase db, string fromId = null, string label = null, string toId = null) where T : IVertex
         {
-            var result = db.Query<T>()
-                .For(t => db.Query<Edge>()
+            var result = db.Query<Edge>()
+                .For(ed => db.Query<T>()
                     .Where(
-                        ed => ed.FromId == fromId 
-                        && ed.ToId == t.Id
-                        && (ed.Label == label || label == null))
-                    .Select(ex => t))
-                .ToList();
-
-            return result;
-        }
-
-        public static IEnumerable<T> GetByToId<T>(IArangoDatabase db, string toId, string label = null) where T : IVertex
-        {
-            var result = db.Query<T>()
-                .For(t => db.Query<Edge>()
-                    .Where(
-                        ed => ed.ToId == toId
-                        && ed.FromId == t.Id 
-                        && (ed.Label == label || label == null))
-                    .Select(ex => t))
+                        t => t.Id == ed.ToId
+                            && (fromId == null || ed.FromId == fromId)
+                            && (toId == null || ed.ToId == toId)
+                            && (label == null || ed.Label == label))
+                    .Select(t => t))
                 .ToList();
 
             return result;

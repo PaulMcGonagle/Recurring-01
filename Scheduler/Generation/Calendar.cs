@@ -43,8 +43,7 @@ namespace Scheduler.Generation
 
         public override void Rehydrate(IArangoDatabase db)
         {
-            Dates = new EdgeVertexs<IDate>(
-                Utilities.GetByFromId<Date>(db, this.Id));
+            Dates = new EdgeVertexs<IDate>(Utilities.GetEdges<Date>(db, Id));
 
             base.Rehydrate(db);
         }

@@ -28,26 +28,22 @@ namespace Scheduler.Test
                             {
                                 Inclusions = new EdgeVertexs<ISchedule>()
                                 {
-                                    new EdgeVertex<ISchedule>(new ByDateList
-                                        {
-                                            Items =
+                                    new EdgeVertex<ISchedule>(ByDateList.Create(
                                                 DateTimeHelper.Range(
                                                     new Date(2016, YearMonth.MonthValue.January, 01),
                                                     new Date(2018, YearMonth.MonthValue.December, 31)
-                                                ).ToList(),
-                                        })
+                                                ).ToList()
+                                        ))
                                 },
                                 Exclusions = new EdgeVertexs<ISchedule>()
                                 {
-                                    new EdgeVertex<ISchedule>(new ByDateList
-                                        {
-                                            Items =
+                                    new EdgeVertex<ISchedule>(ByDateList.Create(
                                             DateTimeHelper.Range(
                                                 new Date(2016, YearMonth.MonthValue.January, 01),
                                                 new Date(2018, YearMonth.MonthValue.December, 31)
                                             )
-                                            .Where(d => d.IsoDayOfWeek == IsoDayOfWeek.Monday).ToList(),
-                                        })
+                                            .Where(d => d.IsoDayOfWeek == IsoDayOfWeek.Monday).ToList()
+                                        ))
                                 },
                             },
                             new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00)),

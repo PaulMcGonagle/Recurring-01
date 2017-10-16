@@ -60,7 +60,7 @@ namespace Generators.Instances
                     .Generate(clock)
                     .ToList();
 
-                var dateList = new ByDateList {Items = dates};
+                var dateList = ByDateList.Create(dates);
 
                 dateList.Connect(calendarTags);
 

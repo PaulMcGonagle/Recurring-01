@@ -120,13 +120,12 @@ namespace TestData
 
             _scheduleArchive
                 .Add("BankHolidays",
-                    new ByDateList
-                    {
-                        Items = _scheduleArchive
+                    ByDateList.Create(
+                        _scheduleArchive
                             .Where(s => s.Key.StartsWith("BankHolidays.2016"))
                             .SelectMany(s => s.Value.Generate(clock)
                             .Select(date => date))
-                    });
+                    ));
 
             _scheduleArchive
                 .Add("Example.AutumnTerm",

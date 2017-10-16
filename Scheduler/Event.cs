@@ -82,10 +82,10 @@ namespace Scheduler
 
         public override void Rehydrate(IArangoDatabase db)
         {
-            Serials = new EdgeVertexs<ISerial>(Utilities.GetByFromId<Serial>(db, this.Id));
-            Tags = new EdgeVertexs<ITag>(Utilities.GetByFromId<Tag>(db, this.Id));
-            Instance = new EdgeVertex<IInstance>(Utilities.GetByFromId<Instance>(db, this.Id).SingleOrDefault());
-            Location = new EdgeVertex<ILocation>(Utilities.GetByFromId<Location>(db, this.Id).SingleOrDefault());
+            Serials = new EdgeVertexs<ISerial>(Utilities.GetEdges<Serial>(db, Id));
+            Tags = new EdgeVertexs<ITag>(Utilities.GetEdges<Tag>(db, Id));
+            Instance = new EdgeVertex<IInstance>(Utilities.GetEdges<Instance>(db, Id).SingleOrDefault());
+            Location = new EdgeVertex<ILocation>(Utilities.GetEdges<Location>(db, Id).SingleOrDefault());
 
             base.Rehydrate(db);
         }

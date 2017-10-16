@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
+using Scheduler.Persistance;
 
 namespace Scheduler.ScheduleInstances
 {
     public class ByDateList : Schedule
     {
-        public IEnumerable<IDate> Items
+        [IgnoreDataMember]
+        public IEdgeVertexs<IDate> Items
         {
             get;
             set;
@@ -15,7 +18,7 @@ namespace Scheduler.ScheduleInstances
 
         public override IEnumerable<IDate> Generate(IClock clock)
         {
-            return Items;
+            return Items.Select(item => item.ToVertex);
         }
 
         public static ByDateList Create(
@@ -23,7 +26,7 @@ namespace Scheduler.ScheduleInstances
         {
             return new ByDateList
             {
-                Items = dates.ToList()
+                Items = new EdgeVertexs<IDate>(dates)
             };
         }
 
@@ -33,7 +36,7 @@ namespace Scheduler.ScheduleInstances
 
             foreach (var item in Items)
             {
-                item.Save(db, clock);
+                item.Save(db, clock, this);
             }
 
             base.Save(db, clock);

@@ -1,4 +1,5 @@
-﻿using NodaTime;
+﻿using System.Runtime.Serialization;
+using NodaTime;
 using Scheduler.Persistance;
 using ArangoDB.Client;
 
@@ -9,6 +10,7 @@ namespace Scheduler
         public string Xml { get; set; }
         public string GeneratorType { get; set; }
 
+        [IgnoreDataMember]
         public IEdgeVertexs<ISchedule> Schedules { get; set; }
 
         public GeneratorSource()

@@ -1,5 +1,6 @@
 ﻿using ArangoDB.Client;
 using NodaTime;
+using TechTalk.SpecRun.Helper;
 
 namespace Scheduler.Persistance
 {
@@ -26,6 +27,9 @@ namespace Scheduler.Persistance
 
         public void Save(IArangoDatabase db, IClock clock, IVertex fromVertex, string label = null)
         {
+            if (label != null)
+                Edge.Label = label;
+
             Edge.Save(db, clock, fromVertex);
         }
 

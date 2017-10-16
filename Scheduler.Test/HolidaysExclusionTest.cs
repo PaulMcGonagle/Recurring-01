@@ -58,7 +58,9 @@ namespace Scheduler.Test
 
             var dateList = new ByDateList();
 
-            ISchedule d = new ByDateList {Items = _holidays};
+            ISchedule d = 
+                ByDateList.Create(_holidays);
+
             _term.Exclusions.Add(new EdgeVertex<ISchedule>(d));
         }
 

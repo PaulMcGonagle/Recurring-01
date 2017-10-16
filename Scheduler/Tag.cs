@@ -110,11 +110,16 @@ namespace Scheduler
         {
             var tags = db.Query<Tag>()
                 .For(tag => db.Query<Edge>()
-                    .Where(edge => tag.Id == edge.ToId && edge.FromId == this.Id)
+                    .Where(edge => tag.Id == edge.ToId && edge.FromId == Id)
                     .Select(e => tag))
                 .ToList();
 
             Tags = new EdgeVertexs<ITag>(tags);
+
+            foreach (var tag in tags)
+            {
+                tag.Rehydrate(db);
+            }
 
             base.Rehydrate(db);
         }

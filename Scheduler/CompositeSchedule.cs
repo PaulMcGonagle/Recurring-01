@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
@@ -69,6 +70,23 @@ namespace Scheduler
             };
         }
 
+        private IEnumerable<ISchedule> GetSchedules(IArangoDatabase db, string relationLabel)
+        {
+            var schedules = new List<ISchedule>();
+
+            schedules.AddRange(Utilities.GetEdges<ByDateList>(db, Id, relationLabel));
+            schedules.AddRange(Utilities.GetEdges<ByDayOfMonth>(db, Id, relationLabel));
+            schedules.AddRange(Utilities.GetEdges<ByDayOfYear>(db, Id, relationLabel));
+            schedules.AddRange(Utilities.GetEdges<ByWeekday>(db, Id, relationLabel));
+            schedules.AddRange(Utilities.GetEdges<SingleDay>(db, Id, relationLabel));
+            schedules.AddRange(Utilities.GetEdges<ByOffset>(db, Id, relationLabel));
+            schedules.AddRange(Utilities.GetEdges<ByWeekdays>(db, Id, relationLabel));
+
+            return schedules;
+        }
+
+        #region Persistance
+
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<CompositeSchedule>(db);
@@ -81,20 +99,17 @@ namespace Scheduler
         public override void Rehydrate(IArangoDatabase db)
         {
             Inclusions = new EdgeVertexs<ISchedule>();
-
-            Inclusions.AddRange(Utilities.GetByToId<ByDateList>(db, Id, "Inclusions"));
-            Inclusions.AddRange(Utilities.GetByToId<ByDayOfMonth>(db, Id, "Inclusions"));
-            Inclusions.AddRange(Utilities.GetByToId<ByDayOfYear>(db, Id, "Inclusions"));
-            Inclusions.AddRange(Utilities.GetByToId<ByWeekday>(db, Id, "Inclusions"));
-            Inclusions.AddRange(Utilities.GetByToId<SingleDay>(db, Id, "Inclusions"));
-            Inclusions.AddRange(Utilities.GetByToId<ByOffset>(db, Id, "Inclusions"));
-            Inclusions.AddRange(Utilities.GetByToId<ByWeekdays>(db, Id, "Inclusions"));
+            var r = Utilities.GetEdges<ByDateList>(db, Id);
+            Inclusions.AddRange(GetSchedules(db, Enum.GetName(typeof(RelationLabels), RelationLabels.Inclusions)));
+            Exclusions.AddRange(GetSchedules(db, Enum.GetName(typeof(RelationLabels), RelationLabels.Exclusions)));
 
             Breaks = new EdgeVertexs<IRangeDate>();
 
-            Breaks.AddRange(Utilities.GetByToId<RangeDate>(db, Id, "Inclusions"));
+            Breaks.AddRange(Utilities.GetEdges<RangeDate>(db, Id, Enum.GetName(typeof(RelationLabels), RelationLabels.Breaks)));
 
             base.Rehydrate(db);
         }
+
+        #endregion
     }
 }
