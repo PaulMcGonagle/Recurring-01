@@ -29,9 +29,6 @@ namespace Generators.XInstances
             }
             else
             {
-                if (!xRangeDate.HasAttribute("duration"))
-                    throw new Exception("Unable to generate XRangeDate");
-
                 var duration = xRangeDate.RetrieveAttributeAsTimeSpan("duration");
 
                 //todo change to Period

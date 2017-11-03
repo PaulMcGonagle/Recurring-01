@@ -6,7 +6,6 @@ using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
-using Scheduler.ScheduleInstances;
 
 namespace Generators.Instances
 {
