@@ -83,7 +83,7 @@ namespace Generators
                 yield return rangeDate;
             }
 
-            foreach (var link in UtilitiesLinks<RangeDate>.Retrieve(xRangeDates, caches))
+            foreach (var link in UtilitiesLinks<RangeDate>.RetrieveAll(xRangeDates, caches))
             {
                 yield return link;
             }
@@ -162,7 +162,7 @@ namespace Generators
 
             foreach (var xLink in xLinkTags)
             {
-                var links = UtilitiesLinks<Tag>.Retrieve(xLink, caches)
+                var links = UtilitiesLinks<Tag>.RetrieveAll(xLink, caches)
                     .ToList();
 
                 foreach (var link in links)

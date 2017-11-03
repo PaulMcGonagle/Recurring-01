@@ -8,23 +8,18 @@ namespace Generators
 {
     public static class UtilitiesLinks<T> where T : class, IVertex
     {
-        public static IEnumerable<T> Retrieve(
+        public static IEnumerable<T> RetrieveAll(
             XElement xInput,
             IDictionary<string, IVertex> caches,
-            string elementsName = "link")
+            string elementName = "link")
         {
             var xLinks = xInput
-                .Elements(elementsName)
+                .Elements(elementName)
                 .ToList();
 
             foreach (var xLink in xLinks)
             {
-                var cacheName = xLink.RetrieveValue("cache");
-
-                if (!caches.TryGetValue(cacheName, out IVertex commonVertex))
-                    throw new ArgumentException($"No cache found with name {cacheName}");
-
-                var output = commonVertex as T;
+                var output = Retrieve(xLink, caches);
 
                 if (output == null)
                     throw new Exception($"Common link does not return a valid {typeof(T)}");
@@ -33,26 +28,29 @@ namespace Generators
             }
         }
 
-        public static IEnumerable<T> Retrieve(IEnumerable<XElement> xInput, IDictionary<string, IVertex> caches)
+        public static T Retrieve(XElement xInput, IDictionary<string, IVertex> caches, string elementName = "link")
         {
-            var xLinks = xInput
-                .Where(i => i.Name == "link")
-                .ToList();
+            if (xInput.Name.LocalName != elementName)
+                throw new Exception($"Unexpected name: expected {elementName}, found {xInput.Name}");
 
-            foreach (var xLink in xLinks)
-            {
-                var cacheName = xLink.RetrieveValue("cache");
+            var cacheName = xInput.RetrieveValue("cache");
 
-                if (!caches.TryGetValue(cacheName, out IVertex commonVertex))
-                    throw new ArgumentException($"No cache found with name {cacheName}");
+            return Retrieve(cacheName, caches);
+        }
 
-                var output = commonVertex as T;
+        public static T Retrieve(
+            string cacheName,
+            IDictionary<string, IVertex> caches)
+        {
+            if (!caches.TryGetValue(cacheName, out IVertex commonVertex))
+                throw new ArgumentException($"No cache found with name {cacheName}");
 
-                if (output == null)
-                    throw new Exception($"Common link does not return a valid {typeof(T)}");
+            var output = commonVertex as T;
 
-                yield return output;
-            }
+            if (output == null)
+                throw new Exception($"Common link does not return a valid {typeof(T)}");
+
+            return output;
         }
     }
 }

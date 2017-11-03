@@ -21,6 +21,7 @@ namespace ScheduleGeneration.Test
             private IArangoDatabase _db;
             private IClock _clock;
             private IGenerator _generator;
+            private string _generatorType;
             private GeneratorCalendars _generatorCalendars;
             private IEnumerable<IVertex> _vertexs;
             private IEnumerable<ISchedule> _schedules;
@@ -35,6 +36,7 @@ namespace ScheduleGeneration.Test
 
                 this.WithExamples(new ExampleTable(
                     "sourceFile",
+                    "generatorType",
                     "db",
                     "clock",
                     "Expected Dates"
@@ -42,6 +44,7 @@ namespace ScheduleGeneration.Test
                 {
                     {
                         "..\\..\\TestData\\Holidays.xml",
+                        "calendar",
                         mockDb.Object,
                         fakeClock,
                         new List<LocalDate>
@@ -59,6 +62,11 @@ namespace ScheduleGeneration.Test
                 _sourceFile = sourceFile;
             }
 
+            public void AndGivenAGeneratorType(string generatorType)
+            {
+                _generatorType = generatorType;
+            }
+
             public void AndGivenAClock(IClock clock)
             {
                 _clock = clock;
@@ -71,7 +79,7 @@ namespace ScheduleGeneration.Test
             
             public void WhenGeneratorIsRetrieved()
             {
-                _generator = GeneratorFactory.Get("holidays");
+                _generator = GeneratorFactory.Get(_generatorType);
             }
 
             public void AndWhenGeneratorIsHoliday()

@@ -12,7 +12,7 @@ namespace Scheduler.Generation
         [IgnoreDataMember]
         public IEdgeVertexs<IDate> Dates { get; set; }
 
-        public static Calendar Generate(IClock clock, ISchedule source)
+        public static Calendar Create(IClock clock, ISchedule source)
         {
             if (source.IsDirty)
                 throw new ArgumentException("Event has not yet been persisted");

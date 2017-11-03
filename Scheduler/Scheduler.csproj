@@ -133,6 +133,7 @@
     <Compile Include="ScheduleEdges\IEdgeRangeTime.cs" />
     <Compile Include="ScheduleEdges\IEdgeSchedule.cs" />
     <Compile Include="ScheduleEdges\IEdgeTag.cs" />
+    <Compile Include="ScheduleInstances\ByRangeDate.cs" />
     <Compile Include="ScheduleInstances\ByOffset.cs" />
     <Compile Include="Serials.cs" />
     <Compile Include="CompositeSchedule.cs" />

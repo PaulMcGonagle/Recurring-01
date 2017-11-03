@@ -35,9 +35,14 @@ namespace Scheduler
             return localDateTime.ToYearMonth();
         }
 
-        public static Date AddWeeks(this Date dt, int weeks)
+        public static IDate AddWeeks(this Date dt, int weeks)
         {
-            return new Date(dt.Value.PlusDays(weeks * 7));
+            return dt.PlusDays(weeks * 7);
+        }
+
+        public static IDate PlusDays(this Date dt, int days)
+        {
+            return new Date(dt.Value.PlusDays(days));
         }
 
         public static ZonedDateTime GetZonedDateTime(LocalDateTime ldt, string timeZoneProvider)

@@ -60,6 +60,7 @@
     <Compile Include="Instances\GeneratorCalendars.cs" />
     <Compile Include="IGenerator.cs" />
     <Compile Include="Instances\GeneratorOffset.cs" />
+    <Compile Include="Instances\GeneratorRangeDates.cs" />
     <Compile Include="Instances\GeneratorSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retriever.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="UtilitiesLinks.cs" />
     <Compile Include="XInstances\GeneratorXByDateList.cs" />
     <Compile Include="XInstances\GeneratorXByOffset.cs" />
+    <Compile Include="XInstances\GeneratorXByRangeDate.cs" />
     <Compile Include="XInstances\GeneratorXByWeekdays.cs" />
     <Compile Include="XInstances\GeneratorXRangeDate.cs" />
     <Compile Include="XInstances\GeneratorXCompositeSchedule.cs" />
@@ -89,6 +91,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sources\Caterlink.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Sources\SchoolReferenced.xml" />
+    <Content Include="Sources\Terms.xml" />
+    <Content Include="Sources\Years.xml">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>

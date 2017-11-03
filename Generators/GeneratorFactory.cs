@@ -10,7 +10,7 @@ namespace Generators
         {
             switch (generatorType)
             {
-                case "holidays":
+                case "calendar":
                     return new GeneratorCalendars();
 
                 case "classes":

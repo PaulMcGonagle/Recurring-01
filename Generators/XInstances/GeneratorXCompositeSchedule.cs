@@ -34,6 +34,10 @@ namespace Generators.XInstances
                         generatorX = new GeneratorXByWeekdays();
                         break;
 
+                    case "byRangeDate":
+                        generatorX = new GeneratorXByRangeDate();
+                        break;
+
                     case "byDateList":
                         generatorX = new GeneratorXDateList();
                         elementsName = type;

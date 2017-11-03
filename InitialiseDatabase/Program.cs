@@ -25,12 +25,12 @@ namespace InitialiseDatabase
         {
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
 
-            var generator = GeneratorFactory.Get("holidays");
+            var generator = GeneratorFactory.Get("calendar");
 
             var vertexs = new Queue<IVertex>();
 
             foreach (var vertex in generator.Generate(
-                sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Holidays.xml",
+                sourceFile: "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Generators\\Sources\\Years.xml",
                 clock: fakeClock)
                 .ToList())
             {
@@ -57,7 +57,7 @@ namespace InitialiseDatabase
                     .Schedules
                     .Select(s => s.ToVertex))
                 {
-                    var calendar = Calendar.Generate(fakeClock, schedule);
+                    var calendar = Calendar.Create(fakeClock, schedule);
 
                     var enricher = new EnricherNumbering();
 
@@ -86,7 +86,8 @@ namespace InitialiseDatabase
                     var edgeExternal = new Edge
                     {
                         FromVertex = externalId,
-                        ToVertex = calendar
+                        ToVertex = calendar,
+                        Label = "References"
                     };
 
                     using (var db = SchedulerDatabase.Database.Retrieve())
@@ -139,26 +140,6 @@ namespace InitialiseDatabase
                     @event.Save(db, fakeClock);
                 }
             }
-
-            ICalendar loadedCalendar;
-
-            using (var db = SchedulerDatabase.Database.Retrieve())
-            {
-                loadedCalendar = Scheduler.Persistance.Utilities.GetByExternalId<Calendar>(db, externalIdUid);
-
-                loadedCalendar.Rehydrate(db);
-            }
-
-            using (var db = SchedulerDatabase.Database.Retrieve())
-            {
-                var compositeSchedules = db.Query<CompositeSchedule>();
-
-                foreach (var compositeSchedule in compositeSchedules)
-                {
-                    compositeSchedule
-                        .Rehydrate(db);
-                }
-            }
         }
 
         public static void Go(string databaseName)
@@ -192,12 +173,14 @@ namespace InitialiseDatabase
                 db.CreateCollection("Date");
                 db.CreateCollection("Serial");
                 db.CreateCollection("CompositeSchedule");
+                db.CreateCollection("AllDays");
                 db.CreateCollection("ByDayOfMonth");
                 db.CreateCollection("ByDayOfYear");
                 db.CreateCollection("ByWeekday");
                 db.CreateCollection("ByWeekdays");
                 db.CreateCollection("ByDateList");
                 db.CreateCollection("ByOffset");
+                db.CreateCollection("ByRangeDate");
                 db.CreateCollection("SingleDay");
                 db.CreateCollection("Episode");
                 db.CreateCollection("Edge", type: CollectionType.Edge);

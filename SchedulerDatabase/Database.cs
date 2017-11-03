@@ -53,6 +53,7 @@ namespace SchedulerDatabase
                 db.CreateCollection("ByWeekdays");
                 db.CreateCollection("ByDateList");
                 db.CreateCollection("ByOffset");
+                db.CreateCollection("ByRangeDate");
                 db.CreateCollection("SingleDay");
                 db.CreateCollection("Episode");
                 db.CreateCollection("GeneratedDate");
