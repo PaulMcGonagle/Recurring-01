@@ -56,7 +56,7 @@ namespace Generators
             {
                 var cache = remaining.Dequeue();
 
-                if (cache.TryExpandLinks(xInput.Document, links))
+                if (cache.TryExpandLinks(new XDocument(xInput), links))
                 {
                     remaining.Enqueue(cache);
                     itersSinceSucess++;
