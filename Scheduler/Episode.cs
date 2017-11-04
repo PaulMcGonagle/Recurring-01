@@ -18,7 +18,7 @@ namespace Scheduler
 
         public ZonedDateTime Start
         {
-            get { return _start; }
+            get => _start;
             set
             {
                 _start = value;
@@ -30,7 +30,7 @@ namespace Scheduler
 
         public Period Period
         {
-            get { return _period; }
+            get => _period;
             set
             {
                 _period = value;

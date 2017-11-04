@@ -351,7 +351,12 @@ namespace Generators
 
         public static Period RetrieveAttributeAsPeriod(this XElement xInput, string name)
         {
-            throw new NotImplementedException();
+            var attribute = RetrieveAttribute(xInput, name);
+
+            var localTimePattern = PeriodPattern.NormalizingIsoPattern;
+            var parseResult = localTimePattern.Parse(attribute.Value);
+
+            return parseResult.Value;
         }
 
         public static LocalDate RetrieveAttributeAsLocalDate(this XElement xInput, string name)

@@ -1,4 +1,5 @@
-﻿using ArangoDB.Client;
+﻿using System.Runtime.Serialization;
+using ArangoDB.Client;
 using NodaTime;
 using Scheduler.Persistance;
 
@@ -9,6 +10,9 @@ namespace Scheduler.Ranges
         public LocalTime Start { get; set; }
 
         public Period Period { get; set; }
+
+        [IgnoreDataMember]
+        public LocalTime End => Start.Plus(Period);
 
         public RangeTime(LocalTime start, Period period)
         {

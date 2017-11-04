@@ -1,6 +1,7 @@
 ﻿using Scheduler.Persistance;
 using Scheduler.Ranges;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using NodaTime;
 
@@ -10,10 +11,27 @@ namespace Generators.XInstances
     {
         public IVertex Generate(XElement xRangeTime, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
         {
-            var start = xRangeTime.RetrieveAttributeAsLocalTime("start");
-            var end = xRangeTime.RetrieveAttributeAsLocalTime("end");
-            var period = Period.Between(start, end);
+            var linkedRangeTime = UtilitiesLinks<RangeTime>
+                .RetrieveAll(xRangeTime, caches)
+                .SingleOrDefault();
 
+            if (linkedRangeTime != null)
+                return linkedRangeTime;
+
+            var start = xRangeTime.RetrieveAttributeAsLocalTime("start");
+
+            Period period;
+
+            if (xRangeTime.HasAttribute("end"))
+            {
+               var  end = xRangeTime.RetrieveAttributeAsLocalTime("end");
+
+                period = Period.Between(start, end);
+            }
+            else
+            {
+                period = xRangeTime.RetrieveAttributeAsPeriod("period");
+            }
             var rangeTime = new RangeTime(start, period);
 
             rangeTime.Connect(xRangeTime.RetrieveTags(caches, elementsName));
