@@ -42,9 +42,9 @@ namespace Scheduler.ScheduleInstances
 
             LocalDate startDate;
 
-            if (EdgeRange?.Range?.From != null)
+            if (EdgeRange?.Range?.Start != null)
             {
-                startDate = DateTimeHelper.GetNextWeekday(EdgeRange.Range.From.Date.Value, Weekday);
+                startDate = DateTimeHelper.GetNextWeekday(EdgeRange.Range.Start.Date.Value, Weekday);
             }
             else
             {
@@ -55,9 +55,9 @@ namespace Scheduler.ScheduleInstances
 
             int weeks;
 
-            if (EdgeRange?.Range?.To != null)
+            if (EdgeRange?.Range?.End != null)
             {
-                var weeksLong = Period.Between(startDate, EdgeRange.Range.To.Date.Value, PeriodUnits.Weeks).Weeks;
+                var weeksLong = Period.Between(startDate, EdgeRange.Range.End.Date.Value, PeriodUnits.Weeks).Weeks;
 
                 if (weeksLong > int.MaxValue || weeksLong < 0)
                     throw new ArgumentException("Period is out of scope for Int {weeksLong}");

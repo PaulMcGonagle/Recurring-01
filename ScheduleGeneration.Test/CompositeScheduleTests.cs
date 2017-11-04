@@ -106,7 +106,7 @@ namespace ScheduleGeneration.Test
             {
                 var expectedEpisodesList = expectedEpisodes.ToList();
 
-                _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.From.LocalDateTime).ShouldBe(expectedEpisodesList.Select(ee => ee));
+                _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.Start.LocalDateTime).ShouldBe(expectedEpisodesList.Select(ee => ee));
                 _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.To.LocalDateTime).ShouldBe(expectedEpisodesList.Select(ee => ee.Plus(duration)));
             }
         }
@@ -303,7 +303,7 @@ namespace ScheduleGeneration.Test
 
             public void AndThenDatesAreAsExpected(IEnumerable<LocalDateTime> expectedEpisodes)
             {
-                _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.From.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
+                _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.Start.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
             }
         }
     }

@@ -63,14 +63,14 @@ namespace Calendar.Test
             public void ThenAllSerialsHaveTheCorrectWeekday(IsoDayOfWeek expectedWeekday)
             {
                 _serials.SelectMany(s => s.ToVertex.GenerateEpisodes(_clock))
-                    .Select(e => e.ToVertex.From.DayOfWeek)
+                    .Select(e => e.ToVertex.Start.DayOfWeek)
                     .ShouldAllBe(d => d.Equals((int)expectedWeekday));
             }
 
             public void AndThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
             {
                 _serials.SelectMany(s => s.ToVertex.GenerateEpisodes(_clock))
-                    .Select(e => e.ToVertex.From.TimeOfDay)
+                    .Select(e => e.ToVertex.Start.TimeOfDay)
                     .ShouldAllBe(d => d.Equals(expectedStartTime));
             }
 
@@ -130,7 +130,7 @@ namespace Calendar.Test
             public void ThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
             {
                 _serials.SelectMany(s => s.ToVertex.GenerateEpisodes(_clock))
-                    .Select(e => e.ToVertex.From.TimeOfDay)
+                    .Select(e => e.ToVertex.Start.TimeOfDay)
                     .ShouldAllBe(d => d.Equals(expectedStartTime));
             }
 

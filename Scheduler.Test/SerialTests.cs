@@ -46,18 +46,18 @@ namespace Scheduler.Test
                             {
                                 new Episode
                                 {
-                                    From = DateTimeHelper.GetZonedDateTime(new Date(2016, YearMonth.MonthValue.January, 05), new LocalTime(15, 30), timeZoneProvider),
+                                    Start = DateTimeHelper.GetZonedDateTime(new Date(2016, YearMonth.MonthValue.January, 05), new LocalTime(15, 30), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build(),
 
                                 },
                                 new Episode
                                 {
-                                    From = DateTimeHelper.GetZonedDateTime(new Date(2016, YearMonth.MonthValue.January, 06), new LocalTime(15, 30), timeZoneProvider),
+                                    Start = DateTimeHelper.GetZonedDateTime(new Date(2016, YearMonth.MonthValue.January, 06), new LocalTime(15, 30), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build()
                                 },
                                 new Episode
                                 {
-                                    From = DateTimeHelper.GetZonedDateTime(new Date(2016, YearMonth.MonthValue.January, 07), new LocalTime(15, 30), timeZoneProvider),
+                                    Start = DateTimeHelper.GetZonedDateTime(new Date(2016, YearMonth.MonthValue.January, 07), new LocalTime(15, 30), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build()
                                 },
                             }

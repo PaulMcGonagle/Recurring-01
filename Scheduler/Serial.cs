@@ -40,7 +40,7 @@ namespace Scheduler
                     {
                         SourceSerial = new EdgeVertex<ISerial>(this),
                         SourceGeneratedDate = new EdgeVertex<IDate>(date),
-                        From = DateTimeHelper.GetZonedDateTime(date, RangeTime.Range.From, TimeZoneProvider),
+                        Start = DateTimeHelper.GetZonedDateTime(date, RangeTime.Range.Start, TimeZoneProvider),
                         Period = RangeTime.Range?.Period,
                     }));
 

@@ -13,10 +13,10 @@ namespace Scheduler.ScheduleEdges
         }
 
         public EdgeRangeTime(
-            LocalTime from,
+            LocalTime start,
             Period period)
             : this(new RangeTime(
-                from: from,
+                start: start,
                 period: period))
         {
 
@@ -24,8 +24,8 @@ namespace Scheduler.ScheduleEdges
 
         public IRangeTime Range
         {
-            get { return ToVertex; }
-            set { ToVertex = value; }
+            get => ToVertex;
+            set => ToVertex = value;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Generators.XInstances
             if (linkedRangeDate != null)
                 return linkedRangeDate;
 
-            var from = xRangeDate.RetrieveAttributeAsLocalDate("start");
+            var start = xRangeDate.RetrieveAttributeAsLocalDate("start");
 
             LocalDate to;
 
@@ -32,9 +32,9 @@ namespace Generators.XInstances
                 var duration = xRangeDate.RetrieveAttributeAsTimeSpan("duration");
 
                 //todo change to Period
-                to = from.PlusDays((int)duration.TotalDays);
+                to = start.PlusDays((int)duration.TotalDays);
             }
-            var rangeDate = new RangeDate(from, to);
+            var rangeDate = new RangeDate(start, to);
 
             rangeDate.Connect(xRangeDate.RetrieveTags(caches, elementsName));
 

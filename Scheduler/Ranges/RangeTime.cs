@@ -6,13 +6,13 @@ namespace Scheduler.Ranges
 {
     public class RangeTime : Vertex, IRangeTime
     {
-        public LocalTime From { get; set; }
+        public LocalTime Start { get; set; }
 
         public Period Period { get; set; }
 
-        public RangeTime(LocalTime from, Period period)
+        public RangeTime(LocalTime start, Period period)
         {
-            From = from;
+            Start = start;
             Period = period;
         }
 

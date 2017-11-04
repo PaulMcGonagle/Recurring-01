@@ -5,7 +5,7 @@ namespace Scheduler.Ranges
 {
     public interface IRangeTime : IVertex
     {
-        LocalTime From { get; set; }
+        LocalTime Start { get; set; }
         Period Period { get; set; }
     }
 }

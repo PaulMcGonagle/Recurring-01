@@ -14,14 +14,14 @@ namespace Scheduler
         [IgnoreDataMember]
         public EdgeVertex<ISerial> SourceSerial { get; set; }
 
-        private ZonedDateTime _from;
+        private ZonedDateTime _start;
 
-        public ZonedDateTime From
+        public ZonedDateTime Start
         {
-            get { return _from; }
+            get { return _start; }
             set
             {
-                _from = value;
+                _start = value;
                 SetDirty();
             }
         }
@@ -39,13 +39,13 @@ namespace Scheduler
         }
 
         [IgnoreDataMember]
-        public ZonedDateTime To => From.Plus(Period.ToDuration());
+        public ZonedDateTime To => Start.Plus(Period.ToDuration());
 
         int IComparable.CompareTo(object obj)
         {
             var c = (Episode)obj;
 
-            var fromCompare = From.CompareTo(c.From);
+            var fromCompare = Start.CompareTo(c.Start);
 
             if (fromCompare != 0)
                 return fromCompare;

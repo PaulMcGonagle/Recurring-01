@@ -29,8 +29,8 @@ namespace Scheduler
             {
                 inputDates =
                     inputDates
-                        .Where(inputDate => exclusion.From == null || inputDate.Value < exclusion.From.Date.Value
-                        || exclusion.To == null || inputDate.Value > exclusion.To.Date.Value);
+                        .Where(inputDate => exclusion.Start == null || inputDate.Value < exclusion.Start.Date.Value
+                        || exclusion.End == null || inputDate.Value > exclusion.End.Date.Value);
             }
 
             return inputDates;
@@ -42,8 +42,8 @@ namespace Scheduler
             {
                 inputDates =
                     inputDates
-                        .Where(inputDate => exclusion.From == null || inputDate.Value >= exclusion.From.Date.Value
-                        || exclusion.To == null || inputDate.Value <= exclusion.To.Date.Value);
+                        .Where(inputDate => exclusion.Start == null || inputDate.Value >= exclusion.Start.Date.Value
+                        || exclusion.End == null || inputDate.Value <= exclusion.End.Date.Value);
             }
 
             return inputDates;

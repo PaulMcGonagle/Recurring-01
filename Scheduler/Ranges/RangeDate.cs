@@ -11,56 +11,55 @@ namespace Scheduler.Ranges
     public class RangeDate : Vertex, IRangeDate
     {
         [IgnoreDataMember]
-        public EdgeDate From { get; }
+        public EdgeDate Start { get; }
         [IgnoreDataMember]
-        public EdgeDate To { get; }
+        public EdgeDate End { get; }
 
-        public RangeDate(int fromYear, YearMonth.MonthValue fromMonth, int fromDay, int toYear, YearMonth.MonthValue toMonth,
-            int toDay)
+        public RangeDate(int startYear, YearMonth.MonthValue startMonth, int startDay, int endYear, YearMonth.MonthValue endMonth, int endDay)
         {
-            From = new EdgeDate(fromYear, fromMonth, fromDay);
-            To = new EdgeDate(toYear, toMonth, toDay);
+            Start = new EdgeDate(startYear, startMonth, startDay);
+            End = new EdgeDate(endYear, endMonth, endDay);
         }
 
-        public RangeDate(EdgeDate from, EdgeDate to)
+        public RangeDate(EdgeDate start, EdgeDate end)
         {
-            if (from.Date.Value > to.Date.Value)
-                throw new ArgumentOutOfRangeException(nameof(from), $"From date [{to.Date.Value.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than To date [{from.Date.Value.ToString("D", CultureInfo.CurrentCulture)}]");
+            if (start.Date.Value > end.Date.Value)
+                throw new ArgumentOutOfRangeException(nameof(start), $"Start date [{end.Date.Value.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than To date [{start.Date.Value.ToString("D", CultureInfo.CurrentCulture)}]");
 
-            From = from;
-            To = to;
+            Start = start;
+            End = end;
         }
 
-        public RangeDate(LocalDate from, LocalDate to)
+        public RangeDate(LocalDate start, LocalDate end)
             : this(
-                from: new EdgeDate(from),
-                to: new EdgeDate(to))
+                start: new EdgeDate(start),
+                end: new EdgeDate(end))
         {
         }
 
         public void Validate()
         {
-            if (From?.Date?.Value != null && To?.Date?.Value == null && From.Date?.Value <= To?.Date?.Value)
+            if (Start?.Date?.Value != null && End?.Date?.Value == null && Start.Date?.Value <= End?.Date?.Value)
             {
-                throw new ArgumentOutOfRangeException($"Range is invalid: From={From?.Date?.Value}, To={To?.Date?.Value}");
+                throw new ArgumentOutOfRangeException($"Range is invalid: Start={Start?.Date?.Value}, End={End?.Date?.Value}");
             }
         }
 
         public override string ToString()
         {
-            return $"{From.Date}->{To.Date}";
+            return $"{Start.Date}->{End.Date}";
         }
 
         public bool Contains(LocalDate localDate)
         {
-            return From.Date?.Value <= localDate && localDate <= To.Date?.Value;
+            return Start.Date?.Value <= localDate && localDate <= End.Date?.Value;
         }
 
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<RangeDate>(db);
-            From?.Save(db, clock, this);
-            To?.Save(db, clock, this);
+            Start?.Save(db, clock, this);
+            End?.Save(db, clock, this);
             base.Save(db, clock);
         }
     }

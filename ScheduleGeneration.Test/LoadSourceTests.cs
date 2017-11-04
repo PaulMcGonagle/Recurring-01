@@ -103,69 +103,6 @@ namespace ScheduleGeneration.Test
             {
                 _vertexs = _generator.Generate(_sourceFile, _clock);
             }
-
-            //public void AndWhenASingleEventIsRetrieved()
-            //{
-            //    _vertexs.ShouldHaveSingleItem();
-
-            //    _event = _vertexs.Single();
-            //}
-
-            //public void AndWhenEventIsSaved()
-            //{
-            //    _event.Save(_db, _clock);
-            //}
-
-            //public void AndWhenInstanceIsGenerated()
-            //{
-            //    Instance.Generate(_clock, _event);
-            //}
-
-            //public void AndWhenInstanceIsRetrieved()
-            //{
-            //    _instance = _event.Instance.ToVertex;
-            //}
-
-            //public void AndWhenEpisodesAreRetrieved()
-            //{
-            //    _episodes = _instance
-            //        .Episodes
-            //        .Select(e => e.ToVertex)
-            //        .ToList();
-            //}
-
-            //public void AndWhenTimeZoneProviderIsFound()
-            //{
-            //    var sourceTimeZone = _source.XPathSelectElement(_timeZoneProviderPath)?.Attribute("value");
-
-            //    sourceTimeZone.ShouldNotBeNull();
-
-            //    _timeZoneProvider = sourceTimeZone?.Value;
-
-            //}
-
-            //public void ThenTitleIsExpected(string expectedTitle)
-            //{
-            //    _event.Title.ShouldBe(expectedTitle);
-            //}
-
-            //public void AndInstancesAreExpected()
-            //{
-            //    _instance.Episodes.ShouldNotBeEmpty();
-            //}
-
-            //public void AndTimeZoneProviderIsExpected(string timeZoneProviderPath)
-            //{
-
-            //    _episodes.Select(e => e.From.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
-            //    _episodes.Select(e => e.To.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
-            //}
-
-            //public void AndTimesAreExpected(LocalTime expectedLocalTime, Period expectedPeriod)
-            //{
-            //    _episodes.Select(e => e.From.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime);
-            //    _episodes.Select(e => e.To.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime.Plus(expectedPeriod));
-            //}
         }
 
         public class LoadHg
@@ -299,7 +236,7 @@ namespace ScheduleGeneration.Test
             public void AndTimeZoneProviderIsExpected(string timeZoneProviderPath)
             {
 
-                _episodes.Select(e => e.From.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
+                _episodes.Select(e => e.Start.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
                 _episodes.Select(e => e.To.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
             }
         }
@@ -394,69 +331,6 @@ namespace ScheduleGeneration.Test
 
                 _events = vertexs.OfType<Event>();
             }
-
-            //public void AndWhenASingleEventIsRetrieved()
-            //{
-            //    _events.ShouldHaveSingleItem();
-
-            //    _event = _events.Single();
-            //}
-
-            //public void AndWhenEventIsSaved()
-            //{
-            //    _event.Save(_db, _clock);
-            //}
-
-            //public void AndWhenInstanceIsGenerated()
-            //{
-            //    Instance.Generate(_clock, _event);
-            //}
-
-            //public void AndWhenInstanceIsRetrieved()
-            //{
-            //    _instance = _event.Instance.ToVertex;
-            //}
-
-            //public void AndWhenEpisodesAreRetrieved()
-            //{
-            //    _episodes = _instance
-            //        .Episodes
-            //        .Select(e => e.ToVertex)
-            //        .ToList();
-            //}
-
-            //public void AndWhenTimeZoneProviderIsFound()
-            //{
-            //    var sourceTimeZone = _source.XPathSelectElement(_timeZoneProviderPath)?.Attribute("value");
-
-            //    sourceTimeZone.ShouldNotBeNull();
-
-            //    _timeZoneProvider = sourceTimeZone?.Value;
-
-            //}
-
-            //public void ThenTitleIsExpected(string expectedTitle)
-            //{
-            //    _event.Title.ShouldBe(expectedTitle);
-            //}
-
-            //public void AndInstancesAreExpected()
-            //{
-            //    _instance.Episodes.ShouldNotBeEmpty();
-            //}
-
-            //public void AndTimeZoneProviderIsExpected(string timeZoneProviderPath)
-            //{
-
-            //    _episodes.Select(e => e.From.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
-            //    _episodes.Select(e => e.To.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
-            //}
-
-            //public void AndTimesAreExpected(LocalTime expectedLocalTime, Period expectedPeriod)
-            //{
-            //    _episodes.Select(e => e.From.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime);
-            //    _episodes.Select(e => e.To.LocalDateTime.TimeOfDay).ShouldAllBe(d => d == expectedLocalTime.Plus(expectedPeriod));
-            //}
         }
 
         public class LoadOption02

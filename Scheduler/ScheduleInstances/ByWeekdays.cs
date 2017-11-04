@@ -36,8 +36,8 @@ namespace Scheduler.ScheduleInstances
 
         public override IEnumerable<IDate> Generate(IClock clock)
         {
-            var start = EdgeRange.ToVertex.From.Date ?? DateTimeHelper.GetToday(clock).AddWeeks(-(CountFrom ?? CountFromDefault));
-            var end = EdgeRange.ToVertex.To.Date ?? DateTimeHelper.GetToday(clock).AddWeeks((CountTo ?? CountToDefault));
+            var start = EdgeRange.ToVertex.Start.Date ?? DateTimeHelper.GetToday(clock).AddWeeks(-(CountFrom ?? CountFromDefault));
+            var end = EdgeRange.ToVertex.End.Date ?? DateTimeHelper.GetToday(clock).AddWeeks((CountTo ?? CountToDefault));
 
             var range = DateTimeHelper.Range(start: start, end: end);
 

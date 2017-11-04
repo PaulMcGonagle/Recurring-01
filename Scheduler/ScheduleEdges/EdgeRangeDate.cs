@@ -19,12 +19,12 @@ namespace Scheduler.ScheduleEdges
             YearMonth.MonthValue toMonth,
             int toDay)
             : this(new RangeDate(
-                fromYear: fromYear,
-                fromMonth: fromMonth,
-                fromDay: fromDay,
-                toYear: toYear,
-                toMonth: toMonth,
-                toDay: toDay))
+                startYear: fromYear,
+                startMonth: fromMonth,
+                startDay: fromDay,
+                endYear: toYear,
+                endMonth: toMonth,
+                endDay: toDay))
         {
 
         }

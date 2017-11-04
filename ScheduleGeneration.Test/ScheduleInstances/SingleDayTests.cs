@@ -128,7 +128,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
 
             public void ThenDatesAreAsExpected(IEnumerable<LocalDateTime> expectedEpisodes)
             {
-                _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.From.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
+                _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.Start.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
             }
         }
 

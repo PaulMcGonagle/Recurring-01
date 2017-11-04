@@ -10,11 +10,11 @@ namespace Generators.XInstances
     {
         public IVertex Generate(XElement xRangeTime, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
         {
-            var from = xRangeTime.RetrieveAttributeAsLocalTime("start");
-            var to = xRangeTime.RetrieveAttributeAsLocalTime("end");
-            var period = Period.Between(from, to);
+            var start = xRangeTime.RetrieveAttributeAsLocalTime("start");
+            var end = xRangeTime.RetrieveAttributeAsLocalTime("end");
+            var period = Period.Between(start, end);
 
-            var rangeTime = new RangeTime(from, period);
+            var rangeTime = new RangeTime(start, period);
 
             rangeTime.Connect(xRangeTime.RetrieveTags(caches, elementsName));
 

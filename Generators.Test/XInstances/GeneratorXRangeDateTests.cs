@@ -182,12 +182,12 @@ namespace Generators.Test.XInstances
 
             public void AndThenFromIsExpected(LocalDate expectedFrom)
             {
-                _rangeDate.From.Date.Value.ShouldBe(expectedFrom);
+                _rangeDate.Start.Date.Value.ShouldBe(expectedFrom);
             }
 
             public void AndThenToIsExpected(LocalDate expectedTo)
             {
-                _rangeDate.To.Date.Value.ShouldBe(expectedTo);
+                _rangeDate.End.Date.Value.ShouldBe(expectedTo);
             }
         }
     }

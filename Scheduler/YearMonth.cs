@@ -59,21 +59,21 @@ namespace Scheduler
         }
 
 
-        public static IEnumerable<YearMonth> Range(YearMonth from, int count, int increment = 1)
+        public static IEnumerable<YearMonth> Range(YearMonth start, int count, int increment = 1)
         {
             var monthCounts = Enumerable.Range(0, count);
 
-            return monthCounts.Select(i => (new YearMonth { MonthCount = from.MonthCount }).AddMonths(i * increment));
+            return monthCounts.Select(i => (new YearMonth { MonthCount = start.MonthCount }).AddMonths(i * increment));
         }
 
-        public static IEnumerable<YearMonth> Range(YearMonth from, YearMonth to, int increment = 1)
+        public static IEnumerable<YearMonth> Range(YearMonth start, YearMonth end, int increment = 1)
         {
-            if (from.MonthCount > to.MonthCount)
-                throw new ArgumentOutOfRangeException($"Invalid YearMonth range, YearFrom:{from.Year} MonthFrom:{Enum.GetName(typeof(MonthValue), from.Month)} YearTo:{to.Year}  MonthTo:{Enum.GetName(typeof(MonthValue), to.Month)}");
+            if (start.MonthCount > end.MonthCount)
+                throw new ArgumentOutOfRangeException($"Invalid YearMonth range, Yearstart:{start.Year} MonthStart:{Enum.GetName(typeof(MonthValue), start.Month)} YearEnd:{end.Year}  MonthEnd:{Enum.GetName(typeof(MonthValue), end.Month)}");
 
-            var months = to.MonthCount - from.MonthCount + 1;
+            var months = end.MonthCount - start.MonthCount + 1;
 
-            return Range(from, months / increment);
+            return Range(start, months / increment);
         }
 
         public int MonthCount

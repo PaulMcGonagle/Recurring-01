@@ -102,7 +102,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
 
             public void AndThenGeneratedDatesAreAsExpected(IEnumerable<LocalDateTime> expectedEpisodes)
             {
-                _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.From.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
+                _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.Start.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
             }
         }
     }
@@ -136,7 +136,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                             2016, YearMonth.MonthValue.May, 15)),
                             },
                             rangeTime: new RangeTime(
-                                from: new LocalTime(16, 30),
+                                start: new LocalTime(16, 30),
                                 period: new PeriodBuilder
                                 {
                                     Minutes = 45
@@ -197,7 +197,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
 
         public void AndThenGeneratedDatesAreAsExpected(IEnumerable<LocalDateTime> expectedEpisodes)
         {
-            _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.From.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
+            _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.Start.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
         }
     }
 }

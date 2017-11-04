@@ -48,13 +48,13 @@ namespace Scheduler.Test
                             {
                                 new Episode
                                 {
-                                    From = DateTimeHelper.GetZonedDateTime(new LocalDateTime(2016, 03, 05, 12, 35), timeZoneProvider),
+                                    Start = DateTimeHelper.GetZonedDateTime(new LocalDateTime(2016, 03, 05, 12, 35), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 00, Minutes = 30}.Build(),
 
                                 },
                                 new Episode
                                 {
-                                    From = DateTimeHelper.GetZonedDateTime(new LocalDateTime(2016, 08, 01, 09, 20), timeZoneProvider),
+                                    Start = DateTimeHelper.GetZonedDateTime(new LocalDateTime(2016, 08, 01, 09, 20), timeZoneProvider),
                                     Period = new PeriodBuilder {Hours = 20, Minutes = 45}.Build(),
                                 },
                             }
