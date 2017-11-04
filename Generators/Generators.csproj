@@ -57,7 +57,7 @@
     <Compile Include="IGeneratorXSchedule.cs" />
     <Compile Include="Instances\GeneratorClasses.cs" />
     <Compile Include="GeneratorFactory.cs" />
-    <Compile Include="Instances\GeneratorCalendars.cs" />
+    <Compile Include="Instances\GeneratorCalendar.cs" />
     <Compile Include="IGenerator.cs" />
     <Compile Include="Instances\GeneratorOffset.cs" />
     <Compile Include="Instances\GeneratorRangeDates.cs" />
