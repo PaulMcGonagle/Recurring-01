@@ -79,11 +79,11 @@ namespace Generators.Test.XInstances
             {
                 _exception = Record.Exception(() =>
                 {
-                    var vertex = _generator.Generate(_xElement, _caches);
+                    _generator.Generate(_xElement, _caches);
                 });
             }
 
-            public void ThenExpectedExceptionIsThrown(System.Type expectedExceptionType)
+            public void ThenExpectedExceptionIsThrown(Type expectedExceptionType)
             {
                 if (expectedExceptionType == null)
                     return;
@@ -109,8 +109,6 @@ namespace Generators.Test.XInstances
             private XElement _xElement;
             private IVertex _vertex;
             private RangeTime _rangeTime;
-            private LocalTime _expectedStart;
-            private LocalTime _expectedEnd;
 
             [Fact]
             public void Execute()

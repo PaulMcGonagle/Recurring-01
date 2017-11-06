@@ -30,20 +30,20 @@ namespace Generators.Test.XInstances
                     "expectedExceptionMessage"
                 )
                 {
-                    //{
-                    //    new XDocument(
-                    //        new XElement("byRangeDate",
-                    //            new XAttribute("start", "2016-02-03"))),
-                    //    typeof(ArgumentNullException),
-                    //    "Value cannot be null.\r\nParameter name: duration"
-                    //},
-                    //{
-                    //    new XDocument(
-                    //        new XElement("byRangeDate",
-                    //            new XAttribute("end", "2016-02-03"))),
-                    //    typeof(ArgumentNullException),
-                    //    "Value cannot be null.\r\nParameter name: start"
-                    //},
+                    {
+                        new XDocument(
+                            new XElement("byRangeDate",
+                                new XAttribute("start", "2016-02-03"))),
+                        typeof(ArgumentNullException),
+                        "Value cannot be null.\r\nParameter name: duration"
+                    },
+                    {
+                        new XDocument(
+                            new XElement("byRangeDate",
+                                new XAttribute("end", "2016-02-03"))),
+                        typeof(ArgumentNullException),
+                        "Value cannot be null.\r\nParameter name: start"
+                    },
                     {
                         new XDocument(),
                         typeof(ArgumentNullException),
@@ -76,11 +76,11 @@ namespace Generators.Test.XInstances
             {
                 _exception = Record.Exception(() =>
                 {
-                    var vertex = _generator.Generate(_xElement, _caches);
+                    _generator.Generate(_xElement, _caches);
                 });
             }
 
-            public void ThenExpectedExceptionIsThrown(System.Type expectedExceptionType)
+            public void ThenExpectedExceptionIsThrown(Type expectedExceptionType)
             {
                 if (expectedExceptionType == null)
                     return;

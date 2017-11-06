@@ -79,11 +79,11 @@ namespace Generators.Test.XInstances
             {
                 _exception = Record.Exception(() =>
                 {
-                    var vertex = _generator.Generate(_xElement, _caches);
+                     _generator.Generate(_xElement, _caches);
                 });
             }
 
-            public void ThenExpectedExceptionIsThrown(System.Type expectedExceptionType)
+            public void ThenExpectedExceptionIsThrown(Type expectedExceptionType)
             {
                 if (expectedExceptionType == null)
                     return;
