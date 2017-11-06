@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
-using Scheduler.ScheduleInstances;
 
 namespace Generators.Instances
 {
@@ -24,45 +23,25 @@ namespace Generators.Instances
             yield return generatorSource;
 
             var xSchedules = xGenerator
-                .Elements("schedules")
-                .Elements()
-                .ToList();
+                .Element("schedules");
 
-            foreach (var xSchedule in xSchedules)
-            {
-                var weekdays = xSchedule
-                    .RetrieveWeekdays()
-                    .ToArray();
+            var generator = GeneratorFactory.GetX("CompositeSchedule");
 
-                var rangeDates = xSchedule
-                    .RetrieveRangeDates(
-                        caches: caches)
-                        .ToArray();
+            var vertex = generator.Generate(xSchedules, caches, clock: clock);
 
-                foreach (var weekday in weekdays)
-                {
-                    var compositeSchedule = new CompositeSchedule();
+            var compositeSchedule = vertex as ICompositeSchedule;
 
-                    foreach (var rangeDate in rangeDates)
-                    {
-                        var byWeekday = ByWeekday
-                            .Create(
-                                isoDayOfWeek: weekday,
-                                rangeDate: rangeDate);
+            if (compositeSchedule == null)
+                throw new Exception($"Generator generated invalid type. Expected ICompositeSchedule, returned {vertex.GetType()}");
 
-                        compositeSchedule
-                            .Inclusions
-                            .Add(new EdgeSchedule(byWeekday));
-                    }
+            compositeSchedule
+                .Connect(xSchedules.RetrieveTags(caches));
 
-                    compositeSchedule
-                        .Connect(xSchedule.RetrieveTags(caches));
+            generatorSource
+                .Schedules
+                .Add(new EdgeSchedule(compositeSchedule, "Generated"));
 
-                    generatorSource
-                        .Schedules
-                        .Add(new EdgeSchedule(compositeSchedule));
-                }
-            }
+            yield return compositeSchedule;
         }
     }
 }

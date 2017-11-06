@@ -31,6 +31,9 @@ namespace Generators
         {
             switch (generatorType)
             {
+                case "CompositeSchedule":
+                    return new GeneratorXCompositeSchedule();
+
                 case "RangeDate":
                     return new GeneratorXRangeDate();
 

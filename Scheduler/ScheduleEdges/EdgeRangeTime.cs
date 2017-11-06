@@ -6,8 +6,8 @@ namespace Scheduler.ScheduleEdges
 {
     public class EdgeRangeTime : EdgeVertex<IRangeTime>, IEdgeRangeTime
     {
-        public EdgeRangeTime(IRangeTime rangeTime)
-            : base(rangeTime)
+        public EdgeRangeTime(IRangeTime rangeTime, string label = null)
+            : base(rangeTime, label)
         {
 
         }

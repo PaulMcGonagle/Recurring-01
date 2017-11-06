@@ -6,7 +6,7 @@ namespace Scheduler.Persistance
 {
     public class EdgeVertex<T> : IEdgeVertex<T> where T : IVertex
     {
-        public EdgeVertex(T toVertex)
+        public EdgeVertex(T toVertex, string label = null)
         {
             ToVertex = toVertex;
         }

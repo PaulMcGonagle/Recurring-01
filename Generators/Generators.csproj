@@ -85,7 +85,9 @@
     <Content Include="Sources\Caterlink3.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Sources\Caterlink4.xml" />
+    <Content Include="Sources\Caterlink4.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Sources\Holidays.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

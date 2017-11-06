@@ -13,6 +13,9 @@ namespace Generators.XInstances
     {
         public IVertex Generate(XElement xSchedules, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
         {
+            if (xSchedules == null)
+                throw new ArgumentNullException(nameof(xSchedules));
+
             var compositeSchedule = new CompositeSchedule();
 
             foreach (var xSchedule in xSchedules.Elements())

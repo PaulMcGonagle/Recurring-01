@@ -5,8 +5,8 @@ namespace Scheduler.ScheduleEdges
 {
     public class EdgeDate : EdgeVertex<IDate>, IEdgeDate
     {
-        public EdgeDate(IDate toVertex)
-            : base(toVertex)
+        public EdgeDate(IDate toVertex, string label = null)
+            : base(toVertex, label)
         {
 
         }
