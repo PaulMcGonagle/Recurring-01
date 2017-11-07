@@ -8,7 +8,7 @@ using Scheduler.Persistance;
 
 namespace Generators.Instances
 {
-    public class GenerateFromFileOffset : GenerateFromFile, IGenerator
+    public class GenerateFromFileOffset : GenerateFromFile, IGenerateFromFile
     {
         public IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
         {

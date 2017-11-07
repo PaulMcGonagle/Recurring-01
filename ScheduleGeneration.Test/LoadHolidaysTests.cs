@@ -20,7 +20,7 @@ namespace ScheduleGeneration.Test
             private string _sourceFile;
             private IArangoDatabase _db;
             private IClock _clock;
-            private IGenerator _generator;
+            private IGenerateFromFile _generator;
             private string _generatorType;
             private GenerateFromFileCalendar _generatorCalendars;
             private IEnumerable<IVertex> _vertexs;

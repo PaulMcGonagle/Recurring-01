@@ -4,7 +4,7 @@ using Scheduler.Persistance;
 
 namespace Generators
 {
-    public interface IGenerator
+    public interface IGenerateFromFile
     {
         IEnumerable<IVertex> Generate(string sourceFile, IClock clock);
     }

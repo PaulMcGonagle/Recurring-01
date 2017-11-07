@@ -12,7 +12,7 @@ namespace Generators.Test
         {
             private string _generatorType;
             private System.Type _expectedSystemType;
-            private IGenerator _generator;
+            private IGenerateFromFile _generator;
 
             [Fact]
             public void Execute()

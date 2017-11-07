@@ -25,7 +25,7 @@ namespace Generators.Test.Instances
             private XElement _xElement;
             private IClock _clock;
             private string _tempFilename;
-            private IGenerator _generator;
+            private IGenerateFromFile _generator;
             private IEnumerable<IVertex> _vertexs;
             private ByDateList _byDateList;
 

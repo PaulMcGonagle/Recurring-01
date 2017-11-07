@@ -20,7 +20,7 @@ namespace ScheduleGeneration.Test
         {
             private string _sourceFile;
             private IClock _clock;
-            private IGenerator _generator;
+            private IGenerateFromFile _generator;
             private IEnumerable<IVertex> _vertexs;
             private ICompositeSchedule _compositeSchedule;
             private IEnumerable<IDate> _dates;

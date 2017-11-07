@@ -116,7 +116,7 @@ namespace ScheduleGeneration.Test
 
             private IClock _clock;
             private IArangoDatabase _db;
-            private IGenerator _generator;
+            private IGenerateFromFile _generator;
             private IEnumerable<IVertex> _vertexs;
             private IEnumerable<IEvent> _events;
 

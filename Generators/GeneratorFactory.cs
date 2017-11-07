@@ -6,7 +6,7 @@ namespace Generators
 {
     public static class GeneratorFactory
     {
-        public static IGenerator Get(string generatorType)
+        public static IGenerateFromFile Get(string generatorType)
         {
             switch (generatorType)
             {

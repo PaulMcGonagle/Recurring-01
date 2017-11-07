@@ -9,7 +9,7 @@ using Scheduler.Ranges;
 
 namespace Generators.Instances
 {
-    public class GenerateFromFileRangeDates : GenerateFromFile, IGenerator
+    public class GenerateFromFileRangeDates : GenerateFromFile, IGenerateFromFile
     {
         public IEnumerable<IVertex> Generate(
             string sourceFile,

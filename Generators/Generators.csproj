@@ -58,7 +58,7 @@
     <Compile Include="Instances\GenerateFromFileClasses.cs" />
     <Compile Include="GeneratorFactory.cs" />
     <Compile Include="Instances\GenerateFromFileCalendar.cs" />
-    <Compile Include="IGenerator.cs" />
+    <Compile Include="IGenerateFromFile.cs" />
     <Compile Include="Instances\GenerateFromFileOffset.cs" />
     <Compile Include="Instances\GenerateFromFileRangeDates.cs" />
     <Compile Include="Instances\GenerateFromFileSchedule.cs" />

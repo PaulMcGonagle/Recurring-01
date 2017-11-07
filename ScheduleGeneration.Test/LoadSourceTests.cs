@@ -24,7 +24,7 @@ namespace ScheduleGeneration.Test
             private XElement _source;
             private IClock _clock;
             private IArangoDatabase _db;
-            private IGenerator _generator;
+            private IGenerateFromFile _generator;
             private IEnumerable<IVertex> _vertexs;
             private IEvent _event;
             private IInstance _instance;
@@ -111,7 +111,7 @@ namespace ScheduleGeneration.Test
             private XElement _source;
             private IClock _clock;
             private IArangoDatabase _db;
-            private IGenerator _generator;
+            private IGenerateFromFile _generator;
             private IEnumerable<IEvent> _events;
             private IEnumerable<IInstance> _instances;
             private IEnumerable<IEpisode> _episodes;
@@ -250,7 +250,7 @@ namespace ScheduleGeneration.Test
             private XElement _source;
             private IClock _clock;
             private IArangoDatabase _db;
-            private IGenerator _generator;
+            private IGenerateFromFile _generator;
             private IEnumerable<IEvent> _events;
             private IEvent _event;
             private IInstance _instance;
@@ -338,7 +338,7 @@ namespace ScheduleGeneration.Test
             private string _sourceFile;
             private IClock _clock;
             private IArangoDatabase _db;
-            private IGenerator _generator;
+            private IGenerateFromFile _generator;
             private IEnumerable<ICompositeSchedule> _compositeSchedules;
 
             [Fact]
@@ -452,7 +452,7 @@ namespace ScheduleGeneration.Test
             private string _sourceFile;
             private IClock _clock;
             private IArangoDatabase _db;
-            private IGenerator _generator;
+            private IGenerateFromFile _generator;
             private IEnumerable<IVertex> _vertexs;
 
             [Fact]
@@ -555,7 +555,7 @@ namespace ScheduleGeneration.Test
             private XElement _source;
             private IClock _clock;
             private IArangoDatabase _db;
-            private IGenerator _generator;
+            private IGenerateFromFile _generator;
             private IEnumerable<IVertex> _vertexs;
 
             [Fact]
