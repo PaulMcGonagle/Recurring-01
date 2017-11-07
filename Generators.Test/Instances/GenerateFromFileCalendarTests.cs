@@ -18,7 +18,7 @@ using Xunit;
 
 namespace Generators.Test.Instances
 {
-    public class GeneratorCalendarTests
+    public class GenerateFromFileCalendarTests
     {
         public class Go
         {

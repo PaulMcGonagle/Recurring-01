@@ -9,7 +9,7 @@ using Scheduler.ScheduleInstances;
 
 namespace Generators.Instances
 {
-    public class GeneratorCalendar : GenerateFromFile, IGenerator
+    public class GenerateFromFileCalendar : GenerateFromFile, IGenerator
     {
         public IEnumerable<IVertex> Generate(
             string sourceFile, 

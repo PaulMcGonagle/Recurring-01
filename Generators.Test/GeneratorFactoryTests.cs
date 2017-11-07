@@ -24,7 +24,7 @@ namespace Generators.Test
                 {
                     {
                         "calendar",
-                        typeof(GeneratorCalendar)
+                        typeof(GenerateFromFileCalendar)
                     }
                 }).BDDfy();
             }

@@ -11,16 +11,16 @@ namespace Generators
             switch (generatorType)
             {
                 case "calendar":
-                    return new GeneratorCalendar();
+                    return new GenerateFromFileCalendar();
 
                 case "classes":
-                    return new GeneratorClasses();
+                    return new GenerateFromFileClasses();
 
                 case "schedule":
-                    return new GeneratorSchedule();
+                    return new GenerateFromFileSchedule();
 
                 case "byOffset":
-                    return new GeneratorOffset();
+                    return new GenerateFromFileOffset();
 
                 default:
                     throw new NotImplementedException($"Unexpected generatorType '{generatorType}'");

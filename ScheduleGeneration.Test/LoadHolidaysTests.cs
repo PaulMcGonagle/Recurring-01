@@ -22,7 +22,7 @@ namespace ScheduleGeneration.Test
             private IClock _clock;
             private IGenerator _generator;
             private string _generatorType;
-            private GeneratorCalendar _generatorCalendars;
+            private GenerateFromFileCalendar _generatorCalendars;
             private IEnumerable<IVertex> _vertexs;
             private IEnumerable<ISchedule> _schedules;
             private IEnumerable<LocalDate> _dates;
@@ -84,9 +84,9 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenGeneratorIsHoliday()
             {
-                _generator.ShouldBeOfType<GeneratorCalendar>();
+                _generator.ShouldBeOfType<GenerateFromFileCalendar>();
 
-                _generatorCalendars = (GeneratorCalendar) _generator;
+                _generatorCalendars = (GenerateFromFileCalendar) _generator;
             }
 
             public void AndWhenGenerated()

@@ -9,7 +9,7 @@ using Scheduler.ScheduleEdges;
 
 namespace Generators.Instances
 {
-    public class GeneratorClasses : GenerateFromFile, IGenerator
+    public class GenerateFromFileClasses : GenerateFromFile, IGenerator
     {
         public IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
         {

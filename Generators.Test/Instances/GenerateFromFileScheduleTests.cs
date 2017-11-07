@@ -15,7 +15,7 @@ using Xunit;
 
 namespace Generators.Test.Instances
 {
-    public class GeneratorScheduleTests
+    public class GenerateFromFileScheduleTests
     {
         private XElement _xElement;
         private IClock _clock;
