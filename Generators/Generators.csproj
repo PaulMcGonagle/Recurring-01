@@ -52,6 +52,7 @@
     <Compile Include="GenerateFromCalendar.cs" />
     <Compile Include="GenerateFromFile.cs" />
     <Compile Include="IEnricher.cs" />
+    <Compile Include="IGenerateFromVertex.cs" />
     <Compile Include="IGeneratorX.cs" />
     <Compile Include="IGeneratorXs.cs" />
     <Compile Include="IGeneratorXSchedule.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Instances\GenerateFromFileOffset.cs" />
     <Compile Include="Instances\GenerateFromFileRangeDates.cs" />
     <Compile Include="Instances\GenerateFromFileSchedule.cs" />
+    <Compile Include="Instances\GenerateFromSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retriever.cs" />
     <Compile Include="Utilities.cs" />
