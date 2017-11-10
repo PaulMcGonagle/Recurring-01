@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generators", "Generators\Ge
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySerializer", "MySerializer\MySerializer.csproj", "{38134490-CB1F-4604-9880-5F21A13AA399}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InitialiseDatabase", "InitialiseDatabase\InitialiseDatabase.csproj", "{61F8C04C-1D89-4B7A-93D4-635730CBDB08}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScenarioRunner", "InitialiseDatabase\ScenarioRunner.csproj", "{61F8C04C-1D89-4B7A-93D4-635730CBDB08}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleGeneration.Test", "ScheduleGeneration.Test\ScheduleGeneration.Test.csproj", "{AF54FCF9-5E5C-4FDD-9112-691785E13A61}"
 EndProject
