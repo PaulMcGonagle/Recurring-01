@@ -35,6 +35,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerDatabase", "Schedu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generators.Test", "Generators.Test\Generators.Test.csproj", "{6143D06E-220A-4E48-B6E9-AF844AD1301F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scenarios", "Scenarios", "{5A1D04AC-4163-41C9-8189-929D2FEB25BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School", "Scenarios\School\School.csproj", "{ABE6C065-419C-46A1-924C-36A4E58478EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,9 +135,20 @@ Global
 		{6143D06E-220A-4E48-B6E9-AF844AD1301F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6143D06E-220A-4E48-B6E9-AF844AD1301F}.Release|x86.ActiveCfg = Release|Any CPU
 		{6143D06E-220A-4E48-B6E9-AF844AD1301F}.Release|x86.Build.0 = Release|Any CPU
+		{ABE6C065-419C-46A1-924C-36A4E58478EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABE6C065-419C-46A1-924C-36A4E58478EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABE6C065-419C-46A1-924C-36A4E58478EB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ABE6C065-419C-46A1-924C-36A4E58478EB}.Debug|x86.Build.0 = Debug|Any CPU
+		{ABE6C065-419C-46A1-924C-36A4E58478EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABE6C065-419C-46A1-924C-36A4E58478EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABE6C065-419C-46A1-924C-36A4E58478EB}.Release|x86.ActiveCfg = Release|Any CPU
+		{ABE6C065-419C-46A1-924C-36A4E58478EB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ABE6C065-419C-46A1-924C-36A4E58478EB} = {5A1D04AC-4163-41C9-8189-929D2FEB25BF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {46C0E1C7-A91E-4B7B-B757-3931DA3C28D9}

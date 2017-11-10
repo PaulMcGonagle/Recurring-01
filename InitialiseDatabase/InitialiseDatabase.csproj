@@ -66,7 +66,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +83,10 @@
     <ProjectReference Include="..\Generators\Generators.csproj">
       <Project>{851f7920-1e14-43b4-8ee3-62a378815151}</Project>
       <Name>Generators</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Scenarios\School\School.csproj">
+      <Project>{abe6c065-419c-46a1-924c-36a4e58478eb}</Project>
+      <Name>School</Name>
     </ProjectReference>
     <ProjectReference Include="..\SchedulerDatabase\SchedulerDatabase.csproj">
       <Project>{30538699-571b-4b17-9f6d-ba7564512521}</Project>
