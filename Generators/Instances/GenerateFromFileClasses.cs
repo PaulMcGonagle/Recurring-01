@@ -69,8 +69,8 @@ namespace Generators.Instances
                         .RetrieveTags(caches)
                         .ToList();
 
-                    var xSchedules = xClass
-                        .Elements("schedules")
+                    var xCompositeSchedule = xClass
+                        .Elements("schedule")
                         .SingleOrDefault();
 
                     var xRangeTimes = xClass
@@ -82,8 +82,7 @@ namespace Generators.Instances
 
                     var generator = new GeneratorXCompositeSchedule();
 
-
-                    var compositeSchedule = (ISchedule)generator.Generate(xSchedules, caches);
+                    var compositeSchedule = (ISchedule)generator.Generate(xCompositeSchedule, caches);
 
                     compositeSchedule
                         .Tags
@@ -97,68 +96,7 @@ namespace Generators.Instances
                         yield return serial;
                     }
 
-                    //foreach (var xSchedule in xSchedules)
-                    //{
-                    //        var weekdays = xSchedule
-                    //            .RetrieveWeekdays();
-
-                    //        var rangeTime = xSchedule
-                    //            .RetrieveRangeTime();
-
-                    //        var byWeekdays = ByWeekdays
-                    //            .Create(
-                    //                weekdays: weekdays,
-                    //                rangeDate: termRange);
-
-                    //        ISchedule schedule;
-
-                    //        if (xTermBreaks.Count > 0)
-                    //        {
-                    //            var compositeSchedule = CompositeSchedule
-                    //                .Create(
-                    //                    schedule: byWeekdays,
-                    //                    rangeDate: termRange);
-
-                    //            foreach (var xTermBreak in xTermBreaks)
-                    //            {
-                    //                var xTermBreakRanges = xTermBreak
-                    //                    .RetrieveRangeDates(caches)
-                    //                    .ToList();
-
-                    //                compositeSchedule.Breaks.AddRange(xTermBreakRanges.Select(br => new EdgeVertex<IRangeDate>(br)));
-                    //            }
-
-                    //            schedule = compositeSchedule;
-                    //        }
-                    //        else
-                    //        {
-                    //            schedule = byWeekdays;
-                    //        }
-
-                    //        schedule.Connect(termTags);
-
-                    //        var serial = new Serial(
-                    //            schedule: schedule,
-                    //            rangeTime: new EdgeRangeTime(rangeTime),
-                    //            timeZoneProvider: timeZoneProvider);
-
-                    //        var serialTags = termTags;
-
-                    //        serial.Tags  = new EdgeVertexs<ITag>(serialTags) {new EdgeVertex<ITag>(termTag)};
-
-                    //        serials.Add(serial);
-                    //    }
-
-                    //    var @event = new Event
-                    //    {
-                    //        Title = organisation.Value + "." + termName + "." + groupName + "." + className,
-                    //        Serials = new EdgeVertexs<ISerial>(serials),
-                    //        Tags = new EdgeVertexs<ITag>(classTags),
-                    //}
-
                     yield return compositeSchedule;
-                    //}
-                    //yield return @event;
                 }
 
                 yield return organisation;

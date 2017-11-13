@@ -147,21 +147,23 @@
           <tags>
             <tag id="name" value="Register and News"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="09:00" end="09:15"/>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Thursday"/>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2017/18.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <schedule>c
+            <inclusions>
+              <byWeekdays>
+                <rangeTime start="09:00" end="09:15"/>
+                <weekdays>
+                  <weekday value="Monday"/>
+                  <weekday value="Tuesday"/>
+                  <weekday value="Wednesday"/>
+                  <weekday value="Thursday"/>
+                  <weekday value="Friday"/>
+                </weekdays>
+                <rangeDates>
+                  <link cache="Term.2017/18.Autumn"/>
+                </rangeDates>
+              </byWeekdays>
+            </inclusions>
+          </schedule>
           <rangeTimes>
             <link cache="Session.MorningPlaytime"/>
           </rangeTimes>
@@ -742,16 +744,18 @@
           <tags>
             <tag id="name" value="Mass"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <weekdays>
-                <weekday value="Thursday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2017/18.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <schedule>
+            <inclusions>
+              <byWeekdays>
+                <weekdays>
+                  <weekday value="Thursday"/>
+                </weekdays>
+                <rangeDates>
+                  <link cache="Term.2017/18.Autumn"/>
+                </rangeDates>
+              </byWeekdays>
+            </inclusions>
+          </schedule>
           <rangeTimes>
             <link cache="Session.10am"/>
           </rangeTimes>

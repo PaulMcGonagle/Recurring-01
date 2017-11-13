@@ -15,6 +15,7 @@ using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Users;
+using School;
 
 namespace InitialiseDatabase
 {
@@ -26,9 +27,11 @@ namespace InitialiseDatabase
             Output.WriteLine("test");
             var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
 
-            //var db = SchedulerDatabase.Database.Retrieve();
+            var db = SchedulerDatabase.Database.Retrieve();
 
-            //School.Generate.Go(db, fakeClock);
+            var generate = new Generate(db, fakeClock);
+
+            generate.Go();
         }
 
         public static void Go(string databaseName)

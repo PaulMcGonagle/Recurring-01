@@ -56,6 +56,7 @@
     <Compile Include="IGeneratorX.cs" />
     <Compile Include="IGeneratorXs.cs" />
     <Compile Include="IGeneratorXSchedule.cs" />
+    <Compile Include="Instances\GenerateFromFileTerms.cs" />
     <Compile Include="Instances\GenerateFromFileClasses.cs" />
     <Compile Include="GeneratorFactory.cs" />
     <Compile Include="Instances\GenerateFromFileCalendar.cs" />

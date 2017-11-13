@@ -16,6 +16,9 @@ namespace Generators
                 case "classes":
                     return new GenerateFromFileClasses();
 
+                case "terms":
+                    return new GenerateFromFileTerms();
+
                 case "schedule":
                     return new GenerateFromFileSchedule();
 

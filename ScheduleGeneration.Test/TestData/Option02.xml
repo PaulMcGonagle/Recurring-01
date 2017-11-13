@@ -97,16 +97,18 @@
               </tags>
             </term>
           </terms>
-          <schedules>
-            <byWeekdays>
-              <weekdays>
-                <weekday value="Monday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <schedule>
+            <inclusions>
+              <byWeekdays>
+                <weekdays>
+                  <weekday value="Monday"/>
+                </weekdays>
+                <rangeDates>
+                  <link cache="Term.2016/17.Autumn"/>
+                </rangeDates>
+              </byWeekdays>
+            </inclusions>
+          </schedule>
           <rangeTimes>
             <link cache="Session.9am"/>
           </rangeTimes>

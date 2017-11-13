@@ -39,10 +39,11 @@ namespace Generators.Test.Instances
                     new XElement("generator",
                         new XElement("calendars",
                             new XElement("calendar",
-                                new XElement("schedules",
-                                    new XElement("byRangeDate",
-                                        new XAttribute("start", "2016-03-01"),
-                                        new XAttribute("end", "2016-03-31")))))),
+                                new XElement("schedule",
+                                    new XElement("inclusions"),
+                                        new XElement("byRangeDate",
+                                            new XAttribute("start", "2016-03-01"),
+                                            new XAttribute("end", "2016-03-31")))))),
 
                 }).BDDfy();
             }

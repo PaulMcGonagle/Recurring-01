@@ -18,8 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar.Test", "Calendar.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generators", "Generators\Generators.csproj", "{851F7920-1E14-43B4-8EE3-62A378815151}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySerializer", "MySerializer\MySerializer.csproj", "{38134490-CB1F-4604-9880-5F21A13AA399}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScenarioRunner", "InitialiseDatabase\ScenarioRunner.csproj", "{61F8C04C-1D89-4B7A-93D4-635730CBDB08}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleGeneration.Test", "ScheduleGeneration.Test\ScheduleGeneration.Test.csproj", "{AF54FCF9-5E5C-4FDD-9112-691785E13A61}"
@@ -87,14 +85,6 @@ Global
 		{851F7920-1E14-43B4-8EE3-62A378815151}.Release|Any CPU.Build.0 = Release|Any CPU
 		{851F7920-1E14-43B4-8EE3-62A378815151}.Release|x86.ActiveCfg = Release|Any CPU
 		{851F7920-1E14-43B4-8EE3-62A378815151}.Release|x86.Build.0 = Release|Any CPU
-		{38134490-CB1F-4604-9880-5F21A13AA399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38134490-CB1F-4604-9880-5F21A13AA399}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38134490-CB1F-4604-9880-5F21A13AA399}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{38134490-CB1F-4604-9880-5F21A13AA399}.Debug|x86.Build.0 = Debug|Any CPU
-		{38134490-CB1F-4604-9880-5F21A13AA399}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38134490-CB1F-4604-9880-5F21A13AA399}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38134490-CB1F-4604-9880-5F21A13AA399}.Release|x86.ActiveCfg = Release|Any CPU
-		{38134490-CB1F-4604-9880-5F21A13AA399}.Release|x86.Build.0 = Release|Any CPU
 		{61F8C04C-1D89-4B7A-93D4-635730CBDB08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{61F8C04C-1D89-4B7A-93D4-635730CBDB08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61F8C04C-1D89-4B7A-93D4-635730CBDB08}.Debug|x86.ActiveCfg = Debug|Any CPU

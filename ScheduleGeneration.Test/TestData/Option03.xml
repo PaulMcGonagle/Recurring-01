@@ -59,16 +59,18 @@
               </tags>
             </term>
           </terms>
-          <schedules>
-            <byWeekdays>
-              <weekdays>
-                <weekday value="Monday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <schedule>
+            <inclusions>
+              <byWeekdays>
+                <weekdays>
+                  <weekday value="Monday"/>
+                </weekdays>
+                <rangeDates>
+                  <link cache="Term.2016/17.Autumn"/>
+                </rangeDates>
+              </byWeekdays>
+            </inclusions>
+          </schedule>
           <rangeTimes>
             <rangeTime start="10:15" end="10:55"/>
           </rangeTimes>
@@ -85,17 +87,19 @@
               </tags>
             </term>
           </terms>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="10:15" end="10:55"/>
-              <weekdays>
-                <weekday value="Tuesday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <schedule>
+            <inclusions>
+              <byWeekdays>
+                <rangeTime start="10:15" end="10:55"/>
+                <weekdays>
+                  <weekday value="Tuesday"/>
+                </weekdays>
+                <rangeDates>
+                  <link cache="Term.2016/17.Autumn"/>
+                </rangeDates>
+              </byWeekdays>
+            </inclusions>
+          </schedule>
           <rangeTimes>
             <rangeTime start="10:15" end="10:55"/>
           </rangeTimes>

@@ -74,17 +74,19 @@
               </breaks>
             </term>
           </terms>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="09:15" end="10:20"/>
-              <weekdays>
-                <weekday value="Monday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <schedule>
+            <inclusions>
+              <byWeekdays>
+                <rangeTime start="09:15" end="10:20"/>
+                <weekdays>
+                  <weekday value="Monday"/>
+                </weekdays>
+                <rangeDates>
+                  <link cache="Term.2016/17.Autumn"/>
+                </rangeDates>
+              </byWeekdays>
+            </inclusions>
+          </schedule>
           <rangeTimes>
             <rangeTime start="10:15" end="10:55"/>
           </rangeTimes>

@@ -37,7 +37,7 @@ namespace Generators.Instances
             foreach (var xCalendar in xCalendars)
             {
                 var xSchedules = xCalendar
-                    .Elements("schedules")
+                    .Elements("schedule")
                     .SingleOrDefault();
 
                 var generatorSchedule = new GeneratorXCompositeSchedule();

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
@@ -11,15 +13,46 @@ namespace Generators.XInstances
 {
     public class GeneratorXCompositeSchedule : IGeneratorXSchedule
     {
-        public IVertex Generate(XElement xSchedules, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
+        public IVertex Generate(XElement xCompositeSchedule, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
         {
-            if (xSchedules == null)
-                throw new ArgumentNullException(nameof(xSchedules));
+            if (xCompositeSchedule == null)
+                throw new ArgumentNullException(nameof(xCompositeSchedule));
+
+            var xScheduleAndExclusions = new List<Tuple<XElement, bool>>();
+
+            {
+                var inclusions = xCompositeSchedule
+                    .Element("inclusions");
+
+                if (inclusions != null)
+                {
+                    xScheduleAndExclusions
+                        .AddRange(inclusions
+                            .Elements()
+                            .Select(xSchedule => new Tuple<XElement, bool>(xSchedule, false)));
+                }
+            }
+
+            {
+                var exclusions = xCompositeSchedule
+                    .Element("exclusions");
+
+                if (exclusions != null)
+                {
+                    xScheduleAndExclusions
+                        .AddRange(exclusions
+                            .Elements()
+                            .Select(xSchedule => new Tuple<XElement, bool>(xSchedule, true)));
+                }
+            }
 
             var compositeSchedule = new CompositeSchedule();
 
-            foreach (var xSchedule in xSchedules.Elements())
+            foreach (var xScheduleAndExclusion in xScheduleAndExclusions)
             {
+                var xSchedule = xScheduleAndExclusion.Item1;
+                var isExclusion = xScheduleAndExclusion.Item2;
+
                 var type = xSchedule.Name.LocalName;
 
                 if (string.IsNullOrWhiteSpace(type))
@@ -61,7 +94,15 @@ namespace Generators.XInstances
 
                 schedule.Connect(tags);
 
-                compositeSchedule.Inclusions.Add(new EdgeSchedule((ISchedule)schedule));
+                if (isExclusion)
+                {
+                    compositeSchedule.Exclusions.Add(new EdgeSchedule((ISchedule)schedule));
+
+               }
+                else
+                {
+                    compositeSchedule.Inclusions.Add(new EdgeSchedule((ISchedule)schedule));
+                }
             }
 
             return compositeSchedule;

@@ -57,6 +57,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Files\Terms.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Files\Years.xml" />
   </ItemGroup>
   <ItemGroup>
