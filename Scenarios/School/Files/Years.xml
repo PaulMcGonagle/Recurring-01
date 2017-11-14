@@ -2,11 +2,13 @@
 <generator>
   <calendars>
     <calendar>
-      <schedules>
-        <byRangeDate>
-          <link cache="RangeDate.Year.2010"/>
-        </byRangeDate>
-      </schedules>
+      <schedule>
+        <inclusions>
+          <byRangeDate>
+            <link cache="RangeDate.Year.2010"/>
+          </byRangeDate>
+        </inclusions>
+      </schedule>
     </calendar>
   </calendars>
   <caches>

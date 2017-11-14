@@ -18,7 +18,7 @@ namespace School
 
         public void Go()
         {
-            //GenerateYears();
+            GenerateYears();
             GenerateTerms();
         }
 
@@ -28,7 +28,8 @@ namespace School
 
             var generated = generator.Generate(
                 "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\Years.xml",
-                _clock);
+                _clock)
+                .ToArray();
 
             foreach (var g in generated)
             {

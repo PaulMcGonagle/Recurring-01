@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
-using System.Net;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
-using Generators.Instances;
 using NodaTime;
-using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
 using Shouldly;
@@ -60,7 +53,7 @@ namespace Generators.Test.Instances
 
             public void WhenDocumentIsSaved()
             {
-                _tempFilename = System.IO.Path.GetTempFileName();
+                _tempFilename = Path.GetTempFileName();
 
                 _xElement.Save(_tempFilename);
             }

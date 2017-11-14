@@ -98,7 +98,6 @@
     <Content Include="Sources\Caterlink.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Sources\SchoolReferenced.xml" />
     <Content Include="Sources\Terms.xml" />
     <Content Include="Sources\Years.xml">
       <SubType>Designer</SubType>
