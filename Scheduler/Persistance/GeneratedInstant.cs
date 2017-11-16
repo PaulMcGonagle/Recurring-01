@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using ArangoDB.Client;
 using NodaTime;
 
@@ -12,7 +7,7 @@ namespace Scheduler.Persistance
 {
     public class GeneratedInstant : Vertex
     {
-        public Instant Instant { get; private set; }
+        public Instant Instant { get; set; }
 
         public string Label { get; set; }
 
@@ -27,13 +22,6 @@ namespace Scheduler.Persistance
 
         [DocumentProperty(Identifier = IdentifierType.EdgeTo)]
         public string ToId { get; set; }
-
-        internal GeneratedInstant(IClock clock, IVertex fromVertex, IVertex toVertex)
-        {
-            Instant = clock.Now;
-            FromVertex = fromVertex;
-            ToVertex = toVertex;
-        }
 
         #region Save
 
@@ -51,7 +39,6 @@ namespace Scheduler.Persistance
             ToId = ToVertex.Id;
 
             Save<GeneratedInstant>(db);
-
         }
 
         public virtual void Save(IArangoDatabase db, IClock clock, IVertex fromVertex)
@@ -65,17 +52,15 @@ namespace Scheduler.Persistance
         {
             if (string.IsNullOrWhiteSpace(FromId))
             {
-                throw Vertex.NewRehydrateException(RehydrateResult.MissingId, nameof(FromId));
+                throw NewRehydrateException(RehydrateResult.MissingId, nameof(FromId));
             }
 
             var fromInfo = db.FindDocumentInfo(FromId);
 
             if (fromInfo == null)
             {
-                throw Vertex.NewRehydrateException(RehydrateResult.InvalidObject, nameof(FromId));
+                throw NewRehydrateException(RehydrateResult.InvalidObject, nameof(FromId));
             }
-
-            var type = fromInfo.Document.Type;
 
             base.Rehydrate(db);
         }
@@ -94,7 +79,12 @@ namespace Scheduler.Persistance
 
         public GeneratedInstantBuilder Create(IClock clock, IVertex fromVertex, IVertex toVertex)
         {
-            _generatedInstant = new GeneratedInstant(clock, fromVertex, toVertex);
+            _generatedInstant = new GeneratedInstant
+            {
+                Instant = clock.Now,
+                FromVertex = fromVertex,
+                ToVertex = toVertex
+            };
 
             return this;
         }
