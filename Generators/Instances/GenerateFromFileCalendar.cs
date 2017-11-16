@@ -56,15 +56,9 @@ namespace Generators.Instances
 
                 generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(compositeSchedule));
 
-                var dates = compositeSchedule
-                    .Generate(clock)
-                    .ToList();
+                compositeSchedule.Connect(calendarTags);
 
-                var dateList = ByDateList.Create(dates);
-
-                dateList.Connect(calendarTags);
-
-                yield return dateList;
+                yield return compositeSchedule;
             }
         }
     }

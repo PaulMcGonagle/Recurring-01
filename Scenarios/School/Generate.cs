@@ -3,6 +3,7 @@ using ArangoDB.Client;
 using Generators;
 using NodaTime;
 using Scheduler;
+using Scheduler.Persistance;
 
 namespace School
 {
@@ -11,6 +12,7 @@ namespace School
         private IArangoDatabase _db;
         private IClock _clock;
 
+        private IGeneratorSource _generatorSource;
         private ICompositeSchedule _years;
         private ICompositeSchedule _terms;
         private ICompositeSchedule _holidays;
@@ -37,14 +39,27 @@ namespace School
                 _clock)
                 .ToArray();
 
+            generated.Save(_db, _clock);
+
             foreach (var g in generated)
             {
                 g.Save(_db, _clock);
             }
 
+            _generatorSource = generated
+                .OfType<IGeneratorSource>()
+                .SingleOrDefault();
+
             _years = generated
                 .OfType<ICompositeSchedule>()
                 .SingleOrDefault();
+
+            var generatedInstant = new GeneratedInstantBuilder()
+                .Create(_clock, _generatorSource, _years)
+                .WithLabel("Generated")
+                .Build();
+
+            generatedInstant.Save(_db, _clock);
         }
 
         public void GenerateTerms()

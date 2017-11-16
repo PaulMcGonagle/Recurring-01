@@ -3,6 +3,7 @@ using System.Linq;
 using System.IO;
 using System.Xml.Linq;
 using NodaTime;
+using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
 using Shouldly;
@@ -20,7 +21,7 @@ namespace Generators.Test.Instances
             private string _tempFilename;
             private IGenerateFromFile _generator;
             private IEnumerable<IVertex> _vertexs;
-            private ByDateList _byDateList;
+            private ICompositeSchedule _compositeSchedule;
 
             [Fact]
             public void Execute()
@@ -80,11 +81,11 @@ namespace Generators.Test.Instances
 
             public void ThenAScheduleIsCreated()
             {
-                _byDateList = _vertexs
-                    .OfType<ByDateList>()
+                _compositeSchedule = _vertexs
+                    .OfType<ICompositeSchedule>()
                     .SingleOrDefault();
 
-                _byDateList.ShouldNotBeNull();
+                _compositeSchedule.ShouldNotBeNull();
             }
         }
     }

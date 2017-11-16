@@ -99,6 +99,7 @@
     <Compile Include="IGeneratorSource.cs" />
     <Compile Include="ITag.cs" />
     <Compile Include="Persistance\ExternalId.cs" />
+    <Compile Include="Persistance\GeneratedInstant.cs" />
     <Compile Include="Persistance\IEdge.cs" />
     <Compile Include="Persistance\IExternalId.cs" />
     <Compile Include="Persistance\ILink.cs" />

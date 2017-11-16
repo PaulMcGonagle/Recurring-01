@@ -21,7 +21,7 @@ namespace Generators.Test.Instances
             private string _tempFilename;
             private IGenerateFromFile _generator;
             private IEnumerable<IVertex> _vertexs;
-            private ByDateList _byDateList;
+            private ICompositeSchedule _compositeSchedule;
             private IEnumerable<IDate> _dates;
 
             [Fact]
@@ -111,16 +111,16 @@ namespace Generators.Test.Instances
 
             public void ThenAScheduleIsCreated()
             {
-                _byDateList = _vertexs
-                    .OfType<ByDateList>()
+                _compositeSchedule = _vertexs
+                    .OfType<ICompositeSchedule>()
                     .SingleOrDefault();
 
-                _byDateList.ShouldNotBeNull();
+                _compositeSchedule.ShouldNotBeNull();
             }
 
             public void AndThenDateListIsNotEmpty()
             {
-                _dates = _byDateList.Generate(_clock);
+                _dates = _compositeSchedule.Generate(_clock);
             }
 
             public void AndThenDatesShouldBeExpected(IList<LocalDate> expectedDates)
