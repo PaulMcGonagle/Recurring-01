@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using NodaTime;
 using Scheduler;
@@ -26,7 +27,10 @@ namespace Generators
             generatorSource = new GeneratorSource
             {
                 Xml = xSource.ToString(),
-                GeneratorType = generatorType
+                GeneratorType = generatorType,
+                Caches = new EdgeVertexs<IVertex>(
+                    caches
+                        .Select(cache => new EdgeVertex<IVertex>(cache.Value, "HasCache")))
             };
 
             xGenerator = xSource

@@ -58,8 +58,8 @@ namespace Scheduler.Ranges
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<RangeDate>(db);
-            Start?.Save(db, clock, this);
-            End?.Save(db, clock, this);
+            Start?.Save(db, clock, this, "HasStartDate");
+            End?.Save(db, clock, this, "HasEndDate");
             base.Save(db, clock);
         }
     }

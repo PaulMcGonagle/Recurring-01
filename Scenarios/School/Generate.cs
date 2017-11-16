@@ -2,6 +2,7 @@
 using ArangoDB.Client;
 using Generators;
 using NodaTime;
+using Scheduler;
 
 namespace School
 {
@@ -9,6 +10,10 @@ namespace School
     {
         private IArangoDatabase _db;
         private IClock _clock;
+
+        private ICompositeSchedule _years;
+        private ICompositeSchedule _terms;
+        private ICompositeSchedule _holidays;
 
         public Generate(IArangoDatabase db, IClock clock)
         {
@@ -20,6 +25,7 @@ namespace School
         {
             GenerateYears();
             GenerateTerms();
+            GenerateHolidays();
         }
 
         public void GenerateYears()
@@ -35,6 +41,10 @@ namespace School
             {
                 g.Save(_db, _clock);
             }
+
+            _years = generated
+                .OfType<ICompositeSchedule>()
+                .SingleOrDefault();
         }
 
         public void GenerateTerms()
@@ -42,14 +52,37 @@ namespace School
             var generator = GeneratorFactory.Get("calendar");
 
             var generated = generator.Generate(
-                "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\Terms.xml",
-                _clock)
+                    "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\Terms.xml",
+                    _clock)
                 .ToArray();
 
             foreach (var g in generated)
             {
                 g.Save(_db, _clock);
             }
+
+            _terms = generated
+                .OfType<ICompositeSchedule>()
+                .SingleOrDefault();
+        }
+
+        public void GenerateHolidays()
+        {
+            var generator = GeneratorFactory.Get("calendar");
+
+            var generated = generator.Generate(
+                    "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\Holidays.xml",
+                    _clock)
+                .ToArray();
+
+            foreach (var g in generated)
+            {
+                g.Save(_db, _clock);
+            }
+
+            _holidays = generated
+                .OfType<ICompositeSchedule>()
+                .SingleOrDefault();
         }
     }
 }

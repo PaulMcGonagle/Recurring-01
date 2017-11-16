@@ -13,6 +13,9 @@ namespace Scheduler
         [IgnoreDataMember]
         public IEdgeVertexs<ISchedule> Schedules { get; set; }
 
+        [IgnoreDataMember]
+        public IEdgeVertexs<IVertex> Caches { get; set; }
+
         public GeneratorSource()
         {
             Schedules = new EdgeVertexs<ISchedule>();
@@ -24,6 +27,7 @@ namespace Scheduler
         {
             Save<GeneratorSource>(db);
             Schedules.Save(db, clock, this);
+            Caches?.Save(db, clock, this, "HasCache");
             base.Save(db, clock);
         }
 
