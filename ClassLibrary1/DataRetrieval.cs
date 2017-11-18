@@ -28,9 +28,9 @@ namespace TestData
                     "Schools.Term.201617.Autumn",
                     new ByWeekdays
                     {
-                        EdgeRange = new EdgeRangeDate(new RangeDate(
-                            new EdgeDate(Dates["Schools.Term.201617.Autumn.Start"]),
-                            new EdgeDate(Dates["Schools.Term.201617.Autumn.End"]))),
+                        EdgeRange = new EdgeRangeDate(
+                            start: Dates["Schools.Term.201617.Autumn.Start"],
+                            end: Dates["Schools.Term.201617.Autumn.End"]),
                         Days = DayRanges["Weekdays"],
                     }
                 },
@@ -38,9 +38,9 @@ namespace TestData
                     "Schools.Term.201617.Autumn.1",
                     new ByWeekdays
                     {
-                        EdgeRange = new EdgeRangeDate(new RangeDate(
-                            new EdgeDate(Dates["Schools.Term.201617.Autumn.Start"]),
-                            new EdgeDate(Dates["Schools.Term.201617.Autumn.HalfTerm.Start"].PlusDays(-1)))),
+                        EdgeRange = new EdgeRangeDate(
+                            start: Dates["Schools.Term.201617.Autumn.Start"],
+                            end: Dates["Schools.Term.201617.Autumn.HalfTerm.Start"].PlusDays(-1)),
                         Days = DayRanges["Weekdays"],
                     }
                 },
@@ -48,9 +48,9 @@ namespace TestData
                     "Schools.Term.201617.Autumn.HalfTerm",
                     new ByWeekdays
                     {
-                        EdgeRange = new EdgeRangeDate(new RangeDate(
-                            new EdgeDate(Dates["Schools.Term.201617.Autumn.HalfTerm.Start"]),
-                            new EdgeDate(Dates["Schools.Term.201617.Autumn.HalfTerm.End"]))),
+                        EdgeRange = new EdgeRangeDate(
+                            start: Dates["Schools.Term.201617.Autumn.HalfTerm.Start"],
+                            end: Dates["Schools.Term.201617.Autumn.HalfTerm.End"]),
                         Days = DayRanges["Weekdays"],
                     }
                 },
@@ -58,9 +58,9 @@ namespace TestData
                     "Schools.Term.201617.Autumn.2",
                     new ByWeekdays
                     {
-                        EdgeRange = new EdgeRangeDate(new RangeDate(
-                            new EdgeDate(Dates["Schools.Term.201617.Autumn.HalfTerm.End"].PlusDays(01)),
-                            new EdgeDate(Dates["Schools.Term.201617.Autumn.End"]))),
+                        EdgeRange = new EdgeRangeDate(
+                            start: Dates["Schools.Term.201617.Autumn.HalfTerm.End"].PlusDays(01),
+                            end: Dates["Schools.Term.201617.Autumn.End"]),
                         Days = DayRanges["Weekdays"],
                     }
                 },
@@ -68,9 +68,9 @@ namespace TestData
                     "Schools.Term.201617.Winter",
                     new ByWeekdays
                     {
-                        EdgeRange = new EdgeRangeDate(new RangeDate(
-                            new EdgeDate(Dates["Schools.Term.201617.Winter.Start"]),
-                            new EdgeDate(Dates["Schools.Term.201617.Winter.End"]))),
+                        EdgeRange = new EdgeRangeDate(
+                            start: Dates["Schools.Term.201617.Winter.Start"],
+                            end: Dates["Schools.Term.201617.Winter.End"]),
                         Days = DayRanges["Weekdays"],
                     }
                 },
@@ -78,9 +78,9 @@ namespace TestData
                     "Schools.Term.201617.Summer",
                     new ByWeekdays
                     {
-                        EdgeRange = new EdgeRangeDate(new RangeDate(
-                            new EdgeDate(Dates["Schools.Term.201617.Summer.Start"]),
-                            new EdgeDate(Dates["Schools.Term.201617.Summer.End"]))),
+                        EdgeRange = new EdgeRangeDate(
+                            start: Dates["Schools.Term.201617.Summer.Start"],
+                            end: Dates["Schools.Term.201617.Summer.End"]),
                         Days = DayRanges["Weekdays"],
                     }
                 },
@@ -195,45 +195,59 @@ namespace TestData
                 {
                     {
                         "Schools.Term.201617.Autumn",
-                        new RangeDate(
-                            new EdgeDate(Dates["Schools.Term.201617.Autumn.Start"]),
-                            new EdgeDate(Dates["Schools.Term.201617.Autumn.End"]))
+                        new RangeDateBuilder
+                        {
+                            Start = Dates["Schools.Term.201617.Autumn.Start"],
+                            End = Dates["Schools.Term.201617.Autumn.End"]
+                        }.Build()
                     },
                     {
                         "Schools.Term.201617.Winter",
-                        new RangeDate(
-                            new EdgeDate(Dates["Schools.Term.201617.Winter.Start"]),
-                            new EdgeDate(Dates["Schools.Term.201617.Winter.End"]))
+                        new RangeDateBuilder
+                        {
+                            Start = Dates["Schools.Term.201617.Winter.Start"],
+                            End = Dates["Schools.Term.201617.Winter.End"]
+                        }.Build()
                     },
                     {
                         "Schools.Term.201617.Summer",
-                        new RangeDate(
-                            new EdgeDate(Dates["Schools.Term.201617.Summer.Start"]),
-                            new EdgeDate(Dates["Schools.Term.201617.Summer.End"]))
+                        new RangeDateBuilder
+                        {
+                            Start = Dates["Schools.Term.201617.Summer.Start"],
+                            End = Dates["Schools.Term.201617.Summer.End"]
+                        }.Build()
                     },
                     {
                         "Schools.Term.201718.Autumn",
-                        new RangeDate(
-                            new EdgeDate(Dates["Schools.Term.201718.Autumn.Start"]),
-                            new EdgeDate(Dates["Schools.Term.201718.Autumn.End"]))
+                        new RangeDateBuilder
+                        {
+                            Start = Dates["Schools.Term.201718.Autumn.Start"],
+                            End = Dates["Schools.Term.201718.Autumn.End"]
+                        }.Build()
                     },
                     {
                         "Schools.Term.201617.Autumn.HalfTerm",
-                        new RangeDate(
-                            new EdgeDate(Dates["Schools.Term.201617.Autumn.HalfTerm.Start"]),
-                            new EdgeDate(Dates["Schools.Term.201617.Autumn.HalfTerm.End"]))
+                        new RangeDateBuilder
+                        {
+                            Start = Dates["Schools.Term.201617.Autumn.HalfTerm.Start"],
+                            End = Dates["Schools.Term.201617.Autumn.HalfTerm.End"]
+                        }.Build()
                     },
                     {
                         "Schools.Term.201617.Winter.HalfTerm",
-                        new RangeDate(
-                            new EdgeDate(Dates["Schools.Term.201617.Winter.HalfTerm.Start"]),
-                            new EdgeDate(Dates["Schools.Term.201617.Winter.HalfTerm.End"]))
+                        new RangeDateBuilder
+                        {
+                            Start = Dates["Schools.Term.201617.Winter.HalfTerm.Start"],
+                            End = Dates["Schools.Term.201617.Winter.HalfTerm.End"]
+                        }.Build()
                     },
                     {
                         "Schools.Term.201617.Summer.HalfTerm",
-                        new RangeDate(
-                            new EdgeDate(Dates["Schools.Term.201617.Summer.HalfTerm.Start"]),
-                            new EdgeDate(Dates["Schools.Term.201617.Summer.HalfTerm.End"]))
+                        new RangeDateBuilder
+                        {
+                            Start = Dates["Schools.Term.201617.Summer.HalfTerm.Start"],
+                            End = Dates["Schools.Term.201617.Summer.HalfTerm.End"]
+                        }.Build()
                     },
                 };
 

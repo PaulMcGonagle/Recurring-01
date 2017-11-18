@@ -92,7 +92,11 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                     {
                         Event.Create(
                             schedule: new SingleDay { Date = new Date(2016, YearMonth.MonthValue.January, 01) },
-                            rangeTime: new RangeTime(new LocalTime(16, 30), new PeriodBuilder {Minutes = 45}.Build()),
+                            rangeTime: new RangeTimeBuilder
+                            {
+                                Start = new LocalTime(16, 30),
+                                Period = new PeriodBuilder {Minutes = 45}.Build()
+                            }.Build(),
                             timeZoneProvider: "Europe/London"),
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
@@ -181,7 +185,11 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                         {
                                             Date = new Date(2016, YearMonth.MonthValue.January, 01),
                                         },
-                            rangeTime: new RangeTime(new LocalTime(16, 30), null),
+                            rangeTime: new RangeTimeBuilder
+                            {
+                                Start = new LocalTime(16, 30),
+                                Period = null
+                            }.Build(),
                             timeZoneProvider: "Europe/London"),
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
@@ -193,7 +201,11 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                         {
                                             Date = new Date(2016, YearMonth.MonthValue.January, 01),
                                         },
-                            rangeTime: new RangeTime(new LocalTime(16, 30), new PeriodBuilder {Minutes = 45}.Build()),
+                            rangeTime: new RangeTimeBuilder
+                            {
+                                Start = new LocalTime(16, 30),
+                                Period = new PeriodBuilder {Minutes = 45}.Build()
+                            }.Build(),
                             timeZoneProvider: null),
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),

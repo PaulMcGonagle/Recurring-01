@@ -15,9 +15,11 @@ namespace Scheduler.ScheduleEdges
         public EdgeRangeTime(
             LocalTime start,
             Period period)
-            : this(new RangeTime(
-                start: start,
-                period: period))
+            : this(new RangeTimeBuilder
+            {
+                Start = start,
+                Period = period
+            }.Build())
         {
 
         }

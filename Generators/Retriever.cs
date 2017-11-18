@@ -110,9 +110,11 @@ namespace Generators
 
             var period = Period.Between(start, end, PeriodUnits.AllTimeUnits);
 
-            var rangeTime = new RangeTime(
-                start: start,
-                period: period);
+            var rangeTime = new RangeTimeBuilder
+            {
+                Start = start,
+                Period = period
+            }.Build();
 
             rangeTime.Connect(xInput.RetrieveTags(caches));
 

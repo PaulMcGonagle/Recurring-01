@@ -119,9 +119,17 @@ namespace InitialiseDatabase
                     schedule: ByWeekday.Create
                         (
                             isoDayOfWeek: IsoDayOfWeek.Wednesday,
-                            rangeDate: new RangeDate(2016, YearMonth.MonthValue.January, 01, 2016, YearMonth.MonthValue.January, 05)
+                            rangeDate: new RangeDateBuilder
+                            {
+                                Start = new Date(year: 2016, month: YearMonth.MonthValue.January, day:01),
+                                End = new Date(year: 2016, month: YearMonth.MonthValue.January, day: 05)
+                            }.Build()
                         ),
-                    rangeTime: new RangeTime(new LocalTime(16, 30), new PeriodBuilder { Minutes = 45 }.Build()),
+                    rangeTime: new RangeTimeBuilder
+                    {
+                        Start = new LocalTime(16, 30),
+                        Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                    }.Build(),
                     timeZoneProvider: "Europe/London",
                     location: new Location
                         {

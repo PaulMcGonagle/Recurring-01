@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using NodaTime;
+using Scheduler;
 
 namespace Generators.XInstances
 {
@@ -34,7 +35,11 @@ namespace Generators.XInstances
                 //todo change to Period
                 to = start.PlusDays((int)duration.TotalDays);
             }
-            var rangeDate = new RangeDate(start, to);
+            var rangeDate = new RangeDateBuilder
+            {
+                Start = new Date(start),
+                End = new Date(to)
+            }.Build();
 
             rangeDate.Connect(xRangeDate.RetrieveTags(caches, elementsName));
 

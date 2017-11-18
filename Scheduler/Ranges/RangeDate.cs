@@ -11,31 +11,9 @@ namespace Scheduler.Ranges
     public class RangeDate : Vertex, IRangeDate
     {
         [IgnoreDataMember]
-        public EdgeDate Start { get; }
+        public EdgeDate Start { get; set; }
         [IgnoreDataMember]
-        public EdgeDate End { get; }
-
-        public RangeDate(int startYear, YearMonth.MonthValue startMonth, int startDay, int endYear, YearMonth.MonthValue endMonth, int endDay)
-        {
-            Start = new EdgeDate(startYear, startMonth, startDay);
-            End = new EdgeDate(endYear, endMonth, endDay);
-        }
-
-        public RangeDate(EdgeDate start, EdgeDate end)
-        {
-            if (start.Date.Value > end.Date.Value)
-                throw new ArgumentOutOfRangeException(nameof(start), $"Start date [{end.Date.Value.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than To date [{start.Date.Value.ToString("D", CultureInfo.CurrentCulture)}]");
-
-            Start = start;
-            End = end;
-        }
-
-        public RangeDate(LocalDate start, LocalDate end)
-            : this(
-                start: new EdgeDate(start),
-                end: new EdgeDate(end))
-        {
-        }
+        public EdgeDate End { get; set; }
 
         public void Validate()
         {
@@ -61,6 +39,34 @@ namespace Scheduler.Ranges
             Start?.Save(db, clock, this, "HasStartDate");
             End?.Save(db, clock, this, "HasEndDate");
             base.Save(db, clock);
+        }
+    }
+
+    public class RangeDateBuilder
+    {
+        private RangeDate _rangeDate;
+
+        public RangeDateBuilder()
+        {
+            _rangeDate = new RangeDate();
+        }
+
+        public IDate Start
+        {
+            set => _rangeDate.Start = new EdgeDate(value);
+        }
+
+        public IDate End
+        {
+            set => _rangeDate.End = new EdgeDate(value);
+        }
+
+        public RangeDate Build()
+        {
+            if (_rangeDate.Start.Date.Value > _rangeDate.End.Date.Value)
+                throw new ArgumentOutOfRangeException(nameof(_rangeDate.Start), $"Start date [{_rangeDate.End.Date.Value.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than To date [{_rangeDate.Start.Date.Value.ToString("D", CultureInfo.CurrentCulture)}]");
+
+            return _rangeDate;
         }
     }
 }

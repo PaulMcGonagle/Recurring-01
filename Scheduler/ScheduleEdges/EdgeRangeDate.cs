@@ -1,4 +1,7 @@
-﻿using Scheduler.Persistance;
+﻿using System.IO;
+using Neo4jClient.Cypher;
+using NodaTime;
+using Scheduler.Persistance;
 using Scheduler.Ranges;
 
 namespace Scheduler.ScheduleEdges
@@ -18,13 +21,32 @@ namespace Scheduler.ScheduleEdges
             int toYear,
             YearMonth.MonthValue toMonth,
             int toDay)
-            : this(new RangeDate(
-                startYear: fromYear,
-                startMonth: fromMonth,
-                startDay: fromDay,
-                endYear: toYear,
-                endMonth: toMonth,
-                endDay: toDay))
+            : this(
+                start: new Date(year: fromYear, month: fromMonth, day: fromDay),
+                end: new Date(year: toYear, month: toMonth, day: toDay)
+            )
+        {
+
+        }
+
+        public EdgeRangeDate(
+            IDate start,
+            IDate end)
+            : this(new RangeDateBuilder
+            {
+                Start = start,
+                End = end
+            }.Build())
+        {
+
+        }
+
+        public EdgeRangeDate(
+            LocalDate start,
+            LocalDate end)
+            : this(
+                start: new Date(start),
+                end: new Date(end))
         {
 
         }

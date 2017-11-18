@@ -41,11 +41,15 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                        Event.Create(
                             schedule: new ByWeekday(IsoDayOfWeek.Wednesday)
                             {
-                                EdgeRange =
-                                    new EdgeRangeDate(new RangeDate(2016, YearMonth.MonthValue.February, 20, 2016,
-                                        YearMonth.MonthValue.May, 15)),
+                                EdgeRange = new EdgeRangeDate(
+                                    start: new Date(2016, YearMonth.MonthValue.February, 20),
+                                    end: new Date(2016, YearMonth.MonthValue.May, 15)),
                             },
-                            rangeTime: new RangeTime(new LocalTime(16, 30), new PeriodBuilder {Minutes = 45}.Build()),
+                            rangeTime: new RangeTimeBuilder
+                            {
+                                Start = new LocalTime(16, 30),
+                                Period = new PeriodBuilder {Minutes = 45}.Build()
+                            }.Build(),
                             timeZoneProvider: "Europe/London",
                             location: TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                         mockDb.Object,
@@ -131,16 +135,17 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                             {
                                 EdgeRange =
                                     new EdgeRangeDate(
-                                        new RangeDate(
-                                            2016, YearMonth.MonthValue.February, 20,
-                                            2016, YearMonth.MonthValue.May, 15)),
+                                        start: new Date(2016, YearMonth.MonthValue.February, 20),
+                                        end: new Date(2016, YearMonth.MonthValue.May, 15)),
                             },
-                            rangeTime: new RangeTime(
-                                start: new LocalTime(16, 30),
-                                period: new PeriodBuilder
+                            rangeTime: new RangeTimeBuilder
+                            {
+                                Start = new LocalTime(16, 30),
+                                Period = new PeriodBuilder
                                 {
                                     Minutes = 45
-                                }.Build()),
+                                }.Build()
+                            }.Build(),
                             timeZoneProvider: "Europe/London",
                             location: TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                         mockDb.Object,

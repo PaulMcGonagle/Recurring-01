@@ -37,7 +37,9 @@ namespace Calendar.Test
                                     toVertex: new Serial(
                                                 schedule: new ByWeekday(
                                                     weekday: IsoDayOfWeek.Thursday),
-                                                rangeTime: new EdgeRangeTime(new RangeTime(new LocalTime(16, 45), new PeriodBuilder { Minutes = 45}.Build())),
+                                                rangeTime: new EdgeRangeTime(
+                                                    start: new LocalTime(16, 45),
+                                                    period: new PeriodBuilder { Minutes = 45}.Build()),
                                                 timeZoneProvider: TimeZoneProvider)),
                                 Title = "Street dance",
                             },
