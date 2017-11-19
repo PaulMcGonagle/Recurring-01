@@ -10,6 +10,11 @@ namespace Scheduler
 {
     public class Serial : Vertex, ISerial
     {
+        public Serial()
+        {
+            
+        }
+
         public Serial(
             ISchedule schedule, 
             IEdgeRangeTime rangeTime, 
@@ -47,19 +52,16 @@ namespace Scheduler
             return episodes;
         }
 
-        private void Validate()
+        public void Validate()
         {
-            if (EdgeSchedule?.Schedule == null)
-                throw new ArgumentException("Schedule");
+            if (EdgeSchedule == null)
+                throw new ArgumentNullException(nameof(EdgeSchedule));
 
             if (RangeTime == null)
-                throw new ArgumentException("RangeTime");
-
-            if (RangeTime?.Range?.Period == null)
-                throw new ArgumentException("Period");
+                throw new ArgumentNullException(nameof(RangeTime));
 
             if (TimeZoneProvider == null)
-                throw new ArgumentException("TimeZoneProvider");
+                throw new ArgumentNullException(nameof(TimeZoneProvider));
         }
 
         public override void Save(IArangoDatabase db, IClock clock)
@@ -71,6 +73,35 @@ namespace Scheduler
             Tags?.Save(db, clock, this);
             RangeTime?.Save(db, clock, this);
             base.Save(db, clock);
+        }
+    }
+
+    public class SerialBuilder
+    {
+        private readonly Serial _serial;
+
+        public SerialBuilder()
+        {
+            _serial = new Serial();
+        }
+
+        public IEdgeSchedule EdgeSchedule { set => _serial.EdgeSchedule = value; }
+
+        public IEdgeRangeTime RangeTime
+        {
+            set => _serial.RangeTime = value;
+        }
+
+        public string TimeZoneProvider
+        {
+            set => _serial.TimeZoneProvider = value;
+        }
+
+        public Serial Build()
+        {
+            _serial.Validate();
+
+            return _serial;
         }
     }
 }

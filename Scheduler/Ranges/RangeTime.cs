@@ -16,6 +16,24 @@ namespace Scheduler.Ranges
         [IgnoreDataMember]
         public LocalTime End => Start.Plus(Period);
 
+        public void Validate()
+        {
+            if (Start == default(LocalTime))
+            {
+                throw new ArgumentNullException(nameof(Start));
+            }
+
+            if (Period == null)
+            {
+                throw new ArgumentNullException(nameof(Period));
+            }
+
+            if (Period.ToDuration().Ticks < 0)
+                throw new ArgumentOutOfRangeException(nameof(Period));
+
+            Period = Period.Between(Start, End);
+        }
+
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<RangeTime>(db);
@@ -25,7 +43,7 @@ namespace Scheduler.Ranges
 
     public class RangeTimeBuilder
     {
-        private RangeTime _rangeTime;
+        private readonly RangeTime _rangeTime;
         private LocalTime? _endTimeSupplied;
 
         public RangeTimeBuilder()
@@ -43,7 +61,7 @@ namespace Scheduler.Ranges
             set
             {
                 _endTimeSupplied = value;
-                Period = default(Period);
+                _rangeTime.Period = default(Period);
             }
         }
 
@@ -58,21 +76,15 @@ namespace Scheduler.Ranges
 
         public RangeTime Build()
         {
-            if (_rangeTime.Start == default(LocalTime))
+            if (_rangeTime.Period == null
+            && _endTimeSupplied.HasValue
+            && _rangeTime.Start != default(LocalTime)
+            )
             {
-                throw new ArgumentNullException("Start");
+                _rangeTime.Period = NodaTime.Period.Between(_rangeTime.Start, _endTimeSupplied.Value);
             }
 
-            if (_rangeTime.Period.Equals(default(Period))
-            && _endTimeSupplied == null)
-            {
-                throw new ArgumentNullException("Period");
-            }
-
-            if (_rangeTime.Start > _rangeTime.End)
-                throw new ArgumentOutOfRangeException(nameof(_rangeTime.Start), $"Start time [{_rangeTime.End.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than To date [{_rangeTime.Start.ToString("D", CultureInfo.CurrentCulture)}]");
-
-            _rangeTime.Period = Period.Between(_rangeTime.Start, _rangeTime.End);
+            _rangeTime.Validate();
 
             return _rangeTime;
         }

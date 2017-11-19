@@ -1,4 +1,5 @@
-﻿using NodaTime;
+﻿using System;
+using NodaTime;
 using Scheduler.Persistance;
 
 namespace Scheduler.ScheduleEdges
@@ -8,7 +9,8 @@ namespace Scheduler.ScheduleEdges
         public EdgeDate(IDate toVertex, string label = null)
             : base(toVertex, label)
         {
-
+            if (Date == null)
+                throw new ArgumentNullException(nameof(Date));
         }
 
         public EdgeDate(int year, YearMonth.MonthValue month, int day)
@@ -24,7 +26,7 @@ namespace Scheduler.ScheduleEdges
         public IDate Date
         {
             get { return ToVertex; }
-            set { ToVertex = value; }
+            set => ToVertex = value ?? throw new ArgumentNullException(nameof(Date));
         }
     }
 }

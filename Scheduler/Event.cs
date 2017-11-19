@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
@@ -92,6 +93,15 @@ namespace Scheduler
 
         public static Event Create(Schedule schedule, IRangeTime rangeTime, string timeZoneProvider, Location location = null)
         {
+            if (schedule == null)
+                throw new ArgumentNullException(nameof(schedule));
+
+            if (rangeTime == null)
+                throw new ArgumentNullException(nameof(rangeTime));
+
+            if (string.IsNullOrWhiteSpace(timeZoneProvider))
+                throw new ArgumentNullException(nameof(timeZoneProvider));
+
             return new Event
             {
                 Serials = new EdgeVertexs<ISerial>(

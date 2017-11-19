@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using TestHelpers;
 using TestStack.BDDfy;
 using Xunit;
 

@@ -12,6 +12,7 @@ using Scheduler.Ranges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Test;
 using Shouldly;
+using TestHelpers;
 using TestStack.BDDfy;
 using Xunit;
 
@@ -133,111 +134,6 @@ namespace ScheduleGeneration.Test.ScheduleInstances
             public void ThenDatesAreAsExpected(IEnumerable<LocalDateTime> expectedEpisodes)
             {
                 _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.Start.LocalDateTime).ShouldBe(expectedEpisodes.Select(ee => ee));
-            }
-        }
-
-        public class MissingFieldsRaiseExpectedException
-        {
-            private IEvent _event;
-            private IClock _clock;
-            private IArangoDatabase _db;
-            private Exception _exception;
-
-            [Fact]
-            public void Execute()
-            {
-                var mockDb = MockVertexFactory<Vertex>.GetArangoDatabase();
-                var fakeClock = ScheduleTestHelper.GetFakeClock(2016, YearMonth.MonthValue.March, 15);
-
-                this.WithExamples(new ExampleTable(
-                    "SUT",
-                    "db",
-                    "clock",
-                    "Expected Message"
-                )
-                {
-                    {
-                        new Event
-                        {
-                            Serials = new EdgeVertexs<ISerial>(
-                                toVertex: new Serial(
-                                    schedule: new CompositeSchedule()
-                                        {
-                                            Inclusions = new EdgeVertexs<ISchedule>
-                                            {
-                                                new EdgeVertex<ISchedule>(new SingleDay
-                                                {
-                                                    Date = new Date(2016, YearMonth.MonthValue.January, 01),
-                                                })
-                                                ,
-                                            },
-                                        },
-                                    rangeTime: null,
-                                    timeZoneProvider: "Europe/London")),
-                        },
-                        mockDb.Object,
-                        fakeClock,
-                        "RangeTime"
-                    },
-                    {
-                        Event.Create(
-                            schedule: new SingleDay
-                                        {
-                                            Date = new Date(2016, YearMonth.MonthValue.January, 01),
-                                        },
-                            rangeTime: new RangeTimeBuilder
-                            {
-                                Start = new LocalTime(16, 30),
-                                Period = null
-                            }.Build(),
-                            timeZoneProvider: "Europe/London"),
-                        mockDb.Object,
-                        new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
-                        "Period"
-                    },
-                    {
-                        Event.Create(
-                            schedule: new SingleDay
-                                        {
-                                            Date = new Date(2016, YearMonth.MonthValue.January, 01),
-                                        },
-                            rangeTime: new RangeTimeBuilder
-                            {
-                                Start = new LocalTime(16, 30),
-                                Period = new PeriodBuilder {Minutes = 45}.Build()
-                            }.Build(),
-                            timeZoneProvider: null),
-                        mockDb.Object,
-                        new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
-                        "TimeZoneProvider"
-                    },
-                }).BDDfy();
-            }
-
-            public void GivenEvent(Event sut)
-            {
-                _event = sut;
-            }
-
-            public void AndGivenDatabase(IArangoDatabase db)
-            {
-                _db = db;
-            }
-
-            public void AndGivenClock(IClock clock)
-            {
-                _clock = clock;
-            }
-
-            public void WhenEventIsSaved()
-            {
-                _exception = Record.Exception(() => _event.Save(_db, _clock));
-            }
-
-            public void ThenArgumentExceptionIsThrown(string expectedMessage)
-            {
-                _exception.ShouldBeOfType(typeof(ArgumentException));
-                _exception.Message.ShouldBe(expectedMessage);
             }
         }
     }

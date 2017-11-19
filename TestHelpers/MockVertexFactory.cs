@@ -5,9 +5,9 @@ using Moq;
 using Scheduler;
 using Scheduler.Persistance;
 
-namespace ScheduleGeneration.Test
+namespace TestHelpers
 {
-    internal static class MockVertexFactory<T> where T : Vertex
+    public static class MockVertexFactory<T> where T : Vertex
     {
         public static string Id { get; } = Guid.NewGuid().ToString().Replace("-", "").Substring(8);
         public static string Rev { get; } = Guid.NewGuid().ToString().Replace("-", "").Substring(8);

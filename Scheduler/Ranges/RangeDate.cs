@@ -15,14 +15,6 @@ namespace Scheduler.Ranges
         [IgnoreDataMember]
         public EdgeDate End { get; set; }
 
-        public void Validate()
-        {
-            if (Start?.Date?.Value != null && End?.Date?.Value == null && Start.Date?.Value <= End?.Date?.Value)
-            {
-                throw new ArgumentOutOfRangeException($"Range is invalid: Start={Start?.Date?.Value}, End={End?.Date?.Value}");
-            }
-        }
-
         public override string ToString()
         {
             return $"{Start.Date}->{End.Date}";
@@ -31,6 +23,18 @@ namespace Scheduler.Ranges
         public bool Contains(LocalDate localDate)
         {
             return Start.Date?.Value <= localDate && localDate <= End.Date?.Value;
+        }
+
+        public void Validate()
+        {
+            if (Start == null)
+                throw new ArgumentNullException(nameof(Start));
+
+            if (End == null)
+                throw new ArgumentNullException(nameof(End));
+
+            if (Start.Date.Value > End.Date.Value)
+                throw new ArgumentOutOfRangeException(nameof(Start), $"Start date [{Start.Date.Value.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than End date [{End.Date.Value.ToString("D", CultureInfo.CurrentCulture)}]");
         }
 
         public override void Save(IArangoDatabase db, IClock clock)
@@ -63,8 +67,7 @@ namespace Scheduler.Ranges
 
         public RangeDate Build()
         {
-            if (_rangeDate.Start.Date.Value > _rangeDate.End.Date.Value)
-                throw new ArgumentOutOfRangeException(nameof(_rangeDate.Start), $"Start date [{_rangeDate.End.Date.Value.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than To date [{_rangeDate.Start.Date.Value.ToString("D", CultureInfo.CurrentCulture)}]");
+            _rangeDate.Validate();
 
             return _rangeDate;
         }

@@ -99,7 +99,6 @@
     <Compile Include="LoadHolidaysTests.cs" />
     <Compile Include="LoadOption02.cs" />
     <Compile Include="LoadSourceTests.cs" />
-    <Compile Include="MockVertexFactory.cs" />
     <Compile Include="Persistance\EventPersistanceTests.cs" />
     <Compile Include="Persistance\VertexPersistanceTests.cs" />
     <Compile Include="ScheduleInstances\ByWeekdayTests.cs" />
@@ -132,6 +131,10 @@
     <ProjectReference Include="..\Scheduler\Scheduler.csproj">
       <Project>{3189f8e6-b2ab-4b6e-8f28-756372c7644e}</Project>
       <Name>Scheduler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestHelpers\TestHelpers.csproj">
+      <Project>{8cd75103-0a87-4ea8-b2cc-d39373f17f8d}</Project>
+      <Name>TestHelpers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

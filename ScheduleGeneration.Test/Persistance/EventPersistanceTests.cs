@@ -5,6 +5,7 @@ using NodaTime.Testing;
 using Scheduler;
 using Shouldly;
 using TestStack.BDDfy;
+using TestHelpers;
 using Xunit;
 
 namespace ScheduleGeneration.Test.Persistance

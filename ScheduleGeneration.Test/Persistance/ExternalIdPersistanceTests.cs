@@ -6,6 +6,7 @@ using Scheduler.Persistance;
 using TestStack.BDDfy;
 using Xunit;
 using Shouldly;
+using TestHelpers;
 
 namespace ScheduleGeneration.Test.Persistance
 {

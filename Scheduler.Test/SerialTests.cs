@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
 using NodaTime.Testing;
@@ -16,31 +17,34 @@ namespace Scheduler.Test
     {
         public class VerifyDateOutOfBoundsExceptionIsThrown
         {
-            private Serial _sut;
+            private SerialBuilder _sut;
             private IClock _clock;
+            private Serial _serial;
             private IEdgeVertexs<IEpisode> _episodes;
 
             [Fact]
             public void Execute()
             {
                 const string timeZoneProvider = "Europe/London";
-                var fakeClock = new FakeClock(Instant.FromUtc(2016, 05, 01, 0, 0));
+                var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
 
                 this.WithExamples(new ExampleTable("sut", "clock", "expectedEpisodes")
                     {
                         {
-                            new Serial(
-                                schedule: new ByDateList
+                            new SerialBuilder
+                            {
+                                EdgeSchedule = new EdgeSchedule(new ByDateList
+                                {
+                                    Items = new EdgeVertexs<IDate>()
                                     {
-                                        Items = new EdgeVertexs<IDate>()
-                                        {
-                                            new EdgeVertex<IDate>(new Date(2016, YearMonth.MonthValue.January, 05)),
-                                            new EdgeVertex<IDate>(new Date(2016, YearMonth.MonthValue.January, 06)),
-                                            new EdgeVertex<IDate>(new Date(2016, YearMonth.MonthValue.January, 07)),
-                                        }
-                                    },
-                                rangeTime: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
-                                timeZoneProvider: timeZoneProvider),
+                                        new EdgeVertex<IDate>(new Date(2016, YearMonth.MonthValue.January, 05)),
+                                        new EdgeVertex<IDate>(new Date(2016, YearMonth.MonthValue.January, 06)),
+                                        new EdgeVertex<IDate>(new Date(2016, YearMonth.MonthValue.January, 07)),
+                                    }
+                                }),
+                                RangeTime = new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
+                                TimeZoneProvider = timeZoneProvider
+                            },
                             fakeClock,
                             new Episodes
                             {
@@ -66,14 +70,19 @@ namespace Scheduler.Test
                     .BDDfy();
             }
 
-            public void GivenACalendarEvent(Serial sut)
+            public void GivenABuilder(SerialBuilder sut)
             {
                 _sut = sut;
             }
 
+            public void WhenSerialIsBuilt()
+            {
+                _serial = _sut.Build();
+            }
+
             public void WhenEpisodesAreRetrieved()
             {
-                _episodes = _sut.GenerateEpisodes(_clock);
+                _episodes = _serial.GenerateEpisodes(_clock);
             }
 
             public void ThenEpisodesAreExpected(IEpisodes expectedEpisodes)
@@ -86,9 +95,9 @@ namespace Scheduler.Test
 
         public class VerifyMissingPropertyThrowsArgumentException
         {
-            private Serial _sut;
+            private SerialBuilder _sut;
             private IClock _clock;
-            private IEdgeVertexs<IEpisode> _episodes;
+            private Serial _serial;
             private System.Exception _exception;
 
             [Fact]
@@ -97,51 +106,67 @@ namespace Scheduler.Test
                 const string timeZoneProvider = "Europe/London";
                 var fakeClock = new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00));
 
-                this.WithExamples(new ExampleTable("sut", "clock", "parameterName")
+                this.WithExamples(new ExampleTable(
+                    "sut",
+                    "clock",
+                    "paramName")
                     {
                         {
-                            new Serial(
-                                schedule: new ByDateList { Items = new EdgeVertexs<IDate>(), },
-                                rangeTime: null,
-                                timeZoneProvider: timeZoneProvider),
+                            new SerialBuilder
+                            {
+                                EdgeSchedule = new EdgeSchedule(new ByDateList { Items = new EdgeVertexs<IDate>(), }),
+                                TimeZoneProvider = timeZoneProvider,
+                            },
                             fakeClock,
                             "RangeTime"
                         },
                         {
-                            new Serial(
-                                schedule: new ByDateList { Items = new EdgeVertexs<IDate>(), },
-                                rangeTime: new EdgeRangeTime(new LocalTime(15, 30), null),
-                                timeZoneProvider: timeZoneProvider),
-                            fakeClock,
-                            "Period"
-                        },
-                        {
-                            new Serial(
-                                schedule: new ByDateList { Items = new EdgeVertexs<IDate>(), },
-                                rangeTime: new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Minutes = 30,}.Build()),
-                                timeZoneProvider: null),
+                            new SerialBuilder
+                            {
+                                EdgeSchedule = new EdgeSchedule(new ByDateList { Items = new EdgeVertexs<IDate>(), }),
+                                RangeTime = new EdgeRangeTime(
+                                    start: new LocalTime(15, 30),
+                                    period: new PeriodBuilder { Minutes = 30 }.Build()),
+                            },
                             fakeClock,
                             "TimeZoneProvider"
+                        },
+                        {
+                            new SerialBuilder
+                            {
+                                RangeTime = new EdgeRangeTime(
+                                    start: new LocalTime(15, 30),
+                                    period: new PeriodBuilder { Minutes = 30 }.Build()),
+                                TimeZoneProvider = timeZoneProvider,
+                            },
+                            fakeClock,
+                            "EdgeSchedule"
                         },
                     })
                     .BDDfy();
             }
 
-            public void GivenACalendarEvent(Serial sut)
+            public void GivenABuilder(SerialBuilder sut)
             {
                 _sut = sut;
             }
 
-            public void WhenEpisodesAreRetrieved()
+            public void AndGivenAClock(IClock clock)
             {
-                _exception = Record.Exception(() => { _episodes = _sut.GenerateEpisodes(_clock); });
+                _clock = clock;
             }
 
-            public void ThenArgumentExceptionIsThrown(string parameterName)
+            public void WhenEpisodesAreRetrieved()
             {
-                _exception.ShouldNotBeNull();
+                _exception = Record.Exception(() => { _serial = _sut.Build(); });
+            }
 
-                _exception.Message.ShouldBe(parameterName);
+            public void ThenArgumentExceptionIsThrown(string paramName)
+            {
+                _exception.ShouldBeOfType<ArgumentNullException>();
+                var a = (ArgumentNullException) _exception;
+
+                a.ParamName.ShouldBe(paramName);
             }
         }
     }

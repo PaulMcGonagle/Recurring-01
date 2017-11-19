@@ -11,6 +11,7 @@ using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Test;
 using Shouldly;
+using TestHelpers;
 using TestStack.BDDfy;
 using Xunit;
 

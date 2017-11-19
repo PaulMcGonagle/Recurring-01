@@ -13,6 +13,7 @@ using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Shouldly;
+using TestHelpers;
 using TestStack.BDDfy;
 using Xunit;
 
