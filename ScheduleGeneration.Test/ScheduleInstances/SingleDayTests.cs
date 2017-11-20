@@ -23,7 +23,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
     {
         public class VerifyCanBeSaved
         {
-            private SingleDay _singleDay;
+            private ISchedule _singleDay;
             private IClock _clock;
             private IArangoDatabase _db;
 
@@ -39,14 +39,20 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 )
                 {
                     {
-                        new SingleDay { Date = new Date(2016, YearMonth.MonthValue.January, 01) },
+                        new ScheduleBuilder
+                        {
+                            ScheduleInstance = new SingleDayBuilder
+                            {
+                                Date = new Date(2016, YearMonth.MonthValue.January, 01)
+                            }.Build(),
+                        }.Build(),
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15))
                     },
                 }).BDDfy();
             }
 
-            public void GivenSingleDay(SingleDay sut)
+            public void GivenSingleDay(ISchedule sut)
             {
                 _singleDay = sut;
             }
@@ -92,7 +98,13 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 {
                     {
                         Event.Create(
-                            schedule: new SingleDay { Date = new Date(2016, YearMonth.MonthValue.January, 01) },
+                            schedule: new ScheduleBuilder
+                            {
+                                ScheduleInstance = new SingleDayBuilder
+                                {
+                                    Date = new Date(2016, YearMonth.MonthValue.January, 01)
+                                }.Build(),
+                            }.Build(),
                             rangeTime: new RangeTimeBuilder
                             {
                                 Start = new LocalTime(16, 30),

@@ -44,12 +44,16 @@ namespace ScheduleGeneration.Test
                 {
                     {
                         Event.Create(
-                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday)
+                            schedule: new ScheduleBuilder
                             {
-                                EdgeRange = new EdgeRangeDate(
-                                        start: new Date(2016, YearMonth.MonthValue.February, 20),
-                                        end: new Date(2016, YearMonth.MonthValue.May, 15)),
-                            },
+                                ScheduleInstance = new ByWeekdaysBuilder
+                                {
+                                    Weekdays = new [] { IsoDayOfWeek.Wednesday, },
+                                    EdgeRangeDate = new EdgeRangeDate(
+                                            start: new Date(2016, YearMonth.MonthValue.February, 20),
+                                            end: new Date(2016, YearMonth.MonthValue.May, 15)),
+                                }.Build()
+                            }.Build(),
                             rangeTime: new RangeTimeBuilder
                             {
                                 Start = new LocalTime(16, 30),
@@ -248,12 +252,18 @@ namespace ScheduleGeneration.Test
                 {
                     {
                         Event.Create(
-                            schedule: new ByWeekday(IsoDayOfWeek.Wednesday)
+                            schedule: new ScheduleBuilder
                             {
-                                EdgeRange = new EdgeRangeDate(
-                                    start: new Date(2016, YearMonth.MonthValue.February, 20),
-                                    end: new Date(2016, YearMonth.MonthValue.May, 15)),
-                            },
+                                ScheduleInstance = new ByWeekdaysBuilder
+                                {
+                                    Weekdays = new [] { IsoDayOfWeek.Wednesday, },
+                                    RangeDate = new RangeDateBuilder
+                                    {
+                                        Start = new Date(2016, YearMonth.MonthValue.February, 20),
+                                        End = new Date(2016, YearMonth.MonthValue.May, 15)
+                                    }.Build(),
+                                }.Build(),
+                            }.Build(),
                             rangeTime: new RangeTimeBuilder
                             {
                                 Start = new LocalTime(16, 30),

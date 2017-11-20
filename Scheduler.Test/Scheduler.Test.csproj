@@ -101,7 +101,6 @@
     <Compile Include="Repeating\ByDayOfMonthTests.cs" />
     <Compile Include="Repeating\ByDayOfYearTests.cs" />
     <Compile Include="Repeating\ByWeekdaysTests.cs" />
-    <Compile Include="Repeating\ByWeekdayTests.cs" />
     <Compile Include="HolidaysExclusionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScheduleInstances\DateListTests.cs" />

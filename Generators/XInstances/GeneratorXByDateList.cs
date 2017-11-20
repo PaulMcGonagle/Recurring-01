@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 using NodaTime;
+using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
 
@@ -15,8 +16,13 @@ namespace Generators.XInstances
                 .RetrieveDates(clock, caches, elementsName)
                 .ToList();
 
-            var dateList = ByDateList
-                .Create(dates);
+            var dateList = new ScheduleBuilder
+            {
+                ScheduleInstance = new ByDateListBuilder
+                {
+                    Items = new EdgeVertexs<IDate>(dates)
+                }.Build()
+            }.Build();
 
             dateList.Connect(xDateList.RetrieveTags(caches, elementsName));
 

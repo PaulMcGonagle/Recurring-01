@@ -1,20 +1,24 @@
-﻿using NodaTime;
+﻿using System;
+using NodaTime;
 using System.Collections.Generic;
 using System.Linq;
 using ArangoDB.Client;
+using CoreLibrary;
+using Scheduler.Persistance;
 using Scheduler.Ranges;
+using Scheduler.ScheduleAbstracts;
 using Scheduler.ScheduleEdges;
 
 namespace Scheduler.ScheduleInstances
 {
     public class ByWeekdays : ScheduleAbstracts.Repeating
     {
-        public IEnumerable<IsoDayOfWeek> Days;
+        public IEnumerable<IsoDayOfWeek> Weekdays;
 
         public ByWeekdays(
             IEnumerable<IsoDayOfWeek> weekdays)
         {
-            Days = weekdays;
+            Weekdays = weekdays;
         }
 
         public ByWeekdays()
@@ -23,32 +27,46 @@ namespace Scheduler.ScheduleInstances
             CountToDefault = 52;
         }
 
-        public static ByWeekdays Create(
-            IEnumerable<IsoDayOfWeek> weekdays,
-            IRangeDate rangeDate)
+        public override void Validate()
         {
-            return new ByWeekdays(
-                weekdays: weekdays)
-            {
-                EdgeRange = new EdgeRangeDate(rangeDate),
-            };
+            base.Validate();
+
+            Guard.AgainstNull(Weekdays, nameof(Weekdays));
         }
 
         public override IEnumerable<IDate> Generate(IClock clock)
         {
-            var start = EdgeRange.ToVertex.Start.Date ?? DateTimeHelper.GetToday(clock).AddWeeks(-(CountFrom ?? CountFromDefault));
-            var end = EdgeRange.ToVertex.End.Date ?? DateTimeHelper.GetToday(clock).AddWeeks((CountTo ?? CountToDefault));
+            var start = EdgeRangeDate.ToVertex.Start.Date ?? DateTimeHelper.GetToday(clock).AddWeeks(-(CountFrom ?? CountFromDefault));
+            var end = EdgeRangeDate.ToVertex.End.Date ?? DateTimeHelper.GetToday(clock).AddWeeks((CountTo ?? CountToDefault));
 
             var range = DateTimeHelper.Range(start: start, end: end);
 
+            return range.Where(d => Weekdays.Contains(d.IsoDayOfWeek));
+        }
+    }
 
-            return range.Where(d => Days.Contains(d.IsoDayOfWeek));
+    public class ByWeekdaysBuilder : RepeatingBuilder
+    {
+        private readonly ByWeekdays _byWeekdays;
+
+        protected override Repeating Repeating => _byWeekdays;
+
+        public ByWeekdaysBuilder()
+        {
+            _byWeekdays = new ByWeekdays();
         }
 
-        public override void Save(IArangoDatabase db, IClock clock)
+        public IEnumerable<IsoDayOfWeek> Weekdays
         {
-            Save<ByWeekdays>(db);
-            base.Save(db, clock);
+            get => _byWeekdays.Weekdays;
+            set => _byWeekdays.Weekdays = value;
+        }
+
+        public ByWeekdays Build()
+        {
+            _byWeekdays.Validate();
+
+            return _byWeekdays;
         }
     }
 }

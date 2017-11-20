@@ -7,7 +7,7 @@ using Scheduler.Persistance;
 
 namespace Scheduler.ScheduleInstances
 {
-    public class ByDateList : Schedule
+    public class ByDateList : ScheduleInstance
     {
         [IgnoreDataMember]
         public IEdgeVertexs<IDate> Items
@@ -21,25 +21,35 @@ namespace Scheduler.ScheduleInstances
             return Items.Select(item => item.ToVertex);
         }
 
-        public static ByDateList Create(
-            IEnumerable<IDate> dates)
+        public override void Save(IArangoDatabase db, IClock clock, ISchedule schedule)
         {
-            return new ByDateList
-            {
-                Items = new EdgeVertexs<IDate>(dates)
-            };
-        }
-
-        public override void Save(IArangoDatabase db, IClock clock)
-        {
-            Save<ByDateList>(db);
-
             foreach (var item in Items)
             {
-                item.Save(db, clock, this);
+                item.Save(db, clock, schedule);
             }
+        }
+    }
 
-            base.Save(db, clock);
+    public class ByDateListBuilder
+    {
+        private readonly ByDateList _byDateList;
+
+        public ByDateListBuilder()
+        {
+            _byDateList = new ByDateList();
+        }
+
+        public IEdgeVertexs<IDate> Items
+        {
+            set => _byDateList.Items = value;
+        }
+
+        public ByDateList Build()
+        {
+            if (_byDateList.Items == null)
+                _byDateList.Items = new EdgeVertexs<IDate>();
+
+            return _byDateList;
         }
     }
 }

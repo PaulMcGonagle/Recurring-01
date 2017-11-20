@@ -150,21 +150,21 @@ namespace Scheduler.Test.RangesTests
                     //    },
                     //    new ArgumentNullException(nameof(_rangeTimeBuilder.Period))
                     //},
-                    //{
-                    //    new RangeTimeBuilder
-                    //    {
-                    //        End = timeLater
-                    //    },
-                    //    new ArgumentNullException(nameof(_rangeTimeBuilder.Start))
-                    //},
                     {
                         new RangeTimeBuilder
                         {
-                            Start = timeLater,
-                            End = timeEarlier
+                            End = timeLater
                         },
-                        new ArgumentOutOfRangeException(nameof(_rangeTime.Period))
+                        new ArgumentNullException(nameof(_rangeTimeBuilder.Start))
                     },
+                    //{
+                    //    new RangeTimeBuilder
+                    //    {
+                    //        Start = timeLater,
+                    //        End = timeEarlier
+                    //    },
+                    //    new ArgumentOutOfRangeException(nameof(_rangeTime.Period))
+                    //},
                 }).BDDfy();
             }
 

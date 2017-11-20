@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using CoreLibrary;
 using NodaTime;
 using NodaTime.Text;
 using Scheduler;
@@ -233,6 +235,8 @@ namespace Generators
             if (scheduleTag == null)
                 throw new Exception($"Unable to retrieve type");
 
+            ISchedule schedule = null;
+
             switch (scheduleTag.Value)
             {
                 case "ByOffset":
@@ -253,27 +257,38 @@ namespace Generators
                     if (intervalTag == null)
                         throw new Exception($"Unable to retrieve Interval tag");
 
-                    var byOffset = new ByOffset(
-                        initialDate: RetrieveLocalDate(initialDateTag.ToVertex.Value),
-                        interval: intervalTag.ToVertex.Value);
+                    var scheduleInstance = new ByOffsetBuilder
+                    {
+                        InitialDate = RetrieveLocalDate(initialDateTag.ToVertex.Value),
+                        Interval = intervalTag.ToVertex.Value,
+                    }.Build();
 
                     var countTag = scheduleTag
                         .Tags
                         .SingleOrDefault(rt => rt.ToVertex.Ident == "Count");
 
-                    if (countTag == null) return byOffset;
+                    if (countTag == null) break;
 
                     if (!int.TryParse(countTag.ToVertex.Value, out int count))
                     {
                         throw new Exception($"Unable to retrieve count '{countTag.ToVertex.Value}'");
                     }
 
-                    byOffset.CountTo = count;
-                    return byOffset;
+                    ((ByOffset)scheduleInstance).CountTo = count;
+
+                    schedule = new ScheduleBuilder
+                    {
+                        ScheduleInstance = scheduleInstance,
+                    }.Build();
+
+                    break;
                 }
+
                 default:
                     throw new Exception($"Unable to retrieve schedule");
             }
+
+            return schedule;
         }
 
         public static LocalDate RetrieveLocalDate(string input)
@@ -285,7 +300,7 @@ namespace Generators
 
         public static string RetrieveValue(this XElement xInput, string name)
         {
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
                 throw new ArgumentException("Unable to search for empty attribute name");
 
             var value = xInput.Attribute(name)?.Value;
@@ -378,18 +393,16 @@ namespace Generators
             return attribute.Value;
         }
 
-        public static XAttribute RetrieveAttribute(this XElement input, string name)
+        public static XAttribute RetrieveAttribute(this XElement xInput, string name)
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
+            Guard.AgainstNull(xInput, nameof(xInput));
+            Guard.AgainstNull(name, nameof(name));
 
-            var attribute = input.Attribute(name);
+            var attribute = xInput.Attribute(name);
 
             if (attribute == null)
             {
-                throw new ArgumentNullException(name);
+                throw new KeyNotFoundException($"No Attribute found matching name '{name}'");
             }
 
             return attribute;

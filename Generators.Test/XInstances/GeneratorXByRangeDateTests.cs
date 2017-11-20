@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Generators.XInstances;
 using NodaTime;
+using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
 using Shouldly;
@@ -105,6 +106,8 @@ namespace Generators.Test.XInstances
             private IDictionary<string, IVertex> _caches;
             private XElement _xElement;
             private IVertex _vertex;
+
+            private Schedule _schedule;
             private ByRangeDate _byRangeDate;
 
             [Fact]
@@ -160,26 +163,34 @@ namespace Generators.Test.XInstances
                 _vertex = _generator.Generate(_xElement, _caches);
             }
 
-            public void ThenVertexIsAByRangeDate()
-            {
-                _vertex.GetType().ShouldBe(typeof(ByRangeDate));
 
-                _byRangeDate = (ByRangeDate)_vertex;
+            public void ThenVertexIsASchedule()
+            {
+                _vertex.GetType().ShouldBe(typeof(Schedule));
+
+                _schedule = (Schedule)_vertex;
+            }
+
+            public void AndThenScheduleInstanceIsAByRangeDate()
+            {
+                _schedule.ScheduleInstance.ShouldBeOfType<ByRangeDate>();
+
+                _byRangeDate = (ByRangeDate) _schedule.ScheduleInstance;
             }
 
             public void AndThenRangeIsValid()
             {
-                _byRangeDate.EdgeRange?.Range.ShouldNotBeNull();
+                _byRangeDate.EdgeRangeDate?.RangeDate.ShouldNotBeNull();
             }
 
             public void AndThenFromIsExpected(LocalDate expectedStart)
             {
-                _byRangeDate.EdgeRange.Range.Start.Date.Value.ShouldBe(expectedStart);
+                _byRangeDate.EdgeRangeDate.RangeDate.Start.Date.Value.ShouldBe(expectedStart);
             }
 
             public void AndThenToIsExpected(LocalDate expectedEnd)
             {
-                _byRangeDate.EdgeRange.Range.End.Date.Value.ShouldBe(expectedEnd);
+                _byRangeDate.EdgeRangeDate.RangeDate.End.Date.Value.ShouldBe(expectedEnd);
             }
         }
     }

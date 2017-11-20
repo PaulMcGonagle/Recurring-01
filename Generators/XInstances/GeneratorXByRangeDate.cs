@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using CoreLibrary;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
@@ -14,16 +15,19 @@ namespace Generators.XInstances
     {
         public IVertex Generate(XElement xByRangeDate, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
         {
-            if (xByRangeDate == null)
-                throw new ArgumentNullException(nameof(xByRangeDate));
+            Guard.AgainstNull(xByRangeDate, nameof(xByRangeDate));
 
             var rangeDate = xByRangeDate
                 .RetrieveRangeDate(
                     caches: caches);
 
-            var byRangeDate = ByRangeDate
-                .Create(
-                    rangeDate: rangeDate);
+            var byRangeDate = new ScheduleBuilder
+            {
+                ScheduleInstance = new ByRangeDateBuilder
+                {
+                    RangeDate = rangeDate,
+                }.Build(),
+            }.Build();
 
             return byRangeDate;
         }

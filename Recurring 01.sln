@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduler", "Scheduler\Scheduler.csproj", "{3189F8E6-B2AB-4B6E-8F28-756372C7644E}"
 EndProject
@@ -38,6 +38,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School", "Scenarios\School\School.csproj", "{ABE6C065-419C-46A1-924C-36A4E58478EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHelpers", "TestHelpers\TestHelpers.csproj", "{8CD75103-0A87-4EA8-B2CC-D39373F17F8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLibrary", "CoreLibrary\CoreLibrary.csproj", "{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -143,6 +145,14 @@ Global
 		{8CD75103-0A87-4EA8-B2CC-D39373F17F8D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8CD75103-0A87-4EA8-B2CC-D39373F17F8D}.Release|x86.ActiveCfg = Release|Any CPU
 		{8CD75103-0A87-4EA8-B2CC-D39373F17F8D}.Release|x86.Build.0 = Release|Any CPU
+		{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}.Debug|x86.Build.0 = Debug|Any CPU
+		{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}.Release|x86.ActiveCfg = Release|Any CPU
+		{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

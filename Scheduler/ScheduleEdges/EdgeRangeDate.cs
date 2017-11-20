@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using CoreLibrary;
 using Neo4jClient.Cypher;
 using NodaTime;
 using Scheduler.Persistance;
@@ -11,50 +12,33 @@ namespace Scheduler.ScheduleEdges
         public EdgeRangeDate(IRangeDate toVertex, string label = null)
             : base(toVertex, null)
         {
-
+            Guard.AgainstNull(RangeDate, nameof(RangeDate));
         }
 
-        public EdgeRangeDate(
-            int fromYear, 
-            YearMonth.MonthValue fromMonth, 
-            int fromDay, 
-            int toYear,
-            YearMonth.MonthValue toMonth,
-            int toDay)
-            : this(
-                start: new Date(year: fromYear, month: fromMonth, day: fromDay),
-                end: new Date(year: toYear, month: toMonth, day: toDay)
-            )
-        {
-
-        }
-
-        public EdgeRangeDate(
-            IDate start,
-            IDate end)
+        public EdgeRangeDate(IDate start, IDate end, string label = null)
             : this(new RangeDateBuilder
             {
                 Start = start,
                 End = end
-            }.Build())
+            }.Build(), label)
         {
-
+            
         }
 
-        public EdgeRangeDate(
-            LocalDate start,
-            LocalDate end)
-            : this(
-                start: new Date(start),
-                end: new Date(end))
+        public EdgeRangeDate(LocalDate start, LocalDate end, string label = null)
+            : this(start: new Date(start), end: new Date(end))
         {
-
+            
         }
 
-        public IRangeDate Range
+        public IRangeDate RangeDate
         {
-            get { return ToVertex; }
-            set { ToVertex = value; }
+            get => ToVertex;
+            set => ToVertex = value;
+        }
+
+        public void Validate()
+        {
         }
     }
 }

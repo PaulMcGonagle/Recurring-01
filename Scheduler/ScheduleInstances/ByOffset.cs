@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using CoreLibrary;
 using NodaTime;
 using Scheduler.Ranges;
+using Scheduler.ScheduleAbstracts;
 using Scheduler.ScheduleEdges;
 
 namespace Scheduler.ScheduleInstances
@@ -14,44 +17,21 @@ namespace Scheduler.ScheduleInstances
         [DataMember]
         public string Interval;
 
-        public ByOffset(
-            LocalDate initialDate,
-            string interval,
-            IRangeDate range = null,
-            int? count = null)
+        public override void Validate()
         {
-            InitialDate = initialDate;
-            Interval = interval;
-
-            if (range != null)
-            {
-                EdgeRange = new EdgeRangeDate(range);
-            }
-            CountTo = count;
-        }
-
-        public static ByOffset Create(
-            LocalDate initialDate,
-            string interval,
-            IRangeDate range = null,
-            int? count = null)
-        {
-            return new ByOffset(
-                initialDate: initialDate,
-                interval: interval,
-                range: range,
-                count: count);
+            Guard.AgainstNull(InitialDate, nameof(InitialDate));
+            Guard.AgainstNullOrWhiteSpace(Interval, nameof(Interval));
         }
 
         public override IEnumerable<IDate> Generate(IClock clock)
         {
             var results = new List<IDate>();
 
-            EdgeRange?.Range.Validate();
+            EdgeRangeDate?.RangeDate.Validate();
 
             var iterDate = InitialDate;
 
-            while (EdgeRange?.Range.Contains(iterDate) == true
+            while (EdgeRangeDate?.RangeDate.Contains(iterDate) == true
                 && results.Count <= (CountTo ?? CountToDefault))
             {
                 results.Add(new Date(iterDate));
@@ -63,11 +43,49 @@ namespace Scheduler.ScheduleInstances
 
             return results;
         }
+    }
 
-        public override void Save(IArangoDatabase db, IClock clock)
+    public class ByOffsetBuilder : RepeatingBuilder
+    {
+        private readonly ByOffset _byOffset;
+
+        protected override Repeating Repeating => _byOffset;
+
+        public ByOffsetBuilder()
         {
-            Save<ByOffset>(db);
-            base.Save(db, clock);
+            _byOffset = new ByOffset();
+        }
+
+        public LocalDate InitialDate
+        {
+            set => _byOffset.InitialDate = value;
+        }
+
+        public string Interval
+        {
+            set => _byOffset.Interval = value;
+        }
+
+        public IRangeDate Range
+        {
+            set => _byOffset.EdgeRangeDate = new EdgeRangeDate(value);
+        }
+
+        public int CountTo
+        {
+            set => _byOffset.CountTo = value;
+        }
+
+        public int CountFrom
+        {
+            set => _byOffset.CountFrom = value;
+        }
+
+        public ByOffset Build()
+        {
+            _byOffset.Validate();
+
+            return _byOffset;
         }
     }
 }

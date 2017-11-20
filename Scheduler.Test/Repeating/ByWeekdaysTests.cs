@@ -28,8 +28,8 @@ namespace Scheduler.Test.Repeating
                         {
                             new ByWeekdays
                             {
-                                Days = new List<IsoDayOfWeek> {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
-                                EdgeRange = new EdgeRangeDate(2000, YearMonth.MonthValue.April, 15, 2010, YearMonth.MonthValue.November, 28),
+                                Weekdays = new List<IsoDayOfWeek> {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},
+                                EdgeRangeDate = new EdgeRangeDate(new Date(2000, YearMonth.MonthValue.April, 15), new Date(2010, YearMonth.MonthValue.November, 28)),
                             },
                             fakeClock,
                             new List<IsoDayOfWeek> {IsoDayOfWeek.Saturday, IsoDayOfWeek.Sunday},

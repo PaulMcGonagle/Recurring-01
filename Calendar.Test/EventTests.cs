@@ -35,12 +35,27 @@ namespace Calendar.Test
                             {
                                 Serials = new EdgeVertexs<ISerial>(
                                     toVertex: new Serial(
-                                                schedule: new ByWeekday(
-                                                    weekday: IsoDayOfWeek.Thursday),
-                                                rangeTime: new EdgeRangeTime(
-                                                    start: new LocalTime(16, 45),
-                                                    period: new PeriodBuilder { Minutes = 45}.Build()),
-                                                timeZoneProvider: TimeZoneProvider)),
+                                        schedule:
+                                            new ScheduleBuilder
+                                            {
+                                                ScheduleInstance = new ByWeekdaysBuilder
+                                                {
+                                                     Weekdays = new []{ IsoDayOfWeek.Thursday, },
+                                                     RangeDate = new RangeDateBuilder
+                                                     {
+                                                         Start = new Date(2016, YearMonth.MonthValue.January, 01),
+                                                         End = new Date(2016, YearMonth.MonthValue.March, 31),
+                                                     }.Build(),
+                                                }.Build(),
+                                            }.Build(),
+                                        rangeTime: new EdgeRangeTime(
+                                            new RangeTimeBuilder
+                                            {
+                                                Start = new LocalTime(16, 45),
+                                                Period = new PeriodBuilder { Minutes = 45}.Build(),
+                                            }.Build()),
+                                        timeZoneProvider: TimeZoneProvider)
+                                    ),
                                 Title = "Street dance",
                             },
                             fakeClock,
@@ -101,14 +116,16 @@ namespace Calendar.Test
                         {
                             new Event
                             {
-                                Serials = 
-                                    new EdgeVertexs<ISerial>(new Serial(
-                                            schedule: new SingleDay
+                                Serials = new EdgeVertexs<ISerial>(new Serial(
+                                    schedule: new ScheduleBuilder
+                                        {
+                                            ScheduleInstance = new SingleDayBuilder
                                             {
                                                 Date = new Scheduler.Date(2016, YearMonth.MonthValue.July, 01),
-                                            },
-                                            rangeTime: new EdgeRangeTime(new LocalTime(14, 00), new PeriodBuilder { Minutes = 1 }.Build()),
-                                            timeZoneProvider: "Europe/London")),
+                                            }.Build(),
+                                        }.Build(),
+                                    rangeTime: new EdgeRangeTime(new LocalTime(14, 00), new PeriodBuilder { Minutes = 1 }.Build()),
+                                    timeZoneProvider: "Europe/London")),
                                 Title = "Street dance",
                             },
                             fakeClock,

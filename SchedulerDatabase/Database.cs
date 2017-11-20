@@ -46,15 +46,15 @@ namespace SchedulerDatabase
                 db.CreateCollection("Date");
                 db.CreateCollection("Tag");
                 db.CreateCollection("Serial");
-                db.CreateCollection("CompositeSchedule");
-                db.CreateCollection("ByDayOfMonth");
-                db.CreateCollection("ByDayOfYear");
-                db.CreateCollection("ByWeekday");
-                db.CreateCollection("ByWeekdays");
-                db.CreateCollection("ByDateList");
-                db.CreateCollection("ByOffset");
-                db.CreateCollection("ByRangeDate");
-                db.CreateCollection("SingleDay");
+                //db.CreateCollection("CompositeSchedule");
+                //db.CreateCollection("ByDayOfMonth");
+                //db.CreateCollection("ByDayOfYear");
+                //db.CreateCollection("ByWeekday");
+                //db.CreateCollection("ByWeekdays");
+                //db.CreateCollection("ByDateList");
+                //db.CreateCollection("ByOffset");
+                //db.CreateCollection("ByRangeDate");
+                //db.CreateCollection("SingleDay");
                 db.CreateCollection("Episode");
                 db.CreateCollection("GeneratedDate");
                 db.CreateCollection("Instance");
@@ -62,6 +62,7 @@ namespace SchedulerDatabase
                 db.CreateCollection("GeneratorSource");
                 db.CreateCollection("Calendar");
                 db.CreateCollection("ExternalId");
+                db.CreateCollection("Schedule");
                 db.CreateCollection("Edge", type: CollectionType.Edge);
                 db.CreateCollection("Relation", type: CollectionType.Edge);
             }

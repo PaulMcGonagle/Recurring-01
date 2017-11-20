@@ -26,10 +26,14 @@ namespace Generators.XInstances
 
             foreach (var rangeDate in rangeDates)
             {
-                var byOffset = ByWeekdays
-                    .Create(
-                        weekdays: weekdays,
-                        rangeDate: rangeDate);
+                var byOffset = new ScheduleBuilder
+                {
+                    ScheduleInstance = new ByWeekdaysBuilder
+                    {
+                        Weekdays = weekdays,
+                        RangeDate = rangeDate
+                    }.Build()
+                }.Build();
 
                 composite
                     .Inclusions

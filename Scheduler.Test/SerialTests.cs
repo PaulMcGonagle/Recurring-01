@@ -33,15 +33,18 @@ namespace Scheduler.Test
                         {
                             new SerialBuilder
                             {
-                                EdgeSchedule = new EdgeSchedule(new ByDateList
+                                EdgeSchedule = new EdgeSchedule(new ScheduleBuilder
                                 {
-                                    Items = new EdgeVertexs<IDate>()
+                                    ScheduleInstance = new ByDateListBuilder
                                     {
-                                        new EdgeVertex<IDate>(new Date(2016, YearMonth.MonthValue.January, 05)),
-                                        new EdgeVertex<IDate>(new Date(2016, YearMonth.MonthValue.January, 06)),
-                                        new EdgeVertex<IDate>(new Date(2016, YearMonth.MonthValue.January, 07)),
-                                    }
-                                }),
+                                        Items = new EdgeVertexs<IDate>()
+                                        {
+                                            new EdgeVertex<IDate>(new Date(2016, YearMonth.MonthValue.January, 05)),
+                                            new EdgeVertex<IDate>(new Date(2016, YearMonth.MonthValue.January, 06)),
+                                            new EdgeVertex<IDate>(new Date(2016, YearMonth.MonthValue.January, 07)),
+                                        }
+                                    }.Build()
+                                }.Build()),
                                 RangeTime = new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
                                 TimeZoneProvider = timeZoneProvider
                             },
@@ -114,7 +117,13 @@ namespace Scheduler.Test
                         {
                             new SerialBuilder
                             {
-                                EdgeSchedule = new EdgeSchedule(new ByDateList { Items = new EdgeVertexs<IDate>(), }),
+                                EdgeSchedule = new EdgeSchedule(new ScheduleBuilder
+                                {
+                                    ScheduleInstance = new ByDateListBuilder
+                                    {
+                                        Items = new EdgeVertexs<IDate>(),
+                                    }.Build()
+                                }.Build()),
                                 TimeZoneProvider = timeZoneProvider,
                             },
                             fakeClock,
@@ -123,7 +132,13 @@ namespace Scheduler.Test
                         {
                             new SerialBuilder
                             {
-                                EdgeSchedule = new EdgeSchedule(new ByDateList { Items = new EdgeVertexs<IDate>(), }),
+                                EdgeSchedule = new EdgeSchedule(new ScheduleBuilder
+                                {
+                                    ScheduleInstance = new ByDateListBuilder
+                                    {
+                                        Items = new EdgeVertexs<IDate>(),
+                                    }.Build()
+                                }.Build()),
                                 RangeTime = new EdgeRangeTime(
                                     start: new LocalTime(15, 30),
                                     period: new PeriodBuilder { Minutes = 30 }.Build()),

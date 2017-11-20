@@ -135,6 +135,7 @@
     <Compile Include="ScheduleEdges\IEdgeRangeTime.cs" />
     <Compile Include="ScheduleEdges\IEdgeSchedule.cs" />
     <Compile Include="ScheduleEdges\IEdgeTag.cs" />
+    <Compile Include="ScheduleInstance.cs" />
     <Compile Include="ScheduleInstances\ByRangeDate.cs" />
     <Compile Include="ScheduleInstances\ByOffset.cs" />
     <Compile Include="Serials.cs" />
@@ -163,7 +164,6 @@
     <Compile Include="ScheduleInstances\ByDateList.cs" />
     <Compile Include="ScheduleAbstracts\Repeating.cs" />
     <Compile Include="ScheduleInstances\SingleDay.cs" />
-    <Compile Include="ScheduleInstances\ByWeekday.cs" />
     <Compile Include="Schedules.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -177,7 +177,12 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CoreLibrary\CoreLibrary.csproj">
+      <Project>{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}</Project>
+      <Name>CoreLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

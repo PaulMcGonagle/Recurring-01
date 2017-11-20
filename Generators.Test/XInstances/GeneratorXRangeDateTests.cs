@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Management.Instrumentation;
 using System.Xml.Linq;
 using Generators.XInstances;
 using NodaTime;
@@ -34,8 +35,8 @@ namespace Generators.Test.XInstances
                         new XDocument(
                             new XElement("rangeDate",
                                 new XAttribute("start", "2016-02-03"))),
-                        typeof(ArgumentNullException),
-                        "Value cannot be null.\r\nParameter name: duration"
+                        typeof(KeyNotFoundException),
+                        "No Attribute found matching name 'duration'"
                     },
                     {
                         new XDocument(

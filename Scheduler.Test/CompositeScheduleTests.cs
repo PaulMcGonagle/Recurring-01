@@ -26,29 +26,42 @@ namespace Scheduler.Test
                         {
                             new CompositeSchedule
                             {
-                                Inclusions = new EdgeVertexs<ISchedule>()
+                                Inclusions = new EdgeVertexs<ISchedule>
                                 {
-                                    new EdgeVertex<ISchedule>(ByDateList.Create(
-                                                DateTimeHelper.Range(
-                                                    new Date(2016, YearMonth.MonthValue.January, 01),
-                                                    new Date(2018, YearMonth.MonthValue.December, 31)
-                                                ).ToList()
-                                        ))
+                                    new EdgeVertex<ISchedule>(new Schedule
+                                    {
+                                        ScheduleInstance = new ByDateListBuilder
+                                        {
+                                            Items = new EdgeVertexs<IDate>(
+                                                DateTimeHelper.Range
+                                                (
+                                                    start: new Date(2016, YearMonth.MonthValue.January, 01),
+                                                    end: new Date(2016, YearMonth.MonthValue.January, 31)
+                                                ).Where(d => d.IsoDayOfWeek == IsoDayOfWeek.Monday).ToList()
+                                            ),
+                                        }.Build(),
+                                    }),
                                 },
                                 Exclusions = new EdgeVertexs<ISchedule>()
                                 {
-                                    new EdgeVertex<ISchedule>(ByDateList.Create(
-                                            DateTimeHelper.Range(
-                                                new Date(2016, YearMonth.MonthValue.January, 01),
-                                                new Date(2018, YearMonth.MonthValue.December, 31)
-                                            )
-                                            .Where(d => d.IsoDayOfWeek == IsoDayOfWeek.Monday).ToList()
-                                        ))
+                                    new EdgeVertex<ISchedule>(new Schedule
+                                    {
+                                        ScheduleInstance = new ByDateListBuilder
+                                        {
+                                            Items = new EdgeVertexs<IDate>(
+                                                DateTimeHelper.Range
+                                                (
+                                                    start: new Date(2016, YearMonth.MonthValue.January, 01),
+                                                    end: new Date(2016, YearMonth.MonthValue.January, 15)
+                                                ).Where(d => d.IsoDayOfWeek == IsoDayOfWeek.Monday).ToList()
+                                            ),
+                                        }.Build(),
+                                    }),
                                 },
                             },
                             new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00)),
-                            new Date(2016, YearMonth.MonthValue.January, 01),
-                            new Date(2018, YearMonth.MonthValue.December, 30),
+                            new Date(2016, YearMonth.MonthValue.January, 18),
+                            new Date(2016, YearMonth.MonthValue.January, 25),
                             new List<IsoDayOfWeek>
                             {
                                 IsoDayOfWeek.Monday,

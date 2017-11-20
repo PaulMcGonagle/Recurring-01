@@ -13,11 +13,11 @@ namespace Scheduler
 {
     public class CompositeSchedule : Schedule, ICompositeSchedule
     {
-        private enum RelationLabels
+        private static class RelationLabels
         {
-            Inclusions,
-            Exclusions,
-            Breaks
+            public const string Inclusions = "Inclusions";
+            public const string Exclusions = "Exclusions";
+            public const string Breaks = "Breaks";
         }
 
 
@@ -33,10 +33,12 @@ namespace Scheduler
         public override IEnumerable<IDate> Generate(IClock clock)
         {
             var inclusions = Inclusions
-                .SelectMany(i => i.ToVertex.Generate(clock));
+                .SelectMany(i => i.ToVertex.Generate(clock))
+                .ToList();
 
             var exclusions = Exclusions
-                .SelectMany(i => i.ToVertex.Generate(clock));
+                .SelectMany(i => i.ToVertex.Generate(clock))
+                .ToList();
 
             var list = new List<IDate>();
 
@@ -51,36 +53,11 @@ namespace Scheduler
             return list;
         }
 
-        public static CompositeSchedule Create(
-            ISchedule schedule,
-            IRangeDate rangeDate
-            )
-        {
-            return new CompositeSchedule
-            {
-                Inclusions = new EdgeVertexs<ISchedule>()
-                {
-                    new EdgeVertex<ISchedule>(new ByWeekday(
-                        weekday: IsoDayOfWeek.Wednesday)
-                        {
-                            EdgeRange = new EdgeRangeDate(rangeDate),
-                        }
-                    )
-                },
-            };
-        }
-
         private IEnumerable<ISchedule> GetSchedules(IArangoDatabase db, string relationLabel)
         {
             var schedules = new List<ISchedule>();
 
-            schedules.AddRange(Utilities.GetEdges<ByDateList>(db, Id, relationLabel));
-            schedules.AddRange(Utilities.GetEdges<ByDayOfMonth>(db, Id, relationLabel));
-            schedules.AddRange(Utilities.GetEdges<ByDayOfYear>(db, Id, relationLabel));
-            schedules.AddRange(Utilities.GetEdges<ByWeekday>(db, Id, relationLabel));
-            schedules.AddRange(Utilities.GetEdges<SingleDay>(db, Id, relationLabel));
-            schedules.AddRange(Utilities.GetEdges<ByOffset>(db, Id, relationLabel));
-            schedules.AddRange(Utilities.GetEdges<ByWeekdays>(db, Id, relationLabel));
+            schedules.AddRange(Utilities.GetEdges<Schedule>(db, Id, relationLabel));
 
             return schedules;
         }
@@ -90,26 +67,66 @@ namespace Scheduler
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<CompositeSchedule>(db);
-            Inclusions.Save(db, clock, this, "Inclusions");
-            Exclusions.Save(db, clock, this, "Exclusions");
-            Breaks.Save(db, clock, this, "Breaks");
+            Inclusions.Save(db, clock, this, RelationLabels.Inclusions);
+            Exclusions.Save(db, clock, this, RelationLabels.Exclusions);
+            Breaks.Save(db, clock, this, RelationLabels.Breaks);
             base.Save(db, clock);
         }
 
         public override void Rehydrate(IArangoDatabase db)
         {
             Inclusions = new EdgeVertexs<ISchedule>();
-            var r = Utilities.GetEdges<ByDateList>(db, Id);
-            Inclusions.AddRange(GetSchedules(db, Enum.GetName(typeof(RelationLabels), RelationLabels.Inclusions)));
-            Exclusions.AddRange(GetSchedules(db, Enum.GetName(typeof(RelationLabels), RelationLabels.Exclusions)));
+            Inclusions.AddRange(GetSchedules(db, RelationLabels.Inclusions));
+            Exclusions.AddRange(GetSchedules(db, RelationLabels.Exclusions));
 
             Breaks = new EdgeVertexs<IRangeDate>();
 
-            Breaks.AddRange(Utilities.GetEdges<RangeDate>(db, Id, Enum.GetName(typeof(RelationLabels), RelationLabels.Breaks)));
+            Breaks.AddRange(Utilities.GetEdges<RangeDate>(db, Id, RelationLabels.Breaks));
 
             base.Rehydrate(db);
         }
 
         #endregion
+    }
+
+    public class CompositeScheduleBuilder
+    {
+        private readonly CompositeSchedule _compositeSchedule;
+
+        public CompositeScheduleBuilder()
+        {
+            _compositeSchedule = new CompositeSchedule();
+        }
+
+        public IEdgeVertexs<ISchedule> Inclusions
+        {
+            set => _compositeSchedule.Inclusions = value;
+        }
+
+        public IEdgeVertexs<ISchedule> Exclusions
+        {
+            set => _compositeSchedule.Exclusions = value;
+        }
+
+        public IEdgeVertexs<IRangeDate> Breaks
+        {
+            set => _compositeSchedule.Breaks = value;
+        }
+
+        public CompositeSchedule Build()
+        {
+            if (_compositeSchedule.Inclusions == null)
+                _compositeSchedule.Inclusions = new EdgeVertexs<ISchedule>();
+
+
+            if (_compositeSchedule.Exclusions == null)
+                _compositeSchedule.Exclusions = new EdgeVertexs<ISchedule>();
+
+
+            if (_compositeSchedule.Breaks == null)
+                _compositeSchedule.Breaks = new EdgeVertexs<IRangeDate>();
+
+            return _compositeSchedule;
+        }
     }
 }

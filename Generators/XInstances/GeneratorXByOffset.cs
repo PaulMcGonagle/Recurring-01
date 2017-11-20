@@ -26,11 +26,16 @@ namespace Generators.XInstances
 
             foreach (var rangeDate in rangeDates)
             {
-                var byOffset = ByOffset
-                    .Create(
-                        initialDate: initialDate,
-                        interval: interval,
-                        range: rangeDate);
+                var byOffset = new Schedule
+                {
+                    ScheduleInstance = new ByOffset
+                    {
+                        InitialDate = initialDate,
+                        Interval = interval,
+                        EdgeRangeDate = new EdgeRangeDate(rangeDate),
+
+                    }
+                };
 
                 composite
                     .Inclusions

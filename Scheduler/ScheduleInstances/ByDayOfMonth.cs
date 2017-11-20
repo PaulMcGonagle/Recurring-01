@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NodaTime;
 using System.Runtime.Serialization;
-using ArangoDB.Client;
+using CoreLibrary;
+using Scheduler.ScheduleAbstracts;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -23,14 +25,14 @@ namespace Scheduler.ScheduleInstances
         [IgnoreDataMember]
         public IClock Clock
         {
-            get { return _clock ?? (_clock = SystemClock.Instance); }
-            set { _clock = value; }
+            get => _clock ?? (_clock = SystemClock.Instance);
+            set => _clock = value;
         }
 
         protected YearMonth GetYearMonthFrom(IClock clock)
         {
-            if (EdgeRange?.ToVertex?.Start != null)
-                return new Date(EdgeRange.ToVertex.Start.Date.Value).ToYearMonth();
+            if (EdgeRangeDate?.ToVertex?.Start != null)
+                return new Date(EdgeRangeDate.ToVertex.Start.Date.Value).ToYearMonth();
 
             var yearMonth = Clock.GetLocalYearMonth();
 
@@ -39,12 +41,19 @@ namespace Scheduler.ScheduleInstances
 
         protected YearMonth GetYearMonthTo(IClock clock)
         {
-            if (EdgeRange?.ToVertex?.End != null)
-                return new Date(EdgeRange.ToVertex.End.Date.Value).ToYearMonth();
+            if (EdgeRangeDate?.ToVertex?.End != null)
+                return new Date(EdgeRangeDate.ToVertex.End.Date.Value).ToYearMonth();
 
             var yearMonth = Clock.GetLocalYearMonth();
 
             return yearMonth.AddMonths(CountTo ?? CountToDefault);
+        }
+
+        public override void Validate()
+        {
+            base.Validate();
+
+            Guard.AgainstNull(Clock, nameof(Clock));
         }
 
         public override IEnumerable<IDate> Generate(IClock clock)
@@ -56,19 +65,46 @@ namespace Scheduler.ScheduleInstances
 
             foreach (var yearMonth in yearMonths)
             {
-                Date localDate;
 
-                if (yearMonth.TryToLocalDate(DayOfMonth, out localDate, RollStrategy))
+                if (yearMonth.TryToLocalDate(DayOfMonth, out Date localDate, RollStrategy))
                 {
                     yield return localDate;
                 }
             }
         }
+    }
 
-        public override void Save(IArangoDatabase db, IClock clock)
+    public class ByDayOfMonthBuilder : RepeatingDayBuilder
+    {
+        private readonly ByDayOfMonth _byDayOfMonth;
+
+        protected override RepeatingDay RepeatingDay => _byDayOfMonth;
+
+        public ByDayOfMonthBuilder()
         {
-            Save<ByDayOfMonth>(db);
-            base.Save(db, clock);
+            _byDayOfMonth = new ByDayOfMonth
+            {
+                CountFromDefault = 0,
+                CountToDefault = 12,
+                DayOfMonth = 1
+            };
+        }
+
+        public IClock Clock
+        {
+            set => _byDayOfMonth.Clock = value;
+        }
+
+        public int DayOfMonth
+        {
+            set => _byDayOfMonth.DayOfMonth = value;
+        }
+
+        public ByDayOfMonth Build()
+        {
+            _byDayOfMonth.Validate();
+
+            return _byDayOfMonth;
         }
     }
 }

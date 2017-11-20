@@ -5,6 +5,6 @@ namespace Scheduler.ScheduleEdges
 {
     public interface IEdgeRangeDate : IEdgeVertex<IRangeDate>
     {
-        IRangeDate Range { get; set; }
+        IRangeDate RangeDate { get; set; }
     }
 }

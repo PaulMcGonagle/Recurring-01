@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using CoreLibrary;
 using NodaTime;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
@@ -27,11 +28,8 @@ namespace Scheduler.Ranges
 
         public void Validate()
         {
-            if (Start == null)
-                throw new ArgumentNullException(nameof(Start));
-
-            if (End == null)
-                throw new ArgumentNullException(nameof(End));
+            Guard.AgainstNull(Start, nameof(Start));
+            Guard.AgainstNull(End, nameof(End));
 
             if (Start.Date.Value > End.Date.Value)
                 throw new ArgumentOutOfRangeException(nameof(Start), $"Start date [{Start.Date.Value.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than End date [{End.Date.Value.ToString("D", CultureInfo.CurrentCulture)}]");

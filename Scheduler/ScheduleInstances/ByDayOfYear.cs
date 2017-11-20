@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using Scheduler.Ranges;
+using Scheduler.ScheduleAbstracts;
+using Scheduler.ScheduleEdges;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -40,8 +43,8 @@ namespace Scheduler.ScheduleInstances
         {
             get
             {
-                if (EdgeRange?.ToVertex?.Start != null)
-                    return new Date(EdgeRange.ToVertex.Start.Date.Value).ToYearMonth().Year;
+                if (EdgeRangeDate?.ToVertex?.Start != null)
+                    return new Date(EdgeRangeDate.ToVertex.Start.Date.Value).ToYearMonth().Year;
 
                 var thisMonth = Clock.GetLocalYearMonth();
 
@@ -54,8 +57,8 @@ namespace Scheduler.ScheduleInstances
         {
             get
             {
-                if (EdgeRange?.ToVertex?.End != null)
-                    return new Date(EdgeRange.ToVertex.End.Date.Value).ToYearMonth().Year;
+                if (EdgeRangeDate?.ToVertex?.End != null)
+                    return new Date(EdgeRangeDate.ToVertex.End.Date.Value).ToYearMonth().Year;
 
                 var thisMonth = Clock.GetLocalYearMonth();
 
@@ -76,11 +79,39 @@ namespace Scheduler.ScheduleInstances
 
             return generatedDates;
         }
+    }
 
-        public override void Save(IArangoDatabase db, IClock clock)
+    public class ByDayOfYearBuilder : RepeatingDayBuilder
+    {
+        private readonly ByDayOfYear _byDayOfYear;
+
+        protected override RepeatingDay RepeatingDay => _byDayOfYear;
+
+        public ByDayOfYearBuilder()
         {
-            Save<ByDayOfYear>(db);
-            base.Save(db, clock);
+            _byDayOfYear = new ByDayOfYear();
+        }
+
+        public IRangeDate Range
+        {
+            set => _byDayOfYear.EdgeRangeDate = new EdgeRangeDate(value);
+        }
+
+        public int CountTo
+        {
+            set => _byDayOfYear.CountTo = value;
+        }
+
+        public int CountFrom
+        {
+            set => _byDayOfYear.CountFrom = value;
+        }
+
+        public ByDayOfYear Build()
+        {
+            _byDayOfYear.Validate();
+
+            return _byDayOfYear;
         }
     }
 }

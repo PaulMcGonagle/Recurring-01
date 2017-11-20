@@ -101,7 +101,7 @@
     <Compile Include="LoadSourceTests.cs" />
     <Compile Include="Persistance\EventPersistanceTests.cs" />
     <Compile Include="Persistance\VertexPersistanceTests.cs" />
-    <Compile Include="ScheduleInstances\ByWeekdayTests.cs" />
+    <Compile Include="ScheduleInstances\ByWeekdaysTests.cs" />
     <Compile Include="ScheduleInstances\SingleDayTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TagGenerationTests.cs" />

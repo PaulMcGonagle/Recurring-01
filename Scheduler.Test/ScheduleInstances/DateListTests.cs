@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
+using Scheduler.Persistance;
 using Shouldly;
 using TestStack.BDDfy;
 using Scheduler.ScheduleInstances;
@@ -24,12 +25,15 @@ namespace Scheduler.Test.ScheduleInstances
                 this.WithExamples(new ExampleTable("sut", "clock", "expectedDates")
                     {
                         {
-                            ByDateList.Create(new List<IDate>
+                            new ByDateListBuilder
+                            {
+                                Items = new EdgeVertexs<IDate>(new List<IDate>
                                 {
                                     new Date(2015, YearMonth.MonthValue.March, 17),
                                     new Date(2016, YearMonth.MonthValue.April, 25)
-                                }
-                            ), fakeClock,
+                                })
+                            }.Build(),
+                            fakeClock,
                             new List<IDate>
                             {
                                 {

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using CoreLibrary;
 using NodaTime;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
@@ -38,9 +39,11 @@ namespace Scheduler
 
             var episodes = new EdgeVertexs<IEpisode>();
 
+            var dates = EdgeSchedule.Schedule
+                .Generate(clock);
+
             episodes.AddRange(
-                EdgeSchedule.Schedule
-                    .Generate(clock)
+                dates
                     .Select(date => new Episode
                     {
                         SourceSerial = new EdgeVertex<ISerial>(this),
@@ -54,14 +57,9 @@ namespace Scheduler
 
         public void Validate()
         {
-            if (EdgeSchedule == null)
-                throw new ArgumentNullException(nameof(EdgeSchedule));
-
-            if (RangeTime == null)
-                throw new ArgumentNullException(nameof(RangeTime));
-
-            if (TimeZoneProvider == null)
-                throw new ArgumentNullException(nameof(TimeZoneProvider));
+            Guard.AgainstNull(EdgeSchedule, nameof(EdgeSchedule));
+            Guard.AgainstNull(RangeTime, nameof(RangeTime));
+            Guard.AgainstNull(TimeZoneProvider, nameof(TimeZoneProvider));
         }
 
         public override void Save(IArangoDatabase db, IClock clock)

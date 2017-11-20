@@ -58,10 +58,15 @@ namespace Scheduler.Test
 
             var dateList = new ByDateList();
 
-            ISchedule d = 
-                ByDateList.Create(_holidays);
+            ISchedule schedule = new ScheduleBuilder
+            {
+                ScheduleInstance = new ByDateListBuilder
+                {
+                    Items = new EdgeVertexs<IDate>(_holidays),
+                }.Build()
+            }.Build();
 
-            _term.Exclusions.Add(new EdgeVertex<ISchedule>(d));
+            _term.Exclusions.Add(new EdgeVertex<ISchedule>(schedule));
         }
 
         public void ThenThereShouldBeNoWeekendDays()
@@ -86,11 +91,17 @@ namespace Scheduler.Test
             {
                 Inclusions = new EdgeVertexs<ISchedule>
                 {
-                    new EdgeVertex<ISchedule>(new ByWeekdays
+                    new EdgeVertex<ISchedule>(new ScheduleBuilder
+                    {
+                        ScheduleInstance = new ByWeekdays
                         {
-                            Days = ScheduleTestHelper.Weekdays,
-                            EdgeRange = new EdgeRangeDate(2016, YearMonth.MonthValue.September, 06, 2016, YearMonth.MonthValue.December, 19),
-                        })
+                            Weekdays = ScheduleTestHelper.Weekdays,
+                            EdgeRangeDate = new EdgeRangeDate
+                            (
+                                new Date(2016, YearMonth.MonthValue.September, 06),
+                                new Date(2016, YearMonth.MonthValue.December, 19)),
+                        }
+                    }.Build())
                 },
             };
         }

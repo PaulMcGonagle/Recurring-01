@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using CoreLibrary;
 using NodaTime;
 using Scheduler.Persistance;
 
@@ -18,20 +19,13 @@ namespace Scheduler.Ranges
 
         public void Validate()
         {
-            if (Start == default(LocalTime))
-            {
-                throw new ArgumentNullException(nameof(Start));
-            }
+            Guard.AgainstNullOrDefault(Start, nameof(Start));
+            Guard.AgainstNull(Period, nameof(Period));
 
-            if (Period == null)
-            {
-                throw new ArgumentNullException(nameof(Period));
-            }
+            var duration = Period.ToDuration().Ticks;
 
-            if (Period.ToDuration().Ticks < 0)
-                throw new ArgumentOutOfRangeException(nameof(Period));
-
-            Period = Period.Between(Start, End);
+            if (duration < 0)
+                throw new ArgumentOutOfRangeException(nameof(Period), $"Period duration cannot be negative. Period: {Period.ToString()}, Dduration.Ticks: {duration})");
         }
 
         public override void Save(IArangoDatabase db, IClock clock)

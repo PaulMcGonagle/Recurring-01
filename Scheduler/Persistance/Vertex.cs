@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using CoreLibrary;
 using NodaTime;
 using Scheduler.ScheduleEdges;
 
@@ -104,9 +105,9 @@ namespace Scheduler.Persistance
 
         #region Save
 
-        internal void Save<T>(IArangoDatabase db) where T : IVertex
+        internal virtual void Save<T>(IArangoDatabase db) where T : IVertex
         {
-            if (db == null) throw new ArgumentNullException(nameof(db));
+            Guard.AgainstNull(db, nameof(db));
 
             if (!IsDirty)
                 return;

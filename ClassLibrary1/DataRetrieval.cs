@@ -26,106 +26,138 @@ namespace TestData
             {
                 {
                     "Schools.Term.201617.Autumn",
-                    new ByWeekdays
+                    new Schedule
                     {
-                        EdgeRange = new EdgeRangeDate(
-                            start: Dates["Schools.Term.201617.Autumn.Start"],
-                            end: Dates["Schools.Term.201617.Autumn.End"]),
-                        Days = DayRanges["Weekdays"],
+                        ScheduleInstance = new ByWeekdays
+                        {
+                            EdgeRangeDate = new EdgeRangeDate(new RangeDateBuilder
+                            {
+                                Start = Dates["Schools.Term.201617.Autumn.Start"],
+                                End = Dates["Schools.Term.201617.Autumn.End"]
+                            }.Build()),
+                            Weekdays = DayRanges["Weekdays"],
+                        }
                     }
                 },
                 {
                     "Schools.Term.201617.Autumn.1",
-                    new ByWeekdays
+                    new Schedule
                     {
-                        EdgeRange = new EdgeRangeDate(
-                            start: Dates["Schools.Term.201617.Autumn.Start"],
-                            end: Dates["Schools.Term.201617.Autumn.HalfTerm.Start"].PlusDays(-1)),
-                        Days = DayRanges["Weekdays"],
+                        ScheduleInstance = new ByWeekdays
+                        {
+                            EdgeRangeDate = new EdgeRangeDate(
+                                start: Dates["Schools.Term.201617.Autumn.Start"],
+                                end: Dates["Schools.Term.201617.Autumn.HalfTerm.Start"].PlusDays(-1)),
+                            Weekdays = DayRanges["Weekdays"],
+                        }
                     }
                 },
                 {
                     "Schools.Term.201617.Autumn.HalfTerm",
-                    new ByWeekdays
+                    new Schedule
                     {
-                        EdgeRange = new EdgeRangeDate(
-                            start: Dates["Schools.Term.201617.Autumn.HalfTerm.Start"],
-                            end: Dates["Schools.Term.201617.Autumn.HalfTerm.End"]),
-                        Days = DayRanges["Weekdays"],
+                        ScheduleInstance = new ByWeekdays
+                        {
+                            EdgeRangeDate = new EdgeRangeDate(
+                                start: Dates["Schools.Term.201617.Autumn.HalfTerm.Start"],
+                                end: Dates["Schools.Term.201617.Autumn.HalfTerm.End"]),
+                            Weekdays = DayRanges["Weekdays"],
+                        }
                     }
                 },
                 {
                     "Schools.Term.201617.Autumn.2",
-                    new ByWeekdays
+                    new Schedule
                     {
-                        EdgeRange = new EdgeRangeDate(
-                            start: Dates["Schools.Term.201617.Autumn.HalfTerm.End"].PlusDays(01),
-                            end: Dates["Schools.Term.201617.Autumn.End"]),
-                        Days = DayRanges["Weekdays"],
+                        ScheduleInstance = new ByWeekdays
+                        {
+                            EdgeRangeDate = new EdgeRangeDate(
+                                start: Dates["Schools.Term.201617.Autumn.HalfTerm.End"].PlusDays(01),
+                                end: Dates["Schools.Term.201617.Autumn.End"]),
+                            Weekdays = DayRanges["Weekdays"],
+                        }
                     }
                 },
                 {
                     "Schools.Term.201617.Winter",
-                    new ByWeekdays
+                    new Schedule
                     {
-                        EdgeRange = new EdgeRangeDate(
-                            start: Dates["Schools.Term.201617.Winter.Start"],
-                            end: Dates["Schools.Term.201617.Winter.End"]),
-                        Days = DayRanges["Weekdays"],
+                        ScheduleInstance = new ByWeekdays
+                        {
+                            EdgeRangeDate = new EdgeRangeDate(
+                                start: Dates["Schools.Term.201617.Winter.Start"],
+                                end: Dates["Schools.Term.201617.Winter.End"]),
+                            Weekdays = DayRanges["Weekdays"],
+                        }
                     }
                 },
                 {
                     "Schools.Term.201617.Summer",
-                    new ByWeekdays
+                    new Schedule
                     {
-                        EdgeRange = new EdgeRangeDate(
-                            start: Dates["Schools.Term.201617.Summer.Start"],
-                            end: Dates["Schools.Term.201617.Summer.End"]),
-                        Days = DayRanges["Weekdays"],
+                        ScheduleInstance = new ByWeekdays
+                        {
+                            EdgeRangeDate = new EdgeRangeDate(
+                                start: Dates["Schools.Term.201617.Summer.Start"],
+                                end: Dates["Schools.Term.201617.Summer.End"]),
+                            Weekdays = DayRanges["Weekdays"],
+                        }
                     }
                 },
                 {
                     "BankHolidays.2016.NewYearsDay",
-                    new SingleDay {Date = new Date(2016, YearMonth.MonthValue.January, 01)}
+                    new Schedule
+                    {
+                        ScheduleInstance = new SingleDay
+                        {
+                            Date = new Date(2016, YearMonth.MonthValue.January, 01)
+                        }
+                    }
                 },
                 {
                     "BankHolidays.2016.GoodFriday",
-                    new SingleDay {Date = new Date(2016, YearMonth.MonthValue.March, 25)}
+                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.March, 25)}.Build() }.Build()
                 },
                 {
                     "BankHolidays.2016.EasterMonday",
-                    new SingleDay {Date = new Date(2016, YearMonth.MonthValue.March, 28)}
+                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.March, 28)}.Build() }.Build()
                 },
                 {
                     "BankHolidays.2016.EarlyMayBankHoliday",
-                    new SingleDay {Date = new Date(2016, YearMonth.MonthValue.May, 01)}
+                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.May, 01)}.Build() }.Build()
                 },
                 {
                     "BankHolidays.2016.SpringBankHoliday",
-                    new SingleDay {Date = new Date(2016, YearMonth.MonthValue.May, 30)}
+                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.May, 30)}.Build() }.Build()
                 },
                 {
                     "BankHolidays.2016.SummerBankHoliday",
-                    new SingleDay {Date = new Date(2016, YearMonth.MonthValue.August, 29)}
+                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.August, 29)}.Build() }.Build()
                 },
                 {
                     "BankHolidays.2016.Boxing",
-                    new SingleDay {Date = new Date(2016, YearMonth.MonthValue.December, 26)}
+                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.December, 26)}.Build() }.Build()
                 },
                 {
                     "BankHolidays.2016.ChristmasDaySubstitute",
-                    new SingleDay {Date = new Date(2016, YearMonth.MonthValue.December, 27)}
+                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.December, 27)}.Build() }.Build()
                 }
             };
 
             _scheduleArchive
                 .Add("BankHolidays",
-                    ByDateList.Create(
-                        _scheduleArchive
-                            .Where(s => s.Key.StartsWith("BankHolidays.2016"))
-                            .SelectMany(s => s.Value.Generate(clock)
-                            .Select(date => date))
-                    ));
+                    new ScheduleBuilder
+                    {
+                        ScheduleInstance = new ByDateListBuilder
+                        {
+                            Items = new EdgeVertexs<IDate>(
+                                _scheduleArchive
+                                .Where(s => s.Key.StartsWith("BankHolidays.2016"))
+                                .SelectMany(s => s.Value.Generate(clock))
+                                .Select(date => date)
+                            )
+                        }.Build()
+                    }.Build());
 
             _scheduleArchive
                 .Add("Example.AutumnTerm",

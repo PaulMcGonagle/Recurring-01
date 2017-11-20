@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using CoreLibrary;
 using NodaTime;
 using Scheduler.Generation;
 using Scheduler.Persistance;
@@ -91,16 +92,11 @@ namespace Scheduler
             base.Rehydrate(db);
         }
 
-        public static Event Create(Schedule schedule, IRangeTime rangeTime, string timeZoneProvider, Location location = null)
+        public static Event Create(ISchedule schedule, IRangeTime rangeTime, string timeZoneProvider, Location location = null)
         {
-            if (schedule == null)
-                throw new ArgumentNullException(nameof(schedule));
-
-            if (rangeTime == null)
-                throw new ArgumentNullException(nameof(rangeTime));
-
-            if (string.IsNullOrWhiteSpace(timeZoneProvider))
-                throw new ArgumentNullException(nameof(timeZoneProvider));
+            Guard.AgainstNull(schedule, nameof(schedule));
+            Guard.AgainstNull(rangeTime, nameof(rangeTime));
+            Guard.AgainstNullOrWhiteSpace(timeZoneProvider, nameof(timeZoneProvider));
 
             return new Event
             {
