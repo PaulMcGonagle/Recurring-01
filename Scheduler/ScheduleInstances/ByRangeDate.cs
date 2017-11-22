@@ -1,11 +1,7 @@
 ﻿using NodaTime;
 using System.Collections.Generic;
-using System.Linq;
 using ArangoDB.Client;
-using Scheduler.Persistance;
-using Scheduler.Ranges;
 using Scheduler.ScheduleAbstracts;
-using Scheduler.ScheduleEdges;
 
 namespace Scheduler.ScheduleInstances
 {

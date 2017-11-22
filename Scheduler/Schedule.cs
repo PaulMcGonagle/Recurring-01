@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using CoreLibrary;
@@ -36,7 +35,7 @@ namespace Scheduler
 
         public void SerializeInstance()
         {
-            _instanceSerialized = Transfer.Serialize(this.ScheduleInstance);
+            _instanceSerialized = Transfer.Serialize(ScheduleInstance);
         }
 
         public void DeserializeInstance()

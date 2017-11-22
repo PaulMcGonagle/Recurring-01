@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using ArangoDB.Client;
 using CoreLibrary;
 using NodaTime;
 using Scheduler.Ranges;

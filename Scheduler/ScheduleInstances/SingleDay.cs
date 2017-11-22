@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using ArangoDB.Client;
+﻿using System.Collections.Generic;
 using CoreLibrary;
 using NodaTime;
-using Scheduler.ScheduleAbstracts;
 
 namespace Scheduler.ScheduleInstances
 {

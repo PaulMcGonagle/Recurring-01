@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using ArangoDB.Client;
 using Scheduler.Ranges;
 using Scheduler.ScheduleAbstracts;
 using Scheduler.ScheduleEdges;

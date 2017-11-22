@@ -1,6 +1,4 @@
-﻿using System.IO;
-using CoreLibrary;
-using Neo4jClient.Cypher;
+﻿using CoreLibrary;
 using NodaTime;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
