@@ -28,7 +28,7 @@ namespace Generators.Instances
 
             var generator = new GeneratorXCompositeSchedule();
 
-            var compositeSchedule = (ICompositeSchedule)generator.Generate(xSchedules, caches);
+            var schedule = (ISchedule)generator.Generate(xSchedules, caches);
 
             //foreach (var xSchedule in xSchedules)
             //{
@@ -63,7 +63,7 @@ namespace Generators.Instances
             //    }
             //}
 
-            yield return compositeSchedule;
+            yield return schedule;
         }
 
     }

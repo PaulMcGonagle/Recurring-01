@@ -105,7 +105,10 @@ namespace Generators.XInstances
                 }
             }
 
-            return compositeSchedule;
+            return new ScheduleBuilder
+            {
+                ScheduleInstance = compositeSchedule,
+            }.Build();
         }
     }
 }

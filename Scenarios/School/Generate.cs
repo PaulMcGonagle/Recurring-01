@@ -13,9 +13,9 @@ namespace School
         private IClock _clock;
 
         private IGeneratorSource _generatorSource;
-        private ICompositeSchedule _years;
-        private ICompositeSchedule _terms;
-        private ICompositeSchedule _holidays;
+        private ISchedule _years;
+        private ISchedule _terms;
+        private ISchedule _holidays;
 
         public Generate(IArangoDatabase db, IClock clock)
         {
@@ -51,7 +51,7 @@ namespace School
                 .SingleOrDefault();
 
             _years = generated
-                .OfType<ICompositeSchedule>()
+                .OfType<ISchedule>()
                 .SingleOrDefault();
 
             var generatedInstant = new GeneratedInstantBuilder()
@@ -77,7 +77,7 @@ namespace School
             }
 
             _terms = generated
-                .OfType<ICompositeSchedule>()
+                .OfType<ISchedule>()
                 .SingleOrDefault();
         }
 
@@ -96,7 +96,7 @@ namespace School
             }
 
             _holidays = generated
-                .OfType<ICompositeSchedule>()
+                .OfType<ISchedule>()
                 .SingleOrDefault();
         }
     }

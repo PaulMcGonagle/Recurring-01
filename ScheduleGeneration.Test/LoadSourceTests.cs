@@ -340,7 +340,7 @@ namespace ScheduleGeneration.Test
             private IClock _clock;
             private IArangoDatabase _db;
             private IGenerateFromFile _generator;
-            private IEnumerable<ICompositeSchedule> _compositeSchedules;
+            private IEnumerable<ISchedule> _schedules;
 
             [Fact]
             public void Execute()
@@ -397,14 +397,14 @@ namespace ScheduleGeneration.Test
                     .Generate(_sourceFile, _clock)
                     .ToList();
 
-                _compositeSchedules = vertexs
-                    .OfType<ICompositeSchedule>()
+                _schedules = vertexs
+                    .OfType<ISchedule>()
                     .ToList();
             }
 
             public void AndWhenEventsAreSaved()
             {
-                foreach (var compositeSchedule in _compositeSchedules)
+                foreach (var compositeSchedule in _schedules)
                 {
                     compositeSchedule.Save(_db, _clock);
                 }

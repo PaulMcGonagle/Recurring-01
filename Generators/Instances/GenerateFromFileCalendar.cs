@@ -42,7 +42,7 @@ namespace Generators.Instances
 
                 var generatorSchedule = new GeneratorXCompositeSchedule();
 
-                var compositeSchedule = (ISchedule)generatorSchedule
+                var schedule = (ISchedule)generatorSchedule
                     .Generate(xSchedules, caches, null, clock);
 
                 var calendarTags = xCalendar
@@ -52,13 +52,13 @@ namespace Generators.Instances
                 tagCalendarType
                     .Connect(calendarTags.SingleOrDefault(ct => ct.Ident == "name"));
 
-                compositeSchedule.Connect(tagCalendarType);
+                schedule.Connect(tagCalendarType);
 
-                generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(compositeSchedule));
+                generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(schedule));
 
-                compositeSchedule.Connect(calendarTags);
+                schedule.Connect(calendarTags);
 
-                yield return compositeSchedule;
+                yield return schedule;
             }
         }
     }

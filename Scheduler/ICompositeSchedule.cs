@@ -3,7 +3,7 @@ using Scheduler.Ranges;
 
 namespace Scheduler
 {
-    public interface ICompositeSchedule : ISchedule
+    public interface ICompositeSchedule : IScheduleInstance
     {
         IEdgeVertexs<ISchedule> Inclusions { get; set; }
         IEdgeVertexs<ISchedule> Exclusions { get; set; }

@@ -23,6 +23,7 @@ namespace ScheduleGeneration.Test
             private IGenerateFromFile _generator;
 
             private IEnumerable<IVertex> _vertexs;
+            private ISchedule _schedule;
             private ICompositeSchedule _compositeSchedule;
 
             private IEnumerable<XElement> _providedGeneratorTags;
@@ -107,13 +108,15 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenOneCompositeScheduleIsRetrieved()
             {
-                _compositeSchedule = _vertexs.OfType<ICompositeSchedule>().Single();
+                _schedule = _vertexs.OfType<ISchedule>().Single();
+                _schedule.ScheduleInstance.ShouldBeOfType<CompositeSchedule>();
+                _compositeSchedule = (ICompositeSchedule) _schedule.ScheduleInstance;
             }
 
             public void AndThenCompositeScheduleTagsAreValid()
             {
                 CompareTagsToSource(
-                    _compositeSchedule.Tags.Select(e => e.ToVertex), 
+                    _schedule.Tags.Select(e => e.ToVertex), 
                     _providedClassTags);
             }
         }

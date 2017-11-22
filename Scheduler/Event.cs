@@ -102,13 +102,16 @@ namespace Scheduler
             {
                 Serials = new EdgeVertexs<ISerial>(
                     toVertex: new Serial(
-                        schedule: new CompositeSchedule()
+                        schedule: new ScheduleBuilder
                         {
-                            Inclusions = new EdgeVertexs<ISchedule>
+                            ScheduleInstance = new CompositeSchedule()
                             {
-                                new EdgeVertex<ISchedule>(schedule),
+                                Inclusions = new EdgeVertexs<ISchedule>
+                                {
+                                    new EdgeVertex<ISchedule>(schedule),
+                                },
                             },
-                        },
+                        }.Build(),
                         rangeTime: new EdgeRangeTime(rangeTime),
                         timeZoneProvider: timeZoneProvider)),
                 Location = location != null ? new EdgeVertex<ILocation>(location) : null,

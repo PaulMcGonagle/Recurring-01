@@ -23,7 +23,8 @@ namespace ScheduleGeneration.Test
             private IClock _clock;
             private IGenerateFromFile _generator;
             private IEnumerable<IVertex> _vertexs;
-            private ICompositeSchedule _compositeSchedule;
+            private ISchedule _schedule;
+            private CompositeSchedule _compositeSchedule;
             private IEnumerable<IDate> _dates;
 
             [Fact]
@@ -85,68 +86,32 @@ namespace ScheduleGeneration.Test
                     .ToList();
             }
 
-            public void AndWhenASingleCompositeScheduleIsRetrieved()
+            public void ThenAScheduleIsCreated()
             {
-                _compositeSchedule = _vertexs
-                    .OfType<ICompositeSchedule>()
-                    .Single();
+                _schedule = _vertexs
+                    .OfType<ISchedule>()
+                    .SingleOrDefault();
+
+                _schedule.ShouldNotBeNull();
             }
 
-            public void AndWhenSchedulesAreGenerated()
+            public void AndThenScheduleInstanceIsACompositeSchedule()
+            {
+                _schedule.ScheduleInstance.ShouldBeOfType<CompositeSchedule>();
+                _compositeSchedule = (CompositeSchedule)_schedule.ScheduleInstance;
+            }
+
+            public void AndThenSchedulesAreGenerated()
             {
                 _dates = _compositeSchedule
                     .Generate(_clock);
             }
 
-            public void ThenDatesAreExpected(IEnumerable<IDate> expectedDates)
+            public void AndThenDatesAreExpected(IEnumerable<IDate> expectedDates)
             {
                 _dates
                     .ShouldBe(expectedDates);
             }
-
-            //public void AndWhenSerialIsRetrieved()
-            //{
-            //    var @event = _events
-            //        .Single();
-
-            //    var serial = @event
-            //        .Serials
-            //        .Single()
-            //        .ToVertex;
-
-            //    _episodes = serial
-            //        .GenerateEpisodes(_clock)
-            //        .Select(e => e.ToVertex);
-            //}
-
-            //public void AndWhenEpisodesAreEnriched()
-            //{
-            //    var enricher = new EnricherNumbering();
-
-            //    enricher.Go(
-            //        vertexs: _episodes,
-            //        ident: "EventNumber"
-            //        );
-            //}
-
-            //public void ThenEventsMustHaveNumbers()
-            //{
-            //    foreach (var episode in _episodes)
-            //    {
-            //        var tag = episode
-            //            .Tags
-            //            .SingleOrDefault(e => e.ToVertex.Ident == "EventNumber");
-
-            //        tag.ShouldNotBeNull();
-
-            //        var value = tag
-            //            ?.ToVertex
-            //            .Value;
-
-            //        // ReSharper disable once UnusedVariable
-            //        int.TryParse(value, out int unusedResult).ShouldBeTrue();
-            //    }
-            //}
         }
     }
 }

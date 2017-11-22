@@ -11,7 +11,7 @@ using Scheduler.ScheduleInstances;
 
 namespace Scheduler
 {
-    public class CompositeSchedule : Schedule, ICompositeSchedule
+    public class CompositeSchedule : ScheduleInstance, ICompositeSchedule
     {
         private static class RelationLabels
         {
@@ -53,37 +53,33 @@ namespace Scheduler
             return list;
         }
 
-        private IEnumerable<ISchedule> GetSchedules(IArangoDatabase db, string relationLabel)
+        private IEnumerable<ISchedule> GetSchedules(IArangoDatabase db, string relationLabel, ISchedule schedule)
         {
             var schedules = new List<ISchedule>();
 
-            schedules.AddRange(Utilities.GetEdges<Schedule>(db, Id, relationLabel));
+            schedules.AddRange(Utilities.GetEdges<Schedule>(db, schedule.Id, relationLabel));
 
             return schedules;
         }
 
         #region Persistance
 
-        public override void Save(IArangoDatabase db, IClock clock)
+        public override void Save(IArangoDatabase db, IClock clock, ISchedule schedule)
         {
-            Save<CompositeSchedule>(db);
-            Inclusions.Save(db, clock, this, RelationLabels.Inclusions);
-            Exclusions.Save(db, clock, this, RelationLabels.Exclusions);
-            Breaks.Save(db, clock, this, RelationLabels.Breaks);
-            base.Save(db, clock);
+            Inclusions.Save(db, clock, schedule, RelationLabels.Inclusions);
+            Exclusions.Save(db, clock, schedule, RelationLabels.Exclusions);
+            Breaks.Save(db, clock, schedule, RelationLabels.Breaks);
         }
 
-        public override void Rehydrate(IArangoDatabase db)
+        public void Rehydrate(IArangoDatabase db, ISchedule schedule)
         {
             Inclusions = new EdgeVertexs<ISchedule>();
-            Inclusions.AddRange(GetSchedules(db, RelationLabels.Inclusions));
-            Exclusions.AddRange(GetSchedules(db, RelationLabels.Exclusions));
+            Inclusions.AddRange(GetSchedules(db, RelationLabels.Inclusions, schedule));
+            Exclusions.AddRange(GetSchedules(db, RelationLabels.Exclusions, schedule));
 
             Breaks = new EdgeVertexs<IRangeDate>();
 
-            Breaks.AddRange(Utilities.GetEdges<RangeDate>(db, Id, RelationLabels.Breaks));
-
-            base.Rehydrate(db);
+            Breaks.AddRange(Utilities.GetEdges<RangeDate>(db, schedule.Id, RelationLabels.Breaks));
         }
 
         #endregion

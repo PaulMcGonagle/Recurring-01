@@ -161,25 +161,28 @@ namespace TestData
 
             _scheduleArchive
                 .Add("Example.AutumnTerm",
-                    new CompositeSchedule()
+                    new ScheduleBuilder
                     {
-                        Inclusions = new EdgeVertexs<ISchedule>
+                        ScheduleInstance = new CompositeScheduleBuilder
                         {
-                            new EdgeVertex<ISchedule>(_scheduleArchive["Schools.Term.201617.Autumn"]),
-                            new EdgeVertex<ISchedule>(_scheduleArchive["Schools.Term.201617.Winter"]),
-                            new EdgeVertex<ISchedule>(_scheduleArchive["Schools.Term.201617.Summer"]),
-                        },
-                        Exclusions = new EdgeVertexs<ISchedule>
-                        {
-                            new EdgeVertex<ISchedule>(_scheduleArchive["BankHolidays"]),
-                        },
-                        Breaks = new EdgeVertexs<IRangeDate>()
-                        {
-                            new EdgeVertex<IRangeDate>(Ranges["Schools.Term.201617.Autumn.HalfTerm"]),
-                            new EdgeVertex<IRangeDate>(Ranges["Schools.Term.201617.Winter.HalfTerm"]),
-                            new EdgeVertex<IRangeDate>(Ranges["Schools.Term.201617.Summer.HalfTerm"]),
-                        },
-                    });
+                            Inclusions = new EdgeVertexs<ISchedule>
+                            {
+                                new EdgeVertex<ISchedule>(_scheduleArchive["Schools.Term.201617.Autumn"]),
+                                new EdgeVertex<ISchedule>(_scheduleArchive["Schools.Term.201617.Winter"]),
+                                new EdgeVertex<ISchedule>(_scheduleArchive["Schools.Term.201617.Summer"]),
+                            },
+                            Exclusions = new EdgeVertexs<ISchedule>
+                            {
+                                new EdgeVertex<ISchedule>(_scheduleArchive["BankHolidays"]),
+                            },
+                            Breaks = new EdgeVertexs<IRangeDate>()
+                            {
+                                new EdgeVertex<IRangeDate>(Ranges["Schools.Term.201617.Autumn.HalfTerm"]),
+                                new EdgeVertex<IRangeDate>(Ranges["Schools.Term.201617.Winter.HalfTerm"]),
+                                new EdgeVertex<IRangeDate>(Ranges["Schools.Term.201617.Summer.HalfTerm"]),
+                            },
+                        }.Build(),
+                    }.Build());
 
             return _scheduleArchive;
         }

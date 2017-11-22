@@ -29,19 +29,19 @@ namespace Generators.Instances
 
             var vertex = generator.Generate(xSchedules, caches, clock: clock);
 
-            var compositeSchedule = vertex as ICompositeSchedule;
+            var schedule = vertex as ISchedule;
 
-            if (compositeSchedule == null)
-                throw new Exception($"Generator generated invalid type. Expected ICompositeSchedule, returned {vertex.GetType()}");
+            if (schedule == null)
+                throw new Exception($"Generator generated invalid type. Expected ISchedule, returned {vertex.GetType()}");
 
-            compositeSchedule
+            schedule
                 .Connect(xSchedules.RetrieveTags(caches));
 
             generatorSource
                 .Schedules
-                .Add(new EdgeSchedule(compositeSchedule, "Generated"));
+                .Add(new EdgeSchedule(schedule, "Generated"));
 
-            yield return compositeSchedule;
+            yield return schedule;
         }
     }
 }

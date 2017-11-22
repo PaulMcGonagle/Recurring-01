@@ -22,7 +22,7 @@ namespace Generators.XInstances
                     caches: caches)
                 .ToList();
 
-            var composite = new CompositeSchedule();
+            var compositeSchedule = new CompositeSchedule();
 
             foreach (var rangeDate in rangeDates)
             {
@@ -35,14 +35,20 @@ namespace Generators.XInstances
                     }.Build()
                 }.Build();
 
-                composite
+                compositeSchedule
                     .Inclusions
                     .Add(new EdgeSchedule(byOffset));
             }
 
-            composite.Connect(xByWeekdays.RetrieveTags(caches, elementsName));
+            var schedule = new ScheduleBuilder
+            {
+                ScheduleInstance = compositeSchedule,
+            }.Build();
 
-            return composite;
+
+            schedule.Connect(xByWeekdays.RetrieveTags(caches, elementsName));
+
+            return schedule;
         }
     }
 }

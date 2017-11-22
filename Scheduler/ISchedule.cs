@@ -7,5 +7,7 @@ namespace Scheduler
     public interface ISchedule : IVertex
     {
         IEnumerable<IDate> Generate(IClock clock);
+
+        IScheduleInstance ScheduleInstance { get; }
     }
 }

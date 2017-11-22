@@ -8,7 +8,7 @@ using NodaTime;
 
 namespace Scheduler
 {
-    public abstract class ScheduleInstance
+    public abstract class ScheduleInstance : IScheduleInstance
     {
         public abstract IEnumerable<IDate> Generate(IClock clock);
 

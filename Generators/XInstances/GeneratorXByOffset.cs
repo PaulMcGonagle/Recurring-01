@@ -42,9 +42,14 @@ namespace Generators.XInstances
                     .Add(new EdgeSchedule(byOffset));
             }
 
-            composite.Connect(xByOffset.RetrieveTags(caches, elementsName));
+            var schedule = new ScheduleBuilder
+            {
+                ScheduleInstance = composite,
+            }.Build();
 
-            return composite;
+            schedule.Connect(xByOffset.RetrieveTags(caches, elementsName));
+
+            return schedule;
         }
     }
 }

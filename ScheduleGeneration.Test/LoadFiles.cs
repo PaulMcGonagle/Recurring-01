@@ -20,6 +20,7 @@ namespace ScheduleGeneration.Test
         private string _type;
         private string _sourceFile;
         private IList<Tuple<string, XElement>> _sources;
+        private ISchedule _schedule;
         private ICompositeSchedule _compositeSchedule;
         private XElement _source;
         private IClock _clock;
@@ -98,10 +99,10 @@ namespace ScheduleGeneration.Test
                 .ToList();
         }
 
-        public void AndWhenASingleCompositeScheduleIsRetrieved()
+        public void AndWhenASingleScheduleIsRetrieved()
         {
-            _compositeSchedule = _vertexs
-                .OfType<ICompositeSchedule>()
+            _schedule = _vertexs
+                .OfType<ISchedule>()
                 .Single();
         }
 

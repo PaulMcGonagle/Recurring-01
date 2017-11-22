@@ -21,6 +21,7 @@ namespace Generators.Test.Instances
             private string _tempFilename;
             private IGenerateFromFile _generator;
             private IEnumerable<IVertex> _vertexs;
+            private ISchedule _schedule;
             private ICompositeSchedule _compositeSchedule;
 
             [Fact]
@@ -34,10 +35,10 @@ namespace Generators.Test.Instances
                         new XElement("calendars",
                             new XElement("calendar",
                                 new XElement("schedule",
-                                    new XElement("inclusions"),
+                                    new XElement("inclusions",
                                         new XElement("byRangeDate",
                                             new XAttribute("start", "2016-03-01"),
-                                            new XAttribute("end", "2016-03-31")))))),
+                                            new XAttribute("end", "2016-03-31"))))))),
 
                 }).BDDfy();
             }
@@ -81,11 +82,22 @@ namespace Generators.Test.Instances
 
             public void ThenAScheduleIsCreated()
             {
-                _compositeSchedule = _vertexs
-                    .OfType<ICompositeSchedule>()
+                _schedule = _vertexs
+                    .OfType<ISchedule>()
                     .SingleOrDefault();
 
-                _compositeSchedule.ShouldNotBeNull();
+                _schedule
+                    .ShouldNotBeNull();
+
+                _schedule
+                    .ScheduleInstance
+                    .ShouldBeAssignableTo<ICompositeSchedule>();
+
+                _compositeSchedule = (ICompositeSchedule) _schedule
+                    .ScheduleInstance;
+
+                _compositeSchedule
+                    .ShouldNotBeNull();
             }
         }
     }
