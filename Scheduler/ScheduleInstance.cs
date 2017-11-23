@@ -10,6 +10,8 @@ namespace Scheduler
 
         public string TypeName => GetType().FullName;
 
+        public abstract void Validate();
+
         public virtual void Save(IArangoDatabase db, IClock clock, ISchedule schedule)
         {
             

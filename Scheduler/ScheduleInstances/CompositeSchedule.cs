@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using CoreLibrary;
 using NodaTime;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
@@ -48,6 +50,18 @@ namespace Scheduler.ScheduleInstances
             }
 
             return list;
+        }
+
+        public override void Validate()
+        {
+            Guard.AgainstNull(Inclusions, nameof(Inclusions));
+            Guard.AgainstNull(Exclusions, nameof(Exclusions));
+            Guard.AgainstNull(Breaks, nameof(Breaks));
+
+            if (Inclusions.Count == 0)
+            {
+                throw new Exception("CompositeSchedule must have at least one Inclusion schedule");
+            }
         }
 
         private IEnumerable<ISchedule> GetSchedules(IArangoDatabase db, string relationLabel, ISchedule schedule)

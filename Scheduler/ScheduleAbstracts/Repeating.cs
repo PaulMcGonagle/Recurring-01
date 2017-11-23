@@ -20,7 +20,7 @@ namespace Scheduler.ScheduleAbstracts
 
         protected int Increment = 1;
 
-        public virtual void Validate()
+        public override void Validate()
         {
             Guard.AgainstNull(EdgeRangeDate, nameof(EdgeRangeDate));
         }

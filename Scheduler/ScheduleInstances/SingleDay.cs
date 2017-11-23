@@ -12,7 +12,7 @@ namespace Scheduler.ScheduleInstances
             set;
         }
 
-        public void Validate()
+        public override void Validate()
         {
             Guard.AgainstNull(Date, nameof(Date));
         }

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using CoreLibrary;
 using NodaTime;
 using Scheduler.Persistance;
 
@@ -19,6 +20,11 @@ namespace Scheduler.ScheduleInstances
         public override IEnumerable<IDate> Generate(IClock clock)
         {
             return Items.Select(item => item.ToVertex);
+        }
+
+        public override void Validate()
+        {
+            Guard.AgainstNull(Items, nameof(Items));
         }
 
         public override void Save(IArangoDatabase db, IClock clock, ISchedule schedule)
