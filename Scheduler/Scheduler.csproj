@@ -140,7 +140,7 @@
     <Compile Include="ScheduleInstances\ByRangeDate.cs" />
     <Compile Include="ScheduleInstances\ByOffset.cs" />
     <Compile Include="Serials.cs" />
-    <Compile Include="CompositeSchedule.cs" />
+    <Compile Include="ScheduleInstances\CompositeSchedule.cs" />
     <Compile Include="Serial.cs" />
     <Compile Include="ISerial.cs" />
     <Compile Include="Ranges\RangeTime.cs" />

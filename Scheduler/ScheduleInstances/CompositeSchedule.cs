@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
-using Scheduler.ScheduleEdges;
-using Scheduler.ScheduleInstances;
 
-namespace Scheduler
+namespace Scheduler.ScheduleInstances
 {
     public class CompositeSchedule : ScheduleInstance, ICompositeSchedule
     {

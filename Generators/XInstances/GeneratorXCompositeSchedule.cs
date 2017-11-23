@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using System.Xml.XPath;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
+using Scheduler.ScheduleInstances;
 
 namespace Generators.XInstances
 {

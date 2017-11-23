@@ -44,7 +44,7 @@ namespace Scheduler
             switch (TypeName)
             {
                 case "Scheduler.CompositeSchedule":
-                    ScheduleInstance = Transfer.Deserialize<Scheduler.CompositeSchedule>(_instanceSerialized);
+                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.CompositeSchedule>(_instanceSerialized);
                     break;
                 case "ScheduleInstances.ByDateList":
                     ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByDateList>(_instanceSerialized);

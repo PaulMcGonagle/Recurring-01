@@ -8,6 +8,7 @@ using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Persistance;
+using Scheduler.ScheduleInstances;
 using Shouldly;
 using TestHelpers;
 using TestStack.BDDfy;

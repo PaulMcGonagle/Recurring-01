@@ -9,6 +9,7 @@ using Scheduler.Generation;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
+using Scheduler.ScheduleInstances;
 using Scheduler.Users;
 
 namespace Scheduler
