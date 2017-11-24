@@ -33,7 +33,6 @@ namespace Scheduler.Test.Repeating
                             new ByDayOfMonth
                             {
                                 DayOfMonth = 28,
-                                Clock = fakeClock,
                                 CountFrom = -02,
                                 CountTo = 00,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Forward
@@ -46,7 +45,6 @@ namespace Scheduler.Test.Repeating
                             new ByDayOfMonth
                             {
                                 DayOfMonth = 30,
-                                Clock = fakeClock,
                                 CountFrom = -02,
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Back
@@ -65,7 +63,6 @@ namespace Scheduler.Test.Repeating
                             new ByDayOfMonth
                             {
                                 DayOfMonth = 29,
-                                Clock = fakeClock,
                                 CountFrom = -02,
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Skip
@@ -83,7 +80,6 @@ namespace Scheduler.Test.Repeating
                             new ByDayOfMonth
                             {
                                 DayOfMonth = 29,
-                                Clock = fakeClock,
                                 CountFrom = -02,
                                 CountTo = 02,
                                 RollStrategy = ScheduleAbstracts.RepeatingDay.RollStrategyType.Forward

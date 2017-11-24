@@ -11,8 +11,6 @@ namespace Scheduler.ScheduleInstances
         [DataMember]
         public int DayOfMonth;
 
-        private IClock _clock;
-
         public ByDayOfMonth()
         {
             CountFromDefault = 0;
@@ -21,19 +19,12 @@ namespace Scheduler.ScheduleInstances
             DayOfMonth = 1;
         }
 
-        [IgnoreDataMember]
-        public IClock Clock
-        {
-            get => _clock ?? (_clock = SystemClock.Instance);
-            set => _clock = value;
-        }
-
         protected YearMonth GetYearMonthFrom(IClock clock)
         {
             if (EdgeRangeDate?.ToVertex?.Start != null)
                 return new Date(EdgeRangeDate.ToVertex.Start.Date.Value).ToYearMonth();
 
-            var yearMonth = Clock.GetLocalYearMonth();
+            var yearMonth = clock.GetLocalYearMonth();
 
             return yearMonth.AddMonths(CountFrom ?? CountFromDefault);
         }
@@ -43,16 +34,9 @@ namespace Scheduler.ScheduleInstances
             if (EdgeRangeDate?.ToVertex?.End != null)
                 return new Date(EdgeRangeDate.ToVertex.End.Date.Value).ToYearMonth();
 
-            var yearMonth = Clock.GetLocalYearMonth();
+            var yearMonth = clock.GetLocalYearMonth();
 
             return yearMonth.AddMonths(CountTo ?? CountToDefault);
-        }
-
-        public override void Validate()
-        {
-            base.Validate();
-
-            Guard.AgainstNull(Clock, nameof(Clock));
         }
 
         public override IEnumerable<IDate> Generate(IClock clock)
@@ -89,10 +73,6 @@ namespace Scheduler.ScheduleInstances
             };
         }
 
-        public IClock Clock
-        {
-            set => _byDayOfMonth.Clock = value;
-        }
 
         public int DayOfMonth
         {
