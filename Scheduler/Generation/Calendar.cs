@@ -38,30 +38,30 @@ namespace Scheduler.Generation
         }
 
         #endregion
-    }
 
-    public class CalendarBuilder
-    {
-        private readonly Calendar _calendar;
-
-        public CalendarBuilder()
+        public class Builder
         {
-            _calendar = new Calendar();
-        }
+            private readonly Calendar _calendar;
 
-        public string Description
-        {
-            set => _calendar.Description = value;
-        }
+            public Builder()
+            {
+                _calendar = new Calendar();
+            }
 
-        public EdgeVertexs<IDate> Dates
-        {
-            set => _calendar.Dates = value;
-        }
+            public string Description
+            {
+                set => _calendar.Description = value;
+            }
 
-        public ICalendar Build()
-        {
-            return _calendar;
+            public EdgeVertexs<IDate> Dates
+            {
+                set => _calendar.Dates = value;
+            }
+
+            public ICalendar Build()
+            {
+                return _calendar;
+            }
         }
     }
 }

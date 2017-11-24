@@ -13,6 +13,7 @@ namespace Scheduler.Ranges
     {
         [IgnoreDataMember]
         public EdgeDate Start { get; set; }
+
         [IgnoreDataMember]
         public EdgeDate End { get; set; }
 
@@ -32,7 +33,8 @@ namespace Scheduler.Ranges
             Guard.AgainstNull(End, nameof(End));
 
             if (Start.Date.Value > End.Date.Value)
-                throw new ArgumentOutOfRangeException(nameof(Start), $"Start date [{Start.Date.Value.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than End date [{End.Date.Value.ToString("D", CultureInfo.CurrentCulture)}]");
+                throw new ArgumentOutOfRangeException(nameof(Start),
+                    $"Start date [{Start.Date.Value.ToString("D", CultureInfo.CurrentCulture)}] cannot be greater than End date [{End.Date.Value.ToString("D", CultureInfo.CurrentCulture)}]");
         }
 
         public override void Save(IArangoDatabase db, IClock clock)
@@ -42,32 +44,32 @@ namespace Scheduler.Ranges
             End?.Save(db, clock, this, "HasEndDate");
             base.Save(db, clock);
         }
-    }
 
-    public class RangeDateBuilder
-    {
-        private RangeDate _rangeDate;
-
-        public RangeDateBuilder()
+        public class Builder
         {
-            _rangeDate = new RangeDate();
-        }
+            private RangeDate _rangeDate;
 
-        public IDate Start
-        {
-            set => _rangeDate.Start = new EdgeDate(value);
-        }
+            public Builder()
+            {
+                _rangeDate = new RangeDate();
+            }
 
-        public IDate End
-        {
-            set => _rangeDate.End = new EdgeDate(value);
-        }
+            public IDate Start
+            {
+                set => _rangeDate.Start = new EdgeDate(value);
+            }
 
-        public RangeDate Build()
-        {
-            _rangeDate.Validate();
+            public IDate End
+            {
+                set => _rangeDate.End = new EdgeDate(value);
+            }
 
-            return _rangeDate;
+            public RangeDate Build()
+            {
+                _rangeDate.Validate();
+
+                return _rangeDate;
+            }
         }
     }
 }

@@ -11,8 +11,7 @@ namespace Scheduler.ScheduleAbstracts
 {
     public abstract class Repeating : ScheduleInstance
     {
-        [IgnoreDataMember]
-        public IEdgeRangeDate EdgeRangeDate;
+        [IgnoreDataMember] public IEdgeRangeDate EdgeRangeDate;
         public int? CountFrom;
         public int? CountTo;
         public int CountFromDefault { get; set; }
@@ -26,7 +25,7 @@ namespace Scheduler.ScheduleAbstracts
         }
 
         public abstract override IEnumerable<IDate> Generate(IClock clock);
-        
+
         #region Save
 
         public override void Save(IArangoDatabase db, IClock clock, ISchedule schedule)
@@ -35,25 +34,40 @@ namespace Scheduler.ScheduleAbstracts
         }
 
         #endregion
-    }
 
-    public abstract class RepeatingBuilder
-    {
-        protected abstract Repeating Repeating { get; }
-
-        public EdgeRangeDate EdgeRangeDate
+        public abstract class Builder
         {
-            set => Repeating.EdgeRangeDate = value;
-        }
+            protected abstract Repeating Repeating { get; }
 
-        public IRangeDate RangeDate
-        {
-            set => EdgeRangeDate = new EdgeRangeDate(value);
-        }
+            public EdgeRangeDate EdgeRangeDate
+            {
+                set => Repeating.EdgeRangeDate = value;
+            }
 
-        public int? CountFrom { set => Repeating.CountFrom = value; }
-        public int? CountTo { set => Repeating.CountTo = value; }
-        public int CountFromDefault { set => Repeating.CountFromDefault = value; }
-        public int CountToDefault { set => Repeating.CountToDefault = value; }
+            public IRangeDate RangeDate
+            {
+                set => EdgeRangeDate = new EdgeRangeDate(value);
+            }
+
+            public int? CountFrom
+            {
+                set => Repeating.CountFrom = value;
+            }
+
+            public int? CountTo
+            {
+                set => Repeating.CountTo = value;
+            }
+
+            public int CountFromDefault
+            {
+                set => Repeating.CountFromDefault = value;
+            }
+
+            public int CountToDefault
+            {
+                set => Repeating.CountToDefault = value;
+            }
+        }
     }
 }

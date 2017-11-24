@@ -2,15 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using CoreLibrary;
-using Scheduler.Ranges;
 using Scheduler.ScheduleAbstracts;
-using Scheduler.ScheduleEdges;
 
 namespace Scheduler.ScheduleInstances
 {
-    public class ByDayOfYear : ScheduleAbstracts.RepeatingDay
+    public class ByDayOfYear : RepeatingDay
     {
         public int? DayOfYear { get; internal set; }
 
@@ -68,48 +64,50 @@ namespace Scheduler.ScheduleInstances
 
             generatedDates
                 .AddRange(Enumerable.Range(yearFrom, yearTo - yearFrom + 1)
-                    .Select(year => (new YearMonth {Year = year, Month = Month.Value}).ToLocalDate(DayOfYear.Value, RollStrategy)));
+                    .Select(
+                        year => (new YearMonth {Year = year, Month = Month.Value}).ToLocalDate(DayOfYear.Value,
+                            RollStrategy)));
 
             return generatedDates;
         }
-    }
 
-    public class ByDayOfYearBuilder : RepeatingDayBuilder
-    {
-        private readonly ByDayOfYear _byDayOfYear;
-
-        protected override RepeatingDay RepeatingDay => _byDayOfYear;
-
-        public ByDayOfYearBuilder()
+        public new class Builder : RepeatingDay.Builder
         {
-            _byDayOfYear = new ByDayOfYear();
-        }
+            private readonly ByDayOfYear _byDayOfYear;
 
-        public int? DayOfYear
-        {
-            set => _byDayOfYear.DayOfYear = value;
-        }
+            protected override RepeatingDay RepeatingDay => _byDayOfYear;
 
-        public YearMonth.MonthValue? Month
-        {
-            set => _byDayOfYear.Month = value;
-        }
+            public Builder()
+            {
+                _byDayOfYear = new ByDayOfYear();
+            }
 
-        public int? YearFrom
-        {
-            set => _byDayOfYear.YearFrom = value;
-        }
+            public int? DayOfYear
+            {
+                set => _byDayOfYear.DayOfYear = value;
+            }
 
-        public int? YearTo
-        {
-            set => _byDayOfYear.YearTo = value;
-        }
+            public YearMonth.MonthValue? Month
+            {
+                set => _byDayOfYear.Month = value;
+            }
 
-        public ByDayOfYear Build()
-        {
-            _byDayOfYear.Validate();
+            public int? YearFrom
+            {
+                set => _byDayOfYear.YearFrom = value;
+            }
 
-            return _byDayOfYear;
+            public int? YearTo
+            {
+                set => _byDayOfYear.YearTo = value;
+            }
+
+            public ByDayOfYear Build()
+            {
+                _byDayOfYear.Validate();
+
+                return _byDayOfYear;
+            }
         }
     }
 }

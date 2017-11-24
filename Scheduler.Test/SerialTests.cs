@@ -17,7 +17,7 @@ namespace Scheduler.Test
     {
         public class VerifyDateOutOfBoundsExceptionIsThrown
         {
-            private SerialBuilder _sut;
+            private Serial.Builder _sut;
             private IClock _clock;
             private Serial _serial;
             private IEdgeVertexs<IEpisode> _episodes;
@@ -31,11 +31,11 @@ namespace Scheduler.Test
                 this.WithExamples(new ExampleTable("sut", "clock", "expectedEpisodes")
                     {
                         {
-                            new SerialBuilder
+                            new Serial.Builder
                             {
-                                EdgeSchedule = new EdgeSchedule(new ScheduleBuilder
+                                EdgeSchedule = new EdgeSchedule(new Schedule.Builder
                                 {
-                                    ScheduleInstance = new ByDateListBuilder
+                                    ScheduleInstance = new ByDateList.Builder
                                     {
                                         Items = new EdgeVertexs<IDate>()
                                         {
@@ -73,7 +73,7 @@ namespace Scheduler.Test
                     .BDDfy();
             }
 
-            public void GivenABuilder(SerialBuilder sut)
+            public void GivenABuilder(Serial.Builder sut)
             {
                 _sut = sut;
             }
@@ -98,7 +98,7 @@ namespace Scheduler.Test
 
         public class VerifyMissingPropertyThrowsArgumentException
         {
-            private SerialBuilder _sut;
+            private Serial.Builder _sut;
             private IClock _clock;
             private Serial _serial;
             private System.Exception _exception;
@@ -115,11 +115,11 @@ namespace Scheduler.Test
                     "paramName")
                     {
                         {
-                            new SerialBuilder
+                            new Serial.Builder
                             {
-                                EdgeSchedule = new EdgeSchedule(new ScheduleBuilder
+                                EdgeSchedule = new EdgeSchedule(new Schedule.Builder
                                 {
-                                    ScheduleInstance = new ByDateListBuilder
+                                    ScheduleInstance = new ByDateList.Builder
                                     {
                                         Items = new EdgeVertexs<IDate>(),
                                     }.Build()
@@ -130,11 +130,11 @@ namespace Scheduler.Test
                             "RangeTime"
                         },
                         {
-                            new SerialBuilder
+                            new Serial.Builder
                             {
-                                EdgeSchedule = new EdgeSchedule(new ScheduleBuilder
+                                EdgeSchedule = new EdgeSchedule(new Schedule.Builder
                                 {
-                                    ScheduleInstance = new ByDateListBuilder
+                                    ScheduleInstance = new ByDateList.Builder
                                     {
                                         Items = new EdgeVertexs<IDate>(),
                                     }.Build()
@@ -147,7 +147,7 @@ namespace Scheduler.Test
                             "TimeZoneProvider"
                         },
                         {
-                            new SerialBuilder
+                            new Serial.Builder
                             {
                                 RangeTime = new EdgeRangeTime(
                                     start: new LocalTime(15, 30),
@@ -161,7 +161,7 @@ namespace Scheduler.Test
                     .BDDfy();
             }
 
-            public void GivenABuilder(SerialBuilder sut)
+            public void GivenABuilder(Serial.Builder sut)
             {
                 _sut = sut;
             }

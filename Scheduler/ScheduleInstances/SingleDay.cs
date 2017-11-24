@@ -6,11 +6,7 @@ namespace Scheduler.ScheduleInstances
 {
     public class SingleDay : ScheduleInstance
     {
-        public Date Date
-        {
-            get;
-            set;
-        }
+        public Date Date { get; set; }
 
         public override void Validate()
         {
@@ -21,27 +17,27 @@ namespace Scheduler.ScheduleInstances
         {
             yield return Date;
         }
-    }
 
-    public class SingleDayBuilder
-    {
-        private readonly SingleDay _singleDay;
-
-        public SingleDayBuilder()
+        public class Builder
         {
-            _singleDay = new SingleDay();
-        }
+            private readonly SingleDay _singleDay;
 
-        public Date Date
-        {
-            set => _singleDay.Date = value;
-        }
+            public Builder()
+            {
+                _singleDay = new SingleDay();
+            }
 
-        public SingleDay Build()
-        {
-            _singleDay.Validate();
+            public Date Date
+            {
+                set => _singleDay.Date = value;
+            }
 
-            return _singleDay;
+            public SingleDay Build()
+            {
+                _singleDay.Validate();
+
+                return _singleDay;
+            }
         }
     }
 }

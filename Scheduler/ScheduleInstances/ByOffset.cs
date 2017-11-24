@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using ArangoDB.Client;
 using CoreLibrary;
 using NodaTime;
 using Scheduler.Ranges;
@@ -9,12 +8,10 @@ using Scheduler.ScheduleEdges;
 
 namespace Scheduler.ScheduleInstances
 {
-    public class ByOffset : ScheduleAbstracts.Repeating
+    public class ByOffset : Repeating
     {
-        [DataMember]
-        public LocalDate InitialDate;
-        [DataMember]
-        public string Interval;
+        [DataMember] public LocalDate InitialDate;
+        [DataMember] public string Interval;
 
         public override void Validate()
         {
@@ -31,7 +28,7 @@ namespace Scheduler.ScheduleInstances
             var iterDate = InitialDate;
 
             while (EdgeRangeDate?.RangeDate.Contains(iterDate) == true
-                && results.Count <= (CountTo ?? CountToDefault))
+                   && results.Count <= (CountTo ?? CountToDefault))
             {
                 results.Add(new Date(iterDate));
 
@@ -42,49 +39,39 @@ namespace Scheduler.ScheduleInstances
 
             return results;
         }
-    }
 
-    public class ByOffsetBuilder : RepeatingBuilder
-    {
-        private readonly ByOffset _byOffset;
-
-        protected override Repeating Repeating => _byOffset;
-
-        public ByOffsetBuilder()
+        public new class Builder : Repeating.Builder
         {
-            _byOffset = new ByOffset();
-        }
+            private readonly ByOffset _byOffset;
 
-        public LocalDate InitialDate
-        {
-            set => _byOffset.InitialDate = value;
-        }
+            protected override Repeating Repeating => _byOffset;
 
-        public string Interval
-        {
-            set => _byOffset.Interval = value;
-        }
+            public Builder()
+            {
+                _byOffset = new ByOffset();
+            }
 
-        public IRangeDate Range
-        {
-            set => _byOffset.EdgeRangeDate = new EdgeRangeDate(value);
-        }
+            public LocalDate InitialDate
+            {
+                set => _byOffset.InitialDate = value;
+            }
 
-        public int CountTo
-        {
-            set => _byOffset.CountTo = value;
-        }
+            public string Interval
+            {
+                set => _byOffset.Interval = value;
+            }
 
-        public int CountFrom
-        {
-            set => _byOffset.CountFrom = value;
-        }
+            public IRangeDate Range
+            {
+                set => _byOffset.EdgeRangeDate = new EdgeRangeDate(value);
+            }
 
-        public ByOffset Build()
-        {
-            _byOffset.Validate();
+            public ByOffset Build()
+            {
+                _byOffset.Validate();
 
-            return _byOffset;
+                return _byOffset;
+            }
         }
     }
 }

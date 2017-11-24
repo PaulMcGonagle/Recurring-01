@@ -21,9 +21,9 @@ namespace Generators.XInstances
                 .RetrieveRangeDate(
                     caches: caches);
 
-            var byRangeDate = new ScheduleBuilder
+            var byRangeDate = new Schedule.Builder
             {
-                ScheduleInstance = new ByRangeDateBuilder
+                ScheduleInstance = new ByRangeDate.Builder
                 {
                     RangeDate = rangeDate,
                 }.Build(),

@@ -25,7 +25,7 @@ namespace Scheduler.Test.ScheduleInstances
                 this.WithExamples(new ExampleTable("sut", "clock", "expectedDates")
                     {
                         {
-                            new ByDateListBuilder
+                            new ByDateList.Builder
                             {
                                 Items = new EdgeVertexs<IDate>(new List<IDate>
                                 {

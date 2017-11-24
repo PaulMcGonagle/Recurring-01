@@ -21,30 +21,29 @@ namespace Scheduler.Users
             Save<User>(db);
             base.Save(db, clock);
         }
-    }
 
-    public class UserBuilder
-    {
-        private readonly User _user;
-
-        public UserBuilder()
+        public class Builder
         {
-            _user = new User();
-        }
+            private readonly User _user;
 
-        public string Forename
-        {
-            set => _user.Forename = value;
-        }
+            public Builder()
+            {
+                _user = new User();
+            }
 
-        public string Surname
-        {
-            set => _user.Surname = value;
-        }
+            public string Forename
+            {
+                set => _user.Forename = value;
+            }
 
-        public IUser Build()
-        {
-            return _user;
+            public string Surname
+            {
+                set => _user.Surname = value;
+            }
+
+            public IUser Build()
+            {
+                return _user;
+            }
         }
-    }
-}
+    }}

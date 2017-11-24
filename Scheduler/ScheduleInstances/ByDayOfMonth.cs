@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
 using NodaTime;
 using System.Runtime.Serialization;
-using CoreLibrary;
 using Scheduler.ScheduleAbstracts;
 
 namespace Scheduler.ScheduleInstances
 {
     public class ByDayOfMonth : RepeatingDay
     {
-        [DataMember]
-        public int DayOfMonth;
+        [DataMember] public int DayOfMonth;
 
         public ByDayOfMonth()
         {
@@ -55,35 +53,35 @@ namespace Scheduler.ScheduleInstances
                 }
             }
         }
-    }
 
-    public class ByDayOfMonthBuilder : RepeatingDayBuilder
-    {
-        private readonly ByDayOfMonth _byDayOfMonth;
-
-        protected override RepeatingDay RepeatingDay => _byDayOfMonth;
-
-        public ByDayOfMonthBuilder()
+        public new class Builder : RepeatingDay.Builder
         {
-            _byDayOfMonth = new ByDayOfMonth
+            private readonly ByDayOfMonth _byDayOfMonth;
+
+            protected override RepeatingDay RepeatingDay => _byDayOfMonth;
+
+            public Builder()
             {
-                CountFromDefault = 0,
-                CountToDefault = 12,
-                DayOfMonth = 1
-            };
-        }
+                _byDayOfMonth = new ByDayOfMonth
+                {
+                    CountFromDefault = 0,
+                    CountToDefault = 12,
+                    DayOfMonth = 1
+                };
+            }
 
 
-        public int DayOfMonth
-        {
-            set => _byDayOfMonth.DayOfMonth = value;
-        }
+            public int DayOfMonth
+            {
+                set => _byDayOfMonth.DayOfMonth = value;
+            }
 
-        public ByDayOfMonth Build()
-        {
-            _byDayOfMonth.Validate();
+            public ByDayOfMonth Build()
+            {
+                _byDayOfMonth.Validate();
 
-            return _byDayOfMonth;
+                return _byDayOfMonth;
+            }
         }
     }
 }

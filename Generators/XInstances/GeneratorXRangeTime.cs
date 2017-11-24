@@ -32,7 +32,7 @@ namespace Generators.XInstances
             {
                 period = xRangeTime.RetrieveAttributeAsPeriod("period");
             }
-            var rangeTime = new RangeTimeBuilder
+            var rangeTime = new RangeTime.Builder
             {
                 Start = start,
                 Period = period

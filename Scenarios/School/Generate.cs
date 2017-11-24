@@ -57,7 +57,7 @@ namespace School
                 .OfType<ISchedule>()
                 .SingleOrDefault();
 
-            var generatedInstant = new GeneratedInstantBuilder()
+            var generatedInstant = new GeneratedInstant.Builder()
                 .Create(_clock, _generatorSource, _years)
                 .WithLabel("Generated")
                 .Build();
@@ -105,7 +105,7 @@ namespace School
 
         public void GeneratePersons()
         {
-            var user = new UserBuilder
+            var user = new User.Builder
             {
                 Forename = "Bob",
                 Surname = "Smith",
@@ -113,7 +113,7 @@ namespace School
 
             user.Save(_db, _clock);
 
-            var calendar = new CalendarBuilder
+            var calendar = new Calendar.Builder
             {
                 Dates = new EdgeVertexs<IDate>(),
                 Description = "Personal calendar from Google",

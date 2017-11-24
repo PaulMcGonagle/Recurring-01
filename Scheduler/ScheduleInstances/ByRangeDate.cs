@@ -15,8 +15,10 @@ namespace Scheduler.ScheduleInstances
 
         public override IEnumerable<IDate> Generate(IClock clock)
         {
-            var start = EdgeRangeDate.ToVertex.Start.Date ?? DateTimeHelper.GetToday(clock).PlusDays(-(CountFrom ?? CountFromDefault));
-            var end = EdgeRangeDate.ToVertex.End.Date ?? DateTimeHelper.GetToday(clock).PlusDays((CountTo ?? CountToDefault));
+            var start = EdgeRangeDate.ToVertex.Start.Date ??
+                        DateTimeHelper.GetToday(clock).PlusDays(-(CountFrom ?? CountFromDefault));
+            var end = EdgeRangeDate.ToVertex.End.Date ?? DateTimeHelper.GetToday(clock)
+                          .PlusDays((CountTo ?? CountToDefault));
 
             return DateTimeHelper.Range(start: start, end: end);
         }
@@ -25,24 +27,24 @@ namespace Scheduler.ScheduleInstances
         {
             EdgeRangeDate.Save(db, clock, schedule, "HasRange");
         }
-    }
 
-    public class ByRangeDateBuilder : RepeatingBuilder
-    {
-        private readonly ByRangeDate _byRangeDate;
-
-        protected override Repeating Repeating => _byRangeDate;
-
-        public ByRangeDateBuilder()
+        public new class Builder : Repeating.Builder
         {
-            _byRangeDate = new ByRangeDate();
-        }
+            private readonly ByRangeDate _byRangeDate;
 
-        public ByRangeDate Build()
-        {
-            _byRangeDate.Validate();
+            protected override Repeating Repeating => _byRangeDate;
 
-            return _byRangeDate;
+            public Builder()
+            {
+                _byRangeDate = new ByRangeDate();
+            }
+
+            public ByRangeDate Build()
+            {
+                _byRangeDate.Validate();
+
+                return _byRangeDate;
+            }
         }
     }
 }

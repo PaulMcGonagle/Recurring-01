@@ -44,9 +44,9 @@ namespace ScheduleGeneration.Test
                 {
                     {
                         Event.Create(
-                            schedule: new ScheduleBuilder
+                            schedule: new Schedule.Builder
                             {
-                                ScheduleInstance = new ByWeekdaysBuilder
+                                ScheduleInstance = new ByWeekdays.Builder
                                 {
                                     Weekdays = new [] { IsoDayOfWeek.Wednesday, },
                                     EdgeRangeDate = new EdgeRangeDate(
@@ -54,7 +54,7 @@ namespace ScheduleGeneration.Test
                                             end: new Date(2016, YearMonth.MonthValue.May, 15)),
                                 }.Build()
                             }.Build(),
-                            rangeTime: new RangeTimeBuilder
+                            rangeTime: new RangeTime.Builder
                             {
                                 Start = new LocalTime(16, 30),
                                 Period = new PeriodBuilder {Minutes = 45}.Build()
@@ -252,19 +252,19 @@ namespace ScheduleGeneration.Test
                 {
                     {
                         Event.Create(
-                            schedule: new ScheduleBuilder
+                            schedule: new Schedule.Builder
                             {
-                                ScheduleInstance = new ByWeekdaysBuilder
+                                ScheduleInstance = new ByWeekdays.Builder
                                 {
                                     Weekdays = new [] { IsoDayOfWeek.Wednesday, },
-                                    RangeDate = new RangeDateBuilder
+                                    RangeDate = new RangeDate.Builder
                                     {
                                         Start = new Date(2016, YearMonth.MonthValue.February, 20),
                                         End = new Date(2016, YearMonth.MonthValue.May, 15)
                                     }.Build(),
                                 }.Build(),
                             }.Build(),
-                            rangeTime: new RangeTimeBuilder
+                            rangeTime: new RangeTime.Builder
                             {
                                 Start = new LocalTime(16, 30),
                                 Period = new PeriodBuilder {Minutes = 45}.Build()

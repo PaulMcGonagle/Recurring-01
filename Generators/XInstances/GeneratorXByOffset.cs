@@ -42,7 +42,7 @@ namespace Generators.XInstances
                     .Add(new EdgeSchedule(byOffset));
             }
 
-            var schedule = new ScheduleBuilder
+            var schedule = new Schedule.Builder
             {
                 ScheduleInstance = composite,
             }.Build();

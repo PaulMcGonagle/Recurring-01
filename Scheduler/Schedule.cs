@@ -20,14 +20,8 @@ namespace Scheduler
 
         public string InstanceSerialized
         {
-            get
-            {
-                return _instanceSerialized;
-            }
-            set
-            {
-                _instanceSerialized = value;
-            }
+            get { return _instanceSerialized; }
+            set { _instanceSerialized = value; }
         }
 
         [IgnoreDataMember]
@@ -78,7 +72,7 @@ namespace Scheduler
             Guard.AgainstNull(ScheduleInstance, nameof(ScheduleInstance));
         }
 
-        internal override void Save<T> (
+        internal override void Save<T>(
             IArangoDatabase db)
         {
             base.Save<Schedule>(db);
@@ -96,27 +90,27 @@ namespace Scheduler
 
             base.Rehydrate(db);
         }
-    }
 
-    public class ScheduleBuilder
-    {
-        private Schedule _schedule;
-
-        public ScheduleBuilder()
+        public class Builder
         {
-            _schedule = new Schedule();
-        }
+            private Schedule _schedule;
 
-        public IScheduleInstance ScheduleInstance
-        {
-            set => _schedule.ScheduleInstance = value;
-        }
+            public Builder()
+            {
+                _schedule = new Schedule();
+            }
 
-        public ISchedule Build()
-        {
-            _schedule.Validate();
+            public IScheduleInstance ScheduleInstance
+            {
+                set => _schedule.ScheduleInstance = value;
+            }
 
-            return _schedule;
+            public ISchedule Build()
+            {
+                _schedule.Validate();
+
+                return _schedule;
+            }
         }
     }
 }

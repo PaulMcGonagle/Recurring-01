@@ -30,7 +30,7 @@ namespace Scheduler.Test
                                 {
                                     new EdgeVertex<ISchedule>(new Schedule
                                     {
-                                        ScheduleInstance = new ByDateListBuilder
+                                        ScheduleInstance = new ByDateList.Builder
                                         {
                                             Items = new EdgeVertexs<IDate>(
                                                 DateTimeHelper.Range
@@ -46,7 +46,7 @@ namespace Scheduler.Test
                                 {
                                     new EdgeVertex<ISchedule>(new Schedule
                                     {
-                                        ScheduleInstance = new ByDateListBuilder
+                                        ScheduleInstance = new ByDateList.Builder
                                         {
                                             Items = new EdgeVertexs<IDate>(
                                                 DateTimeHelper.Range

@@ -11,11 +11,7 @@ namespace Scheduler.ScheduleInstances
     public class ByDateList : ScheduleInstance
     {
         [IgnoreDataMember]
-        public IEdgeVertexs<IDate> Items
-        {
-            get;
-            set;
-        }
+        public IEdgeVertexs<IDate> Items { get; set; }
 
         public override IEnumerable<IDate> Generate(IClock clock)
         {
@@ -34,28 +30,28 @@ namespace Scheduler.ScheduleInstances
                 item.Save(db, clock, schedule);
             }
         }
-    }
 
-    public class ByDateListBuilder
-    {
-        private readonly ByDateList _byDateList;
-
-        public ByDateListBuilder()
+        public class Builder
         {
-            _byDateList = new ByDateList();
-        }
+            private readonly ByDateList _byDateList;
 
-        public IEdgeVertexs<IDate> Items
-        {
-            set => _byDateList.Items = value;
-        }
+            public Builder()
+            {
+                _byDateList = new ByDateList();
+            }
 
-        public ByDateList Build()
-        {
-            if (_byDateList.Items == null)
-                _byDateList.Items = new EdgeVertexs<IDate>();
+            public IEdgeVertexs<IDate> Items
+            {
+                set => _byDateList.Items = value;
+            }
 
-            return _byDateList;
+            public ByDateList Build()
+            {
+                if (_byDateList.Items == null)
+                    _byDateList.Items = new EdgeVertexs<IDate>();
+
+                return _byDateList;
+            }
         }
     }
 }

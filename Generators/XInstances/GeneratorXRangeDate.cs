@@ -35,7 +35,7 @@ namespace Generators.XInstances
                 //todo change to Period
                 to = start.PlusDays((int)duration.TotalDays);
             }
-            var rangeDate = new RangeDateBuilder
+            var rangeDate = new RangeDate.Builder
             {
                 Start = new Date(start),
                 End = new Date(to)

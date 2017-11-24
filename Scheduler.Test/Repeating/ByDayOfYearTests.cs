@@ -32,7 +32,7 @@ namespace Scheduler.Test.Repeating
                 this.WithExamples(new ExampleTable("sut", "clock")
                     {
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 29,
                                 Month = YearMonth.MonthValue.February,
@@ -43,7 +43,7 @@ namespace Scheduler.Test.Repeating
                             fakeClockLeapYear
                         },
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 30,
                                 Month = YearMonth.MonthValue.February,
@@ -54,7 +54,7 @@ namespace Scheduler.Test.Repeating
                             fakeClockLeapYear
                         },
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 31,
                                 Month = YearMonth.MonthValue.February,
@@ -65,7 +65,7 @@ namespace Scheduler.Test.Repeating
                             fakeClockLeapYear
                         },
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 31,
                                 Month = YearMonth.MonthValue.April,
@@ -144,7 +144,7 @@ namespace Scheduler.Test.Repeating
 
             public void WhenSutIsInstantiated()
             {
-                _exception = Record.Exception(() => { var byDayOfYear = new ByDayOfYearBuilder {Month = _month, DayOfYear = _day}.Build(); });
+                _exception = Record.Exception(() => { var byDayOfYear = new ByDayOfYear.Builder {Month = _month, DayOfYear = _day}.Build(); });
             }
 
             public void ThenAnExceptionIsThrown(bool isExceptionExpected)
@@ -174,7 +174,7 @@ namespace Scheduler.Test.Repeating
                 this.WithExamples(new ExampleTable("sut", "clock", "Expected Dates")
                     {
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 01,
                                 Month = YearMonth.MonthValue.January,
@@ -186,7 +186,7 @@ namespace Scheduler.Test.Repeating
                                 .Select(year => new Date(year, YearMonth.MonthValue.January, 01))
                         },
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 28,
                                 Month = YearMonth.MonthValue.January,
@@ -198,7 +198,7 @@ namespace Scheduler.Test.Repeating
                                 .Select(year => new Date(year, YearMonth.MonthValue.January, 28))
                         },
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 15,
                                 Month = YearMonth.MonthValue.January,
@@ -210,7 +210,7 @@ namespace Scheduler.Test.Repeating
                                 .Select(year => new Date(year, YearMonth.MonthValue.January, 15))
                         },
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 05,
                                 Month = YearMonth.MonthValue.April,
@@ -261,7 +261,7 @@ namespace Scheduler.Test.Repeating
                 this.WithExamples(new ExampleTable("SUT", "clock", "Expected Dates")
                     {
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 30,
                                 Month = YearMonth.MonthValue.February,
@@ -275,7 +275,7 @@ namespace Scheduler.Test.Repeating
                         },
 
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 31,
                                 Month = YearMonth.MonthValue.April,
@@ -289,7 +289,7 @@ namespace Scheduler.Test.Repeating
                         },
 
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 29,
                                 Month = YearMonth.MonthValue.February,
@@ -309,7 +309,7 @@ namespace Scheduler.Test.Repeating
                         },
 
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 30,
                                 Month = YearMonth.MonthValue.February,
@@ -323,7 +323,7 @@ namespace Scheduler.Test.Repeating
                         },
 
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 29,
                                 Month = YearMonth.MonthValue.February,
@@ -343,7 +343,7 @@ namespace Scheduler.Test.Repeating
                         },
 
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 30,
                                 Month = YearMonth.MonthValue.February,
@@ -363,7 +363,7 @@ namespace Scheduler.Test.Repeating
                         },
 
                         {
-                            new ByDayOfYearBuilder
+                            new ByDayOfYear.Builder
                             {
                                 DayOfYear = 31,
                                 Month = YearMonth.MonthValue.April,

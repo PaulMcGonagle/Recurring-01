@@ -26,9 +26,9 @@ namespace Generators.XInstances
 
             foreach (var rangeDate in rangeDates)
             {
-                var byOffset = new ScheduleBuilder
+                var byOffset = new Schedule.Builder
                 {
-                    ScheduleInstance = new ByWeekdaysBuilder
+                    ScheduleInstance = new ByWeekdays.Builder
                     {
                         Weekdays = weekdays,
                         RangeDate = rangeDate
@@ -40,7 +40,7 @@ namespace Generators.XInstances
                     .Add(new EdgeSchedule(byOffset));
             }
 
-            var schedule = new ScheduleBuilder
+            var schedule = new Schedule.Builder
             {
                 ScheduleInstance = compositeSchedule,
             }.Build();

@@ -16,9 +16,9 @@ namespace Generators.XInstances
                 .RetrieveDates(clock, caches, elementsName)
                 .ToList();
 
-            var dateList = new ScheduleBuilder
+            var dateList = new Schedule.Builder
             {
-                ScheduleInstance = new ByDateListBuilder
+                ScheduleInstance = new ByDateList.Builder
                 {
                     Items = new EdgeVertexs<IDate>(dates)
                 }.Build()

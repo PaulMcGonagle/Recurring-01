@@ -32,7 +32,8 @@ namespace Scheduler.Persistance
             FromId = FromVertex.Id;
 
             if (!FromVertex.IsPersisted)
-                throw new SaveException(SaveResult.Incomplete, GetType(), $"FromVertex has not been persisted ({FromVertex})");
+                throw new SaveException(SaveResult.Incomplete, GetType(),
+                    $"FromVertex has not been persisted ({FromVertex})");
 
             ToVertex.Save(db, clock);
 
@@ -71,48 +72,48 @@ namespace Scheduler.Persistance
         {
             return $"Edge to: {ToVertex}";
         }
-    }
 
-    public class GeneratedInstantBuilder
-    {
-        private GeneratedInstant _generatedInstant;
-
-        public GeneratedInstantBuilder Create(IClock clock, IVertex fromVertex, IVertex toVertex)
+        public class Builder
         {
-            _generatedInstant = new GeneratedInstant
+            private GeneratedInstant _generatedInstant;
+
+            public Builder Create(IClock clock, IVertex fromVertex, IVertex toVertex)
             {
-                Instant = clock.Now,
-                FromVertex = fromVertex,
-                ToVertex = toVertex
-            };
+                _generatedInstant = new GeneratedInstant
+                {
+                    Instant = clock.Now,
+                    FromVertex = fromVertex,
+                    ToVertex = toVertex
+                };
 
-            return this;
-        }
+                return this;
+            }
 
-        public GeneratedInstantBuilder WithLabel(string label)
-        {
-            _generatedInstant.Label = label;
+            public Builder WithLabel(string label)
+            {
+                _generatedInstant.Label = label;
 
-            return this;
-        }
+                return this;
+            }
 
-        public GeneratedInstantBuilder WithTags(string label)
-        {
-            _generatedInstant.Label = label;
+            public Builder WithTags(string label)
+            {
+                _generatedInstant.Label = label;
 
-            return this;
-        }
+                return this;
+            }
 
-        public GeneratedInstant Build()
-        {
-            if (_generatedInstant.FromVertex == null)
-                throw new Exception("Missing FromVertex");
+            public GeneratedInstant Build()
+            {
+                if (_generatedInstant.FromVertex == null)
+                    throw new Exception("Missing FromVertex");
 
 
-            if (_generatedInstant.ToVertex == null)
-                throw new Exception("Missing ToVertex");
+                if (_generatedInstant.ToVertex == null)
+                    throw new Exception("Missing ToVertex");
 
-            return _generatedInstant;
+                return _generatedInstant;
+            }
         }
     }
 }

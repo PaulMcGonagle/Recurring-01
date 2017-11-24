@@ -14,7 +14,7 @@ namespace Scheduler.ScheduleEdges
         }
 
         public EdgeRangeDate(IDate start, IDate end, string label = null)
-            : this(new RangeDateBuilder
+            : this(new RangeDate.Builder
             {
                 Start = start,
                 End = end

@@ -103,7 +103,7 @@ namespace Scheduler
             {
                 Serials = new EdgeVertexs<ISerial>(
                     toVertex: new Serial(
-                        schedule: new ScheduleBuilder
+                        schedule: new Schedule.Builder
                         {
                             ScheduleInstance = new CompositeSchedule()
                             {

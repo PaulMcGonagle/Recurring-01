@@ -14,21 +14,27 @@ namespace Scheduler.ScheduleAbstracts
         }
 
         public RollStrategyType RollStrategy = RollStrategyType.Skip;
-    }
 
-    public abstract class RepeatingDayBuilder : RepeatingBuilder
-    {
-        protected abstract RepeatingDay RepeatingDay { get; }
-
-        protected override Repeating Repeating => RepeatingDay;
-
-        public EdgeRangeDate EdgeRange
+        public new abstract class Builder : Repeating.Builder
         {
-            set => Repeating.EdgeRangeDate = value;
+            protected abstract RepeatingDay RepeatingDay { get; }
+
+            protected override Repeating Repeating => RepeatingDay;
+
+            public EdgeRangeDate EdgeRange
+            {
+                set => Repeating.EdgeRangeDate = value;
+            }
+
+            public IRangeDate Range
+            {
+                set => Repeating.EdgeRangeDate = new EdgeRangeDate(value);
+            }
+
+            public RepeatingDay.RollStrategyType RollStrategy
+            {
+                set => RepeatingDay.RollStrategy = value;
+            }
         }
-
-        public IRangeDate Range { set => Repeating.EdgeRangeDate = new EdgeRangeDate(value); }
-
-        public RepeatingDay.RollStrategyType RollStrategy { set => RepeatingDay.RollStrategy = value; }
     }
 }

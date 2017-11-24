@@ -94,46 +94,46 @@ namespace Scheduler.ScheduleInstances
         }
 
         #endregion
-    }
 
-    public class CompositeScheduleBuilder
-    {
-        private readonly CompositeSchedule _compositeSchedule;
-
-        public CompositeScheduleBuilder()
+        public class Builder
         {
-            _compositeSchedule = new CompositeSchedule();
-        }
+            private readonly CompositeSchedule _compositeSchedule;
 
-        public IEdgeVertexs<ISchedule> Inclusions
-        {
-            set => _compositeSchedule.Inclusions = value;
-        }
+            public Builder()
+            {
+                _compositeSchedule = new CompositeSchedule();
+            }
 
-        public IEdgeVertexs<ISchedule> Exclusions
-        {
-            set => _compositeSchedule.Exclusions = value;
-        }
+            public IEdgeVertexs<ISchedule> Inclusions
+            {
+                set => _compositeSchedule.Inclusions = value;
+            }
 
-        public IEdgeVertexs<IRangeDate> Breaks
-        {
-            set => _compositeSchedule.Breaks = value;
-        }
+            public IEdgeVertexs<ISchedule> Exclusions
+            {
+                set => _compositeSchedule.Exclusions = value;
+            }
 
-        public CompositeSchedule Build()
-        {
-            if (_compositeSchedule.Inclusions == null)
-                _compositeSchedule.Inclusions = new EdgeVertexs<ISchedule>();
+            public IEdgeVertexs<IRangeDate> Breaks
+            {
+                set => _compositeSchedule.Breaks = value;
+            }
+
+            public CompositeSchedule Build()
+            {
+                if (_compositeSchedule.Inclusions == null)
+                    _compositeSchedule.Inclusions = new EdgeVertexs<ISchedule>();
 
 
-            if (_compositeSchedule.Exclusions == null)
-                _compositeSchedule.Exclusions = new EdgeVertexs<ISchedule>();
+                if (_compositeSchedule.Exclusions == null)
+                    _compositeSchedule.Exclusions = new EdgeVertexs<ISchedule>();
 
 
-            if (_compositeSchedule.Breaks == null)
-                _compositeSchedule.Breaks = new EdgeVertexs<IRangeDate>();
+                if (_compositeSchedule.Breaks == null)
+                    _compositeSchedule.Breaks = new EdgeVertexs<IRangeDate>();
 
-            return _compositeSchedule;
+                return _compositeSchedule;
+            }
         }
     }
 }

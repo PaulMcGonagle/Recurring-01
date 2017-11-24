@@ -39,9 +39,9 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 )
                 {
                     {
-                        new ScheduleBuilder
+                        new Schedule.Builder
                         {
-                            ScheduleInstance = new SingleDayBuilder
+                            ScheduleInstance = new SingleDay.Builder
                             {
                                 Date = new Date(2016, YearMonth.MonthValue.January, 01)
                             }.Build(),
@@ -98,14 +98,14 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 {
                     {
                         Event.Create(
-                            schedule: new ScheduleBuilder
+                            schedule: new Schedule.Builder
                             {
-                                ScheduleInstance = new SingleDayBuilder
+                                ScheduleInstance = new SingleDay.Builder
                                 {
                                     Date = new Date(2016, YearMonth.MonthValue.January, 01)
                                 }.Build(),
                             }.Build(),
-                            rangeTime: new RangeTimeBuilder
+                            rangeTime: new RangeTime.Builder
                             {
                                 Start = new LocalTime(16, 30),
                                 Period = new PeriodBuilder {Minutes = 45}.Build()

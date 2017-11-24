@@ -30,7 +30,7 @@ namespace TestData
                     {
                         ScheduleInstance = new ByWeekdays
                         {
-                            EdgeRangeDate = new EdgeRangeDate(new RangeDateBuilder
+                            EdgeRangeDate = new EdgeRangeDate(new RangeDate.Builder
                             {
                                 Start = Dates["Schools.Term.201617.Autumn.Start"],
                                 End = Dates["Schools.Term.201617.Autumn.End"]
@@ -116,39 +116,39 @@ namespace TestData
                 },
                 {
                     "BankHolidays.2016.GoodFriday",
-                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.March, 25)}.Build() }.Build()
+                    new Schedule.Builder { ScheduleInstance = new SingleDay.Builder { Date = new Date(2016, YearMonth.MonthValue.March, 25)}.Build() }.Build()
                 },
                 {
                     "BankHolidays.2016.EasterMonday",
-                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.March, 28)}.Build() }.Build()
+                    new Schedule.Builder { ScheduleInstance = new SingleDay.Builder { Date = new Date(2016, YearMonth.MonthValue.March, 28)}.Build() }.Build()
                 },
                 {
                     "BankHolidays.2016.EarlyMayBankHoliday",
-                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.May, 01)}.Build() }.Build()
+                    new Schedule.Builder { ScheduleInstance = new SingleDay.Builder { Date = new Date(2016, YearMonth.MonthValue.May, 01)}.Build() }.Build()
                 },
                 {
                     "BankHolidays.2016.SpringBankHoliday",
-                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.May, 30)}.Build() }.Build()
+                    new Schedule.Builder { ScheduleInstance = new SingleDay.Builder { Date = new Date(2016, YearMonth.MonthValue.May, 30)}.Build() }.Build()
                 },
                 {
                     "BankHolidays.2016.SummerBankHoliday",
-                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.August, 29)}.Build() }.Build()
+                    new Schedule.Builder { ScheduleInstance = new SingleDay.Builder { Date = new Date(2016, YearMonth.MonthValue.August, 29)}.Build() }.Build()
                 },
                 {
                     "BankHolidays.2016.Boxing",
-                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.December, 26)}.Build() }.Build()
+                    new Schedule.Builder { ScheduleInstance = new SingleDay.Builder { Date = new Date(2016, YearMonth.MonthValue.December, 26)}.Build() }.Build()
                 },
                 {
                     "BankHolidays.2016.ChristmasDaySubstitute",
-                    new ScheduleBuilder { ScheduleInstance = new SingleDayBuilder { Date = new Date(2016, YearMonth.MonthValue.December, 27)}.Build() }.Build()
+                    new Schedule.Builder { ScheduleInstance = new SingleDay.Builder { Date = new Date(2016, YearMonth.MonthValue.December, 27)}.Build() }.Build()
                 }
             };
 
             _scheduleArchive
                 .Add("BankHolidays",
-                    new ScheduleBuilder
+                    new Schedule.Builder
                     {
-                        ScheduleInstance = new ByDateListBuilder
+                        ScheduleInstance = new ByDateList.Builder
                         {
                             Items = new EdgeVertexs<IDate>(
                                 _scheduleArchive
@@ -161,9 +161,9 @@ namespace TestData
 
             _scheduleArchive
                 .Add("Example.AutumnTerm",
-                    new ScheduleBuilder
+                    new Schedule.Builder
                     {
-                        ScheduleInstance = new CompositeScheduleBuilder
+                        ScheduleInstance = new CompositeSchedule.Builder
                         {
                             Inclusions = new EdgeVertexs<ISchedule>
                             {
@@ -230,7 +230,7 @@ namespace TestData
                 {
                     {
                         "Schools.Term.201617.Autumn",
-                        new RangeDateBuilder
+                        new RangeDate.Builder
                         {
                             Start = Dates["Schools.Term.201617.Autumn.Start"],
                             End = Dates["Schools.Term.201617.Autumn.End"]
@@ -238,7 +238,7 @@ namespace TestData
                     },
                     {
                         "Schools.Term.201617.Winter",
-                        new RangeDateBuilder
+                        new RangeDate.Builder
                         {
                             Start = Dates["Schools.Term.201617.Winter.Start"],
                             End = Dates["Schools.Term.201617.Winter.End"]
@@ -246,7 +246,7 @@ namespace TestData
                     },
                     {
                         "Schools.Term.201617.Summer",
-                        new RangeDateBuilder
+                        new RangeDate.Builder
                         {
                             Start = Dates["Schools.Term.201617.Summer.Start"],
                             End = Dates["Schools.Term.201617.Summer.End"]
@@ -254,7 +254,7 @@ namespace TestData
                     },
                     {
                         "Schools.Term.201718.Autumn",
-                        new RangeDateBuilder
+                        new RangeDate.Builder
                         {
                             Start = Dates["Schools.Term.201718.Autumn.Start"],
                             End = Dates["Schools.Term.201718.Autumn.End"]
@@ -262,7 +262,7 @@ namespace TestData
                     },
                     {
                         "Schools.Term.201617.Autumn.HalfTerm",
-                        new RangeDateBuilder
+                        new RangeDate.Builder
                         {
                             Start = Dates["Schools.Term.201617.Autumn.HalfTerm.Start"],
                             End = Dates["Schools.Term.201617.Autumn.HalfTerm.End"]
@@ -270,7 +270,7 @@ namespace TestData
                     },
                     {
                         "Schools.Term.201617.Winter.HalfTerm",
-                        new RangeDateBuilder
+                        new RangeDate.Builder
                         {
                             Start = Dates["Schools.Term.201617.Winter.HalfTerm.Start"],
                             End = Dates["Schools.Term.201617.Winter.HalfTerm.End"]
@@ -278,7 +278,7 @@ namespace TestData
                     },
                     {
                         "Schools.Term.201617.Summer.HalfTerm",
-                        new RangeDateBuilder
+                        new RangeDate.Builder
                         {
                             Start = Dates["Schools.Term.201617.Summer.HalfTerm.Start"],
                             End = Dates["Schools.Term.201617.Summer.HalfTerm.End"]

@@ -32,7 +32,7 @@ namespace Scheduler.Test.RangesTests
                     )
                     {
                         {
-                            new RangeDateBuilder
+                            new RangeDate.Builder
                             {
                                 Start = new Date(2016, YearMonth.MonthValue.January, 01),
                                 End = new Date(2016, YearMonth.MonthValue.February, 01)
@@ -72,7 +72,7 @@ namespace Scheduler.Test.RangesTests
 
         public class RangeDateCanBeBuilt
         {
-            private RangeDateBuilder _rangeDateBuilder;
+            private RangeDate.Builder _rangeDateBuilder;
             private RangeDate _rangeDate;
 
             [Fact]
@@ -86,7 +86,7 @@ namespace Scheduler.Test.RangesTests
                         "expectedEndDate")
                     {
                         {
-                            new RangeDateBuilder(),
+                            new RangeDate.Builder(),
                             new Date(2016, YearMonth.MonthValue.January, 01),
                             new Date(2017, YearMonth.MonthValue.February, 28),
                             new LocalDate(2016, 01, 01),
@@ -96,7 +96,7 @@ namespace Scheduler.Test.RangesTests
                     .BDDfy();
             }
 
-            public void GivenBuilder(RangeDateBuilder sut)
+            public void GivenBuilder(RangeDate.Builder sut)
             {
                 _rangeDateBuilder = sut;
             }
@@ -129,7 +129,7 @@ namespace Scheduler.Test.RangesTests
 
         public class MissingParameterThrowsException
         {
-            private RangeDateBuilder _rangeDateBuilder;
+            private RangeDate.Builder _rangeDateBuilder;
             private RangeDate _rangeDate;
             private Exception _exception;
 
@@ -144,21 +144,21 @@ namespace Scheduler.Test.RangesTests
                     "expectedException")
                 {
                     {
-                        new RangeDateBuilder
+                        new RangeDate.Builder
                         {
                             Start = dateEarlier
                         },
-                        new ArgumentNullException(nameof(_rangeDateBuilder.End))
+                        new ArgumentNullException(nameof(RangeDate.Builder.End))
                     },
                     {
-                        new RangeDateBuilder
+                        new RangeDate.Builder
                         {
                             End = dateLater
                         },
-                        new ArgumentNullException(nameof(_rangeDateBuilder.Start))
+                        new ArgumentNullException(nameof(RangeDate.Builder.Start))
                     },
                     {
-                        new RangeDateBuilder
+                        new RangeDate.Builder
                         {
                             Start = dateLater,
                             End = dateEarlier,
@@ -168,7 +168,7 @@ namespace Scheduler.Test.RangesTests
                 }).BDDfy();
             }
 
-            public void GivenAPrePopulatedBuilder(RangeDateBuilder sut)
+            public void GivenAPrePopulatedBuilder(RangeDate.Builder sut)
             {
                 _rangeDateBuilder = sut;
             }

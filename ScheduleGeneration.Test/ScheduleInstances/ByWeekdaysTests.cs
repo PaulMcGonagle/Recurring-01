@@ -40,19 +40,19 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 {
                     {
                        Event.Create(
-                            schedule: new ScheduleBuilder
+                            schedule: new Schedule.Builder
                             {
-                                ScheduleInstance = new ByWeekdaysBuilder
+                                ScheduleInstance = new ByWeekdays.Builder
                                 {
                                     Weekdays = new List<IsoDayOfWeek> { IsoDayOfWeek.Wednesday },
-                                    RangeDate = new RangeDateBuilder
+                                    RangeDate = new RangeDate.Builder
                                     { 
                                         Start = new Date(2016, YearMonth.MonthValue.February, 20),
                                         End = new Date(2016, YearMonth.MonthValue.May, 15)
                                     }.Build(),
                                 }.Build()
                             }.Build(),
-                            rangeTime: new RangeTimeBuilder
+                            rangeTime: new RangeTime.Builder
                             {
                                 Start = new LocalTime(16, 30),
                                 Period = new PeriodBuilder {Minutes = 45}.Build()
@@ -138,9 +138,9 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 {
                     {
                        Event.Create(
-                            schedule: new ScheduleBuilder
+                            schedule: new Schedule.Builder
                             {
-                                ScheduleInstance = new ByWeekdaysBuilder
+                                ScheduleInstance = new ByWeekdays.Builder
                                 {
                                     Weekdays = new List<IsoDayOfWeek>() { IsoDayOfWeek.Wednesday, },
                                     EdgeRangeDate =
@@ -149,7 +149,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                             end: new Date(2016, YearMonth.MonthValue.May, 15)),
                                 }.Build(),
                             }.Build(),
-                            rangeTime: new RangeTimeBuilder
+                            rangeTime: new RangeTime.Builder
                             {
                                 Start = new LocalTime(16, 30),
                                 Period = new PeriodBuilder

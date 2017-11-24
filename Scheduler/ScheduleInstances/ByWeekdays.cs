@@ -31,37 +31,39 @@ namespace Scheduler.ScheduleInstances
 
         public override IEnumerable<IDate> Generate(IClock clock)
         {
-            var start = EdgeRangeDate.ToVertex.Start.Date ?? DateTimeHelper.GetToday(clock).AddWeeks(-(CountFrom ?? CountFromDefault));
-            var end = EdgeRangeDate.ToVertex.End.Date ?? DateTimeHelper.GetToday(clock).AddWeeks((CountTo ?? CountToDefault));
+            var start = EdgeRangeDate.ToVertex.Start.Date ??
+                        DateTimeHelper.GetToday(clock).AddWeeks(-(CountFrom ?? CountFromDefault));
+            var end = EdgeRangeDate.ToVertex.End.Date ?? DateTimeHelper.GetToday(clock)
+                          .AddWeeks((CountTo ?? CountToDefault));
 
             var range = DateTimeHelper.Range(start: start, end: end);
 
             return range.Where(d => Weekdays.Contains(d.IsoDayOfWeek));
         }
-    }
 
-    public class ByWeekdaysBuilder : RepeatingBuilder
-    {
-        private readonly ByWeekdays _byWeekdays;
-
-        protected override Repeating Repeating => _byWeekdays;
-
-        public ByWeekdaysBuilder()
+        public new class Builder : Repeating.Builder
         {
-            _byWeekdays = new ByWeekdays();
-        }
+            private readonly ByWeekdays _byWeekdays;
 
-        public IEnumerable<IsoDayOfWeek> Weekdays
-        {
-            get => _byWeekdays.Weekdays;
-            set => _byWeekdays.Weekdays = value;
-        }
+            protected override Repeating Repeating => _byWeekdays;
 
-        public ByWeekdays Build()
-        {
-            _byWeekdays.Validate();
+            public Builder()
+            {
+                _byWeekdays = new ByWeekdays();
+            }
 
-            return _byWeekdays;
+            public IEnumerable<IsoDayOfWeek> Weekdays
+            {
+                get => _byWeekdays.Weekdays;
+                set => _byWeekdays.Weekdays = value;
+            }
+
+            public ByWeekdays Build()
+            {
+                _byWeekdays.Validate();
+
+                return _byWeekdays;
+            }
         }
     }
 }

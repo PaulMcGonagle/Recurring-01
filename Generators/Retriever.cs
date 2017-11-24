@@ -112,7 +112,7 @@ namespace Generators
 
             var period = Period.Between(start, end, PeriodUnits.AllTimeUnits);
 
-            var rangeTime = new RangeTimeBuilder
+            var rangeTime = new RangeTime.Builder
             {
                 Start = start,
                 Period = period
@@ -257,7 +257,7 @@ namespace Generators
                     if (intervalTag == null)
                         throw new Exception($"Unable to retrieve Interval tag");
 
-                    var scheduleInstance = new ByOffsetBuilder
+                    var scheduleInstance = new ByOffset.Builder
                     {
                         InitialDate = RetrieveLocalDate(initialDateTag.ToVertex.Value),
                         Interval = intervalTag.ToVertex.Value,
@@ -276,7 +276,7 @@ namespace Generators
 
                     ((ByOffset)scheduleInstance).CountTo = count;
 
-                    schedule = new ScheduleBuilder
+                    schedule = new Schedule.Builder
                     {
                         ScheduleInstance = scheduleInstance,
                     }.Build();

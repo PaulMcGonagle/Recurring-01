@@ -58,9 +58,9 @@ namespace Scheduler.Test
 
             var dateList = new ByDateList();
 
-            ISchedule schedule = new ScheduleBuilder
+            ISchedule schedule = new Schedule.Builder
             {
-                ScheduleInstance = new ByDateListBuilder
+                ScheduleInstance = new ByDateList.Builder
                 {
                     Items = new EdgeVertexs<IDate>(_holidays),
                 }.Build()
@@ -91,7 +91,7 @@ namespace Scheduler.Test
             {
                 Inclusions = new EdgeVertexs<ISchedule>
                 {
-                    new EdgeVertex<ISchedule>(new ScheduleBuilder
+                    new EdgeVertex<ISchedule>(new Schedule.Builder
                     {
                         ScheduleInstance = new ByWeekdays
                         {

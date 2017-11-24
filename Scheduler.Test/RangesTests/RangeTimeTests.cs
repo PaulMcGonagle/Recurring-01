@@ -32,7 +32,7 @@ namespace Scheduler.Test.RangesTests
                     )
                     {
                         {
-                            new RangeTimeBuilder
+                            new RangeTime.Builder
                             {
                                 Start = new LocalTime(09, 15),
                                 End = new LocalTime(10, 10)
@@ -72,7 +72,7 @@ namespace Scheduler.Test.RangesTests
 
         public class RangeTimeCanBeBuilt
         {
-            private RangeTimeBuilder _rangeTimeBuilder;
+            private RangeTime.Builder _rangeTimeBuilder;
             private RangeTime _rangeTime;
 
             [Fact]
@@ -86,7 +86,7 @@ namespace Scheduler.Test.RangesTests
                         "expectedEndTime")
                     {
                         {
-                            new RangeTimeBuilder(),
+                            new RangeTime.Builder(),
                             new LocalTime(10, 30),
                             new LocalTime(12, 00),
                             new LocalTime(10, 30),
@@ -96,7 +96,7 @@ namespace Scheduler.Test.RangesTests
                     .BDDfy();
             }
 
-            public void GivenBuilder(RangeTimeBuilder sut)
+            public void GivenBuilder(RangeTime.Builder sut)
             {
                 _rangeTimeBuilder = sut;
             }
@@ -129,7 +129,7 @@ namespace Scheduler.Test.RangesTests
 
         public class MissingParameterThrowsException
         {
-            private RangeTimeBuilder _rangeTimeBuilder;
+            private RangeTime.Builder _rangeTimeBuilder;
             private RangeTime _rangeTime;
             private Exception _exception;
 
@@ -144,21 +144,21 @@ namespace Scheduler.Test.RangesTests
                     "expectedException")
                 {
                     //{
-                    //    new RangeTimeBuilder
+                    //    new RangeTime.Builder
                     //    {
                     //        Start = timeEarlier
                     //    },
                     //    new ArgumentNullException(nameof(_rangeTimeBuilder.Period))
                     //},
                     {
-                        new RangeTimeBuilder
+                        new RangeTime.Builder
                         {
                             End = timeLater
                         },
                         new ArgumentNullException(nameof(_rangeTimeBuilder.Start))
                     },
                     //{
-                    //    new RangeTimeBuilder
+                    //    new RangeTime.Builder
                     //    {
                     //        Start = timeLater,
                     //        End = timeEarlier
@@ -168,7 +168,7 @@ namespace Scheduler.Test.RangesTests
                 }).BDDfy();
             }
 
-            public void GivenAPrePopulatedBuilder(RangeTimeBuilder sut)
+            public void GivenAPrePopulatedBuilder(RangeTime.Builder sut)
             {
                 _rangeTimeBuilder = sut;
             }

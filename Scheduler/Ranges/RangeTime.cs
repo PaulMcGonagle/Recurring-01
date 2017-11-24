@@ -25,7 +25,8 @@ namespace Scheduler.Ranges
             var duration = Period.ToDuration().Ticks;
 
             if (duration < 0)
-                throw new ArgumentOutOfRangeException(nameof(Period), $"Period duration cannot be negative. Period: {Period.ToString()}, Dduration.Ticks: {duration})");
+                throw new ArgumentOutOfRangeException(nameof(Period),
+                    $"Period duration cannot be negative. Period: {Period.ToString()}, Dduration.Ticks: {duration})");
         }
 
         public override void Save(IArangoDatabase db, IClock clock)
@@ -33,54 +34,54 @@ namespace Scheduler.Ranges
             Save<RangeTime>(db);
             base.Save(db, clock);
         }
-    }
 
-    public class RangeTimeBuilder
-    {
-        private readonly RangeTime _rangeTime;
-        private LocalTime? _endTimeSupplied;
-
-        public RangeTimeBuilder()
+        public class Builder
         {
-            _rangeTime = new RangeTime();
-        }
+            private readonly RangeTime _rangeTime;
+            private LocalTime? _endTimeSupplied;
 
-        public LocalTime Start
-        {
-            set => _rangeTime.Start = value;
-        }
-
-        public LocalTime End
-        {
-            set
+            public Builder()
             {
-                _endTimeSupplied = value;
-                _rangeTime.Period = default(Period);
-            }
-        }
-
-        public Period Period
-        {
-            set
-            {
-                _rangeTime.Period = value;
-                _endTimeSupplied = null;
-            }
-        }
-
-        public RangeTime Build()
-        {
-            if (_rangeTime.Period == null
-            && _endTimeSupplied.HasValue
-            && _rangeTime.Start != default(LocalTime)
-            )
-            {
-                _rangeTime.Period = NodaTime.Period.Between(_rangeTime.Start, _endTimeSupplied.Value);
+                _rangeTime = new RangeTime();
             }
 
-            _rangeTime.Validate();
+            public LocalTime Start
+            {
+                set => _rangeTime.Start = value;
+            }
 
-            return _rangeTime;
+            public LocalTime End
+            {
+                set
+                {
+                    _endTimeSupplied = value;
+                    _rangeTime.Period = default(Period);
+                }
+            }
+
+            public Period Period
+            {
+                set
+                {
+                    _rangeTime.Period = value;
+                    _endTimeSupplied = null;
+                }
+            }
+
+            public RangeTime Build()
+            {
+                if (_rangeTime.Period == null
+                    && _endTimeSupplied.HasValue
+                    && _rangeTime.Start != default(LocalTime)
+                )
+                {
+                    _rangeTime.Period = NodaTime.Period.Between(_rangeTime.Start, _endTimeSupplied.Value);
+                }
+
+                _rangeTime.Validate();
+
+                return _rangeTime;
+            }
         }
     }
 }

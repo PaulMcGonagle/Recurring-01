@@ -36,12 +36,12 @@ namespace Calendar.Test
                                 Serials = new EdgeVertexs<ISerial>(
                                     toVertex: new Serial(
                                         schedule:
-                                            new ScheduleBuilder
+                                            new Schedule.Builder
                                             {
-                                                ScheduleInstance = new ByWeekdaysBuilder
+                                                ScheduleInstance = new ByWeekdays.Builder
                                                 {
                                                      Weekdays = new []{ IsoDayOfWeek.Thursday, },
-                                                     RangeDate = new RangeDateBuilder
+                                                     RangeDate = new RangeDate.Builder
                                                      {
                                                          Start = new Date(2016, YearMonth.MonthValue.January, 01),
                                                          End = new Date(2016, YearMonth.MonthValue.March, 31),
@@ -49,7 +49,7 @@ namespace Calendar.Test
                                                 }.Build(),
                                             }.Build(),
                                         rangeTime: new EdgeRangeTime(
-                                            new RangeTimeBuilder
+                                            new RangeTime.Builder
                                             {
                                                 Start = new LocalTime(16, 45),
                                                 Period = new PeriodBuilder { Minutes = 45}.Build(),
@@ -117,9 +117,9 @@ namespace Calendar.Test
                             new Event
                             {
                                 Serials = new EdgeVertexs<ISerial>(new Serial(
-                                    schedule: new ScheduleBuilder
+                                    schedule: new Schedule.Builder
                                         {
-                                            ScheduleInstance = new SingleDayBuilder
+                                            ScheduleInstance = new SingleDay.Builder
                                             {
                                                 Date = new Scheduler.Date(2016, YearMonth.MonthValue.July, 01),
                                             }.Build(),

@@ -12,12 +12,12 @@ namespace Scheduler
     {
         public Serial()
         {
-            
+
         }
 
         public Serial(
-            ISchedule schedule, 
-            IEdgeRangeTime rangeTime, 
+            ISchedule schedule,
+            IEdgeRangeTime rangeTime,
             string timeZoneProvider)
         {
             EdgeSchedule = new EdgeSchedule(schedule);
@@ -27,8 +27,8 @@ namespace Scheduler
 
         [IgnoreDataMember]
         public IEdgeSchedule EdgeSchedule { get; set; }
-        [IgnoreDataMember]
-        public IEdgeRangeTime RangeTime;
+
+        [IgnoreDataMember] public IEdgeRangeTime RangeTime;
 
         public string TimeZoneProvider;
 
@@ -71,34 +71,37 @@ namespace Scheduler
             RangeTime?.Save(db, clock, this);
             base.Save(db, clock);
         }
-    }
 
-    public class SerialBuilder
-    {
-        private readonly Serial _serial;
-
-        public SerialBuilder()
+        public class Builder
         {
-            _serial = new Serial();
-        }
+            private readonly Serial _serial;
 
-        public IEdgeSchedule EdgeSchedule { set => _serial.EdgeSchedule = value; }
+            public Builder()
+            {
+                _serial = new Serial();
+            }
 
-        public IEdgeRangeTime RangeTime
-        {
-            set => _serial.RangeTime = value;
-        }
+            public IEdgeSchedule EdgeSchedule
+            {
+                set => _serial.EdgeSchedule = value;
+            }
 
-        public string TimeZoneProvider
-        {
-            set => _serial.TimeZoneProvider = value;
-        }
+            public IEdgeRangeTime RangeTime
+            {
+                set => _serial.RangeTime = value;
+            }
 
-        public Serial Build()
-        {
-            _serial.Validate();
+            public string TimeZoneProvider
+            {
+                set => _serial.TimeZoneProvider = value;
+            }
 
-            return _serial;
+            public Serial Build()
+            {
+                _serial.Validate();
+
+                return _serial;
+            }
         }
     }
 }
