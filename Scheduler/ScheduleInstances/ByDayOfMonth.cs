@@ -6,7 +6,7 @@ using Scheduler.ScheduleAbstracts;
 
 namespace Scheduler.ScheduleInstances
 {
-    public class ByDayOfMonth : ScheduleAbstracts.RepeatingDay
+    public class ByDayOfMonth : RepeatingDay
     {
         [DataMember]
         public int DayOfMonth;

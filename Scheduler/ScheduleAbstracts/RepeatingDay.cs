@@ -1,4 +1,5 @@
-﻿using Scheduler.ScheduleEdges;
+﻿using Scheduler.Ranges;
+using Scheduler.ScheduleEdges;
 
 namespace Scheduler.ScheduleAbstracts
 {
@@ -26,9 +27,8 @@ namespace Scheduler.ScheduleAbstracts
             set => Repeating.EdgeRangeDate = value;
         }
 
-        public int? CountFrom { set => Repeating.CountFrom = value; }
-        public int? CountTo { set => Repeating.CountTo = value; }
-        public int CountFromDefault { set => Repeating.CountFromDefault = value; }
-        public int CountToDefault { set => Repeating.CountToDefault = value; }
+        public IRangeDate Range { set => Repeating.EdgeRangeDate = new EdgeRangeDate(value); }
+
+        public RepeatingDay.RollStrategyType RollStrategy { set => RepeatingDay.RollStrategy = value; }
     }
 }

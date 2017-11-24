@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using CoreLibrary;
 using Scheduler.Ranges;
 using Scheduler.ScheduleAbstracts;
 using Scheduler.ScheduleEdges;
@@ -11,70 +12,63 @@ namespace Scheduler.ScheduleInstances
 {
     public class ByDayOfYear : ScheduleAbstracts.RepeatingDay
     {
-        private int _dayOfYear = 1;
-        private IClock _clock;
+        public int? DayOfYear { get; internal set; }
 
-        public int DayOfYear
+        public YearMonth.MonthValue? Month { get; internal set; }
+
+        public int? YearFrom { get; internal set; }
+        public int? YearTo { get; internal set; }
+
+        protected int GetYearFrom(IClock clock)
         {
-            get => _dayOfYear;
-            set
-            {
-                if (value < 1 || value > 31)
-                {
-                    throw new ArgumentOutOfRangeException($"Invalid DayOfYear value '{value}'");
-                }
+            if (EdgeRangeDate?.ToVertex?.Start != null)
+                return new Date(EdgeRangeDate.ToVertex.Start.Date.Value).ToYearMonth().Year;
 
-                _dayOfYear = value;
-            }
+            var thisMonth = clock.GetLocalYearMonth();
+
+            return thisMonth.AddYears(CountFrom ?? CountFromDefault).Year;
         }
 
-        public IClock Clock
+        protected int GetYearTo(IClock clock)
         {
-            get { return _clock ?? (_clock = SystemClock.Instance); }
-            set { _clock = value; }
+            if (EdgeRangeDate?.ToVertex?.End != null)
+                return new Date(EdgeRangeDate.ToVertex.End.Date.Value).ToYearMonth().Year;
+
+            var thisMonth = clock.GetLocalYearMonth();
+
+            return thisMonth.AddYears(CountTo ?? CountToDefault).Year;
         }
 
-        [IgnoreDataMember]
-        public YearMonth.MonthValue Month { get; set; } = YearMonth.MonthValue.January;
-
-        [IgnoreDataMember]
-        protected int YearFrom
+        public override void Validate()
         {
-            get
-            {
-                if (EdgeRangeDate?.ToVertex?.Start != null)
-                    return new Date(EdgeRangeDate.ToVertex.Start.Date.Value).ToYearMonth().Year;
+            //do not validate base. EdgeRange may be null
+            //base.Validate();
 
-                var thisMonth = Clock.GetLocalYearMonth();
+            if (!DayOfYear.HasValue)
+                throw new ArgumentOutOfRangeException(nameof(DayOfYear), "Must have value");
 
-                return thisMonth.AddYears(CountFrom ?? CountFromDefault).Year;
-            }
-        }
+            if (DayOfYear.Value < 1)
+                throw new ArgumentOutOfRangeException(nameof(DayOfYear), "Must be > 1");
 
-        [IgnoreDataMember]
-        protected int YearTo
-        {
-            get
-            {
-                if (EdgeRangeDate?.ToVertex?.End != null)
-                    return new Date(EdgeRangeDate.ToVertex.End.Date.Value).ToYearMonth().Year;
+            if (DayOfYear.Value > 31)
+                throw new ArgumentOutOfRangeException(nameof(DayOfYear), "Must be <= 31");
 
-                var thisMonth = Clock.GetLocalYearMonth();
-
-                return thisMonth.AddYears(CountTo ?? CountToDefault).Year;
-            }
+            if (!Month.HasValue)
+                throw new ArgumentOutOfRangeException(nameof(Month), "Must have value");
         }
 
         public override IEnumerable<IDate> Generate(IClock clock)
         {
-            if (_clock == null)
-                _clock = clock;
+            Validate();
 
             var generatedDates = new List<IDate>();
 
+            var yearFrom = GetYearFrom(clock);
+            var yearTo = GetYearTo(clock);
+
             generatedDates
-                .AddRange(Enumerable.Range(YearFrom, YearTo - YearFrom + 1)
-                    .Select(year => (new YearMonth {Year = year, Month = Month}).ToLocalDate(DayOfYear, RollStrategy)));
+                .AddRange(Enumerable.Range(yearFrom, yearTo - yearFrom + 1)
+                    .Select(year => (new YearMonth {Year = year, Month = Month.Value}).ToLocalDate(DayOfYear.Value, RollStrategy)));
 
             return generatedDates;
         }
@@ -91,19 +85,24 @@ namespace Scheduler.ScheduleInstances
             _byDayOfYear = new ByDayOfYear();
         }
 
-        public IRangeDate Range
+        public int? DayOfYear
         {
-            set => _byDayOfYear.EdgeRangeDate = new EdgeRangeDate(value);
+            set => _byDayOfYear.DayOfYear = value;
         }
 
-        public int CountTo
+        public YearMonth.MonthValue? Month
         {
-            set => _byDayOfYear.CountTo = value;
+            set => _byDayOfYear.Month = value;
         }
 
-        public int CountFrom
+        public int? YearFrom
         {
-            set => _byDayOfYear.CountFrom = value;
+            set => _byDayOfYear.YearFrom = value;
+        }
+
+        public int? YearTo
+        {
+            set => _byDayOfYear.YearTo = value;
         }
 
         public ByDayOfYear Build()
