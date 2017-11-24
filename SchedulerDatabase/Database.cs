@@ -48,6 +48,7 @@ namespace SchedulerDatabase
                 db.CreateCollection("Serial");
                 db.CreateCollection("Episode");
                 db.CreateCollection("Instance");
+                db.CreateCollection("User");
                 db.CreateCollection("GeneratedInstant");
                 db.CreateCollection("GeneratorSource");
                 db.CreateCollection("Calendar");

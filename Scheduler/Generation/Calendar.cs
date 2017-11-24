@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using CoreLibrary;
 using NodaTime;
 using Scheduler.Persistance;
 
@@ -12,24 +13,12 @@ namespace Scheduler.Generation
         [IgnoreDataMember]
         public IEdgeVertexs<IDate> Dates { get; set; }
 
-        public static Calendar Create(IClock clock, ISchedule source)
+        public string Description { get; set; }
+
+        public void Validate()
         {
-            if (source.IsDirty)
-                throw new ArgumentException("Event has not yet been persisted");
-
-            var calendar = new Calendar
-            {
-                Dates = new EdgeVertexs<IDate>(
-                    source
-                        .Generate(clock)
-                        .ToList())
-            };
-
-            calendar
-                .Tags
-                .AddRange(source.Tags);
-
-            return calendar;
+            Guard.AgainstNullOrWhiteSpace(Description, nameof(Description));
+            Guard.AgainstNull(Dates, nameof(Dates));
         }
 
         #region Save
@@ -49,5 +38,30 @@ namespace Scheduler.Generation
         }
 
         #endregion
+    }
+
+    public class CalendarBuilder
+    {
+        private readonly Calendar _calendar;
+
+        public CalendarBuilder()
+        {
+            _calendar = new Calendar();
+        }
+
+        public string Description
+        {
+            set => _calendar.Description = value;
+        }
+
+        public EdgeVertexs<IDate> Dates
+        {
+            set => _calendar.Dates = value;
+        }
+
+        public ICalendar Build()
+        {
+            return _calendar;
+        }
     }
 }

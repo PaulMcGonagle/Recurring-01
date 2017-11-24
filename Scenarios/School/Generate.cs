@@ -3,7 +3,9 @@ using ArangoDB.Client;
 using Generators;
 using NodaTime;
 using Scheduler;
+using Scheduler.Generation;
 using Scheduler.Persistance;
+using Scheduler.Users;
 
 namespace School
 {
@@ -28,6 +30,7 @@ namespace School
             GenerateYears();
             GenerateTerms();
             GenerateHolidays();
+            GeneratePersons();
         }
 
         public void GenerateYears()
@@ -98,6 +101,25 @@ namespace School
             _holidays = generated
                 .OfType<ISchedule>()
                 .SingleOrDefault();
+        }
+
+        public void GeneratePersons()
+        {
+            var user = new UserBuilder
+            {
+                Forename = "Bob",
+                Surname = "Smith",
+            }.Build();
+
+            user.Save(_db, _clock);
+
+            var calendar = new CalendarBuilder
+            {
+                Dates = new EdgeVertexs<IDate>(),
+                Description = "Personal calendar from Google",
+            }.Build();
+
+            calendar.Save(_db, _clock);
         }
     }
 }
