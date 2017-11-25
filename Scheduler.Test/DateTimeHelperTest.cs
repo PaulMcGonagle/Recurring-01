@@ -3,7 +3,6 @@ using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scheduler.Generation;
 using TestStack.BDDfy;
 using Xunit;
 

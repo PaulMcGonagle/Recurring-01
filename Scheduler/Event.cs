@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using ArangoDB.Client;
 using CoreLibrary;
 using NodaTime;
-using Scheduler.Generation;
+using Scheduler.Calendars;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;

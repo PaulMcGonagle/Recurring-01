@@ -1,12 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using ArangoDB.Client;
 using CoreLibrary;
 using NodaTime;
 using Scheduler.Persistance;
 
-namespace Scheduler.Generation
+namespace Scheduler.Calendars
 {
     public class Calendar : Vertex, ICalendar
     {

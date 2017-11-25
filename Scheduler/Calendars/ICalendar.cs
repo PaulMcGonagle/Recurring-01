@@ -1,6 +1,6 @@
 ﻿using Scheduler.Persistance;
 
-namespace Scheduler.Generation
+namespace Scheduler.Calendars
 {
     public interface ICalendar : IVertex
     {

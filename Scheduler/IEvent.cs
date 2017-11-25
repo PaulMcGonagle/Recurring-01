@@ -1,4 +1,4 @@
-﻿using Scheduler.Generation;
+﻿using Scheduler.Calendars;
 using Scheduler.Persistance;
 using Scheduler.Users;
 

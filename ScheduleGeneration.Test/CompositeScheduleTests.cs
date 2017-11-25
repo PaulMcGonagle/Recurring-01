@@ -7,7 +7,7 @@ using Generators;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler;
-using Scheduler.Generation;
+using Scheduler.Calendars;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;

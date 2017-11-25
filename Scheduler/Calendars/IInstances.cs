@@ -2,7 +2,7 @@
 using ArangoDB.Client;
 using NodaTime;
 
-namespace Scheduler.Generation
+namespace Scheduler.Calendars
 {
     public interface IInstances : IList<IInstance>
     {

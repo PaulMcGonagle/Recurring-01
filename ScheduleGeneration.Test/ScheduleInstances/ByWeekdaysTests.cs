@@ -4,7 +4,7 @@ using ArangoDB.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NodaTime;
 using Scheduler;
-using Scheduler.Generation;
+using Scheduler.Calendars;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;

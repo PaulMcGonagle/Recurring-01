@@ -1,11 +1,11 @@
-﻿using NodaTime;
-using Scheduler.Persistance;
-using System;
+﻿using System;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using NodaTime;
+using Scheduler.Persistance;
 
-namespace Scheduler.Generation
+namespace Scheduler.Calendars
 {
     public class Instance : Vertex, IInstance
     {

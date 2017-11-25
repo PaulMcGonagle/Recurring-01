@@ -3,7 +3,7 @@ using ArangoDB.Client;
 using Generators;
 using NodaTime;
 using Scheduler;
-using Scheduler.Generation;
+using Scheduler.Calendars;
 using Scheduler.Persistance;
 using Scheduler.Users;
 
