@@ -17,7 +17,7 @@ namespace Scheduler.Ranges
         [IgnoreDataMember]
         public LocalTime End => Start.Plus(Period);
 
-        public void Validate()
+        public override void Validate()
         {
             Guard.AgainstNullOrDefault(Start, nameof(Start));
             Guard.AgainstNull(Period, nameof(Period));
@@ -35,19 +35,13 @@ namespace Scheduler.Ranges
             base.Save(db, clock);
         }
 
-        public class Builder
+        public class Builder : Vertex.Builder<RangeTime>
         {
-            private readonly RangeTime _rangeTime;
             private LocalTime? _endTimeSupplied;
-
-            public Builder()
-            {
-                _rangeTime = new RangeTime();
-            }
 
             public LocalTime Start
             {
-                set => _rangeTime.Start = value;
+                set => _target.Start = value;
             }
 
             public LocalTime End
@@ -55,7 +49,7 @@ namespace Scheduler.Ranges
                 set
                 {
                     _endTimeSupplied = value;
-                    _rangeTime.Period = default(Period);
+                    _target.Period = default(Period);
                 }
             }
 
@@ -63,24 +57,24 @@ namespace Scheduler.Ranges
             {
                 set
                 {
-                    _rangeTime.Period = value;
+                    _target.Period = value;
                     _endTimeSupplied = null;
                 }
             }
 
             public RangeTime Build()
             {
-                if (_rangeTime.Period == null
+                if (_target.Period == null
                     && _endTimeSupplied.HasValue
-                    && _rangeTime.Start != default(LocalTime)
+                    && _target.Start != default(LocalTime)
                 )
                 {
-                    _rangeTime.Period = NodaTime.Period.Between(_rangeTime.Start, _endTimeSupplied.Value);
+                    _target.Period = NodaTime.Period.Between(_target.Start, _endTimeSupplied.Value);
                 }
 
-                _rangeTime.Validate();
+                _target.Validate();
 
-                return _rangeTime;
+                return _target;
             }
         }
     }

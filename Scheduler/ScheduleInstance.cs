@@ -23,5 +23,22 @@ namespace Scheduler
         {
             // no bespoke Save functionality required
         }
+
+        public abstract class Builder<T> where T : ScheduleInstance, new()
+        {
+            protected readonly T _target;
+
+            protected Builder()
+            {
+                _target = new T();
+            }
+
+            public T Build()
+            {
+                _target.Validate();
+
+                return _target;
+            }
+        }
     }
 }

@@ -34,9 +34,5 @@ namespace Scheduler.ScheduleEdges
             get => ToVertex;
             set => ToVertex = value;
         }
-
-        public void Validate()
-        {
-        }
     }
 }

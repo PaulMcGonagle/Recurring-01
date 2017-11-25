@@ -56,13 +56,6 @@ namespace School
             _years = generated
                 .OfType<ISchedule>()
                 .SingleOrDefault();
-
-            var generatedInstant = new GeneratedInstant.Builder()
-                .Create(_clock, _generatorSource, _years)
-                .WithLabel("Generated")
-                .Build();
-
-            generatedInstant.Save(_db, _clock);
         }
 
         public void GenerateTerms()

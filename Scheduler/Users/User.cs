@@ -10,7 +10,7 @@ namespace Scheduler.Users
         public string Forename { get; set; }
         public string Surname { get; set; }
 
-        public void Validate()
+        public override void Validate()
         {
             Guard.AgainstNullOrWhiteSpace(Forename, nameof(Forename));
             Guard.AgainstNullOrWhiteSpace(Surname, nameof(Surname));
@@ -22,28 +22,16 @@ namespace Scheduler.Users
             base.Save(db, clock);
         }
 
-        public class Builder
+        public class Builder : Vertex.Builder<User>
         {
-            private readonly User _user;
-
-            public Builder()
-            {
-                _user = new User();
-            }
-
             public string Forename
             {
-                set => _user.Forename = value;
+                set => _target.Forename = value;
             }
 
             public string Surname
             {
-                set => _user.Surname = value;
-            }
-
-            public IUser Build()
-            {
-                return _user;
+                set => _target.Surname = value;
             }
         }
     }}

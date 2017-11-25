@@ -1,4 +1,5 @@
 ﻿using ArangoDB.Client;
+using CoreLibrary;
 using NodaTime;
 using TechTalk.SpecRun.Helper;
 
@@ -21,6 +22,12 @@ namespace Scheduler.Persistance
 
                 Edge.ToVertex = value;
             }
+        }
+
+        public virtual void Validate()
+        {
+            Guard.AgainstNull(Edge, nameof(Edge));
+            Guard.AgainstNull(ToVertex, nameof(ToVertex));
         }
 
         #region Save

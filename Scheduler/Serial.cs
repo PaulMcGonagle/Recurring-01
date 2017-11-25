@@ -54,7 +54,7 @@ namespace Scheduler
             return episodes;
         }
 
-        public void Validate()
+        public override void Validate()
         {
             Guard.AgainstNull(EdgeSchedule, nameof(EdgeSchedule));
             Guard.AgainstNull(RangeTime, nameof(RangeTime));
@@ -72,35 +72,21 @@ namespace Scheduler
             base.Save(db, clock);
         }
 
-        public class Builder
+        public class Builder : Vertex.Builder<Serial>
         {
-            private readonly Serial _serial;
-
-            public Builder()
+            public IEdgeSchedule EdgeSchedule 
             {
-                _serial = new Serial();
-            }
-
-            public IEdgeSchedule EdgeSchedule
-            {
-                set => _serial.EdgeSchedule = value;
+                set => _target.EdgeSchedule = value;
             }
 
             public IEdgeRangeTime RangeTime
             {
-                set => _serial.RangeTime = value;
+                set => _target.RangeTime = value;
             }
 
             public string TimeZoneProvider
             {
-                set => _serial.TimeZoneProvider = value;
-            }
-
-            public Serial Build()
-            {
-                _serial.Validate();
-
-                return _serial;
+                set => _target.TimeZoneProvider = value;
             }
         }
     }

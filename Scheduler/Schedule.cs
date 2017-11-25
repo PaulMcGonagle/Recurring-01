@@ -67,7 +67,7 @@ namespace Scheduler
             }
         }
 
-        public void Validate()
+        public override void Validate()
         {
             Guard.AgainstNull(ScheduleInstance, nameof(ScheduleInstance));
         }
@@ -91,25 +91,11 @@ namespace Scheduler
             base.Rehydrate(db);
         }
 
-        public class Builder
+        public class Builder : Vertex.Builder<Schedule>
         {
-            private Schedule _schedule;
-
-            public Builder()
-            {
-                _schedule = new Schedule();
-            }
-
             public IScheduleInstance ScheduleInstance
             {
-                set => _schedule.ScheduleInstance = value;
-            }
-
-            public ISchedule Build()
-            {
-                _schedule.Validate();
-
-                return _schedule;
+                set => _target.ScheduleInstance = value;
             }
         }
     }

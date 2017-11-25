@@ -27,7 +27,7 @@ namespace Scheduler.Ranges
             return Start.Date?.Value <= localDate && localDate <= End.Date?.Value;
         }
 
-        public void Validate()
+        public override void Validate()
         {
             Guard.AgainstNull(Start, nameof(Start));
             Guard.AgainstNull(End, nameof(End));
@@ -45,30 +45,16 @@ namespace Scheduler.Ranges
             base.Save(db, clock);
         }
 
-        public class Builder
+        public class Builder : Vertex.Builder<RangeDate>
         {
-            private RangeDate _rangeDate;
-
-            public Builder()
-            {
-                _rangeDate = new RangeDate();
-            }
-
             public IDate Start
             {
-                set => _rangeDate.Start = new EdgeDate(value);
+                set => _target.Start = new EdgeDate(value);
             }
 
             public IDate End
             {
-                set => _rangeDate.End = new EdgeDate(value);
-            }
-
-            public RangeDate Build()
-            {
-                _rangeDate.Validate();
-
-                return _rangeDate;
+                set => _target.End = new EdgeDate(value);
             }
         }
     }

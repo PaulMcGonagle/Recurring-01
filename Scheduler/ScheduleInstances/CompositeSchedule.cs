@@ -95,44 +95,21 @@ namespace Scheduler.ScheduleInstances
 
         #endregion
 
-        public class Builder
+        public class Builder : ScheduleInstance.Builder<CompositeSchedule>
         {
-            private readonly CompositeSchedule _compositeSchedule;
-
-            public Builder()
-            {
-                _compositeSchedule = new CompositeSchedule();
-            }
-
             public IEdgeVertexs<ISchedule> Inclusions
             {
-                set => _compositeSchedule.Inclusions = value;
+                set => _target.Inclusions = value;
             }
 
             public IEdgeVertexs<ISchedule> Exclusions
             {
-                set => _compositeSchedule.Exclusions = value;
+                set => _target.Exclusions = value;
             }
 
             public IEdgeVertexs<IRangeDate> Breaks
             {
-                set => _compositeSchedule.Breaks = value;
-            }
-
-            public CompositeSchedule Build()
-            {
-                if (_compositeSchedule.Inclusions == null)
-                    _compositeSchedule.Inclusions = new EdgeVertexs<ISchedule>();
-
-
-                if (_compositeSchedule.Exclusions == null)
-                    _compositeSchedule.Exclusions = new EdgeVertexs<ISchedule>();
-
-
-                if (_compositeSchedule.Breaks == null)
-                    _compositeSchedule.Breaks = new EdgeVertexs<IRangeDate>();
-
-                return _compositeSchedule;
+                set => _target.Breaks = value;
             }
         }
     }

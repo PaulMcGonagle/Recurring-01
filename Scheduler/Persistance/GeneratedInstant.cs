@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
+using CoreLibrary;
 using NodaTime;
 
 namespace Scheduler.Persistance
@@ -22,6 +23,14 @@ namespace Scheduler.Persistance
 
         [DocumentProperty(Identifier = IdentifierType.EdgeTo)]
         public string ToId { get; set; }
+
+        public override void Validate()
+        {
+            base.Validate();
+
+            Guard.AgainstNull(FromVertex, nameof(FromVertex));
+            Guard.AgainstNull(ToVertex, nameof(ToVertex));
+        }
 
         #region Save
 
@@ -73,46 +82,21 @@ namespace Scheduler.Persistance
             return $"Edge to: {ToVertex}";
         }
 
-        public class Builder
+        public class Builder : Vertex.Builder<GeneratedInstant>
         {
-            private GeneratedInstant _generatedInstant;
-
-            public Builder Create(IClock clock, IVertex fromVertex, IVertex toVertex)
+            public string Label
             {
-                _generatedInstant = new GeneratedInstant
-                {
-                    Instant = clock.Now,
-                    FromVertex = fromVertex,
-                    ToVertex = toVertex
-                };
-
-                return this;
+                set =>_target.Label = value;
             }
 
-            public Builder WithLabel(string label)
+            public IVertex FromVertex
             {
-                _generatedInstant.Label = label;
-
-                return this;
+                set => _target.FromVertex = value;
             }
 
-            public Builder WithTags(string label)
+            public IVertex ToVertex
             {
-                _generatedInstant.Label = label;
-
-                return this;
-            }
-
-            public GeneratedInstant Build()
-            {
-                if (_generatedInstant.FromVertex == null)
-                    throw new Exception("Missing FromVertex");
-
-
-                if (_generatedInstant.ToVertex == null)
-                    throw new Exception("Missing ToVertex");
-
-                return _generatedInstant;
+                set => _target.ToVertex = value;
             }
         }
     }

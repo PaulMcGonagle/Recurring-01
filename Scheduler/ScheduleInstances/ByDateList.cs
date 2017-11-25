@@ -31,26 +31,11 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public class Builder
+        public class Builder : ScheduleInstance.Builder<ByDateList>
         {
-            private readonly ByDateList _byDateList;
-
-            public Builder()
-            {
-                _byDateList = new ByDateList();
-            }
-
             public IEdgeVertexs<IDate> Items
             {
-                set => _byDateList.Items = value;
-            }
-
-            public ByDateList Build()
-            {
-                if (_byDateList.Items == null)
-                    _byDateList.Items = new EdgeVertexs<IDate>();
-
-                return _byDateList;
+                set => _target.Items = value;
             }
         }
     }

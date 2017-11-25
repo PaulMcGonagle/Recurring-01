@@ -15,7 +15,7 @@ namespace Scheduler.Generation
 
         public string Description { get; set; }
 
-        public void Validate()
+        public override void Validate()
         {
             Guard.AgainstNullOrWhiteSpace(Description, nameof(Description));
             Guard.AgainstNull(Dates, nameof(Dates));
@@ -39,28 +39,16 @@ namespace Scheduler.Generation
 
         #endregion
 
-        public class Builder
+        public class Builder : Vertex.Builder<Calendar>
         {
-            private readonly Calendar _calendar;
-
-            public Builder()
-            {
-                _calendar = new Calendar();
-            }
-
             public string Description
             {
-                set => _calendar.Description = value;
+                set => _target.Description = value;
             }
 
             public EdgeVertexs<IDate> Dates
             {
-                set => _calendar.Dates = value;
-            }
-
-            public ICalendar Build()
-            {
-                return _calendar;
+                set => _target.Dates = value;
             }
         }
     }

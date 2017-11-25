@@ -46,6 +46,8 @@ namespace Scheduler.Persistance
 
         EdgeVertexs<ITag> Tags { get; set; }
 
+        void Validate();
+
         #region Save
 
         void Save(IArangoDatabase db, IClock clock);

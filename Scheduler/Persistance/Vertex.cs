@@ -103,6 +103,11 @@ namespace Scheduler.Persistance
 
         protected virtual IEnumerable<IVertex> Links => new List<IVertex>();
 
+        public virtual void Validate()
+        {
+            
+        }
+
         #region Save
 
         internal virtual void Save<T>(IArangoDatabase db) where T : IVertex
@@ -187,6 +192,23 @@ namespace Scheduler.Persistance
         int IComparable.CompareTo(object obj)
         {
             throw new NotImplementedException();
+        }
+        
+        public abstract class Builder<T> where T : Vertex, new()
+        {
+            protected readonly T _target;
+
+            protected Builder()
+            {
+                _target = new T();
+            }
+
+            public T Build()
+            {
+                _target.Validate();
+
+                return _target;
+            }
         }
     }
 }

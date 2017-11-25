@@ -18,25 +18,11 @@ namespace Scheduler.ScheduleInstances
             yield return Date;
         }
 
-        public class Builder
+        public class Builder : ScheduleInstance.Builder<SingleDay>
         {
-            private readonly SingleDay _singleDay;
-
-            public Builder()
-            {
-                _singleDay = new SingleDay();
-            }
-
             public Date Date
             {
-                set => _singleDay.Date = value;
-            }
-
-            public SingleDay Build()
-            {
-                _singleDay.Validate();
-
-                return _singleDay;
+                set => _target.Date = value;
             }
         }
     }
