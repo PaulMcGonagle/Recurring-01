@@ -27,9 +27,9 @@ namespace School
 
         public void Go()
         {
-            GenerateYears();
-            GenerateTerms();
-            GenerateHolidays();
+            //GenerateYears();
+            //GenerateTerms();
+            //GenerateHolidays();
             GeneratePersons();
         }
 
@@ -113,6 +113,16 @@ namespace School
             }.Build();
 
             calendar.Save(_db, _clock);
+
+            var personCalendarEdge = new Edge.Builder
+            {
+                FromVertex = user,
+                ToVertex = calendar,
+                Label = "Manages",
+            }.Build();
+
+            personCalendarEdge
+                .Save(_db, _clock);
         }
     }
 }

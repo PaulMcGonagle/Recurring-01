@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using ArangoDB.Client;
+using CoreLibrary;
 using NodaTime;
 
 namespace Scheduler.Persistance
@@ -39,6 +40,12 @@ namespace Scheduler.Persistance
 
         }
 
+        public override void Validate()
+        {
+            Guard.AgainstNull(FromVertex, nameof(FromVertex));
+            Guard.AgainstNull(ToVertex, nameof(ToVertex));
+        }
+
         public virtual void Save(IArangoDatabase db, IClock clock, IVertex fromVertex)
         {
             FromVertex = fromVertex;
@@ -70,6 +77,25 @@ namespace Scheduler.Persistance
         public override string ToString()
         {
             return $"Edge to: {ToVertex}";
+        }
+
+        public class Builder : Vertex.Builder<Edge>
+        {
+            public string Label
+            {
+                set => _target.Label = value;
+            }
+
+            public IVertex FromVertex
+            {
+                set => _target.FromVertex = value;
+            }
+
+            public IVertex ToVertex
+            {
+                set => _target.ToVertex = value;
+
+            }
         }
     }
 }
