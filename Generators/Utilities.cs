@@ -43,10 +43,14 @@ namespace Generators
         public static IDictionary<string, IVertex> ExpandLinks(this XElement xInput)
         {
             var caches = xInput
-                .XPathSelectElements(".//cache")
-                .ToList();
+                ?.DescendantsAndSelf()
+                .Elements("cache")
+                .ToArray();
 
             var links = new Dictionary<string, IVertex>();
+
+            if (caches == null)
+                return links;
 
             var remaining = new Queue<XElement>(caches);
 
