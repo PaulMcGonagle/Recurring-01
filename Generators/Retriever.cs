@@ -17,7 +17,7 @@ namespace Generators
 {
     public static class Retriever
     {
-        public static IEnumerable<XElement> RetrieveXReferences(this XDocument xInput, IEnumerable<XElement> xReferences, string type)
+        public static IEnumerable<XElement> RetrieveXReferences(this XElement xInput, IEnumerable<XElement> xReferences, string type)
         {
             var paths = xReferences
                 .Where(tr => tr.Attribute("type")?.Value == type)
@@ -40,12 +40,12 @@ namespace Generators
             }
         }
 
-        public static IEnumerable<XElement> RetrieveXReferences(this XDocument xInput, XElement xReference, string type)
+        public static IEnumerable<XElement> RetrieveXReferences(this XElement xInput, XElement xReference, string type)
         {
             var path = xReference
                 .Attribute("path")?.Value;
 
-            if (String.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path))
             {
                 throw new ArgumentException("Path could not be found");
             }

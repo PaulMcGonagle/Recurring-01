@@ -48,7 +48,7 @@ namespace Generators.Test
 
             public void WhenLinksAreExpanded()
             {
-                var t = _xElement.ExpandLinks();
+                _xElement.ExpandSource(out var t);
             }
         }
 
@@ -97,7 +97,7 @@ namespace Generators.Test
 
             public void WhenLinksAreExpanded()
             {
-                var t = _xElement.ExpandLinks();
+                _xElement.ExpandSource(out var t);
             }
         }
     }

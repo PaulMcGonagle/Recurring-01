@@ -70,7 +70,7 @@ namespace Generators.Test.XInstances
 
             public void AndWhenCachesAreRetrieved()
             {
-                _caches = _xElement.ExpandLinks();
+                _xElement.ExpandSource(out _caches);
             }
 
             public void AndWhenRangeDateIsGenerated()
@@ -155,7 +155,7 @@ namespace Generators.Test.XInstances
 
             public void AndWhenCachesAreRetrieved()
             {
-                _caches = _xElement.ExpandLinks();
+                _xElement.ExpandSource(out _caches);
             }
 
             public void AndWhenRangeDateIsGenerated()

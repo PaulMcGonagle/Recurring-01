@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using CoreLibrary;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
@@ -21,8 +22,15 @@ namespace Generators
             var xSource = XDocument
                 .Load(sourceFile);
 
-            xSource.ExpandReferences();
-            caches = xSource.Root.ExpandLinks();
+            Guard.AgainstNull(xSource, nameof(xSource));
+            Guard.AgainstNull(xSource.Root, nameof(xSource.Root));
+
+            if (xSource.Root.Name != "generator")
+                throw new ArgumentException("Unexpected root node", nameof(xSource.Root));
+
+            xSource
+                .Root
+                .ExpandSource(out caches);
 
             generatorSource = new GeneratorSource
             {
