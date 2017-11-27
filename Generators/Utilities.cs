@@ -14,15 +14,56 @@ namespace Generators
         {
             Guard.AgainstNull(source, nameof(source));
 
-            var descendants = source
-                .DescendantsAndSelf()
+            ExpandCaches(source, out outputCaches);
+            ExpandReferences(source);
+            ExpandLinkValues(source);
+        }
+
+        private static void ExpandLinkValues(XElement source)
+        {
+            var linkValues = source
+                .Descendants()
+                .Elements("referenceValue")
                 .ToArray();
 
-            var caches = descendants
-                .Elements("cache")
-                .ToArray();
+            foreach (var referenceValue in linkValues)
+            {
+                var parent = referenceValue.Parent;
 
-            var references = descendants
+                Guard.AgainstNull(parent, nameof(parent));
+
+                var node = referenceValue.RetrieveAttributeValue("node");
+                var path = referenceValue.RetrieveAttributeValue("path");
+                var attribute = referenceValue.RetrieveAttributeValue("attribute");
+
+                var referred = source
+                    .XPathSelectElement(path);
+
+                if (referred == null)
+                    throw new Exception($"Unable to resolve referenceValue with path {path}");
+
+                var value = referred
+                    .Attribute(node);
+
+                if (value == null)
+                    throw new Exception($"Unable to resolve referenceValue.{node}");
+
+                var target = parent
+                    .Attribute(attribute);
+
+                if (target == null)
+                    throw new Exception($"Unable to resolve referenceValue.{attribute}");
+
+                target.SetValue(value.Value);
+
+                referenceValue.Remove();
+            }
+        }
+
+        private static void ExpandReferences(XElement source)
+        {
+            var references = source
+                .Descendants()
                 .Elements("reference")
                 .ToArray();
 
@@ -42,8 +83,16 @@ namespace Generators
 
                 reference.Remove();
             }
+        }
 
+        private static void ExpandCaches(XElement source, out IDictionary<string, IVertex> outputCaches)
+        {
             outputCaches = new Dictionary<string, IVertex>();
+
+            var caches = source
+                .Elements("caches")
+                .Elements("cache")
+                .ToArray();
 
             if (!caches.Any())
                 return;
