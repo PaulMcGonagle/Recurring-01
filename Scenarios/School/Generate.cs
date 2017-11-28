@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using ArangoDB.Client;
 using Generators;
 using NodaTime;
@@ -16,7 +17,7 @@ namespace School
 
         private IGeneratorSource _generatorSource;
         private ISchedule _years;
-        private ISchedule _terms;
+        private IEnumerable<ISchedule> _terms;
         private ISchedule _holidays;
 
         public Generate(IArangoDatabase db, IClock clock)
@@ -28,9 +29,9 @@ namespace School
         public void Go()
         {
             //GenerateYears();
-            //GenerateTerms();
+            GenerateTerms();
             //GenerateHolidays();
-            GeneratePersons();
+            //GeneratePersons();
         }
 
         public void GenerateYears()
@@ -73,8 +74,7 @@ namespace School
             }
 
             _terms = generated
-                .OfType<ISchedule>()
-                .SingleOrDefault();
+                .OfType<ISchedule>();
         }
 
         public void GenerateHolidays()
