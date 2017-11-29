@@ -3,6 +3,9 @@
   <calendars>
     <calendar>
       <schedule>
+        <tags>
+          <tag id="year" value="2017/18"/>
+        </tags>
         <inclusions>
           <byRangeDate>
             <tags>
@@ -21,6 +24,9 @@
         </exclusions>
       </schedule>
       <schedule>
+        <tags>
+          <tag id="year" value="2017/18"/>
+        </tags>
         <inclusions>
           <byRangeDate>
             <tags>
@@ -39,6 +45,9 @@
         </exclusions>
       </schedule>
       <schedule>
+        <tags>
+          <tag id="year" value="2017/18"/>
+        </tags>
         <inclusions>
           <byRangeDate>
             <tags>

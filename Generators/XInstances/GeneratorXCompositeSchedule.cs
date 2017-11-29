@@ -87,11 +87,10 @@ namespace Generators.XInstances
                     caches,
                     elementsName);
 
-                var tags = xSchedule
-                    .RetrieveTags(caches, elementsName)
-                    .ToList();
-
-                schedule.Connect(tags);
+                schedule
+                    .Connect(xSchedule
+                        .RetrieveTags(caches, elementsName)
+                        .ToList());
 
                 if (isExclusion)
                 {
@@ -104,10 +103,17 @@ namespace Generators.XInstances
                 }
             }
 
-            return new Schedule.Builder
+            var wrapperSchedule = new Schedule.Builder
             {
                 ScheduleInstance = compositeSchedule,
             }.Build();
+
+            wrapperSchedule
+                .Connect(xCompositeSchedule
+                    .RetrieveTags(caches, elementsName)
+                    .ToList());
+
+            return wrapperSchedule;
         }
     }
 }

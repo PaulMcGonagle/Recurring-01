@@ -6,6 +6,7 @@ using NodaTime;
 using Scheduler;
 using Scheduler.Calendars;
 using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
 using Scheduler.Users;
 
 namespace School
@@ -32,6 +33,17 @@ namespace School
             GenerateTerms();
             //GenerateHolidays();
             //GeneratePersons();
+
+            var organisation = new Organisation.Builder
+            {
+                Title = "Westminster Council School Holidays",
+            }.Build();
+
+            organisation.Save(_db, _clock);
+
+            var organisationTerms = new EdgeVertexs<ISchedule>(_terms);
+
+            organisationTerms.Save(_db, _clock, organisation, "HasTerms");
         }
 
         public void GenerateYears()

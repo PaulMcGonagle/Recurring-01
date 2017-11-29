@@ -30,6 +30,13 @@ namespace Scheduler.Persistance
 
         }
 
+        public T Add(T item)
+        {
+            Add(new EdgeVertex<T>(item));
+
+            return item;
+        }
+
         public new void AddRange(IEnumerable<IEdgeVertex<T>> items)
         {
             foreach (var item in items)
@@ -65,6 +72,11 @@ namespace Scheduler.Persistance
         {
             ForEach(e => e.ToVertex.SetToDelete());
 
+        }
+
+        public void Validate()
+        {
+            
         }
 
         public void Save(IArangoDatabase db, IClock clock)
