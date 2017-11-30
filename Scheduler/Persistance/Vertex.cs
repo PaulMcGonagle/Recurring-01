@@ -96,6 +96,16 @@ namespace Scheduler.Persistance
             Tags.AddRange(connectTags.Select(ct => new EdgeTag(ct)));
         }
 
+        public IEdge ConnectAsEdge(IVertex connectVertex, string label)
+        {
+            return new Edge.Builder
+            {
+                FromVertex = this,
+                ToVertex = connectVertex,
+                Label = label,
+            }.Build();
+        }
+
         [IgnoreDataMember]
         public EdgeVertexs<ITag> Tags { get; set; } = new EdgeVertexs<ITag>();
 

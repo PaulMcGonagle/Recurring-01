@@ -6,7 +6,6 @@ using NodaTime;
 using Scheduler;
 using Scheduler.Calendars;
 using Scheduler.Persistance;
-using Scheduler.ScheduleEdges;
 using Scheduler.Users;
 
 namespace School
@@ -126,14 +125,8 @@ namespace School
 
             calendar.Save(_db, _clock);
 
-            var personCalendarEdge = new Edge.Builder
-            {
-                FromVertex = user,
-                ToVertex = calendar,
-                Label = "Manages",
-            }.Build();
-
-            personCalendarEdge
+            user
+                .ConnectAsEdge(calendar, "Manages")
                 .Save(_db, _clock);
         }
     }
