@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using CoreLibrary;
@@ -26,7 +25,7 @@ namespace Scheduler.Ranges
 
             if (duration < 0)
                 throw new ArgumentOutOfRangeException(nameof(Period),
-                    $"Period duration cannot be negative. Period: {Period.ToString()}, Dduration.Ticks: {duration})");
+                    $"Period duration cannot be negative. Period: {Period}, duration.Ticks: {duration})");
         }
 
         public override void Save(IArangoDatabase db, IClock clock)
@@ -35,7 +34,7 @@ namespace Scheduler.Ranges
             base.Save(db, clock);
         }
 
-        public class Builder : Vertex.Builder<RangeTime>
+        public class Builder : Builder<RangeTime>
         {
             private LocalTime? _endTimeSupplied;
 
@@ -62,19 +61,17 @@ namespace Scheduler.Ranges
                 }
             }
 
-            public RangeTime Build()
+            public override RangeTime Build()
             {
                 if (_target.Period == null
                     && _endTimeSupplied.HasValue
                     && _target.Start != default(LocalTime)
                 )
                 {
-                    _target.Period = NodaTime.Period.Between(_target.Start, _endTimeSupplied.Value);
+                    _target.Period = Period.Between(_target.Start, _endTimeSupplied.Value);
                 }
 
-                _target.Validate();
-
-                return _target;
+                return base.Build();
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
 using Scheduler.Persistance;
+using Scheduler.ScheduleEdges;
 
 namespace Scheduler
 {
@@ -56,7 +57,32 @@ namespace Scheduler
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<Episode>(db);
+            SourceGeneratedDate.Save(db, clock, this, "SourceGeneratedDate");
+            SourceSerial.Save(db, clock, this, "SourceSerial");
             base.Save(db, clock);
+        }
+
+        public class Builder : Vertex.Builder<Episode>
+        {
+            public IDate SourceGeneratedDate
+            {
+                set => _target.SourceGeneratedDate = new EdgeDate(value);
+            }
+
+            public ISerial SourceSerial
+            {
+                set => _target.SourceSerial = new EdgeVertex<ISerial>(value);
+            }
+
+            public ZonedDateTime Start
+            {
+                set => _target.Start = value;
+            }
+
+            public Period Period
+            {
+                set => _target.Period = value;
+            }
         }
     }
 }

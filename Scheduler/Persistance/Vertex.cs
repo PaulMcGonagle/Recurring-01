@@ -213,7 +213,7 @@ namespace Scheduler.Persistance
                 _target = new T();
             }
 
-            public T Build()
+            public virtual T Build()
             {
                 _target.Validate();
 

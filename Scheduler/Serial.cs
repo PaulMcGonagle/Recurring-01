@@ -43,13 +43,13 @@ namespace Scheduler
 
             episodes.AddRange(
                 dates
-                    .Select(date => new Episode
+                    .Select(date => new Episode.Builder
                     {
-                        SourceSerial = new EdgeVertex<ISerial>(this),
-                        SourceGeneratedDate = new EdgeVertex<IDate>(date),
+                        SourceSerial = this,
+                        SourceGeneratedDate = date,
                         Start = DateTimeHelper.GetZonedDateTime(date, RangeTime.Range.Start, TimeZoneProvider),
                         Period = RangeTime.Range?.Period,
-                    }));
+                    }.Build()));
 
             return episodes;
         }
