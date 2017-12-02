@@ -62,7 +62,7 @@ namespace Scheduler
             base.Save(db, clock);
         }
 
-        public class Builder : Vertex.Builder<Episode>
+        public class Builder : Builder<Episode>
         {
             public IDate SourceGeneratedDate
             {

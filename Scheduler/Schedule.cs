@@ -91,7 +91,7 @@ namespace Scheduler
             base.Rehydrate(db);
         }
 
-        public class Builder : Vertex.Builder<Schedule>
+        public class Builder : Builder<Schedule>
         {
             public IScheduleInstance ScheduleInstance
             {

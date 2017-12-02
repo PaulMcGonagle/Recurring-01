@@ -22,7 +22,7 @@ namespace Scheduler.Users
             base.Save(db, clock);
         }
 
-        public class Builder : Vertex.Builder<User>
+        public class Builder : Builder<User>
         {
             public string Forename
             {

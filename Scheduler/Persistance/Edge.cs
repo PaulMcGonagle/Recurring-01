@@ -79,7 +79,7 @@ namespace Scheduler.Persistance
             return $"Edge to: {ToVertex}";
         }
 
-        public class Builder : Vertex.Builder<Edge>
+        public class Builder : Builder<Edge>
         {
             public string Label
             {

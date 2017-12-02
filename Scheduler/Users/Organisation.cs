@@ -29,7 +29,7 @@ namespace Scheduler.Users
             base.Save(db, clock);
         }
 
-        public class Builder : Vertex.Builder<Organisation>
+        public class Builder : Builder<Organisation>
         {
             public string Title
             {

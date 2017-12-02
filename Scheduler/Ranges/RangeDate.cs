@@ -45,7 +45,7 @@ namespace Scheduler.Ranges
             base.Save(db, clock);
         }
 
-        public class Builder : Vertex.Builder<RangeDate>
+        public class Builder : Builder<RangeDate>
         {
             public IDate Start
             {

@@ -37,7 +37,7 @@ namespace Scheduler.Calendars
 
         #endregion
 
-        public class Builder : Vertex.Builder<Calendar>
+        public class Builder : Builder<Calendar>
         {
             public string Description
             {

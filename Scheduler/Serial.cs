@@ -72,7 +72,7 @@ namespace Scheduler
             base.Save(db, clock);
         }
 
-        public class Builder : Vertex.Builder<Serial>
+        public class Builder : Builder<Serial>
         {
             public IEdgeSchedule EdgeSchedule 
             {
