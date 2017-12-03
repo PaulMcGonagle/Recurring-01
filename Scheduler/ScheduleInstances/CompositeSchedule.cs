@@ -95,11 +95,16 @@ namespace Scheduler.ScheduleInstances
 
         #endregion
 
-        public class Builder : ScheduleInstance.Builder<CompositeSchedule>
+        public class Builder : Builder<CompositeSchedule>
         {
             public IEdgeVertexs<ISchedule> Inclusions
             {
                 set => _target.Inclusions = value;
+            }
+
+            public void SetInclusion(ISchedule inclusion)
+            {
+                Inclusions = new EdgeVertexs<ISchedule>(inclusion);
             }
 
             public IEdgeVertexs<ISchedule> Exclusions

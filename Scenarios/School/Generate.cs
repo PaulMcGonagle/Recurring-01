@@ -6,6 +6,9 @@ using NodaTime;
 using Scheduler;
 using Scheduler.Calendars;
 using Scheduler.Persistance;
+using Scheduler.Ranges;
+using Scheduler.ScheduleEdges;
+using Scheduler.ScheduleInstances;
 using Scheduler.Users;
 
 namespace School
@@ -29,9 +32,10 @@ namespace School
         public void Go()
         {
             //GenerateYears();
-            GenerateTerms();
+            //GenerateTerms();
             //GenerateHolidays();
             //GeneratePersons();
+            GenerateEpisodes();
 
             var organisation = new Organisation.Builder
             {
@@ -50,8 +54,8 @@ namespace School
             var generator = GeneratorFactory.Get("calendar");
 
             var generated = generator.Generate(
-                "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\Years.xml",
-                _clock)
+                    "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\Years.xml",
+                    _clock)
                 .ToArray();
 
             generated.Save(_db, _clock);
@@ -128,6 +132,35 @@ namespace School
             user
                 .ConnectAsEdge(calendar, "Manages")
                 .Save(_db, _clock);
+        }
+
+        public void GenerateEpisodes()
+        {
+            var scheduleInstance = new ByWeekdays.Builder
+            {
+                Weekdays = new[] {IsoDayOfWeek.Tuesday,},
+                RangeDate = new RangeDate.Builder
+                {
+                    Start = new Date(2017, YearMonth.MonthValue.November, 03),
+                    End = new Date(2017, YearMonth.MonthValue.December, 18),
+                }.Build(),
+            }.Build();
+
+            var schedule = new Schedule.Builder
+            {
+                ScheduleInstance = scheduleInstance,
+            }.Build();
+
+            var serial = new Serial.Builder
+            {
+                EdgeSchedule = new EdgeSchedule(schedule),
+                RangeTime = new EdgeRangeTime(new LocalTime(18, 00), new PeriodBuilder {Hours = 1}.Build()),
+                TimeZoneProvider = "Europe/London",
+            }.Build();
+
+            var episode = serial
+                .GenerateEpisodes(_clock)
+                .ToArray();
         }
     }
 }

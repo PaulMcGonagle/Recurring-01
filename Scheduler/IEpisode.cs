@@ -9,7 +9,7 @@ namespace Scheduler
         Period Period { get; set; }
         EdgeVertex<IDate> SourceGeneratedDate { get; set; }
         EdgeVertex<ISerial> SourceSerial { get; set; }
-        ZonedDateTime To { get; }
+        ZonedDateTime End { get; }
         string ToString();
     }
 }

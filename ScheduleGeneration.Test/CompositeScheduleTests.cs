@@ -118,7 +118,7 @@ namespace ScheduleGeneration.Test
                 var expectedEpisodesList = expectedEpisodes.ToList();
 
                 _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.Start.LocalDateTime).ShouldBe(expectedEpisodesList.Select(ee => ee));
-                _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.To.LocalDateTime).ShouldBe(expectedEpisodesList.Select(ee => ee.Plus(duration)));
+                _event.Instance.ToVertex.Episodes.Select(e => e.ToVertex.End.LocalDateTime).ShouldBe(expectedEpisodesList.Select(ee => ee.Plus(duration)));
             }
         }
         public class LoadBasicSchoolScheduleAndVerifyEpisodes

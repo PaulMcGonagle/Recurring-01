@@ -94,7 +94,7 @@ namespace Calendar.Test
             public void AndThenAllEndTimesAreCorrect(LocalTime expectedEndTime)
             {
                 _serials.SelectMany(s => s.ToVertex.GenerateEpisodes(_clock))
-                    .Select(e => e.ToVertex.To.TimeOfDay)
+                    .Select(e => e.ToVertex.End.TimeOfDay)
                     .ShouldAllBe(d => d.Equals(expectedEndTime));
             }
         }

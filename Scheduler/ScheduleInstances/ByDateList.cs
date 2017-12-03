@@ -31,7 +31,7 @@ namespace Scheduler.ScheduleInstances
             }
         }
 
-        public class Builder : ScheduleInstance.Builder<ByDateList>
+        public class Builder : Builder<ByDateList>
         {
             public IEdgeVertexs<IDate> Items
             {

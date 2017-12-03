@@ -40,7 +40,7 @@ namespace Scheduler
         }
 
         [IgnoreDataMember]
-        public ZonedDateTime To => Start.Plus(Period.ToDuration());
+        public ZonedDateTime End => Start.Plus(Period.ToDuration());
 
         int IComparable.CompareTo(object obj)
         {
@@ -48,10 +48,7 @@ namespace Scheduler
 
             var fromCompare = Start.CompareTo(c.Start);
 
-            if (fromCompare != 0)
-                return fromCompare;
-
-            return Period.Ticks.CompareTo(c.Period.Ticks);
+            return fromCompare != 0 ? fromCompare : Period.Ticks.CompareTo(c.Period.Ticks);
         }
 
         public override void Save(IArangoDatabase db, IClock clock)

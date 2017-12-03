@@ -238,7 +238,7 @@ namespace ScheduleGeneration.Test
             {
 
                 _episodes.Select(e => e.Start.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
-                _episodes.Select(e => e.To.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
+                _episodes.Select(e => e.End.Zone.Id).ShouldAllBe(t => t == _timeZoneProvider);
             }
         }
     }
