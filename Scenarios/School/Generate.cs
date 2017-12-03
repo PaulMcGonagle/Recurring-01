@@ -123,7 +123,7 @@ namespace School
 
             var calendar = new Calendar.Builder
             {
-                Dates = new EdgeVertexs<IDate>(),
+                Episodes = new EdgeVertexs<IEpisode>(),
                 Description = "Personal calendar from Google",
             }.Build();
 
@@ -161,6 +161,12 @@ namespace School
             var episode = serial
                 .GenerateEpisodes(_clock)
                 .ToArray();
+
+            var calendar = new Calendar.Builder
+            {
+                Description = "My personal calendar",
+                Episodes = new EdgeVertexs<IEpisode>(episode),
+            }.Build();
         }
     }
 }

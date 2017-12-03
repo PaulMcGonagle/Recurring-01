@@ -9,14 +9,14 @@ namespace Scheduler.Calendars
     public class Calendar : Vertex, ICalendar
     {
         [IgnoreDataMember]
-        public IEdgeVertexs<IDate> Dates { get; set; }
+        public IEdgeVertexs<IEpisode> Episodes { get; set; }
 
         public string Description { get; set; }
 
         public override void Validate()
         {
             Guard.AgainstNullOrWhiteSpace(Description, nameof(Description));
-            Guard.AgainstNull(Dates, nameof(Dates));
+            Guard.AgainstNull(Episodes, nameof(Episodes));
         }
 
         #region Save
@@ -24,13 +24,13 @@ namespace Scheduler.Calendars
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<Calendar>(db);
-            Dates.Save(db, clock, this);
+            Episodes.Save(db, clock, this);
             base.Save(db, clock);
         }
 
         public override void Rehydrate(IArangoDatabase db)
         {
-            Dates = new EdgeVertexs<IDate>(Utilities.GetEdges<Date>(db, Id));
+            Episodes = new EdgeVertexs<IEpisode>(Utilities.GetEdges<IEpisode>(db, Id));
 
             base.Rehydrate(db);
         }
@@ -44,9 +44,9 @@ namespace Scheduler.Calendars
                 set => _target.Description = value;
             }
 
-            public EdgeVertexs<IDate> Dates
+            public EdgeVertexs<IEpisode> Episodes
             {
-                set => _target.Dates = value;
+                set => _target.Episodes = value;
             }
         }
     }
