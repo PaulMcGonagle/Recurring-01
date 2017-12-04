@@ -4,6 +4,6 @@ namespace Scheduler.Calendars
 {
     public interface ICalendar : IVertex
     {
-        IEdgeVertexs<IEpisode> Episodes { get; set; }
+        IEdgeVertexs<IEvent> Events { get; set; }
     }
 }

@@ -16,13 +16,11 @@ namespace Generators.XInstances
                 .RetrieveDates(clock, caches, elementsName)
                 .ToList();
 
-            var dateList = new Schedule.Builder
-            {
-                ScheduleInstance = new ByDateList.Builder
-                {
-                    Items = new EdgeVertexs<IDate>(dates)
-                }.Build()
-            }.Build();
+            var dateList = new Schedule(
+                new ByDateList.Builder
+                    {
+                        Items = new EdgeVertexs<IDate>(dates)
+                    }.Build());
 
             dateList.Connect(xDateList.RetrieveTags(caches, elementsName));
 

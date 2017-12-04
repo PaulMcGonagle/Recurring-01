@@ -102,14 +102,19 @@ namespace Scheduler.ScheduleInstances
                 set => _target.Inclusions = value;
             }
 
-            public void SetInclusion(ISchedule inclusion)
+            public ISchedule Inclusion
             {
-                Inclusions = new EdgeVertexs<ISchedule>(inclusion);
+                set => Inclusions = new EdgeVertexs<ISchedule>(value);
             }
 
             public IEdgeVertexs<ISchedule> Exclusions
             {
                 set => _target.Exclusions = value;
+            }
+
+            public ISchedule Exclusion
+            {
+                set => Exclusions = new EdgeVertexs<ISchedule>(value);
             }
 
             public IEdgeVertexs<IRangeDate> Breaks

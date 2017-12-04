@@ -123,7 +123,7 @@ namespace School
 
             var calendar = new Calendar.Builder
             {
-                Episodes = new EdgeVertexs<IEpisode>(),
+                Events = new EdgeVertexs<IEvent>(),
                 Description = "Personal calendar from Google",
             }.Build();
 
@@ -136,7 +136,7 @@ namespace School
 
         public void GenerateEpisodes()
         {
-            var scheduleInstance = new ByWeekdays.Builder
+            var schedule = new Schedule(new ByWeekdays.Builder
             {
                 Weekdays = new[] {IsoDayOfWeek.Tuesday,},
                 RangeDate = new RangeDate.Builder
@@ -144,17 +144,19 @@ namespace School
                     Start = new Date(2017, YearMonth.MonthValue.November, 03),
                     End = new Date(2017, YearMonth.MonthValue.December, 18),
                 }.Build(),
-            }.Build();
-
-            var schedule = new Schedule.Builder
-            {
-                ScheduleInstance = scheduleInstance,
-            }.Build();
+            }.Build());
 
             var serial = new Serial.Builder
             {
                 EdgeSchedule = new EdgeSchedule(schedule),
-                RangeTime = new EdgeRangeTime(new LocalTime(18, 00), new PeriodBuilder {Hours = 1}.Build()),
+                RangeTime = new RangeTime.Builder
+                    {
+                        Start = new LocalTime(18, 00),
+                        Period = new PeriodBuilder
+                        {
+                            Hours = 1
+                        }.Build()
+                    }.Build(),
                 TimeZoneProvider = "Europe/London",
             }.Build();
 
@@ -162,10 +164,18 @@ namespace School
                 .GenerateEpisodes(_clock)
                 .ToArray();
 
+            var @event = new Event.Builder
+            {
+                Serial =  serial,
+                Location = new EdgeVertex<ILocation>(new Location()),
+                Instance = new Instance(),
+                Title = "an occassion"
+            }.Build();
+
             var calendar = new Calendar.Builder
             {
                 Description = "My personal calendar",
-                Episodes = new EdgeVertexs<IEpisode>(episode),
+                Events = new EdgeVertexs<IEvent>(@event),
             }.Build();
         }
     }

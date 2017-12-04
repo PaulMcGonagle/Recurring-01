@@ -33,9 +33,7 @@ namespace Scheduler.Test
                         {
                             new Serial.Builder
                             {
-                                EdgeSchedule = new EdgeSchedule(new Schedule.Builder
-                                {
-                                    ScheduleInstance = new ByDateList.Builder
+                                Schedule = new Schedule(new ByDateList.Builder
                                     {
                                         Items = new EdgeVertexs<IDate>()
                                         {
@@ -44,8 +42,12 @@ namespace Scheduler.Test
                                             new EdgeVertex<IDate>(new Date(2016, YearMonth.MonthValue.January, 07)),
                                         }
                                     }.Build()
-                                }.Build()),
-                                RangeTime = new EdgeRangeTime(new LocalTime(15, 30), new PeriodBuilder {Hours = 00, Minutes = 30,}.Build()),
+                                ),
+                                RangeTime = new RangeTime.Builder
+                                {
+                                    Start = new LocalTime(15, 30),
+                                    Period = new PeriodBuilder { Minutes = 30 }.Build(),
+                                }.Build(),                                
                                 TimeZoneProvider = timeZoneProvider
                             },
                             fakeClock,
@@ -117,13 +119,11 @@ namespace Scheduler.Test
                         {
                             new Serial.Builder
                             {
-                                EdgeSchedule = new EdgeSchedule(new Schedule.Builder
-                                {
-                                    ScheduleInstance = new ByDateList.Builder
+                                Schedule = new Schedule(new ByDateList.Builder
                                     {
                                         Items = new EdgeVertexs<IDate>(),
                                     }.Build()
-                                }.Build()),
+                                ),
                                 TimeZoneProvider = timeZoneProvider,
                             },
                             fakeClock,
@@ -132,16 +132,16 @@ namespace Scheduler.Test
                         {
                             new Serial.Builder
                             {
-                                EdgeSchedule = new EdgeSchedule(new Schedule.Builder
-                                {
-                                    ScheduleInstance = new ByDateList.Builder
+                                Schedule = new Schedule(new ByDateList.Builder
                                     {
                                         Items = new EdgeVertexs<IDate>(),
                                     }.Build()
-                                }.Build()),
-                                RangeTime = new EdgeRangeTime(
-                                    start: new LocalTime(15, 30),
-                                    period: new PeriodBuilder { Minutes = 30 }.Build()),
+                                ),
+                                RangeTime = new RangeTime.Builder
+                                    {
+                                        Start = new LocalTime(15, 30),
+                                        Period = new PeriodBuilder { Minutes = 30 }.Build()
+                                    }.Build(),
                             },
                             fakeClock,
                             "TimeZoneProvider"
@@ -149,9 +149,11 @@ namespace Scheduler.Test
                         {
                             new Serial.Builder
                             {
-                                RangeTime = new EdgeRangeTime(
-                                    start: new LocalTime(15, 30),
-                                    period: new PeriodBuilder { Minutes = 30 }.Build()),
+                                RangeTime = new RangeTime.Builder
+                                    {
+                                        Start = new LocalTime(15, 30),
+                                        Period = new PeriodBuilder { Minutes = 30 }.Build(),
+                                    }.Build(),
                                 TimeZoneProvider = timeZoneProvider,
                             },
                             fakeClock,

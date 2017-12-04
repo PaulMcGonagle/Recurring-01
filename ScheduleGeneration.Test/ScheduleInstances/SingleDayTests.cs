@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ArangoDB.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,7 +9,7 @@ using Scheduler.Calendars;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleInstances;
-using Scheduler.Test;
+using Scheduler.Users;
 using Shouldly;
 using TestHelpers;
 using TestStack.BDDfy;
@@ -39,16 +38,14 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 )
                 {
                     {
-                        new Schedule.Builder
-                        {
-                            ScheduleInstance = new SingleDay.Builder
+                        new Schedule(
+                            new SingleDay.Builder
                             {
                                 Date = new Date(2016, YearMonth.MonthValue.January, 01)
-                            }.Build(),
-                        }.Build(),
+                            }.Build()),
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15))
-                    },
+                    }
                 }).BDDfy();
             }
 
@@ -97,20 +94,26 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 )
                 {
                     {
-                        Event.Create(
-                            schedule: new Schedule.Builder
+                        new Event.Builder
                             {
-                                ScheduleInstance = new SingleDay.Builder
-                                {
-                                    Date = new Date(2016, YearMonth.MonthValue.January, 01)
-                                }.Build(),
+                                Serial = new Serial.Builder
+                                    {
+                                        Schedule = new Schedule(
+                                            new SingleDay.Builder
+                                                {
+                                                    Date = new Date(2016, YearMonth.MonthValue.January, 01)
+                                                }.Build()),
+                                        RangeTime = new RangeTime.Builder
+                                            {
+                                                Start = new LocalTime(16, 30),
+                                                Period = new PeriodBuilder {Minutes = 45}.Build()
+                                            }.Build(),
+                                        TimeZoneProvider = "Europe/London"
+                                    }.Build(),
+                                Instance = new Instance(),
+                                Location = new EdgeVertex<ILocation>(new Location()),
+                                Title = "new title"
                             }.Build(),
-                            rangeTime: new RangeTime.Builder
-                            {
-                                Start = new LocalTime(16, 30),
-                                Period = new PeriodBuilder {Minutes = 45}.Build()
-                            }.Build(),
-                            timeZoneProvider: "Europe/London"),
                         mockDb.Object,
                         new FakeClock(Instant.FromUtc(2016, 12, 03, 12, 15)),
                         new List<LocalDateTime> { new LocalDateTime(2016, 01, 01, 16, 30) }

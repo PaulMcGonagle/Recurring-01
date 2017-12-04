@@ -12,10 +12,10 @@ namespace Scheduler.Ranges
     public class RangeDate : Vertex, IRangeDate
     {
         [IgnoreDataMember]
-        public EdgeDate Start { get; set; }
+        public IEdgeDate Start { get; set; }
 
         [IgnoreDataMember]
-        public EdgeDate End { get; set; }
+        public IEdgeDate End { get; set; }
 
         public override string ToString()
         {
@@ -49,12 +49,22 @@ namespace Scheduler.Ranges
         {
             public IDate Start
             {
-                set => _target.Start = new EdgeDate(value);
+                set => EdgeStart = new EdgeDate(value);
+            }
+
+            public IEdgeDate EdgeStart
+            {
+                set => _target.Start = value;
             }
 
             public IDate End
             {
                 set => _target.End = new EdgeDate(value);
+            }
+
+            public IEdgeDate EdgeEnd
+            {
+                set => _target.End = value;
             }
         }
     }

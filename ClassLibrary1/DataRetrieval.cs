@@ -17,7 +17,7 @@ namespace TestData
         private static Dictionary<string, IDate> _dates;
         private static Dictionary<string, RangeDate> _ranges;
         private static Dictionary<string, Organisation> _organisations;
-
+/*
         public static Dictionary<string, ISchedule> GetScheduleArchive(IClock clock)
         {
             if (_scheduleArchive != null) return _scheduleArchive;
@@ -26,18 +26,17 @@ namespace TestData
             {
                 {
                     "Schools.Term.201617.Autumn",
-                    new Schedule
-                    {
-                        ScheduleInstance = new ByWeekdays
-                        {
-                            EdgeRangeDate = new EdgeRangeDate(new RangeDate.Builder
+                    new Schedule(
+                        new ByWeekdays.Builder
                             {
-                                Start = Dates["Schools.Term.201617.Autumn.Start"],
-                                End = Dates["Schools.Term.201617.Autumn.End"]
-                            }.Build()),
-                            Weekdays = DayRanges["Weekdays"],
-                        }
-                    }
+                                RangeDate = new RangeDate.Builder
+                                    {
+                                        Start = Dates["Schools.Term.201617.Autumn.Start"],
+                                        End = Dates["Schools.Term.201617.Autumn.End"]
+                                    }.Build(),
+                                Weekdays = DayRanges["Weekdays"],
+                            }.Build()
+                        )
                 },
                 {
                     "Schools.Term.201617.Autumn.1",
@@ -186,7 +185,7 @@ namespace TestData
 
             return _scheduleArchive;
         }
-
+*/
         public static Dictionary<string, Organisation> Organisations
         {
             get
@@ -208,7 +207,7 @@ namespace TestData
                         new Organisation
                         {
                             Title = "Lords Cricket Academy",
-                            Location = new EdgeVertex<Location>(new Location
+                            Location = new EdgeVertex<ILocation>(new Location
                             {
                                 Address = "St Johns Wood",
                             })

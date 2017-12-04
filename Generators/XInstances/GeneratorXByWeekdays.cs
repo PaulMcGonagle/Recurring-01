@@ -26,25 +26,18 @@ namespace Generators.XInstances
 
             foreach (var rangeDate in rangeDates)
             {
-                var byOffset = new Schedule.Builder
-                {
-                    ScheduleInstance = new ByWeekdays.Builder
+                var byOffset = new Schedule(new ByWeekdays.Builder
                     {
                         Weekdays = weekdays,
                         RangeDate = rangeDate
-                    }.Build()
-                }.Build();
+                    }.Build());
 
                 compositeSchedule
                     .Inclusions
                     .Add(new EdgeSchedule(byOffset));
             }
 
-            var schedule = new Schedule.Builder
-            {
-                ScheduleInstance = compositeSchedule,
-            }.Build();
-
+            var schedule = new Schedule(compositeSchedule);
 
             schedule.Connect(xByWeekdays.RetrieveTags(caches, elementsName));
 

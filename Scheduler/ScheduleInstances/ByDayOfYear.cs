@@ -37,9 +37,6 @@ namespace Scheduler.ScheduleInstances
 
         public override void Validate()
         {
-            //do not validate base. EdgeRange may be null
-            //base.Validate();
-
             if (!DayOfYear.HasValue)
                 throw new ArgumentOutOfRangeException(nameof(DayOfYear), "Must have value");
 

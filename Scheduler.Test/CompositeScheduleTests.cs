@@ -24,13 +24,10 @@ namespace Scheduler.Test
                 this.WithExamples(new ExampleTable("sut", "clock", "expectedFirstDate", "expectedLastDate", "excludedIsoDayOfWeeks")
                     {
                         {
-                            new CompositeSchedule
+                            new CompositeSchedule.Builder
                             {
-                                Inclusions = new EdgeVertexs<ISchedule>
-                                {
-                                    new EdgeVertex<ISchedule>(new Schedule
-                                    {
-                                        ScheduleInstance = new ByDateList.Builder
+                                Inclusion = new Schedule(
+                                    new ByDateList.Builder
                                         {
                                             Items = new EdgeVertexs<IDate>(
                                                 DateTimeHelper.Range
@@ -39,14 +36,9 @@ namespace Scheduler.Test
                                                     end: new Date(2016, YearMonth.MonthValue.January, 31)
                                                 ).Where(d => d.IsoDayOfWeek == IsoDayOfWeek.Monday).ToList()
                                             ),
-                                        }.Build(),
-                                    }),
-                                },
-                                Exclusions = new EdgeVertexs<ISchedule>()
-                                {
-                                    new EdgeVertex<ISchedule>(new Schedule
-                                    {
-                                        ScheduleInstance = new ByDateList.Builder
+                                        }.Build()),
+                                Exclusion = new Schedule(
+                                    new ByDateList.Builder
                                         {
                                             Items = new EdgeVertexs<IDate>(
                                                 DateTimeHelper.Range
@@ -55,10 +47,8 @@ namespace Scheduler.Test
                                                     end: new Date(2016, YearMonth.MonthValue.January, 15)
                                                 ).Where(d => d.IsoDayOfWeek == IsoDayOfWeek.Monday).ToList()
                                             ),
-                                        }.Build(),
-                                    }),
-                                },
-                            },
+                                        }.Build()),
+                            }.Build(),
                             new FakeClock(Instant.FromUtc(2017, 04, 02, 03, 30, 00)),
                             new Date(2016, YearMonth.MonthValue.January, 18),
                             new Date(2016, YearMonth.MonthValue.January, 25),

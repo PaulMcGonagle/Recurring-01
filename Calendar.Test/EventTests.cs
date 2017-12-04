@@ -2,11 +2,13 @@
 using Shouldly;
 using NodaTime;
 using Scheduler;
+using Scheduler.Calendars;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Test;
+using Scheduler.Users;
 using TestStack.BDDfy;
 using Xunit;
 using Event = Scheduler.Event;
@@ -31,33 +33,30 @@ namespace Calendar.Test
                 this.WithExamples(new ExampleTable("sut", "clock", "expectedWeekday", "expectedStartTime", "expectedEndTime")
                     {
                         {
-                            new Event
+                            new Event.Builder
                             {
-                                Serials = new EdgeVertexs<ISerial>(
-                                    toVertex: new Serial(
-                                        schedule:
-                                            new Schedule.Builder
+                                Serial = new Serial.Builder
+                                    {
+                                        Schedule = new Schedule(new ByWeekdays.Builder
                                             {
-                                                ScheduleInstance = new ByWeekdays.Builder
+                                                Weekdays = new []{ IsoDayOfWeek.Thursday, },
+                                                RangeDate = new RangeDate.Builder
                                                 {
-                                                     Weekdays = new []{ IsoDayOfWeek.Thursday, },
-                                                     RangeDate = new RangeDate.Builder
-                                                     {
-                                                         Start = new Date(2016, YearMonth.MonthValue.January, 01),
-                                                         End = new Date(2016, YearMonth.MonthValue.March, 31),
-                                                     }.Build(),
+                                                    Start = new Date(2016, YearMonth.MonthValue.January, 01),
+                                                    End = new Date(2016, YearMonth.MonthValue.March, 31),
                                                 }.Build(),
-                                            }.Build(),
-                                        rangeTime: new EdgeRangeTime(
-                                            new RangeTime.Builder
+                                            }.Build()),
+                                        RangeTime = new RangeTime.Builder
                                             {
                                                 Start = new LocalTime(16, 45),
-                                                Period = new PeriodBuilder { Minutes = 45}.Build(),
-                                            }.Build()),
-                                        timeZoneProvider: TimeZoneProvider)
-                                    ),
+                                                Period = new PeriodBuilder { Minutes = 45 }.Build(),
+                                            }.Build(),
+                                        TimeZoneProvider = TimeZoneProvider,
+                                    }.Build(),
                                 Title = "Street dance",
-                            },
+                                Location = new EdgeVertex<ILocation>(new Location()),
+                                Instance = new Instance()
+                            }.Build(),
                             fakeClock,
                             IsoDayOfWeek.Thursday,
                             new LocalTime(16, 45),
@@ -116,16 +115,19 @@ namespace Calendar.Test
                         {
                             new Event
                             {
-                                Serials = new EdgeVertexs<ISerial>(new Serial(
-                                    schedule: new Schedule.Builder
-                                        {
-                                            ScheduleInstance = new SingleDay.Builder
+                                Serials = new EdgeVertexs<ISerial>(new Serial.Builder
+                                {
+                                    Schedule = new Schedule(new SingleDay.Builder
                                             {
                                                 Date = new Scheduler.Date(2016, YearMonth.MonthValue.July, 01),
-                                            }.Build(),
+                                            }.Build()),
+                                    RangeTime = new RangeTime.Builder
+                                        {
+                                            Start = new LocalTime(14, 00),
+                                            Period = new PeriodBuilder { Minutes = 1 }.Build()
                                         }.Build(),
-                                    rangeTime: new EdgeRangeTime(new LocalTime(14, 00), new PeriodBuilder { Minutes = 1 }.Build()),
-                                    timeZoneProvider: "Europe/London")),
+                                    TimeZoneProvider = "Europe/London",
+                                }.Build()),
                                 Title = "Street dance",
                             },
                             fakeClock,

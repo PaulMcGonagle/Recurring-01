@@ -58,13 +58,11 @@ namespace Scheduler.Test
 
             var dateList = new ByDateList();
 
-            ISchedule schedule = new Schedule.Builder
-            {
-                ScheduleInstance = new ByDateList.Builder
+            ISchedule schedule = new Schedule(new ByDateList.Builder
                 {
                     Items = new EdgeVertexs<IDate>(_holidays),
                 }.Build()
-            }.Build();
+            );
 
             _term.Exclusions.Add(new EdgeVertex<ISchedule>(schedule));
         }
@@ -91,9 +89,8 @@ namespace Scheduler.Test
             {
                 Inclusions = new EdgeVertexs<ISchedule>
                 {
-                    new EdgeVertex<ISchedule>(new Schedule.Builder
-                    {
-                        ScheduleInstance = new ByWeekdays
+                    new EdgeVertex<ISchedule>(new Schedule(
+                        new ByWeekdays
                         {
                             Weekdays = ScheduleTestHelper.Weekdays,
                             EdgeRangeDate = new EdgeRangeDate
@@ -101,7 +98,7 @@ namespace Scheduler.Test
                                 new Date(2016, YearMonth.MonthValue.September, 06),
                                 new Date(2016, YearMonth.MonthValue.December, 19)),
                         }
-                    }.Build())
+                    ))
                 },
             };
         }

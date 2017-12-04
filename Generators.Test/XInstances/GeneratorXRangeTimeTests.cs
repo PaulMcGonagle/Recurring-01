@@ -30,13 +30,13 @@ namespace Generators.Test.XInstances
                     "expectedExceptionMessage"
                 )
                 {
-                    //{
-                    //    new XDocument(
-                    //        new XElement("rangeTime",
-                    //            new XAttribute("start", "08:30"))),
-                    //    typeof(ArgumentNullException),
-                    //    "Value cannot be null.\r\nParameter name: end"
-                    //},
+                    {
+                        new XDocument(
+                            new XElement("rangeTime",
+                                new XAttribute("start", "08:30"))),
+                        typeof(KeyNotFoundException),
+                        $"No Attribute found matching name 'period'"
+                    },
                     {
                         new XDocument(
                             new XElement("rangeTime",
@@ -44,14 +44,14 @@ namespace Generators.Test.XInstances
                         typeof(NodaTime.Text.UnparsableValueException),
                         null
                     },
-                    //{
-                    //    new XDocument(
-                    //        new XElement("rangeTime",
-                    //            new XAttribute("start", "08:30"),
-                    //            new XAttribute("end", "09:15"))),
-                    //    null,
-                    //    "Value cannot be null.\r\nParameter name: start"
-                    //},
+                    {
+                        new XDocument(
+                            new XElement("rangeTime",
+                                new XAttribute("start", "08:30"),
+                                new XAttribute("end", "09:15"))),
+                        null,
+                        "Value cannot be null.\r\nParameter name: start"
+                    },
                 }).BDDfy();
             }
 

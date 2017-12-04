@@ -103,10 +103,7 @@ namespace Generators.XInstances
                 }
             }
 
-            var wrapperSchedule = new Schedule.Builder
-            {
-                ScheduleInstance = compositeSchedule,
-            }.Build();
+            var wrapperSchedule = new Schedule(compositeSchedule);
 
             wrapperSchedule
                 .Connect(xCompositeSchedule

@@ -18,7 +18,7 @@ namespace Scheduler.ScheduleInstances
             yield return Date;
         }
 
-        public class Builder : ScheduleInstance.Builder<SingleDay>
+        public class Builder : Builder<SingleDay>
         {
             public Date Date
             {

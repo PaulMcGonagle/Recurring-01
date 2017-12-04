@@ -10,6 +10,7 @@ using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Test;
+using Scheduler.Users;
 using Shouldly;
 using TestHelpers;
 using TestStack.BDDfy;
@@ -39,26 +40,31 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                 )
                 {
                     {
-                       Event.Create(
-                            schedule: new Schedule.Builder
+                        new Event.Builder
                             {
-                                ScheduleInstance = new ByWeekdays.Builder
-                                {
-                                    Weekdays = new List<IsoDayOfWeek> { IsoDayOfWeek.Wednesday },
-                                    RangeDate = new RangeDate.Builder
-                                    { 
-                                        Start = new Date(2016, YearMonth.MonthValue.February, 20),
-                                        End = new Date(2016, YearMonth.MonthValue.May, 15)
-                                    }.Build(),
-                                }.Build()
+                                Serial = new Serial.Builder
+                                    {
+                                        Schedule = new Schedule(
+                                            new ByWeekdays.Builder
+                                                {
+                                                    Weekdays = new List<IsoDayOfWeek> { IsoDayOfWeek.Wednesday },
+                                                    RangeDate = new RangeDate.Builder
+                                                    { 
+                                                        Start = new Date(2016, YearMonth.MonthValue.February, 20),
+                                                        End = new Date(2016, YearMonth.MonthValue.May, 15)
+                                                    }.Build(),
+                                                }.Build()),
+                                        RangeTime = new RangeTime.Builder
+                                            {
+                                                Start = new LocalTime(16, 30),
+                                                Period = new PeriodBuilder {Minutes = 45}.Build()
+                                            }.Build(),
+                                        TimeZoneProvider = "Europe/London",
+                                   }.Build(),
+                                Instance = new Instance(),
+                                Location = new EdgeVertex<ILocation>(new Location()),
+                                Title = "new title"
                             }.Build(),
-                            rangeTime: new RangeTime.Builder
-                            {
-                                Start = new LocalTime(16, 30),
-                                Period = new PeriodBuilder {Minutes = 45}.Build()
-                            }.Build(),
-                            timeZoneProvider: "Europe/London",
-                            location: TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                         mockDb.Object,
                         ScheduleTestHelper.GetFakeClock(2016, 12, 03, 12, 15),
 
@@ -137,28 +143,34 @@ namespace ScheduleGeneration.Test.ScheduleInstances
             )
                 {
                     {
-                       Event.Create(
-                            schedule: new Schedule.Builder
+                        new Event.Builder
                             {
-                                ScheduleInstance = new ByWeekdays.Builder
-                                {
-                                    Weekdays = new List<IsoDayOfWeek>() { IsoDayOfWeek.Wednesday, },
-                                    EdgeRangeDate =
-                                        new EdgeRangeDate(
-                                            start: new Date(2016, YearMonth.MonthValue.February, 20),
-                                            end: new Date(2016, YearMonth.MonthValue.May, 15)),
-                                }.Build(),
+                                Serial = new Serial.Builder
+                                    {
+                                        Schedule = new Schedule(
+                                            new ByWeekdays.Builder
+                                                {
+                                                    Weekdays = new List<IsoDayOfWeek>() { IsoDayOfWeek.Wednesday, },
+                                                    EdgeRangeDate =
+                                                        new EdgeRangeDate(
+                                                            start: new Date(2016, YearMonth.MonthValue.February, 20),
+                                                            end: new Date(2016, YearMonth.MonthValue.May, 15)),
+                                                }.Build()
+                                            ),
+                                        RangeTime = new RangeTime.Builder
+                                            {
+                                                Start = new LocalTime(16, 30),
+                                                Period = new PeriodBuilder
+                                                {
+                                                    Minutes = 45
+                                                }.Build()
+                                            }.Build(),
+                                        TimeZoneProvider = "Europe/London",
+                                    }.Build(),
+                                Location = TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location,
+                                Instance = new Instance(),
+                                Title = "new title"
                             }.Build(),
-                            rangeTime: new RangeTime.Builder
-                            {
-                                Start = new LocalTime(16, 30),
-                                Period = new PeriodBuilder
-                                {
-                                    Minutes = 45
-                                }.Build()
-                            }.Build(),
-                            timeZoneProvider: "Europe/London",
-                            location: TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex),
                         mockDb.Object,
                         ScheduleTestHelper.GetFakeClock(2016, 12, 03, 12, 15),
 

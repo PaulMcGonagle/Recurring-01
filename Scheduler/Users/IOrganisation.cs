@@ -5,8 +5,8 @@ namespace Scheduler.Users
 {
     public interface IOrganisation : IVertex
     {
-        List<Event> Events { get; set; }
-        EdgeVertex<Location> Location { get; set; }
+        List<IEvent> Events { get; set; }
+        EdgeVertex<ILocation> Location { get; set; }
         string Title { get; set; }
     }
 }

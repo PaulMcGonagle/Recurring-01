@@ -9,7 +9,10 @@ namespace Scheduler
 {
     public class Schedule : Vertex, ISchedule
     {
-        private string _instanceSerialized;
+        public Schedule(ScheduleInstance scheduleInstance)
+        {
+            ScheduleInstance = scheduleInstance;
+        }
 
         public virtual IEnumerable<IDate> Generate(IClock clock)
         {
@@ -18,18 +21,14 @@ namespace Scheduler
 
         public string TypeName => GetType().FullName;
 
-        public string InstanceSerialized
-        {
-            get { return _instanceSerialized; }
-            set { _instanceSerialized = value; }
-        }
+        public string InstanceSerialized { get; set; }
 
         [IgnoreDataMember]
         public IScheduleInstance ScheduleInstance { get; set; }
 
         public void SerializeInstance()
         {
-            _instanceSerialized = Transfer.Serialize(ScheduleInstance);
+            InstanceSerialized = Transfer.Serialize(ScheduleInstance);
         }
 
         public void DeserializeInstance()
@@ -38,29 +37,29 @@ namespace Scheduler
             switch (TypeName)
             {
                 case "Scheduler.CompositeSchedule":
-                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.CompositeSchedule>(_instanceSerialized);
+                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.CompositeSchedule>(InstanceSerialized);
                     break;
                 case "ScheduleInstances.ByDateList":
-                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByDateList>(_instanceSerialized);
+                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByDateList>(InstanceSerialized);
                     break;
                 case "Scheduler.ByDayOfMonth":
-                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByDayOfMonth>(_instanceSerialized);
+                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByDayOfMonth>(InstanceSerialized);
                     break;
                 case "Scheduler.ByDayOfYear":
-                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByDayOfYear>(_instanceSerialized);
+                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByDayOfYear>(InstanceSerialized);
                     break;
                 case "Scheduler.ByOffset":
-                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByOffset>(_instanceSerialized);
+                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByOffset>(InstanceSerialized);
                     break;
                 case "Scheduler.ByRangeDate":
-                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByRangeDate>(_instanceSerialized);
+                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByRangeDate>(InstanceSerialized);
                     break;
                     break;
                 case "Scheduler.ByWeekdays":
-                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByWeekdays>(_instanceSerialized);
+                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByWeekdays>(InstanceSerialized);
                     break;
                 case "Scheduler.SingleDay":
-                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.SingleDay>(_instanceSerialized);
+                    ScheduleInstance = Transfer.Deserialize<ScheduleInstances.SingleDay>(InstanceSerialized);
                     break;
                 default:
                     throw new KeyNotFoundException(TypeName);
@@ -89,14 +88,6 @@ namespace Scheduler
 
 
             base.Rehydrate(db);
-        }
-
-        public class Builder : Builder<Schedule>
-        {
-            public IScheduleInstance ScheduleInstance
-            {
-                set => _target.ScheduleInstance = value;
-            }
         }
     }
 }

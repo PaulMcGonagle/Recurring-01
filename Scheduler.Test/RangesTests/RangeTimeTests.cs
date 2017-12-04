@@ -143,13 +143,13 @@ namespace Scheduler.Test.RangesTests
                     "SUT",
                     "expectedException")
                 {
-                    //{
-                    //    new RangeTime.Builder
-                    //    {
-                    //        Start = timeEarlier
-                    //    },
-                    //    new ArgumentNullException(nameof(_rangeTimeBuilder.Period))
-                    //},
+                    {
+                        new RangeTime.Builder
+                        {
+                            Start = timeEarlier
+                        },
+                        new ArgumentNullException(nameof(_rangeTimeBuilder.Period))
+                    },
                     {
                         new RangeTime.Builder
                         {
@@ -157,14 +157,16 @@ namespace Scheduler.Test.RangesTests
                         },
                         new ArgumentNullException(nameof(_rangeTimeBuilder.Start))
                     },
-                    //{
-                    //    new RangeTime.Builder
-                    //    {
-                    //        Start = timeLater,
-                    //        End = timeEarlier
-                    //    },
-                    //    new ArgumentOutOfRangeException(nameof(_rangeTime.Period))
-                    //},
+                    {
+                        new RangeTime.Builder
+                        {
+                            Start = timeLater,
+                            End = timeEarlier
+                        },
+                        new ArgumentOutOfRangeException(
+                            nameof(_rangeTime.Period), 
+                            $"Period duration cannot be negative. Period: {Period.Between(timeLater, timeEarlier)}, duration.Ticks: {Period.Between(timeLater, timeEarlier).ToDuration().Ticks})")
+                    },
                 }).BDDfy();
             }
 

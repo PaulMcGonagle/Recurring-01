@@ -12,10 +12,10 @@ namespace Scheduler.Users
         public string Title { get; set; }
 
         [IgnoreDataMember]
-        public EdgeVertex<Location> Location { get; set; }
+        public EdgeVertex<ILocation> Location { get; set; }
 
         [IgnoreDataMember]
-        public List<Event> Events { get; set; }
+        public List<IEvent> Events { get; set; }
 
         public override void Validate()
         {
@@ -38,7 +38,7 @@ namespace Scheduler.Users
 
             public Location Location
             {
-                set => _target.Location = new EdgeVertex<Location>(value);
+                set => _target.Location = new EdgeVertex<ILocation>(value);
             }
         }
     }

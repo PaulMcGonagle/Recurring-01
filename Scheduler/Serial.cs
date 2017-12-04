@@ -4,27 +4,13 @@ using ArangoDB.Client;
 using CoreLibrary;
 using NodaTime;
 using Scheduler.Persistance;
+using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 
 namespace Scheduler
 {
     public class Serial : Vertex, ISerial
     {
-        public Serial()
-        {
-
-        }
-
-        public Serial(
-            ISchedule schedule,
-            IEdgeRangeTime rangeTime,
-            string timeZoneProvider)
-        {
-            EdgeSchedule = new EdgeSchedule(schedule);
-            RangeTime = rangeTime;
-            TimeZoneProvider = timeZoneProvider;
-        }
-
         [IgnoreDataMember]
         public IEdgeSchedule EdgeSchedule { get; set; }
 
@@ -79,9 +65,14 @@ namespace Scheduler
                 set => _target.EdgeSchedule = value;
             }
 
-            public IEdgeRangeTime RangeTime
+            public ISchedule Schedule
             {
-                set => _target.RangeTime = value;
+                set => EdgeSchedule = new EdgeSchedule(value);
+            }
+
+            public IRangeTime RangeTime
+            {
+                set => _target.RangeTime = new EdgeRangeTime(value);
             }
 
             public string TimeZoneProvider

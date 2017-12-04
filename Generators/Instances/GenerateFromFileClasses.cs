@@ -89,7 +89,12 @@ namespace Generators.Instances
                         .AddRange(classTags);
 
                     serials
-                        .AddRange(xRangeTimes.Select(rt => new Serial(compositeSchedule, new EdgeRangeTime(rt), timeZoneProvider)));
+                        .AddRange(xRangeTimes.Select(rangeTime => new Serial.Builder
+                        { 
+                            Schedule = compositeSchedule,
+                            RangeTime = rangeTime,
+                            TimeZoneProvider = timeZoneProvider,
+                            }.Build()));
 
                     foreach (var serial in serials)
                     {

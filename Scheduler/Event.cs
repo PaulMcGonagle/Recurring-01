@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
@@ -7,9 +6,6 @@ using CoreLibrary;
 using NodaTime;
 using Scheduler.Calendars;
 using Scheduler.Persistance;
-using Scheduler.Ranges;
-using Scheduler.ScheduleEdges;
-using Scheduler.ScheduleInstances;
 using Scheduler.Users;
 
 namespace Scheduler
@@ -73,6 +69,15 @@ namespace Scheduler
             }
         }
 
+        public override void Validate()
+        {
+            Guard.AgainstNull(Location, nameof(Location));
+            Guard.AgainstNull(Serials, nameof(Serials));
+            Guard.AgainstNull(Instance, nameof(Instance));
+
+            Guard.AgainstNullOrWhiteSpace(Title, nameof(Title));
+        }
+
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<Event>(db);
@@ -93,30 +98,29 @@ namespace Scheduler
             base.Rehydrate(db);
         }
 
-        public static Event Create(ISchedule schedule, IRangeTime rangeTime, string timeZoneProvider, Location location = null)
+        public class Builder : Builder<Event>
         {
-            Guard.AgainstNull(schedule, nameof(schedule));
-            Guard.AgainstNull(rangeTime, nameof(rangeTime));
-            Guard.AgainstNullOrWhiteSpace(timeZoneProvider, nameof(timeZoneProvider));
-
-            return new Event
+            public string Title
             {
-                Serials = new EdgeVertexs<ISerial>(
-                    toVertex: new Serial(
-                        schedule: new Schedule.Builder
-                        {
-                            ScheduleInstance = new CompositeSchedule()
-                            {
-                                Inclusions = new EdgeVertexs<ISchedule>
-                                {
-                                    new EdgeVertex<ISchedule>(schedule),
-                                },
-                            },
-                        }.Build(),
-                        rangeTime: new EdgeRangeTime(rangeTime),
-                        timeZoneProvider: timeZoneProvider)),
-                Location = location != null ? new EdgeVertex<ILocation>(location) : null,
-            };
+                set => _target.Title = value;
+            }
+
+            public IInstance Instance
+            {
+                set => _target.Instance = new EdgeVertex<IInstance>(value);
+            }
+
+            public IEnumerable<ISerial> Serials
+            {
+                set => _target.Serials = new EdgeVertexs<ISerial>(value);
+            }
+
+            public Serial Serial {  set => Serials = new [] { value, };}
+
+            public IEdgeVertex<ILocation> Location
+            {
+                set => _target.Location = value;
+            }
         }
     }
 }

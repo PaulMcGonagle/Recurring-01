@@ -193,16 +193,16 @@ namespace Generators
                 dates.Add(date);
             }
 
-            //var xScheduleInstances = xInput
-            //    .Elements("dates")
-            //    .Elements("scheduleInstance");
+            var xScheduleInstances = xInput
+                .Elements("dates")
+                .Elements("scheduleInstance");
 
-            //foreach (var xScheduleInstance in xScheduleInstances)
-            //{
-            //    var schedule = RetrieveSchedule(xScheduleInstance, caches);
+            foreach (var xScheduleInstance in xScheduleInstances)
+            {
+                var schedule = RetrieveSchedule(xScheduleInstance, caches);
 
-            //    dates.AddRange(schedule.Generate(clock));
-            //}
+                dates.AddRange(schedule.Generate(clock));
+            }
 
             return dates;
         }
@@ -276,10 +276,7 @@ namespace Generators
 
                     ((ByOffset)scheduleInstance).CountTo = count;
 
-                    schedule = new Schedule.Builder
-                    {
-                        ScheduleInstance = scheduleInstance,
-                    }.Build();
+                    schedule = new Schedule(scheduleInstance);
 
                     break;
                 }

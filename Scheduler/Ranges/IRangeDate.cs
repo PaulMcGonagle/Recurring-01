@@ -6,11 +6,9 @@ namespace Scheduler.Ranges
 {
     public interface IRangeDate : IVertex
     {
-        EdgeDate Start { get; }
-        EdgeDate End { get; }
+        IEdgeDate Start { get; }
+        IEdgeDate End { get; }
 
         bool Contains(LocalDate localDate);
-
-        void Validate();
     }
 }
