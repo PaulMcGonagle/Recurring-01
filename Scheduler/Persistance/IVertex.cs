@@ -42,9 +42,9 @@ namespace Scheduler.Persistance
 
         ITag Connect(ITag connectTag);
 
-        #endregion Tags
-
         EdgeVertexs<ITag> Tags { get; set; }
+
+        #endregion Tags
 
         void Validate();
 

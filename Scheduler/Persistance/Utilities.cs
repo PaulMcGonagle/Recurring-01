@@ -32,5 +32,19 @@ namespace Scheduler.Persistance
 
             return result;
         }
+
+        public static IEnumerable<T> GetByTag<T>(this IEnumerable<T> vertexs, string ident = null, string value = null) where T : IVertex
+        {
+            return vertexs
+                .Where(vertex => vertex
+                    .Tags
+                    .Any(tag => (tag.ToVertex.Ident == ident || ident == null) && (tag.ToVertex.Value == value || value == null)));
+        }
+
+        public static IEnumerable<T> GetToVertexs<T>(this IEnumerable<IEdgeVertex<T>> edgeVertexs) where T : IVertex
+        {
+            return edgeVertexs
+                .Select(ev => ev.ToVertex);
+        }
     }
 }

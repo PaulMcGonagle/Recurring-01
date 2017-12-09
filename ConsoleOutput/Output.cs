@@ -84,7 +84,7 @@ namespace ConsoleOutput
             }
         }
 
-        public static void DisplayList(IEpisodes episodes)
+        public static void DisplayList(IEnumerable<IEpisode> episodes)
         {
             if (episodes == null)
             {
@@ -94,7 +94,7 @@ namespace ConsoleOutput
 
             foreach (var episode in episodes)
             {
-                WriteLine(episode.ToString());
+                WriteLine($"Episode, start {episode.Start}, period: {episode.Period}");
             }
         }
 

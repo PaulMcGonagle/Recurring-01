@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
   <generator name="Holiday Calendars">
     <calendars>
-      <calendar name="UK Public Holidays">
-        <schedule>
+      <calendar>
+        <schedule name="UK Public Holidays">
           <inclusions>
             <byDateList>
               <date value="2017-12-25">
@@ -17,6 +17,11 @@
               </date>
               <date value="2018-01-01">
                 <reference path="./generator/calendars/tags/tag[@id='category']"/>
+              </date>
+              <date value="2018-05-07">
+                <tags>
+                  <tag id="name" value="May Day 2017"/>
+                </tags>
               </date>
             </byDateList>
           </inclusions>

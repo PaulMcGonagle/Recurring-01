@@ -8,6 +8,8 @@ namespace Scheduler
 
         string GeneratorType { get; set; }
 
+        IEdgeVertexs<IVertex> Caches { get; set; }
+        
         IEdgeVertexs<ISchedule> Schedules { get; set; }
     }
 }

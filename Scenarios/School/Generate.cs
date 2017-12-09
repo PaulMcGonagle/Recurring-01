@@ -15,13 +15,14 @@ namespace School
 {
     public class Generate
     {
-        private IArangoDatabase _db;
-        private IClock _clock;
+        private readonly IArangoDatabase _db;
+        private readonly IClock _clock;
 
-        private IGeneratorSource _generatorSource;
-        private ISchedule _years;
-        private IEnumerable<ISchedule> _terms;
-        private ISchedule _holidays;
+        public IGeneratorSource GeneratorSource { get; private set; }
+        public IList<ISchedule> Years { get; } = new List<ISchedule>();
+        public IList<ISchedule> Terms { get; } = new List<ISchedule>();
+        public IList<ISchedule> Holidays { get; } = new List<ISchedule>();
+        public IList<ICalendar> Calendars { get; } = new List<ICalendar>();
 
         public Generate(IArangoDatabase db, IClock clock)
         {
@@ -31,20 +32,20 @@ namespace School
 
         public void Go()
         {
-            //GenerateYears();
-            //GenerateTerms();
-            //GenerateHolidays();
-            //GeneratePersons();
+            GenerateYears();
+            GenerateTerms();
+            GenerateHolidays();
+            GeneratePersons();
             GenerateEpisodes();
 
             var organisation = new Organisation.Builder
             {
-                Title = "Westminster Council School Holidays",
+                Title = "Westminster Council Schools",
             }.Build();
 
             organisation.Save(_db, _clock);
 
-            var organisationTerms = new EdgeVertexs<ISchedule>(_terms);
+            var organisationTerms = new EdgeVertexs<ISchedule>(Terms);
 
             organisationTerms.Save(_db, _clock, organisation, "HasTerms");
         }
@@ -65,13 +66,13 @@ namespace School
                 g.Save(_db, _clock);
             }
 
-            _generatorSource = generated
+            GeneratorSource = generated
                 .OfType<IGeneratorSource>()
                 .SingleOrDefault();
 
-            _years = generated
+            Years.Add(generated
                 .OfType<ISchedule>()
-                .SingleOrDefault();
+                .SingleOrDefault());
         }
 
         public void GenerateTerms()
@@ -88,8 +89,11 @@ namespace School
                 g.Save(_db, _clock);
             }
 
-            _terms = generated
-                .OfType<ISchedule>();
+            foreach (var schedule in generated
+                .OfType<ISchedule>())
+            {
+                Terms.Add(schedule);
+            }
         }
 
         public void GenerateHolidays()
@@ -106,9 +110,9 @@ namespace School
                 g.Save(_db, _clock);
             }
 
-            _holidays = generated
+            Holidays.Add(generated
                 .OfType<ISchedule>()
-                .SingleOrDefault();
+                .SingleOrDefault());
         }
 
         public void GeneratePersons()
@@ -172,11 +176,13 @@ namespace School
                 Title = "an occassion"
             }.Build();
 
-            var calendar = new Calendar.Builder
-            {
-                Description = "My personal calendar",
-                Events = new EdgeVertexs<IEvent>(@event),
-            }.Build();
+            Calendars.Add(new Calendar.Builder
+                {
+                    Description = "My personal calendar",
+                    Events = new EdgeVertexs<IEvent>(@event),
+                }.Build());
+
+
         }
     }
 }

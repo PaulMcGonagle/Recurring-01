@@ -5,12 +5,10 @@
       <schedule>
         <tags>
           <tag id="year" value="2017/18"/>
+          <tag id="name" value="2017/18.Autumn"/>
         </tags>
         <inclusions>
           <byRangeDate>
-            <tags>
-              <tag id="name" value="2017/18.Autumn"/>
-            </tags>
             <link cache="RangeDate.Term.2017/18.Autumn"/>
           </byRangeDate>
         </inclusions>
@@ -26,12 +24,10 @@
       <schedule>
         <tags>
           <tag id="year" value="2017/18"/>
+          <tag id="name" value="2017/18.Winter"/>
         </tags>
         <inclusions>
           <byRangeDate>
-            <tags>
-              <tag id="name" value="2017/18.Winter"/>
-            </tags>
             <link cache="RangeDate.Term.2017/18.Winter"/>
           </byRangeDate>
         </inclusions>
@@ -47,12 +43,10 @@
       <schedule>
         <tags>
           <tag id="year" value="2017/18"/>
+          <tag id="name" value="2017/18.Summer"/>
         </tags>
         <inclusions>
           <byRangeDate>
-            <tags>
-              <tag id="name" value="2017/18.Summer"/>
-            </tags>
             <link cache="RangeDate.Term.2017/18.Summer"/>
           </byRangeDate>
         </inclusions>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Permissions;
 using System.Text;
@@ -10,14 +11,14 @@ namespace CoreLibrary
 {
     public static class Guard
     {
-        [NotNull]
+        [DebuggerStepThrough]
         public static void AgainstNull(object argument, string argumentName)
         {
             if (argument == null)
                 throw new ArgumentNullException(argumentName);
         }
 
-        [NotNull]
+        [DebuggerStepThrough]
         public static void AgainstNullOrWhiteSpace(string argument, string argumentName)
         {
             AgainstNull(argument, argumentName);
@@ -26,7 +27,7 @@ namespace CoreLibrary
                 throw new ArgumentOutOfRangeException(argumentName);
         }
 
-        [NotNull]
+        [DebuggerStepThrough]
         public static void AgainstNullOrDefault(ValueType argument, string argumentName)
         {
             AgainstNull(argument, argumentName);

@@ -19,6 +19,8 @@ namespace Generators
             out IGeneratorSource generatorSource, 
             out IDictionary<string, IVertex> caches)
         {
+            Guard.AgainstNullOrWhiteSpace(sourceFile, nameof(sourceFile));
+
             var xSource = XDocument
                 .Load(sourceFile);
 
