@@ -91,17 +91,27 @@ namespace Generators
             }
         }
 
-        public static IEnumerable<IRangeTime> RetrieveRangeTimes(this XElement xInput, IDictionary<string, IVertex> caches, string elementName = "rangeTime")
+        public static IEnumerable<IRangeTime> RetrieveRangeTimes(this XElement xInput, IDictionary<string, IVertex> caches, string elementsName = "rangeTimes", string elementName = "rangeTime")
         {
-            foreach (var xRangeTime in xInput.Elements(elementName))
-            {
-                if (xRangeTime == null)
-                    throw new ArgumentException("Could not find Element {elementName}");
+            var xRangeTimes = xInput
+                .Element(elementsName);
 
-                yield return RetrieveRangeTime(xRangeTime, caches, elementName);
+            if (xRangeTimes is null)
+                throw new Exception("No element {elementsName} could be found");
+
+            foreach (var xElement in xRangeTimes.Elements(elementName))
+            {
+                var rangeTime = RetrieveRangeTime(xElement, caches, elementsName);
+
+                yield return rangeTime;
+            }
+
+            foreach (var link in UtilitiesLinks<RangeTime>.RetrieveAll(xRangeTimes, caches))
+            {
+                yield return link;
             }
         }
-
+        
         public static RangeTime RetrieveRangeTime(this XElement xInput, IDictionary<string, IVertex> caches, string elementName = "rangeTime")
         {
             var start = xInput

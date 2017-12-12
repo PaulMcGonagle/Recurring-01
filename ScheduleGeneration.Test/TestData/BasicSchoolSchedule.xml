@@ -16,26 +16,24 @@
     <tag id="timeZoneProvider" value="Europe/London"/>
   </tags>
   <calendars>
+    <!--
     <calendar>
-      <schedule>
-        <tags>
-          <tag id="name" value="Autumn.2016/17"/>
-        </tags>
-        <inclusions>
-          <byRangeDate>
-            <rangeDate start="2016-09-02" end="2016-12-21"/>
-          </byRangeDate>
-        </inclusions>
-        <!--<breaks>
-          <break>
+      <serials>
+        <serial>
+          <schedules>
             <tags>
-              <tag id="name" value="half-term"/>
+              <tag id="name" value="Autumn.2016/17"/>
             </tags>
-            <rangeDate start="2016-10-26" end="2016-11-02"/>
-          </break>
-        </breaks>-->
-      </schedule>
+            <inclusions>
+              <byRangeDate>
+                <rangeDate start="2016-09-02" end="2016-12-21"/>
+              </byRangeDate>
+            </inclusions>
+          </schedules>
+        </serial>
+      </serials>
     </calendar>
+    -->
   </calendars>
   <sessions>
     <session>
@@ -70,27 +68,31 @@
           <terms>
             <reference type="term" path="./generator/terms/term[./tags/tag[@id='name'][@value='Autumn.2016/17']]"/>
           </terms>
-          <schedule>
-            <inclusions>
-              <byWeekdays>
-                <tags>
-                  <tag id="name" value="09:15"/>
-                </tags>
-                <rangeDates>
-                  <rangeDate start="2017-01-02" end="2017-01-10"/>
-                </rangeDates>
-                <weekdays>
-                  <weekday value="Monday"/>
-                  <weekday value="Tuesday"/>
-                  <weekday value="Wednesday"/>
-                  <weekday value="Friday"/>
-                </weekdays>
-              </byWeekdays>
-            </inclusions>
-          </schedule>
-          <rangeTimes>
-            <rangeTime start="09:15" end="10:20"/>
-          </rangeTimes>
+          <serials>
+            <serial>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <tags>
+                      <tag id="name" value="09:15"/>
+                    </tags>
+                    <rangeDates>
+                      <rangeDate start="2017-01-02" end="2017-01-10"/>
+                    </rangeDates>
+                    <weekdays>
+                      <weekday value="Monday"/>
+                      <weekday value="Tuesday"/>
+                      <weekday value="Wednesday"/>
+                      <weekday value="Friday"/>
+                    </weekdays>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+              <rangeTimes>
+                <rangeTime start="09:15" end="10:20"/>
+              </rangeTimes>
+            </serial>
+          </serials>
         </class>
       </classes>
     </group>

@@ -69,39 +69,37 @@ namespace Generators.Instances
                         .RetrieveTags(caches)
                         .ToList();
 
-                    var xCompositeSchedule = xClass
-                        .Elements("schedule")
-                        .SingleOrDefault();
+                    var xSerials = xClass
+                        .Element("serials");
 
-                    var xRangeTimes = xClass
-                        .Element("rangeTimes")
-                        .RetrieveRangeTimes(caches)
-                        .ToList();
+                    foreach (var xSerial in xSerials
+                        .Elements("serial"))
+                    {
+                        var xCompositeSchedule = xSerial
+                            .Elements("schedules")
+                            .SingleOrDefault();
 
-                    var serials = new Serials();
+                        var rangeTime = xSerial
+                            .RetrieveRangeTimes(caches)
+                            .SingleOrDefault();
 
-                    var generator = new GeneratorXCompositeSchedule();
+                        var generator = new GeneratorXCompositeSchedule();
 
-                    var compositeSchedule = (ISchedule)generator.Generate(xCompositeSchedule, caches);
+                        var compositeSchedule = (ISchedule) generator.Generate(xCompositeSchedule, caches);
 
-                    compositeSchedule
-                        .Tags
-                        .AddRange(classTags);
-
-                    serials
-                        .AddRange(xRangeTimes.Select(rangeTime => new Serial.Builder
-                        { 
+                        var serial = new Serial.Builder
+                        {
                             Schedule = compositeSchedule,
                             RangeTime = rangeTime,
                             TimeZoneProvider = timeZoneProvider,
-                            }.Build()));
+                        }.Build();
 
-                    foreach (var serial in serials)
-                    {
+                        serial
+                            .Tags
+                            .AddRange(classTags);
+
                         yield return serial;
                     }
-
-                    yield return compositeSchedule;
                 }
 
                 yield return organisation;

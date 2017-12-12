@@ -24,6 +24,8 @@ namespace School
         public IList<ISchedule> Holidays { get; } = new List<ISchedule>();
         public IList<ICalendar> Calendars { get; } = new List<ICalendar>();
 
+        public List<IVertex> Vertexs { get; } = new List<IVertex>();
+
         public Generate(IArangoDatabase db, IClock clock)
         {
             _db = db;
@@ -32,11 +34,12 @@ namespace School
 
         public void Go()
         {
-            GenerateYears();
-            GenerateTerms();
-            GenerateHolidays();
-            GeneratePersons();
-            GenerateEpisodes();
+            //GenerateYears();
+            //GenerateTerms();
+            //GenerateHolidays();
+            //GeneratePersons();
+            //GenerateEpisodes();
+            GenerateSchoolClass();
 
             var organisation = new Organisation.Builder
             {
@@ -181,8 +184,16 @@ namespace School
                     Description = "My personal calendar",
                     Events = new EdgeVertexs<IEvent>(@event),
                 }.Build());
+        }
 
+        public void GenerateSchoolClass()
+        {
+            var generator = GeneratorFactory.Get("classes");
 
+            Vertexs.AddRange(generator.Generate(
+                    "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\HG.xml",
+                    _clock)
+                .ToArray());
         }
     }
 }

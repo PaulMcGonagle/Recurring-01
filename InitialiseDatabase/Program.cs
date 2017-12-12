@@ -26,38 +26,14 @@ namespace InitialiseDatabase
 
             generate.Go();
 
-            var i = generate.GeneratorSource
-                .Caches
-                .GetToVertexs()
-                .GetByTag(ident: "name", value: "Year.2018");
-
-            var summerTerm = generate
-                .Terms
-                .GetByTag(ident: "name", value: "2017/18.Summer")
-                .Single();
-
-            var compositeSchedule = new CompositeSchedule.Builder
+            foreach (var serial in generate.Vertexs.OfType<ISerial>())
             {
-                Inclusion = summerTerm,
-                Exclusion = generate.Holidays.Single(),
-            }.Build();
+                var episodes = serial
+                    .GenerateEpisodes(fakeClock)
+                    .GetToVertexs();
 
-            var newSerial = new Serial.Builder
-            {
-                Schedule = new Schedule(compositeSchedule),
-                RangeTime = new RangeTime.Builder
-                    {
-                        Start = new LocalTime(09, 00),
-                        End = new LocalTime(09, 50),
-                    }.Build(),
-                TimeZoneProvider = timeZoneProvider,
-            }.Build();
-
-            var episodes = newSerial
-                .GenerateEpisodes(fakeClock)
-                .GetToVertexs();
-
-            Output.DisplayList(episodes);
+                ConsoleOutput.Output.DisplayList(episodes.OrderBy(o => o.Start));
+            }
 
 
             //foreach (var calendar in generate.Calendars)

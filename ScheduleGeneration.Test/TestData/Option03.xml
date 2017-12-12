@@ -59,21 +59,27 @@
               </tags>
             </term>
           </terms>
-          <schedule>
-            <inclusions>
-              <byWeekdays>
-                <weekdays>
-                  <weekday value="Monday"/>
-                </weekdays>
-                <rangeDates>
-                  <link cache="Term.2016/17.Autumn"/>
-                </rangeDates>
-              </byWeekdays>
-            </inclusions>
-          </schedule>
-          <rangeTimes>
-            <rangeTime start="10:15" end="10:55"/>
-          </rangeTimes>
+          <serials>
+            <serial>
+              <schedules>
+                <schedule>
+                  <inclusions>
+                    <byWeekdays>
+                      <weekdays>
+                        <weekday value="Monday"/>
+                      </weekdays>
+                    </byWeekdays>
+                  </inclusions>
+                </schedule>
+              </schedules>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
+              <rangeTimes>
+                <rangeTime start="10:15" end="10:55"/>
+              </rangeTimes>
+            </serial>
+          </serials>
         </class>
         <class>
           <tags>
@@ -87,22 +93,28 @@
               </tags>
             </term>
           </terms>
-          <schedule>
-            <inclusions>
-              <byWeekdays>
+          <serials>
+            <serial>
+              <schedules>
+                <schedule>
+                  <inclusions>
+                    <byWeekdays>
+                      <rangeTime start="10:15" end="10:55"/>
+                      <weekdays>
+                        <weekday value="Tuesday"/>
+                      </weekdays>
+                    </byWeekdays>
+                  </inclusions>
+                </schedule>
+              </schedules>
+              <rangeDates>
+                <link cache="Term.2016/17.Autumn"/>
+              </rangeDates>
+              <rangeTimes>
                 <rangeTime start="10:15" end="10:55"/>
-                <weekdays>
-                  <weekday value="Tuesday"/>
-                </weekdays>
-                <rangeDates>
-                  <link cache="Term.2016/17.Autumn"/>
-                </rangeDates>
-              </byWeekdays>
-            </inclusions>
-          </schedule>
-          <rangeTimes>
-            <rangeTime start="10:15" end="10:55"/>
-          </rangeTimes>
+              </rangeTimes>
+            </serial>
+          </serials>
         </class>
       </classes>
     </group>

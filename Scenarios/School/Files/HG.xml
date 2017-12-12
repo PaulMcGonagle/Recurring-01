@@ -143,68 +143,95 @@
         <tag id="name" value="Reception"/>
       </tags>
       <classes>
+<!--
         <class>
           <tags>
             <tag id="name" value="Register and News"/>
           </tags>
-          <serials>
-            <serial>
-              <schedules>
-                <schedule>
-                  <inclusions>
-                    <byWeekdays>
-                      <rangeTime start="09:00" end="09:15"/>
-                      <weekdays>
-                        <weekday value="Monday"/>
-                        <weekday value="Tuesday"/>
-                        <weekday value="Wednesday"/>
-                        <weekday value="Thursday"/>
-                        <weekday value="Friday"/>
-                      </weekdays>
-                    </byWeekdays>
-                  </inclusions>
-                </schedule>
-              </schedules>
-              <rangeDates>
-                <link cache="Term.2017/18.Autumn"/>
-              </rangeDates>
-              <rangeTimes>
-                <link cache="Session.MorningPlaytime"/>
-              </rangeTimes>
-            </serial>
-          </serials>          
+          <schedule>
+            <inclusions>
+              <byWeekdays>
+                <rangeTime start="09:00" end="09:15"/>
+                <weekdays>
+                  <weekday value="Monday"/>
+                  <weekday value="Tuesday"/>
+                  <weekday value="Wednesday"/>
+                  <weekday value="Thursday"/>
+                  <weekday value="Friday"/>
+                </weekdays>
+                <rangeDates>
+                  <link cache="Term.2017/18.Autumn"/>
+                </rangeDates>
+              </byWeekdays>
+            </inclusions>
+          </schedule>
+          <rangeTimes>
+            <link cache="Session.MorningPlaytime"/>
+          </rangeTimes>
         </class>
-        <!--
+-->
+        <!--<class>
+          <tags>
+            <tag id="name" value="Phonics and Literacy"/>
+          </tags>
+          <rangeTime start="09:15" end="10:20"/>
+          <byWeekdays>
+            <weekdays>
+              <weekday value="Monday"/>
+              <weekday value="Wednesday"/>
+              <weekday value="Friday"/>
+            </weekdays>
+            <rangeDates>
+              <link cache="Term.2016/17.Autumn"/>
+            </rangeDates>
+          </byWeekdays>
+          <terms>
+            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
+          </terms>
+        </class>-->
         <class>
           <tags>
             <tag id="name" value="Phonics and Literacy"/>
           </tags>
-          <schedules>
-            <byWeekdays>
+          <serials>
+            <serial>
               <rangeTime start="09:15" end="10:20"/>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-            <byWeekdays>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Monday"/>
+                      <weekday value="Wednesday"/>
+                      <weekday value="Friday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+            <serial>
               <rangeTime start="09:45" end="10:20"/>
-              <weekdays>
-                <weekday value="Tuesday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Tuesday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
         </class>
+        <!--
         <class>
           <tags>
             <tag id="name" value="Music"/>
@@ -746,32 +773,28 @@
           </schedules>
         </class>
         -->
+        <!--
         <class>
           <tags>
             <tag id="name" value="Mass"/>
           </tags>
-          <serials>
-            <serial>
-              <schedules>
-                <schedule>
-                  <inclusions>
-                    <byWeekdays>
-                      <weekdays>
-                        <weekday value="Thursday"/>
-                      </weekdays>
-                    </byWeekdays>
-                  </inclusions>
-                </schedule>
-              </schedules>
-              <rangeDates>
-                <link cache="Term.2017/18.Autumn"/>
-              </rangeDates>
-              <rangeTimes>
-                <link cache="Session.10am"/>
-              </rangeTimes>
-            </serial>
-          </serials>
+          <schedule>
+            <inclusions>
+              <byWeekdays>
+                <weekdays>
+                  <weekday value="Thursday"/>
+                </weekdays>
+                <rangeDates>
+                  <link cache="Term.2017/18.Autumn"/>
+                </rangeDates>
+              </byWeekdays>
+            </inclusions>
+          </schedule>
+          <rangeTimes>
+            <link cache="Session.10am"/>
+          </rangeTimes>
         </class>
+        -->
         <!--
         <class>
           <tags>

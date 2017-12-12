@@ -24,9 +24,9 @@ namespace ScheduleGeneration.Test
             private IClock _clock;
             private IGenerateFromFile _generator;
             private IEnumerable<IVertex> _vertexs;
-            private ISchedule _schedule;
+            private ISerial _serial;
             private CompositeSchedule _compositeSchedule;
-            private IEnumerable<IDate> _dates;
+            private IEnumerable<IEpisode> _episodes;
 
             [Fact]
             public void Execute()
@@ -87,30 +87,27 @@ namespace ScheduleGeneration.Test
                     .ToList();
             }
 
-            public void ThenAScheduleIsCreated()
+            public void ThenASerialIsCreated()
             {
-                _schedule = _vertexs
-                    .OfType<ISchedule>()
+                _serial = _vertexs
+                    .OfType<ISerial>()
                     .SingleOrDefault();
 
-                _schedule.ShouldNotBeNull();
-            }
-
-            public void AndThenScheduleInstanceIsACompositeSchedule()
-            {
-                _schedule.ScheduleInstance.ShouldBeOfType<CompositeSchedule>();
-                _compositeSchedule = (CompositeSchedule)_schedule.ScheduleInstance;
+                _serial.ShouldNotBeNull();
             }
 
             public void AndThenSchedulesAreGenerated()
             {
-                _dates = _compositeSchedule
-                    .Generate(_clock);
+                _episodes = _serial
+                    .GenerateEpisodes(_clock)
+                    .GetToVertexs();
             }
 
             public void AndThenDatesAreExpected(IEnumerable<IDate> expectedDates)
             {
-                _dates
+                _episodes
+                    .Select(episode => episode.SourceGeneratedDate)
+                    .GetToVertexs()
                     .ShouldBe(expectedDates);
             }
         }

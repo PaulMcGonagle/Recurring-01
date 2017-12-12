@@ -2,23 +2,27 @@
 <generator>
   <calendars>
     <calendar name="UK Public Holidays">
-      <schedule>
-        <inclusions>
-          <byDateList>
-            <date value="2017-12-25">
-              <tags>
-                <tag id="name" value="Christmas Day"/>
-              </tags>
-            </date>
-            <date value="2017-01-02">
-              <tags>
-                <tag id="name" value="New Year's Day"/>
-              </tags>
-            </date>
-            <date value="2018-01-01"/>
-          </byDateList>
-        </inclusions>
-      </schedule>
+      <serials>
+        <serial>
+          <schedule>
+            <inclusions>
+              <byDateList>
+                <date value="2017-12-25">
+                  <tags>
+                    <tag id="name" value="Christmas Day"/>
+                  </tags>
+                </date>
+                <date value="2017-01-02">
+                  <tags>
+                    <tag id="name" value="New Year's Day"/>
+                  </tags>
+                </date>
+                <date value="2018-01-01"/>
+              </byDateList>
+            </inclusions>
+          </schedule>
+        </serial>
+      </serials>
       <tags>
         <reference path="./generator/tags/tag[@id='name']"/>
         <reference path="./generator/tags/tag[@id='locale']"/>
