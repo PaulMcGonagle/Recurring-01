@@ -110,7 +110,7 @@ namespace ConsoleOutput
 
         public static void Wait()
         {
-            ReadKey();
+            ReadLine();
         }
 
         #endregion

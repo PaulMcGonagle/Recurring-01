@@ -41,6 +41,15 @@ namespace Scheduler.Persistance
                     .Any(tag => (tag.ToVertex.Ident == ident || ident == null) && (tag.ToVertex.Value == value || value == null)));
         }
 
+        public static string GetTagValue(this IVertex vertex, string ident)
+        {
+            return vertex
+                .Tags
+                .GetToVertexs()
+                .SingleOrDefault(tag => tag.Ident == ident)
+                ?.Value;
+        }
+
         public static IEnumerable<T> GetToVertexs<T>(this IEnumerable<IEdgeVertex<T>> edgeVertexs) where T : IVertex
         {
             return edgeVertexs

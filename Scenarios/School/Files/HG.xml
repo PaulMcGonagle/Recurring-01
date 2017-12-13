@@ -63,7 +63,7 @@
         <tag id="name" value="2016/17.Autumn"/>
         <link cache="Year.2016/17"/>
       </tags>
-      <link cache="Term.2016/17.Autumn"/>
+      <link cache="Term.2017/18.Autumn"/>
       <breaks>
         <break>
           <tags>
@@ -143,59 +143,46 @@
         <tag id="name" value="Reception"/>
       </tags>
       <classes>
-<!--
         <class>
           <tags>
             <tag id="name" value="Register and News"/>
           </tags>
-          <schedule>
-            <inclusions>
-              <byWeekdays>
+          <serials>
+            <serial>
+              <rangeTimes>
                 <rangeTime start="09:00" end="09:15"/>
-                <weekdays>
-                  <weekday value="Monday"/>
-                  <weekday value="Tuesday"/>
-                  <weekday value="Wednesday"/>
-                  <weekday value="Thursday"/>
-                  <weekday value="Friday"/>
-                </weekdays>
-                <rangeDates>
-                  <link cache="Term.2017/18.Autumn"/>
-                </rangeDates>
-              </byWeekdays>
-            </inclusions>
-          </schedule>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Monday"/>
+                      <weekday value="Tuesday"/>
+                      <weekday value="Wednesday"/>
+                      <weekday value="Thursday"/>
+                      <weekday value="Friday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <rangeTimes>
             <link cache="Session.MorningPlaytime"/>
           </rangeTimes>
         </class>
--->
-        <!--<class>
-          <tags>
-            <tag id="name" value="Phonics and Literacy"/>
-          </tags>
-          <rangeTime start="09:15" end="10:20"/>
-          <byWeekdays>
-            <weekdays>
-              <weekday value="Monday"/>
-              <weekday value="Wednesday"/>
-              <weekday value="Friday"/>
-            </weekdays>
-            <rangeDates>
-              <link cache="Term.2016/17.Autumn"/>
-            </rangeDates>
-          </byWeekdays>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
-        </class>-->
         <class>
           <tags>
             <tag id="name" value="Phonics and Literacy"/>
           </tags>
           <serials>
             <serial>
-              <rangeTime start="09:15" end="10:20"/>
+              <rangeTimes>
+                <rangeTime start="09:15" end="10:20"/>
+              </rangeTimes>
               <schedules>
                 <inclusions>
                   <byWeekdays>
@@ -212,7 +199,9 @@
               </schedules>
             </serial>
             <serial>
-              <rangeTime start="09:45" end="10:20"/>
+              <rangeTimes>
+                <rangeTime start="09:45" end="10:20"/>
+              </rangeTimes>
               <schedules>
                 <inclusions>
                   <byWeekdays>
@@ -231,61 +220,82 @@
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
         </class>
-        <!--
         <class>
           <tags>
             <tag id="name" value="Music"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="09:15" end="09:45"/>
-              <weekdays>
-                <weekday value="Tuesday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="09:15" end="09:45"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Tuesday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
         </class>
         <class>
           <tags>
             <tag id="name" value="Library"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="09:15" end="10:10"/>
-              <weekdays>
-                <weekday value="Thursday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="09:15" end="10:10"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Thursday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
         </class>
         <class>
           <tags>
-            <tag id="name" value=""/>
+            <tag id="name" value="unknown"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="09:15" end="10:20"/>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Thursday"/>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                 <rangeTime start="09:15" end="10:20"/>
+             </rangeTimes>
+              <schedules>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Monday"/>
+                    <weekday value="Tuesday"/>
+                    <weekday value="Wednesday"/>
+                    <weekday value="Thursday"/>
+                    <weekday value="Friday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -294,17 +304,25 @@
           <tags>
             <tag id="name" value="Mass"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="10:10" end="10:50"/>
-              <weekdays>
-                <weekday value="Thursday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="10:10" end="10:50"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Thursday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -313,20 +331,28 @@
           <tags>
             <tag id="name" value="Assembly"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="10:30" end="10:50"/>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="10:30" end="10:50"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Monday"/>
+                      <weekday value="Tuesday"/>
+                      <weekday value="Wednesday"/>
+                      <weekday value="Friday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -336,21 +362,29 @@
             <tag id="name" value="Break Time"/>
             <tag id="category" value="Break"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="10:50" end="11:05"/>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Thursday"/>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="10:50" end="11:05"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Monday"/>
+                      <weekday value="Tuesday"/>
+                      <weekday value="Wednesday"/>
+                      <weekday value="Thursday"/>
+                      <weekday value="Friday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -359,21 +393,29 @@
           <tags>
             <tag id="name" value="Maths"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="11:05" end="12:00"/>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Thursday"/>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="11:05" end="12:00"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Monday"/>
+                      <weekday value="Tuesday"/>
+                      <weekday value="Wednesday"/>
+                      <weekday value="Thursday"/>
+                      <weekday value="Friday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -383,21 +425,29 @@
             <tag id="name" value="Lunchtime"/>
             <tag id="category" value="Break"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="12:00" end="13:00"/>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Thursday"/>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="12:00" end="13:00"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Monday"/>
+                      <weekday value="Tuesday"/>
+                      <weekday value="Wednesday"/>
+                      <weekday value="Thursday"/>
+                      <weekday value="Friday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -406,17 +456,25 @@
           <tags>
             <tag id="name" value="PE"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="13:00" end="14:30"/>
-              <weekdays>
-                <weekday value="Monday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="13:00" end="14:30"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Monday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -425,20 +483,28 @@
           <tags>
             <tag id="name" value="Register and story time"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="13:00" end="13:30"/>
-              <weekdays>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Thursday"/>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="13:00" end="13:30"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Tuesday"/>
+                      <weekday value="Wednesday"/>
+                      <weekday value="Thursday"/>
+                      <weekday value="Friday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -447,17 +513,25 @@
           <tags>
             <tag id="name" value="Understanding the world (PC/TW)"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="13:30" end="14:30"/>
-              <weekdays>
-                <weekday value="Tuesday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="13:30" end="14:30"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Tuesday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -466,17 +540,25 @@
           <tags>
             <tag id="name" value="PSED"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="13:30" end="14:30"/>
-              <weekdays>
-                <weekday value="Wednesday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="13:30" end="14:30"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Wednesday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -485,17 +567,25 @@
           <tags>
             <tag id="name" value="Understanding the world (ICT)"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="13:30" end="14:30"/>
-              <weekdays>
-                <weekday value="Thursday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="13:30" end="14:30"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Thursday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -504,17 +594,25 @@
           <tags>
             <tag id="name" value="Art"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="13:30" end="14:30"/>
-              <weekdays>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="13:30" end="14:30"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Friday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -524,21 +622,29 @@
             <tag id="name" value="Break Time"/>
             <tag id="category" value="Break"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="14:30" end="14:45"/>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Thursday"/>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="14:30" end="14:45"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Monday"/>
+                      <weekday value="Tuesday"/>
+                      <weekday value="Wednesday"/>
+                      <weekday value="Thursday"/>
+                      <weekday value="Friday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -547,20 +653,28 @@
           <tags>
             <tag id="name" value="Individual Readers"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="14:45" end="15:20"/>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Thursday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="14:45" end="15:20"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Monday"/>
+                      <weekday value="Tuesday"/>
+                      <weekday value="Wednesday"/>
+                      <weekday value="Thursday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
@@ -569,26 +683,33 @@
           <tags>
             <tag id="name" value="Show and Tell"/>
           </tags>
-          <schedules>
-            <byWeekdays>
-              <rangeTime start="14:45" end="15:20"/>
-              <weekdays>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
+          <serials>
+            <serial>
+              <rangeTimes>
+                <rangeTime start="14:45" end="15:20"/>
+              </rangeTimes>
+              <schedules>
+                <inclusions>
+                  <byWeekdays>
+                    <weekdays>
+                      <weekday value="Friday"/>
+                    </weekdays>
+                    <rangeDates>
+                      <link cache="Term.2017/18.Autumn"/>
+                    </rangeDates>
+                  </byWeekdays>
+                </inclusions>
+              </schedules>
+            </serial>
+          </serials>
           <terms>
             <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
           </terms>
         </class>
-        -->
       </classes>
       <terms>
         <term>
-          <link cache="Term.2016/17.Autumn"/>
+          <link cache="Term.2017/18.Autumn"/>
         </term>
       </terms>
     </group>
@@ -596,360 +717,6 @@
       <tags>
         <tag id="name" value="Year2.2016/17"/>
       </tags>
-      <sessions>
-        <!--
-        <session>
-          <tags>
-            <tag id="name" value="9am"/>
-          </tags>
-          <rangeTime start="09:00" end="10:00"/>
-        </session>
-        <session>
-          <tags>
-            <tag id="name" value="9am double"/>
-          </tags>
-          <rangeTime start="09:00" end="10:00"/>
-        </session>
-        <session>
-          <tags>
-            <tag id="name" value="10am"/>
-          </tags>
-          <rangeTime start="10:00" end="10:30"/>
-        </session>
-        -->
-        <session>
-          <tags>
-            <tag id="name" value="10:30am"/>
-          </tags>
-          <rangeTime start="10:00" end="10:30"/>
-        </session>
-        <!--
-        <session>
-          <tags>
-            <tag id="name" value="Morning playtime"/>
-          </tags>
-          <rangeTime start="10:50" end="11:05"/>
-        </session>
-        <session>
-          <tags>
-            <tag id="name" value="11:05am"/>
-          </tags>
-          <rangeTime start="11:05" end="12:00"/>
-        </session>
-        <session>
-          <tags>
-            <tag id="name" value="Lunch"/>
-          </tags>
-          <rangeTime start="12:00" end="13:00"/>
-        </session>
-        <session>
-          <tags>
-            <tag id="name" value="1pm"/>
-          </tags>
-          <rangeTime start="13:00" end="14:00"/>
-        </session>
-        <session>
-          <tags>
-            <tag id="name" value="1pm double"/>
-          </tags>
-          <rangeTime start="13:00" end="14:30"/>
-        </session>
-        <session>
-          <tags>
-            <tag id="name" value="2pm"/>
-          </tags>
-          <rangeTime start="14:00" end="14:30"/>
-        </session>
-        <session>
-          <tags>
-            <tag id="name" value="Afternoon playtime"/>
-          </tags>
-          <rangeTime start="14:30" end="14:45"/>
-        </session>
-        <session>
-          <tags>
-            <tag id="name" value="2:45pm"/>
-          </tags>
-          <rangeTime start="14:45" end="15:30"/>
-        </session>
-        -->
-      </sessions>
-      <classes>
-        <!--
-        <class>
-          <tags>
-            <tag id="name" value="Playtime"/>
-          </tags>
-          <schedules>
-            <link cache="Session.MorningPlaytime"/>
-            <byWeekdays>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Thursday"/>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags>
-            <tag id="name" value="Lunchtime"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.Lunch"/>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Thursday"/>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags><tag id="name" value="Literacy"/></tags>
-          <schedules>
-            <byWeekdays>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Friday"/>
-              </weekdays>
-              <link cache="Session.9am"/>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags>
-            <tag id="name" value="Guided Reading"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.10am"/>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-            <byWeekdays>
-              <weekdays>
-                <weekday value="Friday"/>
-              </weekdays>
-              <rangeTime start="10:00" end="10:25"/>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags>
-            <tag id="name" value="Assembly"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.10:30am"/>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Tuesday"/>
-                <weekday value="Wednesday"/>
-              </weekdays>
-              <rangeDates>
-                <link cache="Term.2016/17.Autumn"/>
-              </rangeDates>
-            </byWeekdays>
-          </schedules>
-        </class>
-        -->
-        <!--
-        <class>
-          <tags>
-            <tag id="name" value="Mass"/>
-          </tags>
-          <schedule>
-            <inclusions>
-              <byWeekdays>
-                <weekdays>
-                  <weekday value="Thursday"/>
-                </weekdays>
-                <rangeDates>
-                  <link cache="Term.2017/18.Autumn"/>
-                </rangeDates>
-              </byWeekdays>
-            </inclusions>
-          </schedule>
-          <rangeTimes>
-            <link cache="Session.10am"/>
-          </rangeTimes>
-        </class>
-        -->
-        <!--
-        <class>
-          <tags>
-            <tag id="name" value="Numeracy"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.11:05am"/>
-              <weekdays>
-                <weekday value="Monday"/>
-                <weekday value="Wednesday"/>
-                <weekday value="Thursday"/>
-                <weekday value="Friday"/>
-              </weekdays>
-            </byWeekdays>
-            <byWeekdays>
-              <link cache="Session.1pm"/>
-              <weekdays>
-                <weekday value="Tuesday"/>
-              </weekdays>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags>
-            <tag id="name" value="Music"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.11:05am"/>
-              <weekdays>
-                <weekday value="Tuesday"/>
-              </weekdays>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags>
-            <tag id="name" value="Science"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.1pm"/>
-              <weekdays>
-                <weekday value="Monday"/>
-              </weekdays>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags>
-            <tag id="name" value="PE"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.1pm"/>
-              <weekdays>
-                <weekday value="Wednesday"/>
-              </weekdays>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags>
-            <tag id="name" value="History"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.1pm"/>
-              <weekdays>
-                <weekday value="Friday"/>
-              </weekdays>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags>
-            <tag id="name" value="RE"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.2pm"/>
-              <weekdays>
-                <weekday value="Tuesday"/>
-              </weekdays>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags>
-            <tag id="name" value="Spanish"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.2pm"/>
-              <weekdays>
-                <weekday value="Monday"/>
-              </weekdays>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags>
-            <tag id="name" value="ICT"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.2:45pm"/>
-              <weekdays>
-                <weekday value="Tuesday"/>
-              </weekdays>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags>
-            <tag id="name" value="Library"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.2:45pm"/>
-              <weekdays>
-                <weekday value="Wednesday"/>
-              </weekdays>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags>
-            <tag id="name" value="PSHCE"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.2:45pm"/>
-              <weekdays>
-                <weekday value="Thursday"/>
-              </weekdays>
-            </byWeekdays>
-          </schedules>
-        </class>
-        <class>
-          <tags>
-            <tag id="name" value="Other"/>
-          </tags>
-          <schedules>
-            <byWeekdays>
-              <link cache="Session.2:45pm"/>
-              <weekdays>
-                <weekday value="Friday"/>
-              </weekdays>
-            </byWeekdays>
-          </schedules>
-        </class>
-        -->
-      </classes>
     </group>
   </groups>
 </generator>

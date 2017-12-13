@@ -32,8 +32,14 @@ namespace InitialiseDatabase
                     .GenerateEpisodes(fakeClock)
                     .GetToVertexs();
 
-                ConsoleOutput.Output.DisplayList(episodes.OrderBy(o => o.Start));
+                var name = serial
+                    .GetTagValue("name");
+
+                Output.WriteLine($"Serial {name ?? ""} {episodes.Count()}");
+                //Output.DisplayList(episodes.OrderBy(o => o.Start));
+
             }
+            Output.Wait();
 
 
             //foreach (var calendar in generate.Calendars)
@@ -53,7 +59,6 @@ namespace InitialiseDatabase
 
             //Output.DisplayGrid(compositeSchedule.Generate(fakeClock));
 
-            Output.Wait();
         }
     }
 }
