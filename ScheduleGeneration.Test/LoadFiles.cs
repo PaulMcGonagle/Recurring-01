@@ -92,7 +92,7 @@ namespace ScheduleGeneration.Test
         {
             _sources = new List<Tuple<string, XElement>>();
 
-            var generator = GeneratorFactory.Get(_type);
+            var generator = GenerateFromFileFactory.Get(_type);
 
             _vertexs = generator
                 .Generate(_sourceFile, _clock)

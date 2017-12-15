@@ -55,7 +55,7 @@ namespace Generators.Test.Instances
         
         public void AndWhenGeneratorIsRetrieved()
         {
-            _generator = GeneratorFactory.Get("schedule");
+            _generator = GenerateFromFileFactory.Get("schedule");
         }
 
         public void AndWhenGenerated()

@@ -61,7 +61,7 @@ namespace Generators
 
         public static RangeDate RetrieveRangeDate(this XElement xInput, IDictionary<string, IVertex> caches, string elementName = "rangeDate")
         {
-            var x = GeneratorFactory.GetX("RangeDate");
+            var x = GenerateFromFileFactory.GetX("RangeDate");
 
             var rangeDate = (RangeDate)x.Generate(xInput, caches, elementName);
 

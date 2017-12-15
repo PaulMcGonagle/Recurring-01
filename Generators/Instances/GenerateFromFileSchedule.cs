@@ -25,7 +25,7 @@ namespace Generators.Instances
             var xSchedules = xGenerator
                 .Element("schedules");
 
-            var generator = GeneratorFactory.GetX("CompositeSchedule");
+            var generator = GenerateFromFileFactory.GetX("CompositeSchedule");
 
             var vertex = generator.Generate(xSchedules, caches, clock: clock);
 

@@ -61,7 +61,7 @@
     <Compile Include="IGeneratorXSchedule.cs" />
     <Compile Include="Instances\GenerateFromFileTerms.cs" />
     <Compile Include="Instances\GenerateFromFileClasses.cs" />
-    <Compile Include="GeneratorFactory.cs" />
+    <Compile Include="GenerateFromFileFactory.cs" />
     <Compile Include="Instances\GenerateFromFileCalendar.cs" />
     <Compile Include="IGenerateFromFile.cs" />
     <Compile Include="Instances\GenerateFromFileOffset.cs" />

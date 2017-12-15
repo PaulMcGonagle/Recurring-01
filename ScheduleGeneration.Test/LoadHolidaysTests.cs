@@ -80,7 +80,7 @@ namespace ScheduleGeneration.Test
             
             public void WhenGeneratorIsRetrieved()
             {
-                _generator = GeneratorFactory.Get(_generatorType);
+                _generator = GenerateFromFileFactory.Get(_generatorType);
             }
 
             public void AndWhenGeneratorIsHoliday()

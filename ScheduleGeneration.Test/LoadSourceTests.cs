@@ -97,7 +97,7 @@ namespace ScheduleGeneration.Test
 
             public void WhenGeneratorIsRetrieved()
             {
-                _generator = GeneratorFactory.Get("classes");
+                _generator = GenerateFromFileFactory.Get("classes");
             }
 
             public void AndWhenVertexsAreGenerated()
@@ -172,7 +172,7 @@ namespace ScheduleGeneration.Test
 
             public void WhenGeneratorIsRetrieved()
             {
-                _generator = GeneratorFactory.Get("classes");
+                _generator = GenerateFromFileFactory.Get("classes");
             }
 
             public void AndWhenEventsAreGenerated()
@@ -323,7 +323,7 @@ namespace ScheduleGeneration.Test
 
             public void WhenGeneratorIsRetrieved()
             {
-                _generator = GeneratorFactory.Get("classes");
+                _generator = GenerateFromFileFactory.Get("classes");
             }
 
             public void AndWhenEventsAreGenerated()
@@ -388,7 +388,7 @@ namespace ScheduleGeneration.Test
 
             public void WhenGeneratorIsRetrieved(string generatorName)
             {
-                _generator = GeneratorFactory.Get(generatorName);
+                _generator = GenerateFromFileFactory.Get(generatorName);
             }
 
             public void AndWhenEventsAreGenerated()
@@ -502,7 +502,7 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenGeneratorIsRetrieved(string generatorName)
             {
-                _generator = GeneratorFactory.Get(generatorName);
+                _generator = GenerateFromFileFactory.Get(generatorName);
             }
 
             public void AndWhenVertexsAreGenerated()
@@ -612,7 +612,7 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenGeneratorIsRetrieved(string generatorName)
             {
-                _generator = GeneratorFactory.Get(generatorName);
+                _generator = GenerateFromFileFactory.Get(generatorName);
             }
 
             public void AndWhenEventsAreGenerated()

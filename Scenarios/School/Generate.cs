@@ -55,7 +55,7 @@ namespace School
 
         public void GenerateYears()
         {
-            var generator = GeneratorFactory.Get("calendar");
+            var generator = GenerateFromFileFactory.Get("calendar");
 
             var generated = generator.Generate(
                     "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\Years.xml",
@@ -80,7 +80,7 @@ namespace School
 
         public void GenerateTerms()
         {
-            var generator = GeneratorFactory.Get("calendar");
+            var generator = GenerateFromFileFactory.Get("calendar");
 
             var generated = generator.Generate(
                     "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\Terms.xml",
@@ -101,7 +101,7 @@ namespace School
 
         public void GenerateHolidays()
         {
-            var generator = GeneratorFactory.Get("calendar");
+            var generator = GenerateFromFileFactory.Get("calendar");
 
             var generated = generator.Generate(
                     "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\Holidays.xml",
@@ -188,7 +188,7 @@ namespace School
 
         public void GenerateSchoolClass()
         {
-            var generator = GeneratorFactory.Get("classes");
+            var generator = GenerateFromFileFactory.Get("classes");
 
             Vertexs.AddRange(generator.Generate(
                     "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\HG.xml",

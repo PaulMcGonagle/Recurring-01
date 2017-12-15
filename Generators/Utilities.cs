@@ -126,7 +126,7 @@ namespace Generators
             var type = xElement.RetrieveAttributeValue("type");
             var path = xElement.RetrieveAttributeValue("path");
 
-            var generatorX = GeneratorFactory.GetX(type);
+            var generatorX = GenerateFromFileFactory.GetX(type);
 
             var xLink = xInput
                 .XPathSelectElement(path);

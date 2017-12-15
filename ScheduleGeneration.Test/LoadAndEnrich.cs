@@ -77,7 +77,7 @@ namespace ScheduleGeneration.Test
 
             public void WhenGeneratorIsRetrieved()
             {
-                _generator = GeneratorFactory.Get("classes");
+                _generator = GenerateFromFileFactory.Get("classes");
             }
 
             public void AndWhenVertexsAreGenerated()

@@ -86,7 +86,7 @@ namespace ScheduleGeneration.Test.XInstances
 
                     type.ShouldNotBeNullOrWhiteSpace();
 
-                    var generator = GeneratorFactory.GetX(type);
+                    var generator = GenerateFromFileFactory.GetX(type);
 
                     var schedule = generator.Generate(
                             xSchedule, 

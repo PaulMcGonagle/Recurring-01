@@ -92,7 +92,7 @@ namespace Generators.Test.Instances
 
             public void AndWhenGeneratorIsRetrieved()
             {
-                _generator = GeneratorFactory.Get("calendar");
+                _generator = GenerateFromFileFactory.Get("calendar");
             }
 
             public void AndWhenCalendarIsGenerated()

@@ -4,7 +4,7 @@ using Generators.XInstances;
 
 namespace Generators
 {
-    public static class GeneratorFactory
+    public static class GenerateFromFileFactory
     {
         public static IGenerateFromFile Get(string generatorType)
         {
