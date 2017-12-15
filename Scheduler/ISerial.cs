@@ -9,5 +9,7 @@ namespace Scheduler
         IEdgeVertexs<IEpisode> GenerateEpisodes(IClock clock);
 
         IEdgeSchedule EdgeSchedule { get; set; }
+
+        IEdgeRangeTime RangeTime { get; set; }
     }
 }

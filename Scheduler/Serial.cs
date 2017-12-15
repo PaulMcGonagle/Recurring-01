@@ -14,7 +14,8 @@ namespace Scheduler
         [IgnoreDataMember]
         public IEdgeSchedule EdgeSchedule { get; set; }
 
-        [IgnoreDataMember] public IEdgeRangeTime RangeTime;
+        [IgnoreDataMember]
+        public IEdgeRangeTime RangeTime { get; set; }
 
         public string TimeZoneProvider;
 
