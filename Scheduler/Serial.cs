@@ -17,7 +17,7 @@ namespace Scheduler
         [IgnoreDataMember]
         public IEdgeRangeTime RangeTime { get; set; }
 
-        public string TimeZoneProvider;
+        public string TimeZoneProvider { get; set; }
 
         public IEdgeVertexs<IEpisode> GenerateEpisodes(IClock clock)
         {

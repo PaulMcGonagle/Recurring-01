@@ -63,7 +63,7 @@ namespace ScheduleGeneration.Test
                                             }.Build(),
                                         TimeZoneProvider = "Europe/London",
                                     }.Build(),
-                                Location = TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location,
+                                Location = TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex,
                                 Instance = new Instance(),
                                 Title = "the title"
                             }.Build(),
@@ -279,7 +279,7 @@ namespace ScheduleGeneration.Test
                                             }.Build(),
                                         TimeZoneProvider = "Europe/London"
                                     }.Build(),
-                                Location = TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location,
+                                Location = TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex,
                                 Instance = new Instance(),
                                 Title = "the title"
                             }.Build(),

@@ -115,11 +115,11 @@ namespace Scheduler
                 set => _target.Serials = new EdgeVertexs<ISerial>(value);
             }
 
-            public Serial Serial {  set => Serials = new [] { value, };}
+            public ISerial Serial {  set => Serials = new [] { value, };}
 
-            public IEdgeVertex<ILocation> Location
+            public ILocation Location
             {
-                set => _target.Location = value;
+                set => _target.Location = new EdgeVertex<ILocation>(value);
             }
         }
     }

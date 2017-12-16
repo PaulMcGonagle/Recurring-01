@@ -54,7 +54,7 @@ namespace Calendar.Test
                                         TimeZoneProvider = TimeZoneProvider,
                                     }.Build(),
                                 Title = "Street dance",
-                                Location = new EdgeVertex<ILocation>(new Location()),
+                                Location = new Location(),
                                 Instance = new Instance()
                             }.Build(),
                             fakeClock,

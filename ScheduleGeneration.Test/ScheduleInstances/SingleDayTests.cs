@@ -111,7 +111,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                         TimeZoneProvider = "Europe/London"
                                     }.Build(),
                                 Instance = new Instance(),
-                                Location = new EdgeVertex<ILocation>(new Location()),
+                                Location = new Location(),
                                 Title = "new title"
                             }.Build(),
                         mockDb.Object,

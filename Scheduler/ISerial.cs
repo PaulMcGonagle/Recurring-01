@@ -11,5 +11,7 @@ namespace Scheduler
         IEdgeSchedule EdgeSchedule { get; set; }
 
         IEdgeRangeTime RangeTime { get; set; }
+
+        string TimeZoneProvider { get; set; }
     }
 }

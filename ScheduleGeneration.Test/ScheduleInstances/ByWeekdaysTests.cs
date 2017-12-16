@@ -62,7 +62,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                         TimeZoneProvider = "Europe/London",
                                    }.Build(),
                                 Instance = new Instance(),
-                                Location = new EdgeVertex<ILocation>(new Location()),
+                                Location = new Location(),
                                 Title = "new title"
                             }.Build(),
                         mockDb.Object,
@@ -167,7 +167,7 @@ namespace ScheduleGeneration.Test.ScheduleInstances
                                             }.Build(),
                                         TimeZoneProvider = "Europe/London",
                                     }.Build(),
-                                Location = TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location,
+                                Location = TestData.DataRetrieval.Organisations["Lords Cricket Academy"].Location.ToVertex,
                                 Instance = new Instance(),
                                 Title = "new title"
                             }.Build(),

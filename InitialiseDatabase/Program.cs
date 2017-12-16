@@ -7,6 +7,7 @@ using Scheduler.Calendars;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleInstances;
+using Scheduler.Users;
 using School;
 
 namespace InitialiseDatabase
@@ -26,21 +27,20 @@ namespace InitialiseDatabase
 
             generate.Go();
 
-            foreach (var serial in generate.Vertexs.OfType<ISerial>())
+            var serials = generate
+                .Vertexs
+                .OfType<ISerial>()
+                .Select(serial => new Event.Builder
+                {
+                    Instance = null,
+                    Location = new Location {Address = "the school"},
+                    Serial = serial,
+                }.Build());
+
+            var calendar = new Calendar.Builder
             {
-                var episodes = serial
-                    .GenerateEpisodes(fakeClock)
-                    .GetToVertexs();
 
-                var name = serial
-                    .GetTagValue("name");
-
-                Output.WriteLine($"Serial {name ?? ""} {episodes.Count()}");
-                //Output.DisplayList(episodes.OrderBy(o => o.Start));
-
-            }
-            Output.Wait();
-
+            }.Build();
 
             //foreach (var calendar in generate.Calendars)
             //{

@@ -174,7 +174,7 @@ namespace School
             var @event = new Event.Builder
             {
                 Serial =  serial,
-                Location = new EdgeVertex<ILocation>(new Location()),
+                Location = new Location(),
                 Instance = new Instance(),
                 Title = "an occassion"
             }.Build();
