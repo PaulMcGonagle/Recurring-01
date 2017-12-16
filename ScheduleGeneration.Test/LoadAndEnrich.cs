@@ -99,8 +99,7 @@ namespace ScheduleGeneration.Test
             public void AndThenSchedulesAreGenerated()
             {
                 _episodes = _serial
-                    .GenerateEpisodes(_clock)
-                    .GetToVertexs();
+                    .GenerateEpisodes(_clock);
             }
 
             public void AndThenDatesAreExpected(IEnumerable<IDate> expectedDates)

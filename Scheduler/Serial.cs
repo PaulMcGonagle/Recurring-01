@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using CoreLibrary;
@@ -19,11 +20,11 @@ namespace Scheduler
 
         public string TimeZoneProvider { get; set; }
 
-        public IEdgeVertexs<IEpisode> GenerateEpisodes(IClock clock)
+        public IEnumerable<IEpisode> GenerateEpisodes(IClock clock)
         {
             Validate();
 
-            var episodes = new EdgeVertexs<IEpisode>();
+            var episodes = new List<IEpisode>();
 
             var dates = EdgeSchedule.Schedule
                 .Generate(clock);

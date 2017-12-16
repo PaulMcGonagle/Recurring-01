@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using NodaTime;
 using NodaTime.Testing;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
-using Scheduler.ScheduleEdges;
 using Shouldly;
 using TestStack.BDDfy;
 using Scheduler.ScheduleInstances;
@@ -20,7 +18,7 @@ namespace Scheduler.Test
             private Serial.Builder _sut;
             private IClock _clock;
             private Serial _serial;
-            private IEdgeVertexs<IEpisode> _episodes;
+            private IEnumerable<IEpisode> _episodes;
 
             [Fact]
             public void Execute()
@@ -93,7 +91,6 @@ namespace Scheduler.Test
             public void ThenEpisodesAreExpected(IEpisodes expectedEpisodes)
             {
                 _episodes
-                    .Select(e => e.ToVertex)
                     .ShouldBe(expectedEpisodes);
             }
         }

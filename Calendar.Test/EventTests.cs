@@ -5,7 +5,6 @@ using Scheduler;
 using Scheduler.Calendars;
 using Scheduler.Persistance;
 using Scheduler.Ranges;
-using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Test;
 using Scheduler.Users;
@@ -79,21 +78,21 @@ namespace Calendar.Test
             public void ThenAllSerialsHaveTheCorrectWeekday(IsoDayOfWeek expectedWeekday)
             {
                 _serials.SelectMany(s => s.ToVertex.GenerateEpisodes(_clock))
-                    .Select(e => e.ToVertex.Start.DayOfWeek)
+                    .Select(e => e.Start.DayOfWeek)
                     .ShouldAllBe(d => d.Equals((int)expectedWeekday));
             }
 
             public void AndThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
             {
                 _serials.SelectMany(s => s.ToVertex.GenerateEpisodes(_clock))
-                    .Select(e => e.ToVertex.Start.TimeOfDay)
+                    .Select(e => e.Start.TimeOfDay)
                     .ShouldAllBe(d => d.Equals(expectedStartTime));
             }
 
             public void AndThenAllEndTimesAreCorrect(LocalTime expectedEndTime)
             {
                 _serials.SelectMany(s => s.ToVertex.GenerateEpisodes(_clock))
-                    .Select(e => e.ToVertex.End.TimeOfDay)
+                    .Select(e => e.End.TimeOfDay)
                     .ShouldAllBe(d => d.Equals(expectedEndTime));
             }
         }
@@ -151,7 +150,7 @@ namespace Calendar.Test
             public void ThenAllStartTimesAreCorrect(LocalTime expectedStartTime)
             {
                 _serials.SelectMany(s => s.ToVertex.GenerateEpisodes(_clock))
-                    .Select(e => e.ToVertex.Start.TimeOfDay)
+                    .Select(e => e.Start.TimeOfDay)
                     .ShouldAllBe(d => d.Equals(expectedStartTime));
             }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using NodaTime;
@@ -25,10 +26,50 @@ namespace Scheduler.Users
             }
         }
 
+        public override void Validate()
+        {
+            base.Validate();
+
+            if ((!string.IsNullOrWhiteSpace(Latitude) && string.IsNullOrWhiteSpace(Longitude))
+            || (string.IsNullOrWhiteSpace(Latitude) && !string.IsNullOrWhiteSpace(Longitude)))
+            {
+                throw new ArgumentException("Both Longitude and Latitude must be provided");
+            }
+
+            if (string.IsNullOrWhiteSpace(Address) && string.IsNullOrWhiteSpace(Latitude))
+            {
+                throw new ArgumentException("Either Location Address or Latitude/Longitude must be provided");
+            }
+        }
+
         public override void Save(IArangoDatabase db, IClock clock)
         {
             Save<Location>(db);
             base.Save(db, clock);
+
+        }
+
+        public class Builder : Builder<Location>
+        {
+            public string Address
+            {
+                set => _target.Address = value;
+            }
+
+            public string Latitude
+            {
+                set => _target.Latitude = value;
+            }
+
+            public string Longitude
+            {
+                set => _target.Longitude = value;
+            }
+
+            public Serials Serials
+            {
+                set => _target.Serials = value;
+            }
         }
     }
 }

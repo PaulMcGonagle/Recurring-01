@@ -5,8 +5,6 @@ using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Calendars;
 using Scheduler.Persistance;
-using Scheduler.Ranges;
-using Scheduler.ScheduleInstances;
 using Scheduler.Users;
 using School;
 
@@ -27,38 +25,42 @@ namespace InitialiseDatabase
 
             generate.Go();
 
-            var serials = generate
+            var location = new Location
+            {
+                Address = "the school",
+            };
+
+            var events = generate
                 .Vertexs
                 .OfType<ISerial>()
                 .Select(serial => new Event.Builder
                 {
                     Instance = null,
-                    Location = new Location {Address = "the school"},
+                    Location = location,
                     Serial = serial,
+                    Title = serial.GetTagValue("name"),
                 }.Build());
 
             var calendar = new Calendar.Builder
-            {
+                {
+                    Events = new EdgeVertexs<IEvent>(events),
+                    Description = "school timetable"
+                }.Build();
 
-            }.Build();
 
-            //foreach (var calendar in generate.Calendars)
-            //{
-            //    foreach (var @event in calendar.Events.Select(e => e.ToVertex))
-            //    {
-            //        foreach (var serial in @event.Serials.Select(s => s.ToVertex))
-            //        {
-            //            var episodes = serial.GenerateEpisodes(fakeClock).Select(e => e.ToVertex);
 
-            //            ConsoleOutput.Output.DisplayList(episodes);
+            var calendarEvents = calendar
+                .Events
+                .GetToVertexs();
 
-            //            ConsoleOutput.Output.Wait();
-            //        }
-            //    }
-            //}
+            var calendarSerials = calendarEvents
+                .SelectMany(c => c.Serials.GetToVertexs());
 
-            //Output.DisplayGrid(compositeSchedule.Generate(fakeClock));
+            var calendarEpisodes = calendarSerials
+                .SelectMany(e => e.GenerateEpisodes(fakeClock));
 
+            Output.DisplayList(calendarEpisodes, timeZoneProvider);
+            Output.Wait();
         }
     }
 }

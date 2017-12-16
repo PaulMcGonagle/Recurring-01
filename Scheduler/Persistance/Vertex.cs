@@ -213,6 +213,11 @@ namespace Scheduler.Persistance
                 _target = new T();
             }
 
+            public IEnumerable<ITag> Tags
+            {
+                set => _target.Tags = new EdgeVertexs<ITag>(value);
+            }
+
             public virtual T Build()
             {
                 _target.Validate();

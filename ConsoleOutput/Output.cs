@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
 using Scheduler;
+using Scheduler.Persistance;
 using static System.Console;
 
 namespace ConsoleOutput
@@ -84,7 +85,7 @@ namespace ConsoleOutput
             }
         }
 
-        public static void DisplayList(IEnumerable<IEpisode> episodes)
+        public static void DisplayList(IEnumerable<IEpisode> episodes, string timeZoneProvider)
         {
             if (episodes == null)
             {
@@ -92,9 +93,22 @@ namespace ConsoleOutput
                 return;
             }
 
-            foreach (var episode in episodes)
+            var episodesSorted = episodes
+                .ToList();
+
+            episodesSorted
+                .Sort();
+
+            foreach (var episode in episodesSorted)
             {
-                WriteLine($"Episode, start {episode.Start}, period: {episode.Period}");
+                var start = DateTimeHelper.GetZonedDateTime(episode.Start.LocalDateTime, timeZoneProvider);
+                var end = DateTimeHelper.GetZonedDateTime(episode.End.LocalDateTime, timeZoneProvider);
+                var name = episode
+                    .SourceSerial
+                    .ToVertex
+                    .GetTagValue("name");
+
+                WriteLine($"Episode {name}, start {start}, end: {end}");
             }
         }
 
