@@ -73,7 +73,7 @@ namespace Scheduler
         {
             Guard.AgainstNull(Location, nameof(Location));
             Guard.AgainstNull(Serials, nameof(Serials));
-            Guard.AgainstNull(Instance, nameof(Instance));
+            //Guard.AgainstNull(Instance, nameof(Instance));
 
             Guard.AgainstNullOrWhiteSpace(Title, nameof(Title));
         }

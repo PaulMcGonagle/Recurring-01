@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduler", "Scheduler\Scheduler.csproj", "{3189F8E6-B2AB-4B6E-8F28-756372C7644E}"
 EndProject
@@ -40,6 +40,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHelpers", "TestHelpers\TestHelpers.csproj", "{8CD75103-0A87-4EA8-B2CC-D39373F17F8D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLibrary", "CoreLibrary\CoreLibrary.csproj", "{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synchronisers", "Synchronisers", "{5BF4970E-EABA-49C3-AE83-4890E429E2B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynchroniseGoogle", "SynchroniseGoogle\SynchroniseGoogle.csproj", "{B06C26DD-DDD1-40AC-860D-1146CA17054B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,12 +157,21 @@ Global
 		{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}.Release|x86.ActiveCfg = Release|Any CPU
 		{6FA11D8E-B230-4B09-ACEE-FCB6DB91DA36}.Release|x86.Build.0 = Release|Any CPU
+		{B06C26DD-DDD1-40AC-860D-1146CA17054B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B06C26DD-DDD1-40AC-860D-1146CA17054B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B06C26DD-DDD1-40AC-860D-1146CA17054B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B06C26DD-DDD1-40AC-860D-1146CA17054B}.Debug|x86.Build.0 = Debug|Any CPU
+		{B06C26DD-DDD1-40AC-860D-1146CA17054B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B06C26DD-DDD1-40AC-860D-1146CA17054B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B06C26DD-DDD1-40AC-860D-1146CA17054B}.Release|x86.ActiveCfg = Release|Any CPU
+		{B06C26DD-DDD1-40AC-860D-1146CA17054B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{ABE6C065-419C-46A1-924C-36A4E58478EB} = {5A1D04AC-4163-41C9-8189-929D2FEB25BF}
+		{B06C26DD-DDD1-40AC-860D-1146CA17054B} = {5BF4970E-EABA-49C3-AE83-4890E429E2B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {46C0E1C7-A91E-4B7B-B757-3931DA3C28D9}
