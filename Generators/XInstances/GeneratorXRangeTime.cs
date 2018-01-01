@@ -9,7 +9,7 @@ namespace Generators.XInstances
 {
     public class GeneratorXRangeTime : IGeneratorX
     {
-        public IVertex Generate(XElement xRangeTime, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
+        public IVertex Generate(XElement xRangeTime, IDictionary<string, IVertex> caches, IClock clock = null, string elementsName = null, string elementName = null)
         {
             var linkedRangeTime = UtilitiesLinks<RangeTime>
                 .RetrieveAll(xRangeTime, caches)

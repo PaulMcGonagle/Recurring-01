@@ -97,7 +97,6 @@
     <Compile Include="LoadAndEnrich.cs" />
     <Compile Include="LoadFiles.cs" />
     <Compile Include="LoadHolidaysTests.cs" />
-    <Compile Include="LoadOption02.cs" />
     <Compile Include="LoadSourceTests.cs" />
     <Compile Include="Persistance\EventPersistanceTests.cs" />
     <Compile Include="Persistance\VertexPersistanceTests.cs" />

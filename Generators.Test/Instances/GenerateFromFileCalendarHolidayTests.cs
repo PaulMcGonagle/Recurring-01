@@ -22,7 +22,7 @@ namespace Generators.Test.Instances
             private IGenerateFromFile _generator;
             private IEnumerable<IVertex> _vertexs;
             private ISchedule _schedule;
-            private CompositeSchedule _compositeSchedule;
+            private ByDateList _byDateList;
             private IEnumerable<IDate> _dates;
 
             [Fact]
@@ -38,8 +38,8 @@ namespace Generators.Test.Instances
                             new XElement("calendars",
                                 new XElement("calendar",
                                     new XElement("schedule",
-                                        new XElement("inclusions",
-                                            new XElement("byDateList",
+                                        new XElement("byDateList",
+                                            new XElement("dates",
                                                 new XElement("date",
                                                     new XAttribute("value", "2016-12-25"),
                                                     new XElement("tags",
@@ -85,7 +85,7 @@ namespace Generators.Test.Instances
 
             public void WhenDocumentIsSaved()
             {
-                _tempFilename = System.IO.Path.GetTempFileName();
+                _tempFilename = Path.GetTempFileName();
 
                 _xElement.Save(_tempFilename);
             }
@@ -121,8 +121,8 @@ namespace Generators.Test.Instances
 
             public void AndThenScheduleInstanceIsACompositeSchedule()
             {
-                _schedule.ScheduleInstance.ShouldBeOfType<CompositeSchedule>();
-                _compositeSchedule = (CompositeSchedule) _schedule.ScheduleInstance;
+                _schedule.ScheduleInstance.ShouldBeOfType<ByDateList>();
+                _byDateList = (ByDateList) _schedule.ScheduleInstance;
             }
 
             public void AndThenDateListIsNotEmpty()

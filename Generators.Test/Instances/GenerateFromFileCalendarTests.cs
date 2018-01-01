@@ -22,7 +22,7 @@ namespace Generators.Test.Instances
             private IGenerateFromFile _generator;
             private IEnumerable<IVertex> _vertexs;
             private ISchedule _schedule;
-            private ICompositeSchedule _compositeSchedule;
+            private ByRangeDate _byRangeDate;
 
             [Fact]
             public void Execute()
@@ -35,10 +35,9 @@ namespace Generators.Test.Instances
                         new XElement("calendars",
                             new XElement("calendar",
                                 new XElement("schedule",
-                                    new XElement("inclusions",
-                                        new XElement("byRangeDate",
-                                            new XAttribute("start", "2016-03-01"),
-                                            new XAttribute("end", "2016-03-31"))))))),
+                                    new XElement("byRangeDate",
+                                        new XAttribute("start", "2016-03-01"),
+                                        new XAttribute("end", "2016-03-31")))))),
 
                 }).BDDfy();
             }
@@ -91,12 +90,12 @@ namespace Generators.Test.Instances
 
                 _schedule
                     .ScheduleInstance
-                    .ShouldBeAssignableTo<ICompositeSchedule>();
+                    .ShouldBeAssignableTo<ByRangeDate>();
 
-                _compositeSchedule = (ICompositeSchedule) _schedule
+                _byRangeDate = (ByRangeDate)_schedule
                     .ScheduleInstance;
 
-                _compositeSchedule
+                _byRangeDate
                     .ShouldNotBeNull();
             }
         }

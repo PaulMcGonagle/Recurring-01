@@ -29,9 +29,7 @@ namespace Generators.Instances
 
             var vertex = generator.Generate(xSchedules, caches, clock: clock);
 
-            var schedule = vertex as ISchedule;
-
-            if (schedule == null)
+            if (!(vertex is ISchedule schedule))
                 throw new Exception($"Generator generated invalid type. Expected ISchedule, returned {vertex.GetType()}");
 
             schedule

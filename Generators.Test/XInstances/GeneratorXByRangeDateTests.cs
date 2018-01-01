@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Generators.XInstances;
+using Generators.XScheduleInstances;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;

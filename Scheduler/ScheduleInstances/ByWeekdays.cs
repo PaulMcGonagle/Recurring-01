@@ -6,7 +6,7 @@ using Scheduler.ScheduleAbstracts;
 
 namespace Scheduler.ScheduleInstances
 {
-    public class ByWeekdays : ScheduleAbstracts.Repeating
+    public class ByWeekdays : Repeating
     {
         public IEnumerable<IsoDayOfWeek> Weekdays;
 
@@ -27,6 +27,11 @@ namespace Scheduler.ScheduleInstances
             base.Validate();
 
             Guard.AgainstNull(Weekdays, nameof(Weekdays));
+        }
+
+        public override bool Contains(IClock clock, IDate date)
+        {
+            return Weekdays.Contains(date.IsoDayOfWeek);
         }
 
         public override IEnumerable<IDate> Generate(IClock clock)

@@ -7,7 +7,6 @@ using Castle.Core.Internal;
 using Generators;
 using Scheduler;
 using Scheduler.Persistance;
-using Scheduler.ScheduleInstances;
 using Scheduler.Users;
 using Shouldly;
 using TestStack.BDDfy;

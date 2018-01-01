@@ -31,7 +31,6 @@ namespace ScheduleGeneration.Test
             private IInstance _instance;
             private IEnumerable<IEpisode> _episodes;
             private string _timeZoneProviderPath;
-            private string _timeZoneProvider;
 
             [Fact]
             public void Execute()
@@ -624,9 +623,9 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenVertexsAreSaved()
             {
-                foreach (var _vertex in _vertexs)
+                foreach (var vertex in _vertexs)
                 {
-                    _vertex.Save(_db, _clock);
+                    vertex.Save(_db, _clock);
                 }
             }
 

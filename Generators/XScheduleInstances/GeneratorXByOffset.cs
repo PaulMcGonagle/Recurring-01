@@ -7,11 +7,11 @@ using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 
-namespace Generators.XInstances
+namespace Generators.XScheduleInstances
 {
     public class GeneratorXByOffset : IGeneratorX
     {
-        public IVertex Generate(XElement xByOffset, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
+        public IVertex Generate(XElement xByOffset, IDictionary<string, IVertex> caches, IClock clock = null, string elementsName = null, string elementName = null)
         {
             var initialDateValue = xByOffset.RetrieveValue("initialDate");
             var initialDate = Retriever.RetrieveLocalDate(initialDateValue);

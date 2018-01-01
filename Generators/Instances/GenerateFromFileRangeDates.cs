@@ -39,7 +39,7 @@ namespace Generators.Instances
                 var generatorRangeDate = new GeneratorXRangeDate();
 
                 var rangeDate = (IRangeDate)generatorRangeDate
-                    .Generate(xRange, caches, null, clock);
+                    .Generate(xRange, caches, clock: clock);
 
                 var rangeTags = xRange
                     .RetrieveTags(caches)

@@ -152,22 +152,20 @@
               <rangeTimes>
                 <rangeTime start="09:00" end="09:15"/>
               </rangeTimes>
-              <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Monday"/>
-                      <weekday value="Tuesday"/>
-                      <weekday value="Wednesday"/>
-                      <weekday value="Thursday"/>
-                      <weekday value="Friday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
-              </schedules>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Monday"/>
+                    <weekday value="Tuesday"/>
+                    <weekday value="Wednesday"/>
+                    <weekday value="Thursday"/>
+                    <weekday value="Friday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedule>
             </serial>
           </serials>
           <rangeTimes>
@@ -183,37 +181,33 @@
               <rangeTimes>
                 <rangeTime start="09:15" end="10:20"/>
               </rangeTimes>
-              <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Monday"/>
-                      <weekday value="Wednesday"/>
-                      <weekday value="Friday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
-              </schedules>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Monday"/>
+                    <weekday value="Wednesday"/>
+                    <weekday value="Friday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedule>
             </serial>
             <serial>
               <rangeTimes>
                 <rangeTime start="09:45" end="10:20"/>
               </rangeTimes>
-              <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Tuesday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
-              </schedules>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Tuesday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedule>
             </serial>
           </serials>
           <terms>
@@ -229,18 +223,16 @@
               <rangeTimes>
                 <rangeTime start="09:15" end="09:45"/>
               </rangeTimes>
-              <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Tuesday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
-              </schedules>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Tuesday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedule>
             </serial>
           </serials>
         </class>
@@ -253,18 +245,16 @@
               <rangeTimes>
                 <rangeTime start="09:15" end="10:10"/>
               </rangeTimes>
-              <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Thursday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
-              </schedules>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Thursday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedule>
             </serial>
           </serials>
           <terms>
@@ -309,18 +299,16 @@
               <rangeTimes>
                 <rangeTime start="10:10" end="10:50"/>
               </rangeTimes>
-              <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Thursday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
-              </schedules>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Thursday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedule>
             </serial>
           </serials>
           <terms>
@@ -336,21 +324,19 @@
               <rangeTimes>
                 <rangeTime start="10:30" end="10:50"/>
               </rangeTimes>
-              <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Monday"/>
-                      <weekday value="Tuesday"/>
-                      <weekday value="Wednesday"/>
-                      <weekday value="Friday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
-              </schedules>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Monday"/>
+                    <weekday value="Tuesday"/>
+                    <weekday value="Wednesday"/>
+                    <weekday value="Friday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedule>
             </serial>
           </serials>
           <terms>
@@ -367,22 +353,20 @@
               <rangeTimes>
                 <rangeTime start="10:50" end="11:05"/>
               </rangeTimes>
-              <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Monday"/>
-                      <weekday value="Tuesday"/>
-                      <weekday value="Wednesday"/>
-                      <weekday value="Thursday"/>
-                      <weekday value="Friday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
-              </schedules>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Monday"/>
+                    <weekday value="Tuesday"/>
+                    <weekday value="Wednesday"/>
+                    <weekday value="Thursday"/>
+                    <weekday value="Friday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedule>
             </serial>
           </serials>
           <terms>
@@ -398,22 +382,20 @@
               <rangeTimes>
                 <rangeTime start="11:05" end="12:00"/>
               </rangeTimes>
-              <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Monday"/>
-                      <weekday value="Tuesday"/>
-                      <weekday value="Wednesday"/>
-                      <weekday value="Thursday"/>
-                      <weekday value="Friday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
-              </schedules>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Monday"/>
+                    <weekday value="Tuesday"/>
+                    <weekday value="Wednesday"/>
+                    <weekday value="Thursday"/>
+                    <weekday value="Friday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedule>
             </serial>
           </serials>
           <terms>
@@ -431,20 +413,18 @@
                 <rangeTime start="12:00" end="13:00"/>
               </rangeTimes>
               <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Monday"/>
-                      <weekday value="Tuesday"/>
-                      <weekday value="Wednesday"/>
-                      <weekday value="Thursday"/>
-                      <weekday value="Friday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Monday"/>
+                    <weekday value="Tuesday"/>
+                    <weekday value="Wednesday"/>
+                    <weekday value="Thursday"/>
+                    <weekday value="Friday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
               </schedules>
             </serial>
           </serials>
@@ -461,18 +441,16 @@
               <rangeTimes>
                 <rangeTime start="13:00" end="14:30"/>
               </rangeTimes>
-              <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Monday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
-              </schedules>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Monday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedule>
             </serial>
           </serials>
           <terms>
@@ -488,21 +466,19 @@
               <rangeTimes>
                 <rangeTime start="13:00" end="13:30"/>
               </rangeTimes>
-              <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Tuesday"/>
-                      <weekday value="Wednesday"/>
-                      <weekday value="Thursday"/>
-                      <weekday value="Friday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
-              </schedules>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Tuesday"/>
+                    <weekday value="Wednesday"/>
+                    <weekday value="Thursday"/>
+                    <weekday value="Friday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedule>
             </serial>
           </serials>
           <terms>
@@ -519,16 +495,14 @@
                 <rangeTime start="13:30" end="14:30"/>
               </rangeTimes>
               <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Tuesday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Tuesday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
               </schedules>
             </serial>
           </serials>
@@ -545,18 +519,16 @@
               <rangeTimes>
                 <rangeTime start="13:30" end="14:30"/>
               </rangeTimes>
-              <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <weekdays>
-                      <weekday value="Wednesday"/>
-                    </weekdays>
-                    <rangeDates>
-                      <link cache="Term.2017/18.Autumn"/>
-                    </rangeDates>
-                  </byWeekdays>
-                </inclusions>
-              </schedules>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Wednesday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedule>
             </serial>
           </serials>
           <terms>

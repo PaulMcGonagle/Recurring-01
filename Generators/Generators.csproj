@@ -72,12 +72,14 @@
     <Compile Include="Retriever.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="UtilitiesLinks.cs" />
-    <Compile Include="XInstances\GeneratorXByDateList.cs" />
-    <Compile Include="XInstances\GeneratorXByOffset.cs" />
-    <Compile Include="XInstances\GeneratorXByRangeDate.cs" />
-    <Compile Include="XInstances\GeneratorXByWeekdays.cs" />
+    <Compile Include="XmlSourceException.cs" />
+    <Compile Include="XScheduleInstances\GeneratorXByDateList.cs" />
+    <Compile Include="XScheduleInstances\GeneratorXByOffset.cs" />
+    <Compile Include="XScheduleInstances\GeneratorXByRangeDate.cs" />
+    <Compile Include="XScheduleInstances\GeneratorXByWeekdays.cs" />
     <Compile Include="XInstances\GeneratorXRangeDate.cs" />
-    <Compile Include="XInstances\GeneratorXCompositeSchedule.cs" />
+    <Compile Include="XScheduleInstances\GeneratorXCompositeSchedule.cs" />
+    <Compile Include="GeneratorXSchedule.cs" />
     <Compile Include="XInstances\GeneratorXTag.cs" />
     <Compile Include="XInstances\GeneratorXRangeTime.cs" />
   </ItemGroup>

@@ -7,11 +7,11 @@ namespace Generators.XInstances
 {
     public class GeneratorXTag : IGeneratorX
     {
-        public IVertex Generate(XElement xRangeDate, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
+        public IVertex Generate(XElement xRangeDate, IDictionary<string, IVertex> caches, IClock clock = null, string elementsName = null, string elementName = null)
         {
             var xTag = xRangeDate.RetrieveTag();
 
-            xTag.Connect(xRangeDate.RetrieveTags(caches, elementsName));
+            xTag.Connect(xRangeDate.RetrieveTags(caches, elementsName ?? "tags"));
 
             return xTag;
         }

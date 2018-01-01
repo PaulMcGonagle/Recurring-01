@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Management.Instrumentation;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using CoreLibrary;
@@ -63,7 +62,7 @@ namespace Generators
         {
             var x = GenerateFromFileFactory.GetX("RangeDate");
 
-            var rangeDate = (RangeDate)x.Generate(xInput, caches, elementName);
+            var rangeDate = (RangeDate)x.Generate(xInput, caches, elementsName: elementName);
 
             rangeDate.Connect(xInput.RetrieveTags(caches));
 
@@ -186,12 +185,12 @@ namespace Generators
             }
         }
 
-        public static IEnumerable<IDate> RetrieveDates(this XElement xInput, IClock clock, IDictionary<string, IVertex> caches, string elementsName = "dates")
+        public static IEnumerable<IDate> RetrieveDates(this XElement xInput, IClock clock, IDictionary<string, IVertex> caches, string elementsName = "date")
         {
             var dates = new List<IDate>();
 
             var xDates = xInput
-                .Elements("date")
+                .Elements(elementsName)
                 .ToList();
 
             foreach (var xDate in xDates)
@@ -284,7 +283,7 @@ namespace Generators
                         throw new Exception($"Unable to retrieve count '{countTag.ToVertex.Value}'");
                     }
 
-                    ((ByOffset)scheduleInstance).CountTo = count;
+                    scheduleInstance.CountTo = count;
 
                     schedule = new Schedule(scheduleInstance);
 

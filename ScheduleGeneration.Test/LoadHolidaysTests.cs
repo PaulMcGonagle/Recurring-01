@@ -92,7 +92,9 @@ namespace ScheduleGeneration.Test
 
             public void AndWhenGenerated()
             {
-                _vertexs = _generatorCalendars.Generate(_sourceFile, _clock);
+                _vertexs = _generatorCalendars
+                    .Generate(_sourceFile, _clock)
+                    .ToList();
             }
 
             public void AndWhenSchedulesAreRetrived()

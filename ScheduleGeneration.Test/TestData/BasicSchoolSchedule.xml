@@ -20,16 +20,14 @@
     <calendar>
       <serials>
         <serial>
-          <schedules>
+          <schedule>
             <tags>
               <tag id="name" value="Autumn.2016/17"/>
             </tags>
-            <inclusions>
-              <byRangeDate>
-                <rangeDate start="2016-09-02" end="2016-12-21"/>
-              </byRangeDate>
-            </inclusions>
-          </schedules>
+            <byRangeDate>
+              <rangeDate start="2016-09-02" end="2016-12-21"/>
+            </byRangeDate>
+          </schedule>
         </serial>
       </serials>
     </calendar>
@@ -70,24 +68,22 @@
           </terms>
           <serials>
             <serial>
-              <schedules>
-                <inclusions>
-                  <byWeekdays>
-                    <tags>
-                      <tag id="name" value="09:15"/>
-                    </tags>
-                    <rangeDates>
-                      <rangeDate start="2017-01-02" end="2017-01-10"/>
-                    </rangeDates>
-                    <weekdays>
-                      <weekday value="Monday"/>
-                      <weekday value="Tuesday"/>
-                      <weekday value="Wednesday"/>
-                      <weekday value="Friday"/>
-                    </weekdays>
-                  </byWeekdays>
-                </inclusions>
-              </schedules>
+              <tags>
+                <tag id="name" value="09:15"/>
+              </tags>
+              <schedule>
+                <byWeekdays>
+                  <rangeDates>
+                    <rangeDate start="2017-01-02" end="2017-01-10"/>
+                  </rangeDates>
+                  <weekdays>
+                    <weekday value="Monday"/>
+                    <weekday value="Tuesday"/>
+                    <weekday value="Wednesday"/>
+                    <weekday value="Friday"/>
+                  </weekdays>
+                </byWeekdays>
+              </schedule>
               <rangeTimes>
                 <rangeTime start="09:15" end="10:20"/>
               </rangeTimes>

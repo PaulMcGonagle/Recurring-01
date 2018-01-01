@@ -83,6 +83,7 @@
     <Compile Include="Backup.cs" />
     <Compile Include="Date.cs" />
     <Compile Include="DateAdjuster.cs" />
+    <Compile Include="DateFilterInstance.cs" />
     <Compile Include="Episodes.cs" />
     <Compile Include="Calendars\Calendar.cs" />
     <Compile Include="Calendars\ICalendar.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Calendars\Instances.cs" />
     <Compile Include="Calendars\IInstance.cs" />
     <Compile Include="Calendars\IInstances.cs" />
+    <Compile Include="DateFilterInstances\DateFilterByRange.cs" />
     <Compile Include="GeneratorSource.cs" />
     <Compile Include="ICompositeSchedule.cs" />
     <Compile Include="IDate.cs" />

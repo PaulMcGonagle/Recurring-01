@@ -5,7 +5,7 @@ using Scheduler.ScheduleAbstracts;
 
 namespace Scheduler.ScheduleInstances
 {
-    public class ByRangeDate : ScheduleAbstracts.Repeating
+    public class ByRangeDate : Repeating
     {
         public ByRangeDate()
         {
@@ -21,6 +21,11 @@ namespace Scheduler.ScheduleInstances
                           .PlusDays((CountTo ?? CountToDefault));
 
             return DateTimeHelper.Range(start: start, end: end);
+        }
+
+        public override bool Contains(IClock clock, IDate date)
+        {
+            return EdgeRangeDate.RangeDate.Contains(date.Value);
         }
 
         public override void Save(IArangoDatabase db, IClock clock, ISchedule schedule)

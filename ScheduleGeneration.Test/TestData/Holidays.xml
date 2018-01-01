@@ -3,8 +3,8 @@
     <calendars>
       <calendar name="UK Public Holidays">
         <schedule>
-          <inclusions>
-            <byDateList>
+          <byDateList>
+            <dates>
               <date value="2017-12-25">
                 <tags>
                   <tag id="name" value="Christmas Day"/>
@@ -18,8 +18,8 @@
               <date value="2018-01-01">
                 <reference path="./generator/calendars/tags/tag[@id='category']"/>
               </date>
-            </byDateList>
-          </inclusions>
+            </dates>
+          </byDateList>
         </schedule>
         <tags>
           <tag id="name" value="Public Holidays"/>

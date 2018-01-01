@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using NodaTime;
@@ -6,14 +7,19 @@ using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
 
-namespace Generators.XInstances
+namespace Generators.XScheduleInstances
 {
     public class GeneratorXDateList : IGeneratorX
     {
-        public IVertex Generate(XElement xDateList, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
+        public IVertex Generate(XElement xDateList, IDictionary<string, IVertex> caches, IClock clock = null, string elementsName = null, string elementName = null)
         {
-            var dates = xDateList
-                .RetrieveDates(clock, caches, elementsName)
+            var xDates = xDateList
+                .Elements(elementsName ?? "dates")
+                .SingleOrDefault()
+            ?? throw new Exception("Missing dates");
+
+            var dates = xDates
+                .RetrieveDates(clock, caches, elementName ?? "date")
                 .ToList();
 
             var dateList = new Schedule(

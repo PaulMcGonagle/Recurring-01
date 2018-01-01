@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Xml.Linq;
 using CoreLibrary;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
-using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 
-namespace Generators.XInstances
+namespace Generators.XScheduleInstances
 {
     public class GeneratorXByRangeDate : IGeneratorX
     {
-        public IVertex Generate(XElement xByRangeDate, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
+        public IVertex Generate(XElement xByRangeDate, IDictionary<string, IVertex> caches, IClock clock = null, string elementsName = null, string elementName = null)
         {
             Guard.AgainstNull(xByRangeDate, nameof(xByRangeDate));
 

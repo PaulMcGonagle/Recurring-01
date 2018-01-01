@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
-using Generators.XInstances;
+using Generators.XScheduleInstances;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
-using Scheduler.ScheduleEdges;
 
 namespace Generators.Instances
 {
@@ -28,7 +26,7 @@ namespace Generators.Instances
 
             var generator = new GeneratorXCompositeSchedule();
 
-            var compositeSchedule = (ISchedule)generator.Generate(xTerms, caches, "term");
+            var compositeSchedule = (ISchedule)generator.Generate(xTerms, caches, elementsName: "term");
 
             yield return compositeSchedule;
         }

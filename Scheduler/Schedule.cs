@@ -54,7 +54,6 @@ namespace Scheduler
                 case "Scheduler.ByRangeDate":
                     ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByRangeDate>(InstanceSerialized);
                     break;
-                    break;
                 case "Scheduler.ByWeekdays":
                     ScheduleInstance = Transfer.Deserialize<ScheduleInstances.ByWeekdays>(InstanceSerialized);
                     break;
@@ -81,13 +80,6 @@ namespace Scheduler
         {
             Save<Schedule>(db);
             base.Save(db, clock);
-        }
-
-        public override void Rehydrate(IArangoDatabase db)
-        {
-
-
-            base.Rehydrate(db);
         }
     }
 }

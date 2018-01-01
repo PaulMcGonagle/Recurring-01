@@ -8,11 +8,11 @@ using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 
-namespace Generators.XInstances
+namespace Generators.XScheduleInstances
 {
     public class GeneratorXCompositeSchedule : IGeneratorXSchedule
     {
-        public IVertex Generate(XElement xCompositeSchedule, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
+        public IVertex Generate(XElement xCompositeSchedule, IDictionary<string, IVertex> caches, IClock clock = null, string elementsName = null, string elementName = null)
         {
             if (xCompositeSchedule == null)
                 throw new ArgumentNullException(nameof(xCompositeSchedule));
@@ -85,7 +85,7 @@ namespace Generators.XInstances
                 var schedule = generatorX.Generate(
                     xSchedule,
                     caches,
-                    elementsName);
+                    elementsName: elementsName);
 
                 schedule
                     .Connect(xSchedule

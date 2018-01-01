@@ -1,6 +1,7 @@
 ﻿using System;
 using Generators.Instances;
 using Generators.XInstances;
+using Generators.XScheduleInstances;
 
 namespace Generators
 {
@@ -51,6 +52,30 @@ namespace Generators
 
                 default:
                     throw new NotImplementedException($"Unexpected generatorType '{generatorType}'");
+            }
+        }
+
+        public static IGeneratorX GetXSchedule(string scheduleType)
+        {
+            switch (scheduleType)
+            {
+                case "byRangeDate":
+                    return new GeneratorXByRangeDate();
+
+                case "byWeekdays":
+                    return new GeneratorXByWeekdays();
+
+                case "byDateList":
+                    return new GeneratorXDateList();
+
+                case "tag":
+                    return new GeneratorXTag();
+
+                case "byOffset":
+                    return new GeneratorXByOffset();
+
+                default:
+                    throw new NotImplementedException($"Unexpected generatorType '{scheduleType}'");
             }
         }
     }

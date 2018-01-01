@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
@@ -10,6 +12,7 @@ using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using NodaTime;
 using Scheduler;
+using Scheduler.ScheduleInstances;
 using Event = Google.Apis.Calendar.v3.Data.Event;
 
 namespace SynchroniseGoogle
@@ -88,21 +91,93 @@ namespace SynchroniseGoogle
 
             foreach (var @event in events)
             {
-                foreach (var episode in @event.Serials.SelectMany(s => s.ToVertex.GenerateEpisodes(clock)))
+                foreach (var serial in @event.Serials.Select(s => s.ToVertex))
                 {
-                    var newEvent = new Event
+                    var scheduleInstance = serial
+                        .EdgeSchedule
+                        .Schedule
+                        .ScheduleInstance;
+
+                    var timeStart = serial.RangeTime.Range.Start;
+                    var dates = scheduleInstance
+                        .Generate(clock)
+                        .ToList();
+
+                    var dateFirst = dates.Min();
+                    var dateLast = dates.Max();
+                    var dateTimeEnd = DateTimeHelper.GetZonedDateTime(dateLast, timeStart, serial.TimeZoneProvider);
+
+
+                    var recurrence = ConvertToRecurrence(scheduleInstance).ToList();
+
+                    foreach (var episode in serial.GenerateEpisodes(clock))
                     {
-                        Creator = new Event.CreatorData {Email = "recurring.user.01@gmail.com"},
-                        Start = new EventDateTime {DateTime = episode.Start.ToDateTimeUtc()},
-                        End = new EventDateTime {DateTime = episode.End.ToDateTimeUtc()},
-                        Summary = @event.Title,
-                        Location = @event.Location.ToVertex.Address,
-                    };
 
-                    var request2 = service.Events.Insert(newEvent, "recurring.user.01@gmail.com");
+                        var newEvent = new Event
+                        {
+                            Creator = new Event.CreatorData {Email = "recurring.user.01@gmail.com"},
+                            Start = new EventDateTime {DateTime = episode.Start.ToDateTimeUtc()},
+                            End = new EventDateTime {DateTime = episode.End.ToDateTimeUtc()},
+                            Summary = @event.Title,
+                            Location = @event.Location.ToVertex.Address,
+                            Recurrence = recurrence
+                        };
 
-                    request2.Execute();
+                        var request2 = service.Events.Insert(newEvent, "recurring.user.01@gmail.com");
+
+                        request2.Execute();
+                    }
                 }
+            }
+        }
+
+        private string ConvertToRRuleByDay(IsoDayOfWeek isoDayOfWeek)
+        {
+            switch (isoDayOfWeek)
+            {
+                case IsoDayOfWeek.Monday: return "MO";
+                case IsoDayOfWeek.Tuesday: return "MO";
+                case IsoDayOfWeek.Wednesday: return "MO";
+                case IsoDayOfWeek.Thursday: return "MO";
+                case IsoDayOfWeek.Friday: return "MO";
+                case IsoDayOfWeek.Saturday: return "MO";
+                case IsoDayOfWeek.Sunday: return "MO";
+                default: throw new ArgumentException($"Unexpected day {isoDayOfWeek}", nameof(isoDayOfWeek));
+            }
+        }
+
+        private string ConvertToRRuleDateTime(IDate date)
+        {
+            return date.Value.ToString("yyyyMMddT000000Z", CultureInfo.InvariantCulture.DateTimeFormat);
+
+        }
+
+        private IEnumerable<string> ConvertToRecurrence(IScheduleInstance scheduleInstance)
+        {
+            switch (scheduleInstance)
+            {
+                case ByWeekdays byWeekdays:
+
+                    var sb = new StringBuilder();
+
+                    var days = byWeekdays
+                        .Weekdays
+                        .Select(ConvertToRRuleByDay);
+
+                    yield return "FREQ=Weekly;"
+                                 + $"BYDAY={string.Join(",", days)};"
+                                 + $"UNTIL={ConvertToRRuleDateTime(byWeekdays.EdgeRangeDate.RangeDate.End.Date)}";
+
+                    break;
+
+                case ICompositeSchedule compositeSchedule:
+
+                    var recurrences = compositeSchedule
+                        .Inclusions
+                        .Select(inclusion => inclusion.ToVertex.ScheduleInstance)
+                        .SelectMany(ConvertToRecurrence);
+
+                    break;
             }
         }
     }

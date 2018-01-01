@@ -1,5 +1,4 @@
-﻿using System;
-using Scheduler.Persistance;
+﻿using Scheduler.Persistance;
 using Scheduler.Ranges;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ namespace Generators.XInstances
 {
     public class GeneratorXRangeDate : IGeneratorX
     {
-        public IVertex Generate(XElement xRangeDate, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
+        public IVertex Generate(XElement xRangeDate, IDictionary<string, IVertex> caches, IClock clock = null, string elementsName = null, string elementName = null)
         {
             var linkedRangeDate = UtilitiesLinks<RangeDate>
                 .RetrieveAll(xRangeDate, caches)

@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using Generators.XInstances;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
-using Scheduler.ScheduleEdges;
 
 namespace Generators.Instances
 {
@@ -70,26 +69,28 @@ namespace Generators.Instances
                         .ToList();
 
                     var xSerials = xClass
-                        .Element("serials");
+                        .Element("serials")
+                    ?? throw new Exception($"Missing serials");
 
                     foreach (var xSerial in xSerials
                         .Elements("serial"))
                     {
-                        var xCompositeSchedule = xSerial
-                            .Elements("schedules")
-                            .SingleOrDefault();
+                        var xSchedule = xSerial
+                            .Elements("schedule")
+                            .Elements()
+                            .Single();
 
                         var rangeTime = xSerial
                             .RetrieveRangeTimes(caches)
                             .SingleOrDefault();
 
-                        var generator = new GeneratorXCompositeSchedule();
+                        var generator = GenerateFromFileFactory.GetXSchedule(xSchedule.Name.LocalName);
 
-                        var compositeSchedule = (ISchedule) generator.Generate(xCompositeSchedule, caches);
+                        var schedule = (ISchedule) generator.Generate(xSchedule, caches, clock);
 
                         var serial = new Serial.Builder
                         {
-                            Schedule = compositeSchedule,
+                            Schedule = schedule,
                             RangeTime = rangeTime,
                             TimeZoneProvider = timeZoneProvider,
                         }.Build();

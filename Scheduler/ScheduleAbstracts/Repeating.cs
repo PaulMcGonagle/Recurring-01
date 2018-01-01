@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using NodaTime;
 using System.Runtime.Serialization;
 using ArangoDB.Client;
 using CoreLibrary;
+using Scheduler.Persistance;
 using Scheduler.Ranges;
 using Scheduler.ScheduleEdges;
 
@@ -24,16 +25,30 @@ namespace Scheduler.ScheduleAbstracts
             Guard.AgainstNull(EdgeRangeDate, nameof(EdgeRangeDate));
         }
 
+        public IEdgeVertexs<ISchedule> Exclusions { get; set; }
+
+        public virtual bool Contains(IClock clock, IDate date)
+        {
+            var dates = Generate(clock);
+
+            return dates.Contains(date);
+        }
+
         public abstract override IEnumerable<IDate> Generate(IClock clock);
 
         #region Save
 
         public override void Save(IArangoDatabase db, IClock clock, ISchedule schedule)
         {
-            EdgeRangeDate?.Save(db, clock, schedule);
+            EdgeRangeDate?.Save(db, clock, schedule, "HasRangeDate");
+
+            foreach (var exclusion in Exclusions)
+            {
+                exclusion.Save(db, clock, schedule, "HasExclusion");
+            }
         }
 
-        #endregion
+        #endregion Save
 
         public abstract class Builder
         {

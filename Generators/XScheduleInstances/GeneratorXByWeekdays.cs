@@ -7,11 +7,11 @@ using Scheduler.Persistance;
 using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 
-namespace Generators.XInstances
+namespace Generators.XScheduleInstances
 {
     public class GeneratorXByWeekdays : IGeneratorX
     {
-        public IVertex Generate(XElement xByWeekdays, IDictionary<string, IVertex> caches, string elementsName = null, IClock clock = null)
+        public IVertex Generate(XElement xByWeekdays, IDictionary<string, IVertex> caches, IClock clock = null, string elementsName = null, string elementName = null)
         {
             var weekdays = xByWeekdays
                 .RetrieveWeekdays()

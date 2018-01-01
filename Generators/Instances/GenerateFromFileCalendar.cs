@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using Generators.XInstances;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
@@ -41,31 +41,31 @@ namespace Generators.Instances
 
             foreach (var xCalendar in xCalendars)
             {
-                var xSchedules = xCalendar
-                    .Elements("schedule");
+                var xSchedule = xCalendar
+                    .Elements("schedule")
+                    .Elements()
+                    .SingleOrDefault()
+                ?? throw new Exception("Missing schedule");
 
-                foreach (var xSchedule in xSchedules)
-                {
-                    var generatorSchedule = new GeneratorXCompositeSchedule();
+                var generatorSchedule = GenerateFromFileFactory.GetXSchedule(xSchedule.Name.LocalName);
 
-                    var schedule = (ISchedule) generatorSchedule
-                        .Generate(xSchedule, caches, null, clock);
+                var schedule = (ISchedule)generatorSchedule
+                    .Generate(xSchedule, caches, clock: clock);
 
-                    var calendarTags = xCalendar
-                        .RetrieveTags(caches)
-                        .ToList();
+                var calendarTags = xCalendar
+                    .RetrieveTags(caches)
+                    .ToList();
 
-                    tagCalendarType
-                        .Connect(calendarTags.SingleOrDefault(ct => ct.Ident == "name"));
+                tagCalendarType
+                    .Connect(calendarTags.SingleOrDefault(ct => ct.Ident == "name"));
 
-                    schedule.Connect(tagCalendarType);
+                schedule.Connect(tagCalendarType);
 
-                    generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(schedule));
+                generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(schedule));
 
-                    schedule.Connect(calendarTags);
+                schedule.Connect(calendarTags);
 
-                    yield return schedule;
-                }
+                yield return schedule;
             }
         }
     }
