@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using CoreLibrary;
 using NodaTime;
 using Scheduler;
 using Scheduler.Persistance;
@@ -13,6 +14,9 @@ namespace Generators.XScheduleInstances
     {
         public IVertex Generate(XElement xByOffset, IDictionary<string, IVertex> caches, IClock clock = null, string elementsName = null, string elementName = null)
         {
+            Guard.AgainstNull(xByOffset, nameof(xByOffset));
+            Guard.AgainstNull(caches, nameof(caches));
+
             var initialDateValue = xByOffset.RetrieveValue("initialDate");
             var initialDate = Retriever.RetrieveLocalDate(initialDateValue);
             var interval = xByOffset.RetrieveValue("interval");

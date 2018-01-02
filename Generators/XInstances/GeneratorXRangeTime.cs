@@ -3,6 +3,7 @@ using Scheduler.Ranges;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using CoreLibrary;
 using NodaTime;
 
 namespace Generators.XInstances
@@ -11,6 +12,9 @@ namespace Generators.XInstances
     {
         public IVertex Generate(XElement xRangeTime, IDictionary<string, IVertex> caches, IClock clock = null, string elementsName = null, string elementName = null)
         {
+            Guard.AgainstNull(xRangeTime, nameof(xRangeTime));
+            Guard.AgainstNull(caches, nameof(caches));
+
             var linkedRangeTime = UtilitiesLinks<RangeTime>
                 .RetrieveAll(xRangeTime, caches)
                 .SingleOrDefault();

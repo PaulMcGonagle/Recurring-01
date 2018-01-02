@@ -13,6 +13,7 @@ namespace Generators
         public IVertex Generate(XElement xSchedule, IDictionary<string, IVertex> caches, IClock clock = null, string elementsName = null, string elementName = null)
         {
             Guard.AgainstNull(xSchedule, nameof(xSchedule));
+            Guard.AgainstNull(caches, nameof(caches));
 
             var rangeDate = xSchedule
                 .RetrieveRangeDate(

@@ -13,6 +13,7 @@ namespace Generators.XScheduleInstances
         public IVertex Generate(XElement xByRangeDate, IDictionary<string, IVertex> caches, IClock clock = null, string elementsName = null, string elementName = null)
         {
             Guard.AgainstNull(xByRangeDate, nameof(xByRangeDate));
+            Guard.AgainstNull(caches, nameof(caches));
 
             var rangeDate = xByRangeDate
                 .RetrieveRangeDate(

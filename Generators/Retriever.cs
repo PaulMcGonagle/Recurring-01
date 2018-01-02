@@ -92,6 +92,9 @@ namespace Generators
 
         public static IEnumerable<IRangeTime> RetrieveRangeTimes(this XElement xInput, IDictionary<string, IVertex> caches, string elementsName = "rangeTimes", string elementName = "rangeTime")
         {
+            Guard.AgainstNull(xInput, nameof(xInput));
+            Guard.AgainstNull(caches, nameof(caches));
+
             var xRangeTimes = xInput
                 .Element(elementsName);
 
@@ -113,6 +116,9 @@ namespace Generators
         
         public static RangeTime RetrieveRangeTime(this XElement xInput, IDictionary<string, IVertex> caches, string elementName = "rangeTime")
         {
+            Guard.AgainstNull(xInput, nameof(xInput));
+            Guard.AgainstNull(caches, nameof(caches));
+
             var start = xInput
                 .RetrieveAttributeAsLocalTime("start");
 
@@ -132,9 +138,11 @@ namespace Generators
             return rangeTime;
         }
 
-        public static IList<XElement> RetrieveXTags(XElement input)
+        public static IList<XElement> RetrieveXTags(XElement xInput)
         {
-            return input
+            Guard.AgainstNull(xInput, nameof(xInput));
+
+            return xInput
                 .Elements("tags")
                 .Elements("tag")
                 .ToList();
@@ -142,6 +150,8 @@ namespace Generators
 
         public static ITag RetrieveTag(this XElement xInput)
         {
+            Guard.AgainstNull(xInput, nameof(xInput));
+
             var inputIdent = RetrieveAttribute(xInput, "id");
             var inputValue = RetrieveAttribute(xInput, "value");
             var inputPayload = xInput.Elements("payload").FirstOrDefault();
@@ -160,6 +170,8 @@ namespace Generators
 
         public static IEnumerable<ITag> RetrieveTags(this XElement xInput, IDictionary<string, IVertex> caches, string elementsName = null)
         {
+            Guard.AgainstNull(xInput, nameof(xInput));
+
             var xTags = RetrieveXTags(xInput);
 
             foreach (var xTag in xTags)
@@ -187,6 +199,10 @@ namespace Generators
 
         public static IEnumerable<IDate> RetrieveDates(this XElement xInput, IClock clock, IDictionary<string, IVertex> caches, string elementsName = "date")
         {
+            Guard.AgainstNull(xInput, nameof(xInput));
+            Guard.AgainstNull(clock, nameof(clock));
+            Guard.AgainstNull(caches, nameof(caches));
+
             var dates = new List<IDate>();
 
             var xDates = xInput

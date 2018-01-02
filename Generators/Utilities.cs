@@ -19,7 +19,7 @@ namespace Generators
             ExpandLinkValues(source);
         }
 
-        private static void ExpandLinkValues(XElement source)
+        private static void ExpandLinkValues(XContainer source)
         {
             var linkValues = source
                 .Descendants()

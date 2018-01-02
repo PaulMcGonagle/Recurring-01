@@ -3,6 +3,7 @@ using System.Linq;
 using System.IO;
 using System.Xml.Linq;
 using NodaTime;
+using NodaTime.Testing;
 using Scheduler;
 using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
@@ -28,8 +29,11 @@ namespace Generators.Test.Instances
             [Fact]
             public void Execute()
             {
+                var fakeClock = new FakeClock(Instant.FromUtc(2016, 05, 01, 0, 0));
+
                 this.WithExamples(new ExampleTable(
                     "xElement",
+                    "clock",
                     "expectedDates"
                 )
                 {
@@ -64,6 +68,7 @@ namespace Generators.Test.Instances
                                 )
                             )
                         ),
+                        fakeClock,
                         new List<LocalDate>()
                         {
                             new LocalDate(2016, 12, 25),
