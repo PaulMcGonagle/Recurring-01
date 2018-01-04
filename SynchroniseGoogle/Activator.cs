@@ -8,6 +8,7 @@ using System.Threading;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
+using Google.Apis.Requests;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using NodaTime;
@@ -23,7 +24,7 @@ namespace SynchroniseGoogle
         private const string ApplicationName = "Google Calendar API .NET Quickstart";
         private const string CalendarId = "recurring.user.01@gmail.com";
 
-        public void AddEvents(IEnumerable<IEvent> events, IClock clock)
+        public /*async*/ void AddEvents(IEnumerable<IEvent> events, IClock clock)
         {
             UserCredential credential;
 
@@ -52,13 +53,13 @@ namespace SynchroniseGoogle
 
             // Define parameters of request.
             var request = service.Events.List("primary");
-            request.TimeMin = DateTime.Now;
+            //request.TimeMin = DateTime.Now.AddMonths(-4);
             request.ShowDeleted = false;
             request.SingleEvents = true;
-            request.MaxResults = 10;
-            request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
+            request.MaxResults = 1000;
+            //request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
 
-            var calendarEventsToDelete = new List<string>();
+            var calendarEventsToDelete = new HashSet<string>();
             // List events.
             var calendarEvents = request.Execute();
             Console.WriteLine("Previous events:");
@@ -73,7 +74,7 @@ namespace SynchroniseGoogle
                     }
                     Console.WriteLine("{0} ({1})", calendarEvent.Summary, when);
 
-                    calendarEventsToDelete.Add(calendarEvent.Id);
+                    calendarEventsToDelete.Add(calendarEvent.RecurringEventId ?? calendarEvent.Id);
                 }
             }
             else
@@ -81,13 +82,26 @@ namespace SynchroniseGoogle
                 Console.WriteLine("No upcoming events found.");
             }
 
+            var batchRequest = new BatchRequest(service);
+
             foreach (var eventToDelete in calendarEventsToDelete)
             {
-                var requestDelete = service.Events.Delete(CalendarId, eventToDelete);
+                var deleteRequest = service.Events.Delete(CalendarId, eventToDelete);
 
-                requestDelete.Execute();
+                deleteRequest.Execute();
+
+                Thread.Sleep(20);
+
+                //batchRequest.Queue<Event>(service.Events.Delete(CalendarId, eventToDelete),
+                //    (content, error, i, message) =>
+                //    {
+                //        Console.WriteLine($"deleted {eventToDelete}");
+                //    });
             }
-            Console.Read();
+
+            //await batchRequest.ExecuteAsync();
+
+            //Console.Read();
 
             foreach (var @event in events)
             {
@@ -98,35 +112,39 @@ namespace SynchroniseGoogle
                         .Schedule
                         .ScheduleInstance;
 
-                    var timeStart = serial.RangeTime.Range.Start;
-                    var dates = scheduleInstance
-                        .Generate(clock)
-                        .ToList();
-
-                    var dateFirst = dates.Min();
-                    var dateLast = dates.Max();
-                    var dateTimeEnd = DateTimeHelper.GetZonedDateTime(dateLast, timeStart, serial.TimeZoneProvider);
-
-
                     var recurrence = ConvertToRecurrence(scheduleInstance).ToList();
 
-                    foreach (var episode in serial.GenerateEpisodes(clock))
+                    var recurrence2 = new List<string>{ "RRULE:FREQ=WEEKLY;BYDAY=MO,TU;UNTIL=20180701T170000Z", };//;BYDAY:MO
+
+                    var episodes = serial
+                        .GenerateEpisodes(clock)
+                        .ToList();
+
+                    var episodeFirst = episodes
+                        .Min()
+                    ?? throw new Exception("No episodes were generated");
+
+                    var newEvent = new Event
                     {
-
-                        var newEvent = new Event
+                        Creator = new Event.CreatorData {Email = "recurring.user.01@gmail.com"},
+                        Start = new EventDateTime
                         {
-                            Creator = new Event.CreatorData {Email = "recurring.user.01@gmail.com"},
-                            Start = new EventDateTime {DateTime = episode.Start.ToDateTimeUtc()},
-                            End = new EventDateTime {DateTime = episode.End.ToDateTimeUtc()},
-                            Summary = @event.Title,
-                            Location = @event.Location.ToVertex.Address,
-                            Recurrence = recurrence
-                        };
+                            DateTime = episodeFirst.Start.ToDateTimeUtc(),
+                            TimeZone = serial.TimeZoneProvider,
+                        },
+                        End = new EventDateTime
+                        {
+                            DateTime = episodeFirst.End.ToDateTimeUtc(),
+                            TimeZone = serial.TimeZoneProvider,
+                        },
+                        Summary = @event.Title,
+                        Location = @event.Location.ToVertex.Address,
+                        Recurrence = recurrence,
+                    };
 
-                        var request2 = service.Events.Insert(newEvent, "recurring.user.01@gmail.com");
+                    var request2 = service.Events.Insert(newEvent, "recurring.user.01@gmail.com");
 
-                        request2.Execute();
-                    }
+                    request2.Execute();
                 }
             }
         }
@@ -135,21 +153,40 @@ namespace SynchroniseGoogle
         {
             switch (isoDayOfWeek)
             {
-                case IsoDayOfWeek.Monday: return "MO";
-                case IsoDayOfWeek.Tuesday: return "MO";
-                case IsoDayOfWeek.Wednesday: return "MO";
-                case IsoDayOfWeek.Thursday: return "MO";
-                case IsoDayOfWeek.Friday: return "MO";
-                case IsoDayOfWeek.Saturday: return "MO";
-                case IsoDayOfWeek.Sunday: return "MO";
-                default: throw new ArgumentException($"Unexpected day {isoDayOfWeek}", nameof(isoDayOfWeek));
+                case IsoDayOfWeek.Monday:
+                    return "MO";
+                case IsoDayOfWeek.Tuesday:
+                    return "TU";
+                case IsoDayOfWeek.Wednesday:
+                    return "WE";
+                case IsoDayOfWeek.Thursday:
+                    return "TH";
+                case IsoDayOfWeek.Friday:
+                    return "FR";
+                case IsoDayOfWeek.Saturday:
+                    return "SA";
+                case IsoDayOfWeek.Sunday:
+                    return "SU";
+                default:
+                    throw new ArgumentException($"Unexpected day {isoDayOfWeek}", nameof(isoDayOfWeek));
             }
         }
 
-        private string ConvertToRRuleDateTime(IDate date)
+        private static string ConvertToRRuleDateTime(IDate date)
         {
             return date.Value.ToString("yyyyMMddT000000Z", CultureInfo.InvariantCulture.DateTimeFormat);
+        }
 
+        private IEnumerable<string> ConvertToRecurrence(ICompositeSchedule compositeSchedule)
+        {
+            var recurrences = new List<string>();
+
+            foreach (var inclusion in compositeSchedule.Inclusions.Select(i => i.ToVertex))
+            {
+                recurrences.AddRange(ConvertToRecurrence(inclusion.ScheduleInstance));
+            }
+
+            return recurrences;
         }
 
         private IEnumerable<string> ConvertToRecurrence(IScheduleInstance scheduleInstance)
@@ -164,7 +201,7 @@ namespace SynchroniseGoogle
                         .Weekdays
                         .Select(ConvertToRRuleByDay);
 
-                    yield return "FREQ=Weekly;"
+                    yield return "RRULE:FREQ=WEEKLY;"
                                  + $"BYDAY={string.Join(",", days)};"
                                  + $"UNTIL={ConvertToRRuleDateTime(byWeekdays.EdgeRangeDate.RangeDate.End.Date)}";
 
@@ -175,7 +212,11 @@ namespace SynchroniseGoogle
                     var recurrences = compositeSchedule
                         .Inclusions
                         .Select(inclusion => inclusion.ToVertex.ScheduleInstance)
-                        .SelectMany(ConvertToRecurrence);
+                        .SelectMany(ConvertToRecurrence)
+                        .ToList();
+
+                    foreach (var recurrence in recurrences)
+                        yield return recurrence;
 
                     break;
             }

@@ -78,11 +78,13 @@ namespace Generators.Instances
                         var xSchedule = xSerial
                             .Elements("schedule")
                             .Elements()
-                            .Single();
+                            .SingleOrDefault()
+                        ?? throw new Exception($"Missing schedule");
 
                         var rangeTime = xSerial
                             .RetrieveRangeTimes(caches)
-                            .SingleOrDefault();
+                            .SingleOrDefault()
+                        ?? throw new Exception($"Missing rangeTime");
 
                         var generator = GenerateFromFileFactory.GetXSchedule(xSchedule.Name.LocalName);
 

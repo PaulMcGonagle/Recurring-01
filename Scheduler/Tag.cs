@@ -40,7 +40,7 @@ namespace Scheduler
         {
             var compareTag = (Tag)obj;
 
-            var compare = String.Compare(CombinedKey(this), CombinedKey((Tag)obj), StringComparison.Ordinal);
+            var compare = string.Compare(CombinedKey(this), CombinedKey((Tag)obj), StringComparison.Ordinal);
 
             if (compare != 0)
                 return compare;
