@@ -62,7 +62,7 @@ namespace Generators
         {
             var x = GenerateFromFileFactory.GetX("RangeDate");
 
-            var rangeDate = (RangeDate)x.Generate(xInput, caches, elementsName: elementName);
+            var rangeDate = (RangeDate)x.Generate(xInput, caches, elementName: elementName);
 
             rangeDate.Connect(xInput.RetrieveTags(caches));
 
@@ -74,8 +74,8 @@ namespace Generators
             var xRangeDates = xInput
                 .Element(elementsName);
 
-            if (xRangeDates is null)
-                throw new Exception("No element {elementsName} could be found");
+            if (xRangeDates == null)
+                yield break;
 
             foreach (var xElement in xRangeDates.Elements(elementName))
             {

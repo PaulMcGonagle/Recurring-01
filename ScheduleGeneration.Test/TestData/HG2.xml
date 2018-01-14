@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<generator>
+  <caches>
+    <cache name="Year.2016/17" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2016/17']"/>
+    <cache name="Year.2017/18" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2017/18']"/>
+
+    <cache name="RangeDate.Term.2016/17.Winter" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter']]"/>
+    <cache name="RangeDate.Term.2016/17.Winter.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter.MidTerm']]"/>
+    <cache name="RangeDate.Term.2016/17.Summer" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer']]"/>
+    <cache name="RangeDate.Term.2016/17.Summer.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer.MidTerm']]"/>
+    <cache name="RangeDate.Term.2017/18.Autumn" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn']]"/>
+    <cache name="RangeDate.Term.2017/18.Autumn.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn.MidTerm']]"/>
+    <cache name="RangeDate.Term.2017/18.Winter" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Winter']]"/>
+    <cache name="RangeDate.Term.2017/18.Winter.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter.MidTerm']]"/>
+    <cache name="RangeDate.Term.2017/18.Summer" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Summer']]"/>
+    <cache name="RangeDate.Term.2017/18.Summer.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer.MidTerm']]"/>
+
+    <cache name="Session.9am" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.9am']]"/>
+    <cache name="Session.9am double" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.9am double']]"/>
+    <cache name="Session.10am" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.10am']]"/>
+    <cache name="Session.10:30am" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.10:30am']]"/>
+    <cache name="Session.MorningPlaytime" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.MorningPlaytime']]"/>
+    <cache name="Session.11:05am" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.11:05am']]"/>
+    <cache name="Session.Lunch" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.Lunch']]"/>
+    <cache name="Session.1pm" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.1pm']]"/>
+    <cache name="Session.1pm double" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.1pm double']]"/>
+    <cache name="Session.2pm" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.2pm']]"/>
+    <cache name="Session.Afternoon playtime" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.Afternoon playtime']]"/>
+    <cache name="Session.2:45pm" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.2:45pm']]"/>
+  </caches>
+  
+  <tags>
+    <tag id="organisation" value="Hampden Gurney Primary School">
+      <payload>
+        {
+          "detail" :
+          {
+            "url": "http://www.hampdengurneyschool.org.uk",
+            "location": 
+            {
+              "address": "9/26 Bryanston Square, London, W1H 2DS"
+            }
+          }
+        }
+      </payload>
+    </tag>
+    <tag id="type" value="School">
+      <tags>
+        <tag id="type" value="Primary"/>
+      </tags>
+    </tag>
+    <tag id="timeZoneProvider" value="Europe/London"/>
+    
+    <tag id="cache" value="years">
+      <tag id="year" value="2016/17"/>
+      <tag id="year" value="2017/18"/>
+    </tag>
+  </tags>
+  
+  <terms>
+    <term>
+      <tags>
+        <tag id="name" value="2016/17.Autumn"/>
+        <link cache="Year.2016/17"/>
+      </tags>
+      <schedule>
+        <byRangeDate>
+          <link cache="RangeDate.Term.2016/17.Autumn"/>
+        </byRangeDate>
+      </schedule>
+      <breaks>
+        <break>
+          <tags>
+            <tag id="name" value="half-term"/>
+          </tags>
+          <schedule>
+            <byRangeDate>
+              <rangeDate start="2016-10-26" end="2016-11-02"/>
+            </byRangeDate>
+          </schedule>
+        </break>
+      </breaks>
+    </term>
+    <term>
+      <tags>
+        <tag id="name" value="2016/17.Winter"/>
+        <link cache="Year.2016/17"/>
+      </tags>
+      <schedule>
+        <byRangeDate>
+          <link cache="RangeDate.Term.2016/17.Winter"/>
+        </byRangeDate>
+      </schedule>
+      <breaks>
+        <break>
+          <tags>
+            <tag id="name" value="May half-term"/>
+          </tags>
+          <schedule>
+            <byRangeDate>
+              <rangeDate start="2017-02-25" end="2017-03-02"/>
+            </byRangeDate>
+          </schedule>
+        </break>
+      </breaks>
+    </term>
+    <term>
+      <tags>
+        <tag id="name" value="2016/17.Summer"/>
+        <link cache="Year.2016/17"/>
+      </tags>
+      <schedule>
+        <byRangeDate>
+          <rangeDate start="2017-04-05" end="2017-07-24"/>
+        </byRangeDate>
+      </schedule>
+      <breaks>
+        <break>
+          <tags>
+            <tag id="name" value="February half-term"/>
+          </tags>
+          <schedule>
+            <byRangeDate>
+              <rangeDate start="2017-02-25" end="2017-03-02"/>
+            </byRangeDate>
+          </schedule>
+        </break>
+      </breaks>
+    </term>
+  </terms>
+  <rangeDates>
+    <rangeDate start="2017-01-05" end="2017-03-28"><tags><tag id="name" value="RangeDate.Term.2016/17.Winter"/></tags></rangeDate>
+    <rangeDate start="2017-02-05" end="2017-02-13"><tags><tag id="name" value="RangeDate.Term.2016/17.Winter.MidTerm"/></tags></rangeDate>
+    <rangeDate start="2017-04-05" end="2017-07-24"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer"/></tags></rangeDate>
+    <rangeDate start="2017-05-27" end="2017-06-02"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.MidTerm"/></tags></rangeDate>
+    <rangeDate start="2017-09-05" end="2017-12-22"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn"/></tags></rangeDate>
+    <rangeDate start="2017-10-25" end="2017-11-02"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.MidTerm"/></tags></rangeDate>
+    <rangeDate start="2018-01-02" end="2018-03-28"><tags><tag id="name" value="RangeDate.Term.2017/18.Winter"/></tags></rangeDate>
+    <rangeDate start="2018-02-27" end="2018-03-03"><tags><tag id="name" value="RangeDate.Term.2017/18.Winter.MidTerm"/></tags></rangeDate>
+    <rangeDate start="2018-04-05" end="2018-07-26"><tags><tag id="name" value="RangeDate.Term.2017/18.Summer"/></tags></rangeDate>
+    <rangeDate start="2018-05-25" end="2018-06-01"><tags><tag id="name" value="RangeDate.Term.2017/18.Summer.MidTerm"/></tags></rangeDate>
+  </rangeDates>
+  <rangeTimes>
+    <rangeTime start="09:00" end="10:00"><tags><tag id="name" value="Session.9am"/></tags></rangeTime>
+    <rangeTime start="09:00" end="10:00"><tags><tag id="name" value="Session.9am double"/></tags></rangeTime>
+    <rangeTime start="10:00" end="10:30"><tags><tag id="name" value="Session.10am"/></tags></rangeTime>
+    <rangeTime start="10:00" end="10:30"><tags><tag id="name" value="Session.10:30am"/></tags></rangeTime>
+    <rangeTime start="10:50" end="11:05"><tags><tag id="name" value="Session.MorningPlaytime"/></tags></rangeTime>
+    <rangeTime start="11:05" end="12:00"><tags><tag id="name" value="Session.11:05am"/></tags></rangeTime>
+    <rangeTime start="12:00" end="13:00"><tags><tag id="name" value="Session.Lunch"/></tags></rangeTime>
+    <rangeTime start="13:00" end="14:00"><tags><tag id="name" value="Session.1pm"/></tags></rangeTime>
+    <rangeTime start="13:00" end="14:30"><tags><tag id="name" value="Session.1pm double"/></tags></rangeTime>
+    <rangeTime start="14:00" end="14:30"><tags><tag id="name" value="Session.2pm"/></tags></rangeTime>
+    <rangeTime start="14:30" end="14:45"><tags><tag id="name" value="Session.Afternoon playtime"/></tags></rangeTime>
+    <rangeTime start="14:45" end="15:30"><tags><tag id="name" value="Session.2:45pm"/></tags></rangeTime>
+  </rangeTimes>
+  <times>
+    <time value="09:00"><tags><tag id="name" value="StartOfDay"/></tags></time>
+    <time value="15:30"><tags><tag id="name" value="EndOfDay"/></tags></time>
+  </times>
+  <dates>
+    <date value="2017-01-02"><tags><tag id="name" value="New Year's Day 2017"/></tags></date>
+  </dates>
+  <groups>
+    <group>
+      <tags>
+        <tag id="name" value="Reception"/>
+      </tags>
+      <classes>
+        <class>
+          <tags>
+            <tag id="name" value="Register and News"/>
+          </tags>
+          <serials>
+            <serial>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Monday"/>
+                    <weekday value="Tuesday"/>
+                    <weekday value="Wednesday"/>
+                    <weekday value="Thursday"/>
+                    <weekday value="Friday"/>
+                  </weekdays>
+                  <rangeDates>
+                    <link cache="RangeDate.Term.2017/18.Autumn"/>
+                  </rangeDates>
+                </byWeekdays>
+              </schedule>
+              <rangeTimes>
+                <link cache="Session.MorningPlaytime"/>
+              </rangeTimes>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Winter']]"/>
+              </terms>
+            </serial>
+          </serials>          
+        </class>
+      </classes>
+    </group>
+    <group>
+      <tags>
+        <tag id="name" value="Year2.2016/17"/>
+      </tags>
+      <sessions>
+        <session>
+          <tags>
+            <tag id="name" value="10:30am"/>
+          </tags>
+          <rangeTime start="10:00" end="10:30"/>
+        </session>
+      </sessions>
+      <classes>
+        <class>
+          <tags>
+            <tag id="name" value="Mass"/>
+          </tags>
+          <serials>
+            <serial>
+              <schedule>
+                <byWeekdays>
+                  <weekdays>
+                    <weekday value="Thursday"/>
+                  </weekdays>
+                </byWeekdays>
+              </schedule>
+              <rangeTimes>
+                <link cache="Session.10am"/>
+              </rangeTimes>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Winter']]"/>
+              </terms>
+            </serial>
+          </serials>
+        </class>
+      </classes>
+    </group>
+  </groups>
+</generator>

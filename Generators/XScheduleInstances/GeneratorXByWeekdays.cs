@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using CoreLibrary;
@@ -26,22 +27,30 @@ namespace Generators.XScheduleInstances
                     caches: caches)
                 .ToList();
 
-            var compositeSchedule = new CompositeSchedule();
+            ISchedule schedule;
 
-            foreach (var rangeDate in rangeDates)
+            if (rangeDates.Any())
             {
-                var byWeekdays = new Schedule(new ByWeekdays.Builder
-                    {
-                        Weekdays = weekdays,
-                        RangeDate = rangeDate
-                    }.Build());
+                var compositeSchedule = new CompositeSchedule();
 
                 compositeSchedule
                     .Inclusions
-                    .Add(new EdgeSchedule(byWeekdays));
-            }
+                    .AddRange(rangeDates
+                        .Select(rangeDate => new EdgeSchedule(new Schedule(new ByWeekdays.Builder
+                        {
+                            Weekdays = weekdays,
+                            RangeDate = rangeDate
+                        }.Build()))));
 
-            var schedule = new Schedule(compositeSchedule);
+                schedule = new Schedule(compositeSchedule);
+            }
+            else
+            {
+                schedule = new Schedule(new ByWeekdays.Builder
+                {
+                    Weekdays = weekdays
+                }.Build());
+            }
 
             schedule.Connect(xByWeekdays.RetrieveTags(caches, elementsName));
 

@@ -205,6 +205,15 @@ namespace SynchroniseGoogle
                                  + $"BYDAY={string.Join(",", days)};"
                                  + $"UNTIL={ConvertToRRuleDateTime(byWeekdays.EdgeRangeDate.RangeDate.End.Date)}";
 
+                    if (byWeekdays.Exclusions != null)
+                    {
+                        foreach (var exclusion in byWeekdays
+                            ?.Exclusions)
+                        {
+
+                        }
+                    }
+
                     break;
 
                 case ICompositeSchedule compositeSchedule:

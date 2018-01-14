@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Linq;
 using Generators.Instances;
 using Generators.XInstances;
 using Generators.XScheduleInstances;
@@ -53,6 +54,11 @@ namespace Generators
                 default:
                     throw new NotImplementedException($"Unexpected generatorType '{generatorType}'");
             }
+        }
+
+        public static IGeneratorX GetXSchedule(XElement xSchedule)
+        {
+            return GetXSchedule(xSchedule.Name.LocalName);
         }
 
         public static IGeneratorX GetXSchedule(string scheduleType)

@@ -22,7 +22,6 @@ namespace Scheduler.ScheduleAbstracts
 
         public override void Validate()
         {
-            Guard.AgainstNull(EdgeRangeDate, nameof(EdgeRangeDate));
         }
 
         public IEdgeVertexs<ISchedule> Exclusions { get; set; }
@@ -62,6 +61,11 @@ namespace Scheduler.ScheduleAbstracts
             public IRangeDate RangeDate
             {
                 set => EdgeRangeDate = new EdgeRangeDate(value);
+            }
+
+            public IEdgeVertexs<ISchedule> Exclusions
+            {
+                set => Repeating.Exclusions = value;
             }
 
             public int? CountFrom

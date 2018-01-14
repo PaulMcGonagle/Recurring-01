@@ -4,7 +4,7 @@
     <calendar name="UK Public Holidays">
       <serials>
         <serial>
-          <schedule>
+          <compositeSchedule>
             <inclusions>
               <byDateList>
                 <date value="2017-12-25">
@@ -20,7 +20,7 @@
                 <date value="2018-01-01"/>
               </byDateList>
             </inclusions>
-          </schedule>
+          </compositeSchedule>
         </serial>
       </serials>
       <tags>

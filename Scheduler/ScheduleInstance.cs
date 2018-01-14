@@ -15,6 +15,11 @@ namespace Scheduler
                 .Where(source.Contains);
         }
 
+        public virtual IEnumerable<IDate> Filter(IClock clock, IEnumerable<IDate> inputDates)
+        {
+            return Generate(clock, inputDates);
+        }
+
         public string TypeName => GetType().FullName;
 
         public abstract void Validate();

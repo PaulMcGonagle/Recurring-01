@@ -48,12 +48,16 @@ namespace ScheduleGeneration.Test
                         mockDb.Object,
                         new List<IDate>
                         {
-                            new Date(2017, YearMonth.MonthValue.January, 02),
-                            new Date(2017, YearMonth.MonthValue.January, 03),
-                            new Date(2017, YearMonth.MonthValue.January, 04),
-                            new Date(2017, YearMonth.MonthValue.January, 06),
                             new Date(2017, YearMonth.MonthValue.January, 09),
-                            new Date(2017, YearMonth.MonthValue.January, 10)
+                            new Date(2017, YearMonth.MonthValue.January, 16),
+                            new Date(2017, YearMonth.MonthValue.January, 23),
+                            new Date(2017, YearMonth.MonthValue.January, 30),
+                            new Date(2017, YearMonth.MonthValue.February, 20),
+                            new Date(2017, YearMonth.MonthValue.February, 27),
+                            new Date(2017, YearMonth.MonthValue.March, 06),
+                            new Date(2017, YearMonth.MonthValue.March, 13),
+                            new Date(2017, YearMonth.MonthValue.March, 20),
+                            new Date(2017, YearMonth.MonthValue.March, 27),
                         }
                     },
                 }).BDDfy();

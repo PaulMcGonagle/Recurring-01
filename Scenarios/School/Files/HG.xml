@@ -4,16 +4,16 @@
     <cache name="Year.2016/17" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2016/17']"/>
     <cache name="Year.2017/18" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2017/18']"/>
 
-    <cache name="Term.2016/17.Winter" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter']]"/>
-    <cache name="Term.2016/17.Winter.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter.MidTerm']]"/>
-    <cache name="Term.2016/17.Summer" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer']]"/>
-    <cache name="Term.2016/17.Summer.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer.MidTerm']]"/>
-    <cache name="Term.2017/18.Autumn" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn']]"/>
-    <cache name="Term.2017/18.Autumn.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn.MidTerm']]"/>
-    <cache name="Term.2017/18.Winter" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Winter']]"/>
-    <cache name="Term.2017/18.Winter.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter.MidTerm']]"/>
-    <cache name="Term.2017/18.Summer" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Summer']]"/>
-    <cache name="Term.2017/18.Summer.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer.MidTerm']]"/>
+    <cache name="RangeDate.Term.2016/17.Winter" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter']]"/>
+    <cache name="RangeDate.Term.2016/17.Winter.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter.MidTerm']]"/>
+    <cache name="RangeDate.Term.2016/17.Summer" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer']]"/>
+    <cache name="RangeDate.Term.2016/17.Summer.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer.MidTerm']]"/>
+    <cache name="RangeDate.Term.2017/18.Autumn" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn']]"/>
+    <cache name="RangeDate.Term.2017/18.Autumn.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn.MidTerm']]"/>
+    <cache name="RangeDate.Term.2017/18.Winter" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Winter']]"/>
+    <cache name="RangeDate.Term.2017/18.Winter.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter.MidTerm']]"/>
+    <cache name="RangeDate.Term.2017/18.Summer" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Summer']]"/>
+    <cache name="RangeDate.Term.2017/18.Summer.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer.MidTerm']]"/>
 
     <cache name="Session.9am" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.9am']]"/>
     <cache name="Session.9am double" type="RangeTime" path="./generator/rangeTimes/rangeTime[tags/tag[@id='name'][@value='Session.9am double']]"/>
@@ -56,21 +56,24 @@
       <tag id="year" value="2017/18"/>
     </tag>
   </tags>
-  
+
   <terms>
     <term>
       <tags>
         <tag id="name" value="2016/17.Autumn"/>
         <link cache="Year.2016/17"/>
       </tags>
-      <link cache="Term.2017/18.Autumn"/>
+      <schedule>
+        <byRangeDate>
+          <link cache="RangeDate.Term.2017/18.Autumn"/>
+        </byRangeDate>
+      </schedule>
       <breaks>
-        <break>
-          <tags>
-            <tag id="name" value="half-term"/>
-          </tags>
-          <rangeDate start="2016-10-26" end="2016-11-02"/>
-        </break>
+        <schedule>
+          <byRangeDate>
+            <link cache="RangeDate.Term.2017/18.Autumn.MidTerm"/>
+          </byRangeDate>
+        </schedule>
       </breaks>
     </term>
     <term>
@@ -78,14 +81,17 @@
         <tag id="name" value="2016/17.Winter"/>
         <link cache="Year.2016/17"/>
       </tags>
-      <link cache="RangeDate.Term.2016/17.Winter"/>
+      <schedule>
+        <byRangeDate>
+          <link cache="RangeDate.Term.2016/17.Winter"/>
+        </byRangeDate>
+      </schedule>
       <breaks>
-        <break>
-          <tags>
-            <tag id="name" value="May half-term"/>
-          </tags>
-          <rangeDate start="2017-02-25" end="2017-03-02"/>
-        </break>
+        <schedule>
+          <byRangeDate>
+            <link cache="RangeDate.Term.2017/18.Winter.MidTerm"/>
+          </byRangeDate>
+        </schedule>
       </breaks>
     </term>
     <term>
@@ -93,28 +99,31 @@
         <tag id="name" value="2016/17.Summer"/>
         <link cache="Year.2016/17"/>
       </tags>
-      <rangeDate start="2017-04-05" end="2017-07-24"/>
+      <schedule>
+        <byRangeDate>
+          <link cache="RangeDate.Term.2016/17.Summer"/>
+        </byRangeDate>
+      </schedule>
       <breaks>
-        <break>
-          <tags>
-            <tag id="name" value="February half-term"/>
-          </tags>
-          <rangeDate start="2017-02-25" end="2017-03-02"/>
-        </break>
+        <schedule>
+          <byRangeDate>
+            <link cache="RangeDate.Term.2017/18.Summer.MidTerm"/>
+          </byRangeDate>
+        </schedule>
       </breaks>
     </term>
   </terms>
   <rangeDates>
-    <rangeDate start="2017-01-05" end="2017-03-28"><tags><tag id="name" value="RangeDate.Term.2016/17.Winter"/></tags></rangeDate>
-    <rangeDate start="2017-02-05" end="2017-02-13"><tags><tag id="name" value="RangeDate.Term.2016/17.Winter.MidTerm"/></tags></rangeDate>
-    <rangeDate start="2017-04-05" end="2017-07-24"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer"/></tags></rangeDate>
-    <rangeDate start="2017-05-27" end="2017-06-02"><tags><tag id="name" value="RangeDate.Term.2016/17.Summer.MidTerm"/></tags></rangeDate>
-    <rangeDate start="2017-09-05" end="2017-12-22"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn"/></tags></rangeDate>
-    <rangeDate start="2017-10-25" end="2017-11-02"><tags><tag id="name" value="RangeDate.Term.2017/18.Autumn.MidTerm"/></tags></rangeDate>
-    <rangeDate start="2018-01-02" end="2018-03-28"><tags><tag id="name" value="RangeDate.Term.2017/18.Winter"/></tags></rangeDate>
-    <rangeDate start="2018-02-27" end="2018-03-03"><tags><tag id="name" value="RangeDate.Term.2017/18.Winter.MidTerm"/></tags></rangeDate>
-    <rangeDate start="2018-04-05" end="2018-07-26"><tags><tag id="name" value="RangeDate.Term.2017/18.Summer"/></tags></rangeDate>
-    <rangeDate start="2018-05-25" end="2018-06-01"><tags><tag id="name" value="RangeDate.Term.2017/18.Summer.MidTerm"/></tags></rangeDate>
+    <rangeDate start="2017-01-05" end="2017-03-28"><tags><link cache="Year.2017/18"/><tag id="name" value="RangeDate.Term.2016/17.Winter"/></tags></rangeDate>
+    <rangeDate start="2017-02-05" end="2017-02-13"><tags><link cache="Year.2017/18"/><tag id="name" value="RangeDate.Term.2016/17.Winter.MidTerm"/></tags></rangeDate>
+    <rangeDate start="2017-04-05" end="2017-07-24"><tags><link cache="Year.2017/18"/><tag id="name" value="RangeDate.Term.2016/17.Summer"/></tags></rangeDate>
+    <rangeDate start="2017-05-27" end="2017-06-02"><tags><link cache="Year.2017/18"/><tag id="name" value="RangeDate.Term.2016/17.Summer.MidTerm"/></tags></rangeDate>
+    <rangeDate start="2017-09-05" end="2017-12-22"><tags><link cache="Year.2017/18"/><tag id="name" value="RangeDate.Term.2017/18.Autumn"/></tags></rangeDate>
+    <rangeDate start="2017-10-25" end="2017-11-02"><tags><link cache="Year.2017/18"/><tag id="name" value="RangeDate.Term.2017/18.Autumn.MidTerm"/></tags></rangeDate>
+    <rangeDate start="2018-01-02" end="2018-03-28"><tags><link cache="Year.2017/18"/><tag id="name" value="RangeDate.Term.2017/18.Winter"/></tags></rangeDate>
+    <rangeDate start="2018-02-27" end="2018-03-03"><tags><link cache="Year.2017/18"/><tag id="name" value="RangeDate.Term.2017/18.Winter.MidTerm"/></tags></rangeDate>
+    <rangeDate start="2018-04-05" end="2018-07-26"><tags><link cache="Year.2017/18"/><tag id="name" value="RangeDate.Term.2017/18.Summer"/></tags></rangeDate>
+    <rangeDate start="2018-05-25" end="2018-06-01"><tags><link cache="Year.2017/18"/><tag id="name" value="RangeDate.Term.2017/18.Summer.MidTerm"/></tags></rangeDate>
   </rangeDates>
   <rangeTimes>
     <rangeTime start="09:00" end="10:00"><tags><tag id="name" value="Session.9am"/></tags></rangeTime>
@@ -140,7 +149,7 @@
   <groups>
     <group>
       <tags>
-        <tag id="name" value="Reception"/>
+        <tag id="name" value="Reception.2016/17"/>
       </tags>
       <classes>
         <class>
@@ -161,11 +170,11 @@
                     <weekday value="Thursday"/>
                     <weekday value="Friday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
           <rangeTimes>
@@ -188,11 +197,11 @@
                     <weekday value="Wednesday"/>
                     <weekday value="Friday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
             <serial>
               <rangeTimes>
@@ -203,16 +212,13 @@
                   <weekdays>
                     <weekday value="Tuesday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -228,11 +234,11 @@
                   <weekdays>
                     <weekday value="Tuesday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
         </class>
@@ -250,16 +256,13 @@
                   <weekdays>
                     <weekday value="Thursday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -275,16 +278,13 @@
                   <weekdays>
                     <weekday value="Thursday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -303,16 +303,13 @@
                     <weekday value="Wednesday"/>
                     <weekday value="Friday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -333,16 +330,13 @@
                     <weekday value="Thursday"/>
                     <weekday value="Friday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -362,16 +356,13 @@
                     <weekday value="Thursday"/>
                     <weekday value="Friday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -392,16 +383,13 @@
                     <weekday value="Thursday"/>
                     <weekday value="Friday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -417,16 +405,13 @@
                   <weekdays>
                     <weekday value="Monday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -445,16 +430,13 @@
                     <weekday value="Thursday"/>
                     <weekday value="Friday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -470,16 +452,13 @@
                   <weekdays>
                     <weekday value="Tuesday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -495,16 +474,13 @@
                   <weekdays>
                     <weekday value="Wednesday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -520,16 +496,13 @@
                   <weekdays>
                     <weekday value="Thursday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -545,16 +518,13 @@
                   <weekdays>
                     <weekday value="Friday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -575,16 +545,13 @@
                     <weekday value="Thursday"/>
                     <weekday value="Friday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -603,16 +570,13 @@
                     <weekday value="Wednesday"/>
                     <weekday value="Thursday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
         <class>
           <tags>
@@ -628,23 +592,15 @@
                   <weekdays>
                     <weekday value="Friday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2017/18.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
+              <terms>
+                <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Autumn']]"/>
+              </terms>
             </serial>
           </serials>
-          <terms>
-            <reference path="./generator/terms/term[tags/tag[@id='name'][@value='2016/17.Summer']]"/>
-          </terms>
         </class>
       </classes>
-      <terms>
-        <term>
-          <link cache="Term.2017/18.Autumn"/>
-        </term>
-      </terms>
     </group>
     <group>
       <tags>

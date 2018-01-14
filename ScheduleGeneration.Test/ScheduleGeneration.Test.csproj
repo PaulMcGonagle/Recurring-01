@@ -147,7 +147,7 @@
     <Content Include="TestData\GeneratorXByOffset.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\HG.xml">
+    <Content Include="TestData\HG2.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
@@ -163,7 +163,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="TestData\Option03.xml" />
-    <Content Include="TestData\Option04.xml" />
+    <Content Include="TestData\Option04.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="TestData\SchoolDays.xml" />
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,8 @@ namespace Scheduler
     {
         IEnumerable<IDate> Generate(IClock clock);
 
+        IEnumerable<IDate> Filter(IClock clock, IEnumerable<IDate> inputDates);
+
         string TypeName { get; }
 
         void Save(IArangoDatabase db, IClock clock, ISchedule schedule);

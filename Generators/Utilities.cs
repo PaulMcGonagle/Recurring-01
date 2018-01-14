@@ -74,7 +74,9 @@ namespace Generators
                 if (parent == null)
                     break;
 
-                var referreds = source.RetrieveXReferences(reference, null);
+                var referreds = source
+                    .RetrieveXReferences(reference, null)
+                    .ToList();
 
                 foreach (var referred in referreds)
                 {

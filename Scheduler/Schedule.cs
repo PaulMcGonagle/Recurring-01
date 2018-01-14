@@ -9,7 +9,7 @@ namespace Scheduler
 {
     public class Schedule : Vertex, ISchedule
     {
-        public Schedule(ScheduleInstance scheduleInstance)
+        public Schedule(IScheduleInstance scheduleInstance)
         {
             ScheduleInstance = scheduleInstance;
         }

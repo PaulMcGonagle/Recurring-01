@@ -133,7 +133,7 @@ namespace ScheduleGeneration.Test
                 )
                 {
                     {
-                        AppDomain.CurrentDomain.BaseDirectory + "..\\TestData\\HG.xml",
+                        AppDomain.CurrentDomain.BaseDirectory + "..\\TestData\\HG2.xml",
                         fakeClock,
                         mockDb.Object,
                         "./tags/tag[@id='timeZoneProvider']"

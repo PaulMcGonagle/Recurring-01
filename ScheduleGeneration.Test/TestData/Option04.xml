@@ -3,48 +3,41 @@
   <caches>
     <cache name="Category.YearGroup" type="Tag" path="./generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Year Group']"/>
     <cache name="Category.KeyStage" type="Tag" path="./generator/tags/tag[@id='cache'][@value='categories']/tag[@id='category'][@value='Key Stage']"/>
-    <cache name="Term.2016/17.Autumn" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Autumn']]"/>
-    <cache name="Term.2016/17.Autumn.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='Term.2016/17.Autumn.MidTerm']]"/>
+    <cache name="RangeDate.Term.2016/17.Autumn" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Autumn']]"/>
+    <cache name="RangeDate.Term.2016/17.Autumn.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Autumn.MidTerm']]"/>
     <cache name="KeyStage.1" type="Tag" path="./generator/tags/tag[@id='cache'][@value='keyStages']/tag[@id='keyStage'][@value='keyStage.1']"/>
     <cache name="Year.2016/17" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='name'][@value='2016/17']"/>
   </caches>
   <tags>
-      
     <tag id="organisation" value="OrganisationName"/>
     <tag id="timeZoneProvider" value="Europe/London"/>
-      
     <tag id="cache" value="years">
       <tag id="name" value="2016/17">
         <link cache="Category.YearGroup"/>
       </tag>
     </tag>
-
     <tag id="cache" value="keyStages">
       <tag id="keyStage" value="keyStage.1">
         <link cache="Category.KeyStage"/>
       </tag>
     </tag>
-
     <tag id="cache" value="categories">
       <tag id="category" value="Year Group"/>
       <tag id="category" value="Key Stage"/>
     </tag>
-      
   </tags>
-
   <rangeDates>
     <rangeDate start="2016-09-02" end="2016-12-21">
       <tags>
-        <tag id="name" value="Term.2016/17.Autumn"/>
+        <tag id="name" value="RangeDate.Term.2016/17.Autumn"/>
       </tags>
     </rangeDate>
     <rangeDate start="2016-10-26" end="2016-11-01">
       <tags>
-        <tag id="name" value="Term.2016/17.Autumn.MidTerm"/>
+        <tag id="name" value="RangeDate.Term.2016/17.Autumn.MidTerm"/>
       </tags>
     </rangeDate>
   </rangeDates>
-
   <groups>
     <group>
       <tags>
@@ -58,38 +51,21 @@
           <tags>
             <tag id="name" value="Literacy"/>
           </tags>
-          <terms>
-            <term>
-              <link cache="Term.2016/17.Autumn"/>
-              <tags>
-                <tag id="name" value="Autumn 2016"/>
-              </tags>
-              <breaks>
-                <break>
-                  <tags>
-                    <tag id="name" value="half-term"/>
-                  </tags>
-                  <link cache="Term.2016/17.Autumn.MidTerm"/>
-                </break>
-              </breaks>
-            </term>
-          </terms>
           <serials>
             <serial>
               <schedule>
                 <byWeekdays>
-                  <rangeTime start="09:15" end="10:20"/>
                   <weekdays>
                     <weekday value="Monday"/>
                   </weekdays>
-                  <rangeDates>
-                    <link cache="Term.2016/17.Autumn"/>
-                  </rangeDates>
                 </byWeekdays>
               </schedule>
               <rangeTimes>
                 <rangeTime start="10:15" end="10:55"/>
               </rangeTimes>
+              <rangeDates>
+                <link cache="RangeDate.Term.2016/17.Autumn"/>
+              </rangeDates>
             </serial>
           </serials>
         </class>

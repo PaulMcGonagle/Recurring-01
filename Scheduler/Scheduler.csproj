@@ -141,6 +141,7 @@
     <Compile Include="ScheduleInstance.cs" />
     <Compile Include="ScheduleInstances\ByRangeDate.cs" />
     <Compile Include="ScheduleInstances\ByOffset.cs" />
+    <Compile Include="ScheduleInstances\FilteredSchedule.cs" />
     <Compile Include="Serials.cs" />
     <Compile Include="ScheduleInstances\CompositeSchedule.cs" />
     <Compile Include="Serial.cs" />
