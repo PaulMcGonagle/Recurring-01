@@ -107,13 +107,6 @@ namespace SynchroniseGoogle
             {
                 foreach (var serial in @event.Serials.Select(s => s.ToVertex))
                 {
-                    var scheduleInstance = serial
-                        .EdgeSchedule
-                        .Schedule
-                        .ScheduleInstance;
-
-                    var recurrence2 = new List<string>{ "RRULE:FREQ=WEEKLY;BYDAY=MO,TU;UNTIL=20180701T170000Z", };//;BYDAY:MO
-
                     var episodes = serial
                         .GenerateEpisodes(clock)
                         .ToList();
@@ -121,14 +114,14 @@ namespace SynchroniseGoogle
                     episodes
                         .Sort();
 
-                    var recurrence = episodes
+                    var episodeFirst = episodes
+                        .FirstOrDefault()
+                    ?? throw new Exception("No episodes were generated");
+
+                    var recurrences = episodes
                         .Skip(1)
                         .Select(episode => $"RDATE;VALUE=DATE:{ConvertToRRuleDateTime(episode.Start.ToDateTimeUtc())}")
                         .ToList();
-
-                    var episodeFirst = episodes
-                        .Min()
-                    ?? throw new Exception("No episodes were generated");
 
                     var newEvent = new Event
                     {
@@ -145,7 +138,7 @@ namespace SynchroniseGoogle
                         },
                         Summary = @event.Title,
                         Location = @event.Location.ToVertex.Address,
-                        Recurrence = recurrence,
+                        Recurrence = recurrences,
                     };
 
                     var request2 = service.Events.Insert(newEvent, "recurring.user.01@gmail.com");
