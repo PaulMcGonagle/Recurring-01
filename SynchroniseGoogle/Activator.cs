@@ -112,12 +112,18 @@ namespace SynchroniseGoogle
                         .Schedule
                         .ScheduleInstance;
 
-                    var recurrence = ConvertToRecurrence(scheduleInstance).ToList();
-
                     var recurrence2 = new List<string>{ "RRULE:FREQ=WEEKLY;BYDAY=MO,TU;UNTIL=20180701T170000Z", };//;BYDAY:MO
 
                     var episodes = serial
                         .GenerateEpisodes(clock)
+                        .ToList();
+
+                    episodes
+                        .Sort();
+
+                    var recurrence = episodes
+                        .Skip(1)
+                        .Select(episode => $"RDATE;VALUE=DATE:{ConvertToRRuleDateTime(episode.Start.ToDateTimeUtc())}")
                         .ToList();
 
                     var episodeFirst = episodes
@@ -177,19 +183,17 @@ namespace SynchroniseGoogle
             return date.Value.ToString("yyyyMMddT000000Z", CultureInfo.InvariantCulture.DateTimeFormat);
         }
 
-        private IEnumerable<string> ConvertToRecurrence(ICompositeSchedule compositeSchedule)
+        private static string ConvertToRRuleDateTime(DateTime dateTime)
         {
-            var recurrences = new List<string>();
-
-            foreach (var inclusion in compositeSchedule.Inclusions.Select(i => i.ToVertex))
-            {
-                recurrences.AddRange(ConvertToRecurrence(inclusion.ScheduleInstance));
-            }
-
-            return recurrences;
+            return dateTime.ToString("yyyyMMddTHHmmssZ", CultureInfo.InvariantCulture.DateTimeFormat);
         }
 
-        private IEnumerable<string> ConvertToRecurrence(IScheduleInstance scheduleInstance)
+        private static string ConvertToRRuleDate(IDate date)
+        {
+            return date.Value.ToString("yyyyMMdd", CultureInfo.InvariantCulture.DateTimeFormat);
+        }
+
+        private IEnumerable<string> ConvertToRecurrence(IClock clock, IScheduleInstance scheduleInstance)
         {
             switch (scheduleInstance)
             {
@@ -216,16 +220,17 @@ namespace SynchroniseGoogle
 
                     break;
 
-                case ICompositeSchedule compositeSchedule:
+                default:
 
-                    var recurrences = compositeSchedule
-                        .Inclusions
-                        .Select(inclusion => inclusion.ToVertex.ScheduleInstance)
-                        .SelectMany(ConvertToRecurrence)
+                    var recurrences = scheduleInstance
+                        .Generate(clock)
                         .ToList();
 
                     foreach (var recurrence in recurrences)
-                        yield return recurrence;
+                    {
+                        var rRuleDate = ConvertToRRuleDate(recurrence);
+                        yield return $"RDATE;VALUE=DATE:{rRuleDate}";
+                    }
 
                     break;
             }
