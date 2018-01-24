@@ -12,7 +12,7 @@ namespace Scheduler
     {
         IEnumerable<IDate> Generate(IClock clock);
 
-        IEnumerable<IDate> Filter(IClock clock, IEnumerable<IDate> inputDates);
+        IEnumerable<IDate> ApplyFilter(IClock clock, IEnumerable<IDate> inputDates);
 
         string TypeName { get; }
 

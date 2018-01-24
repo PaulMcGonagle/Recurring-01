@@ -9,7 +9,7 @@ using Scheduler.Persistance;
 
 namespace Generators
 {
-    public abstract class GenerateFromFile
+    public abstract class GenerateFromFile : IGenerateFromFile
     {
         protected void GenerateSetup(
             string generatorType, 
@@ -49,5 +49,7 @@ namespace Generators
             if (xGenerator == null)
                 throw new Exception($"SourceFile does not contain a generator '{sourceFile}'");
         }
+
+        public abstract IEnumerable<IVertex> Generate(string sourceFile, IClock clock);
     }
 }

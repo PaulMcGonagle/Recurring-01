@@ -5,7 +5,6 @@ using ArangoDB.Client;
 using CoreLibrary;
 using NodaTime;
 using Scheduler.Persistance;
-using Scheduler.Ranges;
 
 namespace Scheduler.ScheduleInstances
 {
@@ -21,6 +20,11 @@ namespace Scheduler.ScheduleInstances
 
         [IgnoreDataMember]
         public IEdgeVertexs<ISchedule> Filters { get; set; } = new EdgeVertexs<ISchedule>();
+
+        [IgnoreDataMember]
+        public ISchedule Filter {
+            set => Filters = new EdgeVertexs<ISchedule>(value);
+        }
         
         public override void Validate()
         {
@@ -32,7 +36,7 @@ namespace Scheduler.ScheduleInstances
         {
             var dates = Inclusion.ToVertex.Generate(clock);
 
-            return Filters.Aggregate(dates, (current, filter) => filter.ToVertex.ScheduleInstance.Filter(clock, current));
+            return Filters.Aggregate(dates, (current, filter) => filter.ToVertex.ScheduleInstance.ApplyFilter(clock, current));
         }
 
         #region Persistance

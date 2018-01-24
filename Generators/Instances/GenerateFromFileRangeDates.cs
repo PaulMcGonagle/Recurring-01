@@ -9,9 +9,9 @@ using Scheduler.Ranges;
 
 namespace Generators.Instances
 {
-    public class GenerateFromFileRangeDates : GenerateFromFile, IGenerateFromFile
+    public class GenerateFromFileRangeDates : GenerateFromFile
     {
-        public IEnumerable<IVertex> Generate(
+        public override IEnumerable<IVertex> Generate(
             string sourceFile,
             IClock clock)
         {

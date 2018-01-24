@@ -9,9 +9,9 @@ using Scheduler.Persistance;
 
 namespace Generators.Instances
 {
-    public class GenerateFromFileCalendar : GenerateFromFile, IGenerateFromFile
+    public class GenerateFromFileCalendar : GenerateFromFile
     {
-        public IEnumerable<IVertex> Generate(
+        public override IEnumerable<IVertex> Generate(
             string sourceFile, 
             IClock clock)
         {

@@ -189,7 +189,7 @@ namespace Scheduler.Persistance
 
         public virtual void Rehydrate(IArangoDatabase db)
         {
-            Tags = new EdgeVertexs<ITag>(Utilities.GetEdges<Tag>(db, this.Id));
+            Tags = new EdgeVertexs<ITag>(Utilities.GetEdges<Tag>(db, Id));
 
             foreach (var tag in Tags)
             {

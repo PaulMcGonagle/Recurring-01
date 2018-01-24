@@ -39,7 +39,8 @@ namespace School
             //GenerateHolidays();
             //GeneratePersons();
             //GenerateEpisodes();
-            GenerateSchoolClass();
+            //GenerateSchoolClass();
+            GenerateTimetable();
 
             var organisation = new Organisation.Builder
             {
@@ -194,6 +195,18 @@ namespace School
                     "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\HG.xml",
                     _clock)
                 .ToArray());
+        }
+
+        public void GenerateTimetable()
+        {
+            var generator = GenerateFromFileFactory.Get("timetables");
+
+            Vertexs.AddRange(generator.Generate(
+                    "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\TimetableShape.xml",
+                    _clock)
+                .ToArray());
+
+
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Scheduler
                 .Where(source.Contains);
         }
 
-        public virtual IEnumerable<IDate> Filter(IClock clock, IEnumerable<IDate> inputDates)
+        public virtual IEnumerable<IDate> ApplyFilter(IClock clock, IEnumerable<IDate> inputDates)
         {
             return Generate(clock, inputDates);
         }

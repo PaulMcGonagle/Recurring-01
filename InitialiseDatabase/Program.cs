@@ -31,7 +31,8 @@ namespace InitialiseDatabase
                     Serial = serial,
                     Location = location,
                     Title = serial.GetTagValue("name"),
-                }.Build());
+                }.Build())
+                .ToList();
 
             var activator = new SynchroniseGoogle.Activator();
 

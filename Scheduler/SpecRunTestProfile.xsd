@@ -15,7 +15,7 @@
       <xs:element minOccurs="0" maxOccurs="1" name="Environment" type="EnvironmentSettings" />
       <xs:element minOccurs="0" maxOccurs="1" name="TestAssemblyPaths" type="TestAssemblyPaths" />
       <xs:element minOccurs="0" maxOccurs="1" name="Report" type="ReportSettings" />
-      <xs:element minOccurs="0" maxOccurs="1" name="Filter" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ApplyFilter" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="Targets" type="Targets" />
       <xs:element minOccurs="0" maxOccurs="1" name="DeploymentTransformation" type="DeploymentTransformation" />
       <xs:element minOccurs="0" maxOccurs="1" name="TestThreads" type="TestThreads" />
@@ -83,7 +83,7 @@
   </xs:complexType>
   <xs:complexType name="Target">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element minOccurs="0" maxOccurs="1" name="Filter" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ApplyFilter" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="Environment" type="EnvironmentSettings" />
       <xs:element minOccurs="0" maxOccurs="1" name="DeploymentTransformationSteps" type="DeploymentTransformationSteps" />
     </xs:choice>

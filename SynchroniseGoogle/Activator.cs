@@ -13,6 +13,7 @@ using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using NodaTime;
 using Scheduler;
+using Scheduler.Persistance;
 using Scheduler.ScheduleInstances;
 using Event = Google.Apis.Calendar.v3.Data.Event;
 
@@ -105,7 +106,10 @@ namespace SynchroniseGoogle
 
             foreach (var @event in events)
             {
-                foreach (var serial in @event.Serials.Select(s => s.ToVertex))
+                foreach (var serial in @event
+                    .Serials
+                    .Where(s => s.ToVertex.GetTagValue("group") == "Year.5.2017/18")
+                    .Select(s => s.ToVertex))
                 {
                     var episodes = serial
                         .GenerateEpisodes(clock)

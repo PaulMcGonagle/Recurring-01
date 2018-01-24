@@ -351,10 +351,8 @@ namespace Generators
 
         public static bool TryRetrieveAttributeAsWeekday(this XElement xInput, string name, out IsoDayOfWeek value)
         {
-            var attribute = xInput
-                .RetrieveAttribute(name);
-
-            if (Enum.TryParse(attribute.Value, out value))
+            if (xInput.TryRetrieveAttribute(name, out XAttribute attribute)
+            && Enum.TryParse(attribute.Value, out value))
             {
                 return true;
             }
@@ -362,6 +360,18 @@ namespace Generators
             value = IsoDayOfWeek.None;
 
             return false;
+        }
+
+        public static bool TryRetrieveAttribute(this XElement xInput, string name, out XAttribute attribute)
+        {
+            Guard.AgainstNull(xInput, nameof(xInput));
+            Guard.AgainstNull(name, nameof(name));
+
+            attribute = xInput
+                .Attributes(name)
+                .SingleOrDefault();
+
+            return attribute != null;
         }
 
         public static int RetrieveAttributeAsInt(this XElement xInput, string name)
@@ -406,6 +416,19 @@ namespace Generators
             var parseResult = localTimePattern.Parse(attribute.Value);
 
             return parseResult.Value;
+        }
+
+        public static IsoDayOfWeek RetrieveAttributeAsIsoDayOfWeek(this XElement xInput, string name)
+        {
+            var attribute = RetrieveAttribute(xInput, name);
+
+            if (!Enum.TryParse(attribute.Value, out IsoDayOfWeek result))
+            {
+                throw new ArgumentException($"Invalid day: {attribute}");
+            }
+            
+
+            return result;
         }
 
         public static string RetrieveAttributeValue(this XElement xInput, string name)

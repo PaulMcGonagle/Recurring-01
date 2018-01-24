@@ -7,5 +7,6 @@ namespace Scheduler.Ranges
     {
         LocalTime Start { get; set; }
         Period Period { get; set; }
+        LocalTime End { get; }
     }
 }

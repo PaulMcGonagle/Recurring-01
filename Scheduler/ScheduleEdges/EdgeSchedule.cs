@@ -10,6 +10,12 @@ namespace Scheduler.ScheduleEdges
             
         }
 
+        public EdgeSchedule(IScheduleInstance scheduleInstance, string label = null)
+            : this(new Schedule(scheduleInstance), label)
+        {
+            
+        }
+
         public ISchedule Schedule => ToVertex;
     }
 }

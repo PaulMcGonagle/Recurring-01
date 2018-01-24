@@ -46,7 +46,7 @@ namespace Scheduler.ScheduleInstances
             return range.Where(d => Weekdays.Contains(d.IsoDayOfWeek));
         }
 
-        public override IEnumerable<IDate> Filter(IClock clock, IEnumerable<IDate> inputDates)
+        public override IEnumerable<IDate> ApplyFilter(IClock clock, IEnumerable<IDate> inputDates)
         {
             return inputDates
                 .Where(inputDate => Weekdays.Contains(inputDate.IsoDayOfWeek));

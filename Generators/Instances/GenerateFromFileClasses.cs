@@ -14,7 +14,7 @@ namespace Generators.Instances
 {
     public class GenerateFromFileClasses : GenerateFromFile, IGenerateFromFile
     {
-        public IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
+        public override IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
         {
             GenerateSetup(
                 generatorType: "classes",

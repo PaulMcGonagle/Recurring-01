@@ -10,7 +10,7 @@ namespace Generators.Instances
 {
     public class GenerateFromFileSchedule : GenerateFromFile, IGenerateFromFile
     {
-        public IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
+        public override IEnumerable<IVertex> Generate(string sourceFile, IClock clock)
         {
             GenerateSetup(
                 generatorType: "schedule",

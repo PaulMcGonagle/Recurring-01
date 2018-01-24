@@ -27,6 +27,9 @@ namespace Generators
                 case "byOffset":
                     return new GenerateFromFileOffset();
 
+                case "timetables":
+                    return new GenerateFromFileTimetable();
+
                 default:
                     throw new NotImplementedException($"Unexpected generatorType '{generatorType}'");
             }

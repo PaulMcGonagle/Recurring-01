@@ -1,0 +1,419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<generator>
+  <tags>
+    <tag id="organisation" value="Hampden Gurney Primary School">
+      <payload>
+        {
+        "detail":{
+        "url": "http://www.hampdengurneyschool.org.uk",
+        "location":{
+        "address": "9/26 Bryanston Square, London, W1H 2DS"
+        }
+        }
+        }
+      </payload>
+    </tag>
+    <tag id="timeZoneProvider" value="Europe/London"/>
+    <tag id="cache" value="years">
+      <tag id="year" value="2016/17"/>
+      <tag id="year" value="2017/18"/>
+    </tag>
+  </tags>
+  <caches>
+    <cache name="Year.2016/17" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2016/17']"/>
+    <cache name="Year.2017/18" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2017/18']"/>
+
+    <cache name="Term.2016/17.Winter" type="CompositeSchedule" path="./generator/schedules/schedule[tags/tag[@id='name'][@value='Term.2016/17.Winter']]"/>
+
+    <cache name="RangeDate.Term.2016/17.Winter" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter']]"/>
+    <cache name="RangeDate.Term.2016/17.Winter.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter.MidTerm']]"/>
+    <cache name="RangeDate.Term.2016/17.Summer" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer']]"/>
+    <cache name="RangeDate.Term.2016/17.Summer.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer.MidTerm']]"/>
+    <cache name="RangeDate.Term.2017/18.Autumn" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn']]"/>
+    <cache name="RangeDate.Term.2017/18.Autumn.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Autumn.MidTerm']]"/>
+    <cache name="RangeDate.Term.2017/18.Winter" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Winter']]"/>
+    <cache name="RangeDate.Term.2017/18.Winter.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Winter.MidTerm']]"/>
+    <cache name="RangeDate.Term.2017/18.Summer" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2017/18.Summer']]"/>
+    <cache name="RangeDate.Term.2017/18.Summer.MidTerm" type="RangeDate" path="./generator/rangeDates/rangeDate[tags/tag[@id='name'][@value='RangeDate.Term.2016/17.Summer.MidTerm']]"/>
+  </caches>
+  <schedules>
+    <schedule>
+      <tags>
+        <tag id="name" value="Term.2016/17.Winter"/>
+        <tag id="type" value="Term"/>
+        <link cache="Year.2016/17"/>
+      </tags>
+      <compositeSchedule>
+        <inclusions>
+          <schedule>
+            <byRangeDate>
+              <link cache="RangeDate.Term.2016/17.Winter"/>
+            </byRangeDate>
+          </schedule>
+        </inclusions>
+        <exclusions>
+          <schedule>
+            <byRangeDate>
+              <link cache="RangeDate.Term.2016/17.Winter.MidTerm"/>
+            </byRangeDate>
+          </schedule>
+        </exclusions>
+      </compositeSchedule>
+    </schedule>
+  </schedules>
+  <rangeDates>
+    <rangeDate start="2017-01-05" end="2017-03-28">
+      <tags>
+        <link cache="Year.2017/18"/>
+        <tag id="name" value="RangeDate.Term.2016/17.Winter"/>
+      </tags>
+    </rangeDate>
+    <rangeDate start="2017-02-05" end="2017-02-13">
+      <tags>
+        <link cache="Year.2017/18"/>
+        <tag id="name" value="RangeDate.Term.2016/17.Winter.MidTerm"/>
+      </tags>
+    </rangeDate>
+    <rangeDate start="2017-04-05" end="2017-07-24">
+      <tags>
+        <link cache="Year.2017/18"/>
+        <tag id="name" value="RangeDate.Term.2016/17.Summer"/>
+      </tags>
+    </rangeDate>
+    <rangeDate start="2017-05-27" end="2017-06-02">
+      <tags>
+        <link cache="Year.2017/18"/>
+        <tag id="name" value="RangeDate.Term.2016/17.Summer.MidTerm"/>
+      </tags>
+    </rangeDate>
+    <rangeDate start="2017-09-05" end="2017-12-22">
+      <tags>
+        <link cache="Year.2017/18"/>
+        <tag id="name" value="RangeDate.Term.2017/18.Autumn"/>
+      </tags>
+    </rangeDate>
+    <rangeDate start="2017-10-25" end="2017-11-02">
+      <tags>
+        <link cache="Year.2017/18"/>
+        <tag id="name" value="RangeDate.Term.2017/18.Autumn.MidTerm"/>
+      </tags>
+    </rangeDate>
+    <rangeDate start="2018-01-02" end="2018-03-28">
+      <tags>
+        <link cache="Year.2017/18"/>
+        <tag id="name" value="RangeDate.Term.2017/18.Winter"/>
+      </tags>
+    </rangeDate>
+    <rangeDate start="2018-02-27" end="2018-03-03">
+      <tags>
+        <link cache="Year.2017/18"/>
+        <tag id="name" value="RangeDate.Term.2017/18.Winter.MidTerm"/>
+      </tags>
+    </rangeDate>
+    <rangeDate start="2018-04-05" end="2018-07-26">
+      <tags>
+        <link cache="Year.2017/18"/>
+        <tag id="name" value="RangeDate.Term.2017/18.Summer"/>
+      </tags>
+    </rangeDate>
+    <rangeDate start="2018-05-25" end="2018-06-01">
+      <tags>
+        <link cache="Year.2017/18"/>
+        <tag id="name" value="RangeDate.Term.2017/18.Summer.MidTerm"/>
+      </tags>
+    </rangeDate>
+  </rangeDates>
+  <terms>
+    <term>
+      <tags>
+        <tag id="name" value="2016/17.Winter"/>
+        <link cache="Year.2016/17"/>
+      </tags>
+      <schedule>
+        <byRangeDate>
+          <link cache="RangeDate.Term.2016/17.Winter"/>
+        </byRangeDate>
+      </schedule>
+      <breaks>
+        <schedule>
+          <byRangeDate>
+            <link cache="RangeDate.Term.2016/17.Winter.MidTerm"/>
+          </byRangeDate>
+        </schedule>
+      </breaks>
+    </term>
+  </terms>
+  <weekdays>
+    <weekday name="Monday"/>
+    <weekday name="Tuesday"/>
+    <weekday name="Wednesday"/>
+    <weekday name="Thursday"/>
+    <weekday name="Friday"/>
+  </weekdays>
+  <groups>
+    <group name="Year.5.2017/18">
+      <rangeTime start="09:00" end="15:30"/>
+      <terms>
+        <reference path="/generator/terms/term[tags/tag[@id='name'][@value='2016/17.Winter']]"/>
+      </terms>
+      <classes>
+        <class start="10:50" name="Break"/>
+        <class start="12:15" name="Lunch"/>
+      </classes>
+      <classes weekday="Monday">
+        <class start="09:00" name="Numeracy"/>
+        <class start="10:00" name="Spellings"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Grammar/Comprehension"/>
+        <class start="13:15" name="Computing"/>
+        <class start="14:10" name="Science"/>
+      </classes>
+      <classes weekday="Tuesday">
+        <class start="09:00" name="Numeracy"/>
+        <class start="10:00" name="Guided Reading"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Literacy"/>
+        <class start="13:15" name="Music"/>
+        <class start="14:30" name="Art/D.T."/>
+      </classes>
+      <classes weekday="Wednesday">
+        <class start="09:00" name="Numeracy"/>
+        <class start="10:00" name="Guided Reading"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Literacy"/>
+        <class start="13:15" name="Library"/>
+        <class start="14:10" name="Spanish"/>
+        <class start="14:45" name="P.S.H.C.E"/>
+      </classes>
+      <classes weekday="Thursday">
+        <class start="09:00" name="Numeracy"/>
+        <class start="10:00" name="Mass"/>
+        <class start="11:05" name="Literacy"/>
+        <class start="13:15" name="P.E."/>
+        <class start="14:30" name="Creative Writing"/>
+      </classes>
+      <classes weekday="Friday">
+        <class start="09:00" name="Numeracy"/>
+        <class start="10:00" name="Guided Reading"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Literacy"/>
+        <class start="13:15" name="Humanities"/>
+        <class start="14:30" name="R.E."/>
+      </classes>
+    </group>
+    <group name="Year.4.2017/18" start="09:00" end="15:30">
+      <dailys>
+        <class start="10:50" name="Morning"/>
+        <class start="12:15" end="13:15" name="Lunch"/>
+        <class start="13:15" name="Afternoon"/>
+      </dailys>
+    </group>
+    <group name="Year.3.2017/18" start="09:00" end="15:30">
+      <dailys>
+        <class start="10:50" end="11:05" name="Break"/>
+        <class start="12:15" end="13:15" name="Lunch"/>
+      </dailys>
+      <weekday day="Monday">
+        <class start="09:00" name="Literacy"/>
+        <class start="10:00" name="Spellings"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Numeracy"/>
+        <class start="13:15" name="Spanish"/>
+        <class start="14:00" name="Science"/>
+      </weekday>
+      <weekday day="Tuesday">
+        <class start="09:00" name="Literacy"/>
+        <class start="10:00" name="Guided Reading"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Numeracy"/>
+        <class start="13:15" name="Art"/>
+        <class start="14:20" name="P.E."/>
+      </weekday>
+      <weekday day="Wednesday">
+        <class start="09:00" name="Literacy"/>
+        <class start="10:00" name="Guided Reading"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Numeracy"/>
+        <class start="13:15" name="Computing"/>
+        <class start="14:20" name="R.E"/>
+      </weekday>
+      <weekday day="Thursday">
+        <class start="09:00" name="Literacy"/>
+        <class start="10:00" name="Mass"/>
+        <class start="11:05" name="Number Bonds and Timetables"/>
+        <class start="13:15" name="Creative Writing"/>
+        <class start="14:20" name="Music"/>
+      </weekday>
+      <weekday day="Friday">
+        <class start="09:00" name="Literacy"/>
+        <class start="10:00" name="Guided Reading"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Literacy"/>
+        <class start="13:15" name="Humanities"/>
+        <class start="14:20" name="P.S.H.C.E."/>
+        <class start="15:00" name="Library"/>
+      </weekday>
+    </group>
+    <group name="Year.2.2017/18" start="09:00" end="15:30">
+      <dailys>
+        <class start="10:50" end="11:05" name="Playtime"/>
+        <class start="12:00" end="13:00" name="Lunch"/>
+        <class start="14:30" end="14:45" name="Playtime"/>
+      </dailys>
+      <weekday day="Monday">
+        <class start="09:00" name="Literacy"/>
+        <class start="10:00" name="Spellings"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Numeracy"/>
+        <class start="13:00" name="Science"/>
+        <class start="14:45" name="Spanish"/>
+      </weekday>
+      <weekday day="Tuesday">
+        <class start="09:00" name="Literacy"/>
+        <class start="10:00" name="Guided Reading"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Numeracy"/>
+        <class start="13:00" name="Art"/>
+        <class start="14:45" name="I.C.T."/>
+      </weekday>
+      <weekday day="Wednesday">
+        <class start="09:00" name="Literacy"/>
+        <class start="10:00" name="Guided Reading"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Numeracy"/>
+        <class start="13:00" name="Computing"/>
+        <class start="14:45" name="Library"/>
+      </weekday>
+      <weekday day="Thursday">
+        <class start="09:00" name="Literacy"/>
+        <class start="10:00" name="Mass"/>
+        <class start="11:05" name="Number Bonds and Timetables"/>
+        <class start="13:00" name="Creative Writing"/>
+        <class start="14:45" name="R.E."/>
+      </weekday>
+      <weekday day="Friday">
+        <class start="09:00" name="Literacy"/>
+        <class start="10:00" name="Guided Reading"/>
+        <class start="10:25" name="Assembly"/>
+        <class start="11:05" name="Literacy"/>
+        <class start="13:00" name="Art"/>
+        <class start="14:45" name="Show &amp; Tell"/>
+      </weekday>
+    </group>
+    <group name="Year.1.2017/18" start="09:00" end="15:30">
+      <dailys>
+        <class start="10:50" end="11:05" name="Playtime"/>
+        <class start="12:00" end="13:00" name="Lunch"/>
+        <class start="14:30" end="14:45" name="Playtime"/>
+      </dailys>
+      <weekday day="Monday">
+        <class start="09:00" name="Spelling rules"/>
+        <class start="09:30" name="Grammar lesson"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Numeracy"/>
+        <class start="13:00" name="blank"/>
+        <class start="14:00" name="Spanish"/>
+        <class start="14:45" name="Handwriting"/>
+      </weekday>
+      <weekday day="Tuesday">
+        <class start="09:00" name="Phonics"/>
+        <class start="09:30" name="Music"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Literacy"/>
+        <class start="13:00" name="Numeracy"/>
+        <class start="14:00" name="Guided Reading"/>
+        <class start="14:45" name="Comprehension"/>
+      </weekday>
+      <weekday day="Wednesday">
+        <class start="09:00" name="Phonics"/>
+        <class start="09:30" name="Literacy"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Numeracy"/>
+        <class start="13:00" name="R.E."/>
+        <class start="14:00" name="P.E."/>
+        <class start="14:45" name="P.E"/>
+      </weekday>
+      <weekday day="Thursday">
+        <class start="09:00" name="Phonics"/>
+        <class start="09:30" name="Phonics / Guided Reading"/>
+        <class start="10:30" name="Mass"/>
+        <class start="11:05" name="Number Bonds and Timetables"/>
+        <class start="13:00" name="Creative Writing"/>
+        <class start="14:00" name="I.C.T."/>
+        <class start="14:45" name="P.S.C.H.E."/>
+      </weekday>
+      <weekday day="Friday">
+        <class start="09:00" name="Spellings and sound test"/>
+        <class start="09:30" name="Literacy"/>
+        <class start="10:25" name="Assembly"/>
+        <class start="11:05" name="Numeracy"/>
+        <class start="13:00" name="Humanities"/>
+        <class start="14:00" name="Handwriting"/>
+        <class start="14:45" name="Art"/>
+      </weekday>
+    </group>
+    <group name="Year.Reception.2017/18" start="09:00" end="15:20">
+      <dailys>
+        <class start="10:50" end="11:05" name="Playtime"/>
+        <class start="12:00" end="13:00" name="Lunch"/>
+        <class start="14:30" end="14:45" name="Playtime"/>
+      </dailys>
+      <weekday day="Monday">
+        <class start="09:00" name="Register and News"/>
+        <class start="09:15" name="Phonics and Literacy"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Maths"/>
+        <class start="13:00" name="Register and story time"/>
+        <class start="13:30" name="P.E."/>
+        <class start="14:45" name="Individual Readers"/>
+      </weekday>
+      <weekday day="Tuesday">
+        <class start="09:00" name="Register and News"/>
+        <class start="09:15" name="Music"/>
+        <class start="09:45" name="Phonics and Literacy"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Maths"/>
+        <class start="13:00" name="Register and story time"/>
+        <class start="13:30" name="Library"/>
+        <class start="14:45" name="Individual Readers"/>
+      </weekday>
+      <weekday day="Wednesday">
+        <class start="09:00" name="Register and News"/>
+        <class start="09:15" name="Phonics and Literacy"/>
+        <class start="09:30" name="Literacy"/>
+        <class start="10:30" name="Assembly"/>
+        <class start="11:05" name="Maths"/>
+        <class start="13:00" name="Register and story time"/>
+        <class start="13:30" name="P.S.E.D."/>
+        <class start="14:45" name="Individual Readers"/>
+      </weekday>
+      <weekday day="Thursday">
+        <class start="09:00" name="Register and News"/>
+        <class start="09:15" name="Phonics and Literacy"/>
+        <class start="09:30" name="Phonics / Guided Reading"/>
+        <class start="10:10" name="Mass"/>
+        <class start="11:05" name="Maths"/>
+        <class start="13:00" name="Register and story time"/>
+        <class start="13:30" name="Understanding the world"/>
+        <class start="14:45" name="Individual Readers"/>
+      </weekday>
+      <weekday day="Friday">
+        <class start="09:00" name="Register and News"/>
+        <class start="09:15" name="Phonics and Literacy"/>
+        <class start="09:30" name="Literacy"/>
+        <class start="10:25" name="Assembly"/>
+        <class start="11:05" name="Numeracy"/>
+        <class start="13:00" name="Register and story time"/>
+        <class start="13:30" name="Art"/>
+        <class start="14:45" name="Show and Tell"/>
+      </weekday>
+    </group>
+    <group name="Year.Nursery.2017/18" start="09:00" end="15:20">
+      <dailys>
+        <class start="10:50" name="Morning"/>
+        <class start="12:15" end="13:15" name="Lunch"/>
+        <class start="13:15" name="Afternoon"/>
+      </dailys>
+    </group>
+  </groups>
+</generator>
