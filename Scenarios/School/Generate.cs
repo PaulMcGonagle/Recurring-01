@@ -187,6 +187,49 @@ namespace School
                 }.Build());
         }
 
+        public void GenerateSchoolGroups()
+        {
+            if (Calendars.Any(calendar => calendar.Description == "Hampden Gurney Year 1"))
+            {
+                Calendars.Add(new Calendar.Builder
+                {
+                    Description = "Hampden Gurney Year 1",
+                }.Build());
+            }
+
+            if (Calendars.Any(calendar => calendar.Description == "Hampden Gurney Year 2"))
+            {
+                Calendars.Add(new Calendar.Builder
+                {
+                    Description = "Hampden Gurney Year 2",
+                }.Build());
+            }
+
+            if (Calendars.Any(calendar => calendar.Description == "Hampden Gurney Year 3"))
+            {
+                Calendars.Add(new Calendar.Builder
+                {
+                    Description = "Hampden Gurney Year 3",
+                }.Build());
+            }
+
+            if (Calendars.Any(calendar => calendar.Description == "Hampden Gurney Year 4"))
+            {
+                Calendars.Add(new Calendar.Builder
+                {
+                    Description = "Hampden Gurney Year 4",
+                }.Build());
+            }
+
+            if (Calendars.Any(calendar => calendar.Description == "Hampden Gurney Year 5"))
+            {
+                Calendars.Add(new Calendar.Builder
+                {
+                    Description = "Hampden Gurney Year 5",
+                }.Build());
+            }
+        }
+
         public void GenerateSchoolClass()
         {
             var generator = GenerateFromFileFactory.Get("classes");

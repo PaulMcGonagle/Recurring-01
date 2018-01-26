@@ -18,10 +18,43 @@
       <tag id="year" value="2016/17"/>
       <tag id="year" value="2017/18"/>
     </tag>
+    <tag id="lookups" value="rooms">
+      <tag id="roomname" value="Year5">
+        <payload>
+          {
+          "detail":{
+          "description": "Year 5 classroom"
+          }
+          }
+        </payload>
+      </tag>
+      <tag id="roomname" value="Year3">
+        <payload>
+          {
+          "detail":{
+          "description": "Year 3 classroom"
+          }
+          }
+        </payload>
+      </tag>
+      <tag id="roomname" value="DiningRoom">
+        <payload>
+          {
+          "detail":{
+          "description": "Dining room"
+          }
+          }
+        </payload>
+      </tag>
+    </tag>
   </tags>
   <caches>
     <cache name="Year.2016/17" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2016/17']"/>
     <cache name="Year.2017/18" type="Tag" path="./generator/tags/tag[@id='cache'][@value='years']/tag[@id='year'][@value='2017/18']"/>
+
+    <cache name="Room.Year3" type="Tag" path="./generator/tags/tag[@id='lookups'][@value='rooms']/tag[@id='roomname'][@value='Year3']"/>
+    <cache name="Room.Year5" type="Tag" path="./generator/tags/tag[@id='lookups'][@value='rooms']/tag[@id='roomname'][@value='Year5']"/>
+    <cache name="Room.DiningRoom" type="Tag" path="./generator/tags/tag[@id='lookups'][@value='rooms']/tag[@id='roomname'][@value='DiningRoom']"/>
 
     <cache name="Term.2016/17.Winter" type="CompositeSchedule" path="./generator/schedules/schedule[tags/tag[@id='name'][@value='Term.2016/17.Winter']]"/>
 
@@ -158,7 +191,11 @@
       </terms>
       <classes>
         <class start="10:50" name="Break"/>
-        <class start="12:15" name="Lunch"/>
+        <class start="12:15" name="Lunch">
+          <tags>
+            <link cache="Room.DiningRoom"/>
+          </tags>
+        </class>
       </classes>
       <classes weekday="Monday">
         <class start="09:00" name="Numeracy"/>

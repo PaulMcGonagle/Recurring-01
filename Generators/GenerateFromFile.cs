@@ -27,7 +27,9 @@ namespace Generators
             Guard.AgainstNull(xSource, nameof(xSource));
             Guard.AgainstNull(xSource.Root, nameof(xSource.Root));
 
-            if (xSource.Root.Name != "generator")
+            if (xSource
+                .Root
+                ?.Name != "generator")
                 throw new ArgumentException("Unexpected root node", nameof(xSource.Root));
 
             xSource

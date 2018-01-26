@@ -72,6 +72,10 @@ namespace Generators.Instances
             var organisation = generatorTags
                 .Single(t => t.Ident == "organisation");
 
+            organisation
+                .Tags
+                .AddRange(generatorTags);
+
             var timeZoneProviderTag = generatorTags
                 .SingleOrDefault(t => t.Ident == "timeZoneProvider");
 
@@ -80,6 +84,8 @@ namespace Generators.Instances
                 : "Europe/London";
 
             organisation.Connect("timeZoneProvider", timeZoneProvider);
+
+            yield return organisation;
 
             var days = xGenerator
                 .Elements("weekdays")
