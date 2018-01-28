@@ -87,7 +87,7 @@ namespace Generators.Instances
 
             yield return organisation;
 
-            var days = xGenerator
+            var daysAndTimes = xGenerator
                 .Elements("weekdays")
                 .Elements("weekday")
                 .Select(day =>
@@ -129,7 +129,7 @@ namespace Generators.Instances
                     .Select(xTerm => new GeneratorXTerm().Generate(xTerm, caches, clock) as ISchedule)
                     .ToList();
 
-                var classes = days
+                var classes = daysAndTimes
                     .SelectMany(d => xGroup
                         .Elements("classes")
                         .Elements("class")
@@ -154,7 +154,7 @@ namespace Generators.Instances
                     var classForDay = groupedDayClass
                         .ToArray();
 
-                    var dayEnd = days
+                    var dayEnd = daysAndTimes
                         .SingleOrDefault(day => day.Item1 == groupedDayClass.Key)
                         ?.Item2
                         ?.End;

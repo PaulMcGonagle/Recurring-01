@@ -17,9 +17,8 @@ namespace InitialiseDatabase
             var db = SchedulerDatabase.Database.Retrieve();
             var clock = new FakeClock(new Instant(DateTime.Now.Ticks));
 
-            var generator = new Generate(db, clock);
-
-            generator.Go();
+            var generator = new Generate(db, clock)
+                .WithTimetable();
 
             var location = new Location.Builder {Address = "Hampden Gurney Primary"}.Build();
 

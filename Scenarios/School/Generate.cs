@@ -30,17 +30,6 @@ namespace School
         {
             _db = db;
             _clock = clock;
-        }
-
-        public void Go()
-        {
-            //GenerateYears();
-            //GenerateTerms();
-            //GenerateHolidays();
-            //GeneratePersons();
-            //GenerateEpisodes();
-            //GenerateSchoolClass();
-            GenerateTimetable();
 
             var organisation = new Organisation.Builder
             {
@@ -54,7 +43,7 @@ namespace School
             organisationTerms.Save(_db, _clock, organisation, "HasTerms");
         }
 
-        public void GenerateYears()
+        public Generate WithYears()
         {
             var generator = GenerateFromFileFactory.Get("calendar");
 
@@ -77,9 +66,11 @@ namespace School
             Years.Add(generated
                 .OfType<ISchedule>()
                 .SingleOrDefault());
+
+            return this;
         }
 
-        public void GenerateTerms()
+        public Generate WithTerms()
         {
             var generator = GenerateFromFileFactory.Get("calendar");
 
@@ -98,9 +89,11 @@ namespace School
             {
                 Terms.Add(schedule);
             }
+
+            return this;
         }
 
-        public void GenerateHolidays()
+        public Generate WithHolidays()
         {
             var generator = GenerateFromFileFactory.Get("calendar");
 
@@ -117,9 +110,11 @@ namespace School
             Holidays.Add(generated
                 .OfType<ISchedule>()
                 .SingleOrDefault());
+
+            return this;
         }
 
-        public void GeneratePersons()
+        public Generate WithPersons()
         {
             var user = new User.Builder
             {
@@ -140,9 +135,11 @@ namespace School
             user
                 .ConnectAsEdge(calendar, "Manages")
                 .Save(_db, _clock);
+
+            return this;
         }
 
-        public void GenerateEpisodes()
+        public Generate WithEpisodes()
         {
             var schedule = new Schedule(new ByWeekdays.Builder
             {
@@ -185,9 +182,11 @@ namespace School
                     Description = "My personal calendar",
                     Events = new EdgeVertexs<IEvent>(@event),
                 }.Build());
+
+            return this;
         }
 
-        public void GenerateSchoolGroups()
+        public Generate WithSchoolGroups()
         {
             if (Calendars.Any(calendar => calendar.Description == "Hampden Gurney Year 1"))
             {
@@ -228,9 +227,11 @@ namespace School
                     Description = "Hampden Gurney Year 5",
                 }.Build());
             }
+
+            return this;
         }
 
-        public void GenerateSchoolClass()
+        public Generate WithSchoolClass()
         {
             var generator = GenerateFromFileFactory.Get("classes");
 
@@ -238,9 +239,11 @@ namespace School
                     "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\HG.xml",
                     _clock)
                 .ToArray());
+
+            return this;
         }
 
-        public void GenerateTimetable()
+        public Generate WithTimetable()
         {
             var generator = GenerateFromFileFactory.Get("timetables");
 
@@ -249,7 +252,7 @@ namespace School
                     _clock)
                 .ToArray());
 
-
+            return this;
         }
     }
 }

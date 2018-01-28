@@ -85,7 +85,24 @@ namespace ConsoleOutput
             }
         }
 
-        public static void DisplayList(IEnumerable<IEpisode> episodes, string timeZoneProvider)
+        public static void DisplayList(IEnumerable<IEvent> events, IClock clock)
+        {
+            foreach (var serial in events
+                .SelectMany(@event => @event.Serials)
+                .Select(es => es.ToVertex)
+                .Where(serial => serial.GetTagValue("group") == "Year.5.2017/18"))
+            {
+                var episodes = serial
+                    .GenerateEpisodes(clock)
+                    .ToList();
+
+                Output.WriteLine("serial");
+
+                Output.DisplayList(episodes, serial.TimeZoneProvider);
+            }
+        }
+
+            public static void DisplayList(IEnumerable<IEpisode> episodes, string timeZoneProvider)
         {
             if (episodes == null)
             {

@@ -181,7 +181,9 @@
     <weekday name="Tuesday"/>
     <weekday name="Wednesday"/>
     <weekday name="Thursday"/>
-    <weekday name="Friday"/>
+    <weekday name="Friday">
+      <rangeTime start="09:00" end="15:20"/>
+    </weekday>
   </weekdays>
   <groups>
     <group name="Year.5.2017/18">
