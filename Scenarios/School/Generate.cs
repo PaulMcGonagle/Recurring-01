@@ -13,7 +13,7 @@ using Scheduler.Users;
 
 namespace School
 {
-    public class Generate
+    public class Generate : SourceScenario
     {
         private readonly IArangoDatabase _db;
         private readonly IClock _clock;
@@ -24,25 +24,6 @@ namespace School
         public IList<ISchedule> Holidays { get; } = new List<ISchedule>();
         public IList<ICalendar> Calendars { get; } = new List<ICalendar>();
 
-        public List<IVertex> Vertexs { get; } = new List<IVertex>();
-
-        public Generate(IArangoDatabase db, IClock clock)
-        {
-            _db = db;
-            _clock = clock;
-
-            var organisation = new Organisation.Builder
-            {
-                Title = "Westminster Council Schools",
-            }.Build();
-
-            organisation.Save(_db, _clock);
-
-            var organisationTerms = new EdgeVertexs<ISchedule>(Terms);
-
-            organisationTerms.Save(_db, _clock, organisation, "HasTerms");
-        }
-
         public Generate WithYears()
         {
             var generator = GenerateFromFileFactory.Get("calendar");
@@ -50,22 +31,10 @@ namespace School
             var generated = generator.Generate(
                     "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\Years.xml",
                     _clock)
-                .ToArray();
+                .ToList();
 
-            generated.Save(_db, _clock);
-
-            foreach (var g in generated)
-            {
-                g.Save(_db, _clock);
-            }
-
-            GeneratorSource = generated
-                .OfType<IGeneratorSource>()
-                .SingleOrDefault();
-
-            Years.Add(generated
-                .OfType<ISchedule>()
-                .SingleOrDefault());
+            Vertexs = Vertexs
+                .Union(generated);
 
             return this;
         }
@@ -79,37 +48,8 @@ namespace School
                     _clock)
                 .ToArray();
 
-            foreach (var g in generated)
-            {
-                g.Save(_db, _clock);
-            }
-
-            foreach (var schedule in generated
-                .OfType<ISchedule>())
-            {
-                Terms.Add(schedule);
-            }
-
-            return this;
-        }
-
-        public Generate WithHolidays()
-        {
-            var generator = GenerateFromFileFactory.Get("calendar");
-
-            var generated = generator.Generate(
-                    "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\Holidays.xml",
-                    _clock)
-                .ToArray();
-
-            foreach (var g in generated)
-            {
-                g.Save(_db, _clock);
-            }
-
-            Holidays.Add(generated
-                .OfType<ISchedule>()
-                .SingleOrDefault());
+            Vertexs = Vertexs
+                .Union(generated);
 
             return this;
         }
@@ -122,7 +62,10 @@ namespace School
                 Surname = "Smith",
             }.Build();
 
-            user.Save(_db, _clock);
+            Vertexs = Vertexs
+                .Union( new []{
+                    user}
+            );
 
             var calendar = new Calendar.Builder
             {
@@ -130,7 +73,10 @@ namespace School
                 Description = "Personal calendar from Google",
             }.Build();
 
-            calendar.Save(_db, _clock);
+            Vertexs = Vertexs
+                .Union(new[]{
+                    calendar}
+                );
 
             user
                 .ConnectAsEdge(calendar, "Manages")
@@ -235,10 +181,13 @@ namespace School
         {
             var generator = GenerateFromFileFactory.Get("classes");
 
-            Vertexs.AddRange(generator.Generate(
+            var generated = generator.Generate(
                     "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\HG.xml",
                     _clock)
-                .ToArray());
+                .ToList();
+
+            Vertexs = Vertexs
+                .Union(generated);
 
             return this;
         }
@@ -247,10 +196,13 @@ namespace School
         {
             var generator = GenerateFromFileFactory.Get("timetables");
 
-            Vertexs.AddRange(generator.Generate(
+            var generated = generator.Generate(
                     "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\TimetableShape.xml",
                     _clock)
-                .ToArray());
+                .ToList();
+
+            Vertexs = Vertexs
+                .Union(generated);
 
             return this;
         }

@@ -69,8 +69,10 @@
     <Compile Include="Instances\GenerateFromFileSchedule.cs" />
     <Compile Include="Instances\GenerateFromFileTimetable.cs" />
     <Compile Include="Instances\GenerateFromSchedule.cs" />
+    <Compile Include="ISourceScenario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retriever.cs" />
+    <Compile Include="SourceScenario.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="UtilitiesLinks.cs" />
     <Compile Include="XInstances\GeneratorXTerm.cs" />

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduler", "Scheduler\Scheduler.csproj", "{3189F8E6-B2AB-4B6E-8F28-756372C7644E}"
 EndProject
@@ -33,7 +33,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerDatabase", "Schedu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generators.Test", "Generators.Test\Generators.Test.csproj", "{6143D06E-220A-4E48-B6E9-AF844AD1301F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scenarios", "Scenarios", "{5A1D04AC-4163-41C9-8189-929D2FEB25BF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SourceScenarios", "SourceScenarios", "{5A1D04AC-4163-41C9-8189-929D2FEB25BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School", "Scenarios\School\School.csproj", "{ABE6C065-419C-46A1-924C-36A4E58478EB}"
 EndProject
@@ -44,6 +44,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synchronisers", "Synchronisers", "{5BF4970E-EABA-49C3-AE83-4890E429E2B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynchroniseGoogle", "SynchroniseGoogle\SynchroniseGoogle.csproj", "{B06C26DD-DDD1-40AC-860D-1146CA17054B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets", "Targets", "{56BAA1AB-BEB7-40F1-A0FD-49014914B3C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holidays", "Holidays\Holidays.csproj", "{AC5A6429-0D20-431E-88CD-7D453B99CF92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -165,6 +169,14 @@ Global
 		{B06C26DD-DDD1-40AC-860D-1146CA17054B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B06C26DD-DDD1-40AC-860D-1146CA17054B}.Release|x86.ActiveCfg = Release|Any CPU
 		{B06C26DD-DDD1-40AC-860D-1146CA17054B}.Release|x86.Build.0 = Release|Any CPU
+		{AC5A6429-0D20-431E-88CD-7D453B99CF92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC5A6429-0D20-431E-88CD-7D453B99CF92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC5A6429-0D20-431E-88CD-7D453B99CF92}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AC5A6429-0D20-431E-88CD-7D453B99CF92}.Debug|x86.Build.0 = Debug|Any CPU
+		{AC5A6429-0D20-431E-88CD-7D453B99CF92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC5A6429-0D20-431E-88CD-7D453B99CF92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC5A6429-0D20-431E-88CD-7D453B99CF92}.Release|x86.ActiveCfg = Release|Any CPU
+		{AC5A6429-0D20-431E-88CD-7D453B99CF92}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +184,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{ABE6C065-419C-46A1-924C-36A4E58478EB} = {5A1D04AC-4163-41C9-8189-929D2FEB25BF}
 		{B06C26DD-DDD1-40AC-860D-1146CA17054B} = {5BF4970E-EABA-49C3-AE83-4890E429E2B3}
+		{AC5A6429-0D20-431E-88CD-7D453B99CF92} = {5A1D04AC-4163-41C9-8189-929D2FEB25BF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {46C0E1C7-A91E-4B7B-B757-3931DA3C28D9}
