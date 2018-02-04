@@ -3,61 +3,67 @@
   <calendars>
     <calendar>
       <schedule>
-        <tags>
-          <tag id="year" value="2017/18"/>
-          <tag id="name" value="2017/18.Autumn"/>
-        </tags>
-        <inclusions>
-          <byRangeDate>
-            <link cache="RangeDate.Term.2017/18.Autumn"/>
-          </byRangeDate>
-        </inclusions>
-        <exclusions>
-          <byRangeDate>
-            <tags>
-              <tag id="name" value="2017/18.Autumn.HalfTerm"/>
-            </tags>
-            <link cache="RangeDate.Break.2017/18.Autumn.HalfTerm"/>
-          </byRangeDate>
-        </exclusions>
+        <compositeSchedule>
+          <tags>
+            <tag id="year" value="2017/18"/>
+            <tag id="name" value="2017/18.Autumn"/>
+          </tags>
+          <inclusions>
+            <byRangeDate>
+              <link cache="RangeDate.Term.2017/18.Autumn"/>
+            </byRangeDate>
+          </inclusions>
+          <exclusions>
+            <byRangeDate>
+              <tags>
+                <tag id="name" value="2017/18.Autumn.HalfTerm"/>
+              </tags>
+              <link cache="RangeDate.Break.2017/18.Autumn.HalfTerm"/>
+            </byRangeDate>
+          </exclusions>
+        </compositeSchedule>
       </schedule>
       <schedule>
-        <tags>
-          <tag id="year" value="2017/18"/>
-          <tag id="name" value="2017/18.Winter"/>
-        </tags>
-        <inclusions>
-          <byRangeDate>
-            <link cache="RangeDate.Term.2017/18.Winter"/>
-          </byRangeDate>
-        </inclusions>
-        <exclusions>
-          <byRangeDate>
-            <tags>
-              <tag id="name" value="2017/18.Winter.HalfTerm"/>
-            </tags>
-            <link cache="RangeDate.Break.2017/18.Winter.HalfTerm"/>
-          </byRangeDate>
-        </exclusions>
+        <compositeSchedule>
+          <tags>
+            <tag id="year" value="2017/18"/>
+            <tag id="name" value="2017/18.Winter"/>
+          </tags>
+          <inclusions>
+            <byRangeDate>
+              <link cache="RangeDate.Term.2017/18.Winter"/>
+            </byRangeDate>
+          </inclusions>
+          <exclusions>
+            <byRangeDate>
+              <tags>
+                <tag id="name" value="2017/18.Winter.HalfTerm"/>
+              </tags>
+              <link cache="RangeDate.Break.2017/18.Winter.HalfTerm"/>
+            </byRangeDate>
+          </exclusions>
+        </compositeSchedule>
       </schedule>
       <schedule>
-        <tags>
-          <tag id="year" value="2017/18"/>
-          <tag id="name" value="2017/18.Summer"/>
-        </tags>
-        <inclusions>
-          <byRangeDate>
-            <link cache="RangeDate.Term.2017/18.Summer"/>
-          </byRangeDate>
-        </inclusions>
-        <exclusions>
-          <byRangeDate>
-            <tags>
-              <tag id="name" value="2017/18.Summer.HalfTerm"/>
-            </tags>
-            <link cache="RangeDate.Break.2017/18.Summer.HalfTerm"/>
-          </byRangeDate>
-        </exclusions>
+        <compositeSchedule>
+          <tags>
+            <tag id="year" value="2017/18"/>
+            <tag id="name" value="2017/18.Summer"/>
+          </tags>
+          <inclusions>
+            <byRangeDate>
+              <link cache="RangeDate.Term.2017/18.Summer"/>
+            </byRangeDate>
+          </inclusions>
+          <exclusions>
+            <byRangeDate>
+              <tags>
+                <tag id="name" value="2017/18.Summer.HalfTerm"/>
+              </tags>
+              <link cache="RangeDate.Break.2017/18.Summer.HalfTerm"/>
+            </byRangeDate>
+          </exclusions>
+        </compositeSchedule>
       </schedule>
     </calendar>
   </calendars>

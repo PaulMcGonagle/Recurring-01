@@ -11,7 +11,7 @@ using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Users;
 
-namespace School
+namespace SourceScenarios.School
 {
     public class Generate : SourceScenario
     {
@@ -20,7 +20,6 @@ namespace School
 
         public IGeneratorSource GeneratorSource { get; private set; }
         public IList<ISchedule> Years { get; } = new List<ISchedule>();
-        public IList<ISchedule> Terms { get; } = new List<ISchedule>();
         public IList<ISchedule> Holidays { get; } = new List<ISchedule>();
         public IList<ICalendar> Calendars { get; } = new List<ICalendar>();
 
@@ -39,19 +38,20 @@ namespace School
             return this;
         }
 
-        public Generate WithTerms()
+        public IEnumerable<ISchedule> Terms
         {
-            var generator = GenerateFromFileFactory.Get("calendar");
+            get
+            {
+                var generator = GenerateFromFileFactory.Get("calendar");
 
-            var generated = generator.Generate(
-                    "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\Terms.xml",
-                    _clock)
-                .ToArray();
+                var generated = generator.Generate(
+                        "C:\\Users\\mcgon\\Source\\Repos\\Recurring-01\\Scenarios\\School\\Files\\Terms.xml",
+                        _clock)
+                    .ToArray();
 
-            Vertexs = Vertexs
-                .Union(generated);
-
-            return this;
+                return generated
+                    .OfType<ISchedule>();
+            }
         }
 
         public Generate WithPersons()
@@ -206,5 +206,8 @@ namespace School
 
             return this;
         }
+
+        public IOrganisation Organisation => new Organisation {Title = "Springfield Primary School"};
+        public ILocation Location => new Location.Builder { Address = "Main Street" }.Build();
     }
 }

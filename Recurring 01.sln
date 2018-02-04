@@ -49,6 +49,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets", "Targets", "{56BA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holidays", "Holidays\Holidays.csproj", "{AC5A6429-0D20-431E-88CD-7D453B99CF92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School", "Scheduler.Integration\School.csproj", "{B5D2E74A-80E8-4D88-BC39-C7963A861CC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{ACB68E6F-C8B8-40EC-AADB-44293DBD5973}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -177,6 +181,14 @@ Global
 		{AC5A6429-0D20-431E-88CD-7D453B99CF92}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AC5A6429-0D20-431E-88CD-7D453B99CF92}.Release|x86.ActiveCfg = Release|Any CPU
 		{AC5A6429-0D20-431E-88CD-7D453B99CF92}.Release|x86.Build.0 = Release|Any CPU
+		{B5D2E74A-80E8-4D88-BC39-C7963A861CC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D2E74A-80E8-4D88-BC39-C7963A861CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D2E74A-80E8-4D88-BC39-C7963A861CC8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B5D2E74A-80E8-4D88-BC39-C7963A861CC8}.Debug|x86.Build.0 = Debug|Any CPU
+		{B5D2E74A-80E8-4D88-BC39-C7963A861CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D2E74A-80E8-4D88-BC39-C7963A861CC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5D2E74A-80E8-4D88-BC39-C7963A861CC8}.Release|x86.ActiveCfg = Release|Any CPU
+		{B5D2E74A-80E8-4D88-BC39-C7963A861CC8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -185,6 +197,7 @@ Global
 		{ABE6C065-419C-46A1-924C-36A4E58478EB} = {5A1D04AC-4163-41C9-8189-929D2FEB25BF}
 		{B06C26DD-DDD1-40AC-860D-1146CA17054B} = {5BF4970E-EABA-49C3-AE83-4890E429E2B3}
 		{AC5A6429-0D20-431E-88CD-7D453B99CF92} = {5A1D04AC-4163-41C9-8189-929D2FEB25BF}
+		{B5D2E74A-80E8-4D88-BC39-C7963A861CC8} = {ACB68E6F-C8B8-40EC-AADB-44293DBD5973}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {46C0E1C7-A91E-4B7B-B757-3931DA3C28D9}

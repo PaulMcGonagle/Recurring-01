@@ -68,6 +68,9 @@ namespace Generators
         {
             switch (scheduleType)
             {
+                case "compositeSchedule":
+                    return new GeneratorXCompositeSchedule();
+
                 case "byRangeDate":
                     return new GeneratorXByRangeDate();
 

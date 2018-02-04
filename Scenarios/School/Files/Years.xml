@@ -3,11 +3,13 @@
   <calendars>
     <calendar>
       <schedule>
-        <inclusions>
-          <byRangeDate>
-            <link cache="RangeDate.Year.2010"/>
-          </byRangeDate>
-        </inclusions>
+        <compositeSchedule>
+          <inclusions>
+            <byRangeDate>
+              <link cache="RangeDate.Year.2010"/>
+            </byRangeDate>
+          </inclusions>
+        </compositeSchedule>
       </schedule>
     </calendar>
   </calendars>

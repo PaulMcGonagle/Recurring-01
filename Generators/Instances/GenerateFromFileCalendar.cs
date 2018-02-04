@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
@@ -41,31 +40,30 @@ namespace Generators.Instances
 
             foreach (var xCalendar in xCalendars)
             {
-                var xSchedule = xCalendar
-                    .Elements("schedule")
-                    .Elements()
-                    .SingleOrDefault()
-                ?? throw new Exception("Missing schedule");
-
-                var generatorSchedule = GenerateFromFileFactory.GetXSchedule(xSchedule.Name.LocalName);
-
-                var schedule = (ISchedule)generatorSchedule
-                    .Generate(xSchedule, caches, clock: clock);
-
                 var calendarTags = xCalendar
                     .RetrieveTags(caches)
                     .ToList();
 
-                tagCalendarType
-                    .Connect(calendarTags.SingleOrDefault(ct => ct.Ident == "name"));
+                foreach (var xSchedule in xCalendar
+                    .Elements("schedule")
+                    .Elements())
+                {
+                    var generatorSchedule = GenerateFromFileFactory.GetXSchedule(xSchedule.Name.LocalName);
 
-                schedule.Connect(tagCalendarType);
+                    var schedule = (ISchedule) generatorSchedule
+                        .Generate(xSchedule, caches, clock: clock);
 
-                generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(schedule));
+                    tagCalendarType
+                        .Connect(calendarTags.SingleOrDefault(ct => ct.Ident == "name"));
 
-                schedule.Connect(calendarTags);
+                    schedule.Connect(tagCalendarType);
 
-                yield return schedule;
+                    generatorSource.Schedules.Add(new EdgeVertex<ISchedule>(schedule));
+
+                    schedule.Connect(calendarTags);
+
+                    yield return schedule;
+                }
             }
         }
     }
