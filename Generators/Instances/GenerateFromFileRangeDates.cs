@@ -16,7 +16,7 @@ namespace Generators.Instances
             IClock clock)
         {
             GenerateSetup(
-                generatorType: "ranges",
+                generatorType: "rangeDates",
                 sourceFile: sourceFile,
                 clock: clock,
                 xGenerator: out XElement xGenerator,
@@ -25,13 +25,13 @@ namespace Generators.Instances
 
             yield return generatorSource;
 
-            var tagBaseType = new Tag(ident: "baseType", value: "Range");
+            var tagBaseType = new Tag(ident: "baseType", value: "RangeDate");
 
             yield return tagBaseType;
 
             var xRanges = xGenerator
-                .Elements("ranges")
-                .Elements("range")
+                .Elements("rangeDates")
+                .Elements("rangeDate")
                 .ToList();
 
             foreach (var xRange in xRanges)

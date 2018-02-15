@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <generator>
   <rangeDates>
-    <rangeDate start="2010-01-01" end="2010-12-31"><tags><tag id="name" value="Year.2010"/></tags></rangeDate>
-    <rangeDate start="2011-01-01" end="2011-12-31"><tags><tag id="name" value="Year.2011"/></tags></rangeDate>
-    <rangeDate start="2012-01-01" end="2012-12-31"><tags><tag id="name" value="Year.2012"/></tags></rangeDate>
-    <rangeDate start="2013-01-01" end="2013-12-31"><tags><tag id="name" value="Year.2013"/></tags></rangeDate>
-    <rangeDate start="2014-01-01" end="2014-12-31"><tags><tag id="name" value="Year.2014"/></tags></rangeDate>
-    <rangeDate start="2015-01-01" end="2015-12-31"><tags><tag id="name" value="Year.2015"/></tags></rangeDate>
-    <rangeDate start="2016-01-01" end="2016-12-31"><tags><tag id="name" value="Year.2016"/></tags></rangeDate>
-    <rangeDate start="2017-01-01" end="2017-12-31"><tags><tag id="name" value="Year.2017"/></tags></rangeDate>
-    <rangeDate start="2018-01-01" end="2018-12-31"><tags><tag id="name" value="Year.2018"/></tags></rangeDate>
-    <rangeDate start="2019-01-01" end="2019-12-31"><tags><tag id="name" value="Year.2019"/></tags></rangeDate>
-    <rangeDate start="2020-01-01" end="2020-12-31"><tags><tag id="name" value="Year.2020"/></tags></rangeDate>
-    <rangeDate start="2021-01-01" end="2021-12-31"><tags><tag id="name" value="Year.2021"/></tags></rangeDate>
-    <rangeDate start="2022-01-01" end="2022-12-31"><tags><tag id="name" value="Year.2022"/></tags></rangeDate>
-    <rangeDate start="2023-01-01" end="2023-12-31"><tags><tag id="name" value="Year.2023"/></tags></rangeDate>
-    <rangeDate start="2024-01-01" end="2024-12-31"><tags><tag id="name" value="Year.2024"/></tags></rangeDate>
-    <rangeDate start="2025-01-01" end="2025-12-31"><tags><tag id="name" value="Year.2025"/></tags></rangeDate>
+    <rangeDate start="2010-01-01" end="2010-12-31"><tags><tag id="year" value="2010"/></tags></rangeDate>
+    <rangeDate start="2011-01-01" end="2011-12-31"><tags><tag id="year" value="2011"/></tags></rangeDate>
+    <rangeDate start="2012-01-01" end="2012-12-31"><tags><tag id="year" value="2012"/></tags></rangeDate>
+    <rangeDate start="2013-01-01" end="2013-12-31"><tags><tag id="year" value="2013"/></tags></rangeDate>
+    <rangeDate start="2014-01-01" end="2014-12-31"><tags><tag id="year" value="2014"/></tags></rangeDate>
+    <rangeDate start="2015-01-01" end="2015-12-31"><tags><tag id="year" value="2015"/></tags></rangeDate>
+    <rangeDate start="2016-01-01" end="2016-12-31"><tags><tag id="year" value="2016"/></tags></rangeDate>
+    <rangeDate start="2017-01-01" end="2017-12-31"><tags><tag id="year" value="2017"/></tags></rangeDate>
+    <rangeDate start="2018-01-01" end="2018-12-31"><tags><tag id="year" value="2018"/></tags></rangeDate>
+    <rangeDate start="2019-01-01" end="2019-12-31"><tags><tag id="year" value="2019"/></tags></rangeDate>
+    <rangeDate start="2020-01-01" end="2020-12-31"><tags><tag id="year" value="2020"/></tags></rangeDate>
+    <rangeDate start="2021-01-01" end="2021-12-31"><tags><tag id="year" value="2021"/></tags></rangeDate>
+    <rangeDate start="2022-01-01" end="2022-12-31"><tags><tag id="year" value="2022"/></tags></rangeDate>
+    <rangeDate start="2023-01-01" end="2023-12-31"><tags><tag id="year" value="2023"/></tags></rangeDate>
+    <rangeDate start="2024-01-01" end="2024-12-31"><tags><tag id="year" value="2024"/></tags></rangeDate>
+    <rangeDate start="2025-01-01" end="2025-12-31"><tags><tag id="year" value="2025"/></tags></rangeDate>
   </rangeDates>
 </generator>

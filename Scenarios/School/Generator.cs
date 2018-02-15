@@ -11,9 +11,9 @@ using Scheduler.ScheduleEdges;
 using Scheduler.ScheduleInstances;
 using Scheduler.Users;
 
-namespace SourceScenarios.School
+namespace School
 {
-    public class Generate : SourceScenario
+    public class Generator : SourceScenario
     {
         private readonly IArangoDatabase _db;
         private readonly IClock _clock;
@@ -23,7 +23,7 @@ namespace SourceScenarios.School
         public IList<ISchedule> Holidays { get; } = new List<ISchedule>();
         public IList<ICalendar> Calendars { get; } = new List<ICalendar>();
 
-        public Generate WithYears()
+        public Generator WithYears()
         {
             var generator = GenerateFromFileFactory.Get("calendar");
 
@@ -54,7 +54,7 @@ namespace SourceScenarios.School
             }
         }
 
-        public Generate WithPersons()
+        public Generator WithPersons()
         {
             var user = new User.Builder
             {
@@ -85,7 +85,7 @@ namespace SourceScenarios.School
             return this;
         }
 
-        public Generate WithEpisodes()
+        public Generator WithEpisodes()
         {
             var schedule = new Schedule(new ByWeekdays.Builder
             {
@@ -132,7 +132,7 @@ namespace SourceScenarios.School
             return this;
         }
 
-        public Generate WithSchoolGroups()
+        public Generator WithSchoolGroups()
         {
             if (Calendars.Any(calendar => calendar.Description == "Hampden Gurney Year 1"))
             {
@@ -177,7 +177,7 @@ namespace SourceScenarios.School
             return this;
         }
 
-        public Generate WithSchoolClass()
+        public Generator WithSchoolClass()
         {
             var generator = GenerateFromFileFactory.Get("classes");
 
@@ -192,7 +192,7 @@ namespace SourceScenarios.School
             return this;
         }
 
-        public Generate WithTimetable()
+        public Generator WithTimetable()
         {
             var generator = GenerateFromFileFactory.Get("timetables");
 

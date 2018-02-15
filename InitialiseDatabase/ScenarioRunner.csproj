@@ -119,8 +119,8 @@
       <Project>{851f7920-1e14-43b4-8ee3-62a378815151}</Project>
       <Name>Generators</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Scenarios\School\School.csproj">
-      <Project>{abe6c065-419c-46a1-924c-36a4e58478eb}</Project>
+    <ProjectReference Include="..\IntegrationTests\School\School.csproj">
+      <Project>{b5d2e74a-80e8-4d88-bc39-c7963a861cc8}</Project>
       <Name>School</Name>
     </ProjectReference>
     <ProjectReference Include="..\Scheduler.Integration\School.csproj">

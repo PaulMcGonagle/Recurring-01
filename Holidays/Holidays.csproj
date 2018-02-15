@@ -7,8 +7,8 @@
     <ProjectGuid>{AC5A6429-0D20-431E-88CD-7D453B99CF92}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HolidaysUK</RootNamespace>
-    <AssemblyName>HolidaysUK</AssemblyName>
+    <RootNamespace>SourceScenarios.Holidays</RootNamespace>
+    <AssemblyName>Recurring.SourceScenarios.Holidays</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,10 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generate.cs" />
+    <Compile Include="Generator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Files\CalendarShape2018.xml" />
     <Content Include="Files\Holidays.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -65,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Files\Holidays.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

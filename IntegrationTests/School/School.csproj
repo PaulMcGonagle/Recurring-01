@@ -7,8 +7,8 @@
     <ProjectGuid>{B5D2E74A-80E8-4D88-BC39-C7963A861CC8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Scheduler.Integration</RootNamespace>
-    <AssemblyName>Scheduler.Integration</AssemblyName>
+    <RootNamespace>IntegrationTests.School</RootNamespace>
+    <AssemblyName>IntegrationTests.School</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -57,15 +57,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Generators\Generators.csproj">
+    <ProjectReference Include="..\..\Generators\Generators.csproj">
       <Project>{851f7920-1e14-43b4-8ee3-62a378815151}</Project>
       <Name>Generators</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Scenarios\School\School.csproj">
+    <ProjectReference Include="..\..\Holidays\Holidays.csproj">
+      <Project>{ac5a6429-0d20-431e-88cd-7d453b99cf92}</Project>
+      <Name>Holidays</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Scenarios\School\School.csproj">
       <Project>{abe6c065-419c-46a1-924c-36a4e58478eb}</Project>
       <Name>School</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Scheduler\Scheduler.csproj">
+    <ProjectReference Include="..\..\Scheduler\Scheduler.csproj">
       <Project>{3189F8E6-B2AB-4B6E-8F28-756372C7644E}</Project>
       <Name>Scheduler</Name>
     </ProjectReference>

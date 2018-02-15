@@ -49,9 +49,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets", "Targets", "{56BA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holidays", "Holidays\Holidays.csproj", "{AC5A6429-0D20-431E-88CD-7D453B99CF92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School", "Scheduler.Integration\School.csproj", "{B5D2E74A-80E8-4D88-BC39-C7963A861CC8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{ACB68E6F-C8B8-40EC-AADB-44293DBD5973}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School", "IntegrationTests\School\School.csproj", "{B5D2E74A-80E8-4D88-BC39-C7963A861CC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

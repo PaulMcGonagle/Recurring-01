@@ -53,6 +53,8 @@ namespace Scheduler.Persistance
             }
         }
 
+        public IEnumerable<T> ToVertexs => this.Select(t => t.ToVertex);
+
         public void Save(IArangoDatabase db, IClock clock, IVertex fromVertex)
         {
             Save(db, clock, fromVertex, null);
